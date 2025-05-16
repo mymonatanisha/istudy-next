@@ -26,8 +26,8 @@ const bigShoulders = Big_Shoulders_Display({
 });
 
 export const metadata: Metadata = {
-  title: "iStudy - Education & Online Courses React NextJs Template",
-  description: "iStudy is a versatile React NextJs template for educational institutions and online learning platforms, featuring multiple homepage layouts, instructor/student dashboards, and tailored designs for schools, universities, language centers, Quran learning, and more.",
+  title: "Project base App Development Course",
+  description: "Master app development with hands-on projects! Enroll in our Project-Based App Development Course to build real-world iOS, Android, and cross-platform apps. Gain practical coding skills, create portfolio-ready projects, and learn from industry experts. Perfect for beginners and intermediates—launch your career in tech today!",
 };
 
 export default function RootLayout({
@@ -37,6 +37,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="robots" content="noindex, nofollow" />
+      </head>
       <body suppressHydrationWarning className={`body-bg ${roboto.variable} ${bigShoulders.variable}`}>
         <VideoProvider>
           <ReduxProvider>
