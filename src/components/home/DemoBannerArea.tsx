@@ -44,7 +44,7 @@ const DemoBannerArea = () => {
                             </div>
                             <div className="content cd-headline clip wow bdFadeInUp" data-wow-delay=".4s">
                                 <h1 className="demo-banner-title mb-20">
-                                    Master App Development & SEO
+                                    Master App Development
                                     <br className="d-none d-sm-block" />
                                      To <br className="demo-break" />
                                     <span className="cd-words-wrapper cd-words-wrapper-two">

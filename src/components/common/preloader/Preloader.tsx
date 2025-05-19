@@ -22,8 +22,8 @@ const Preloader = () => {
                                 src="/assets/images/logo/preloader-icon.webp"
                                 alt="icon"
                                 priority
-                                width={80}
-                                height={80}
+                                width={140}
+                                height={140}
                             />
                             </div>
                             <p className="bd-preloader-subtitle">Loading...</p>
