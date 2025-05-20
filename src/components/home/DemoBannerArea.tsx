@@ -71,13 +71,13 @@ const DemoBannerArea = () => {
             </div>
             <div className="bd-banner-demo-thumb shape-move d-none d-xl-block">
                 {[
-                    { href: "/online-course", img: homethumb1 },
-                    { href: "/university", img: homethumb2 },
-                    { href: "/modern-schooling", img: homethumb3 },
-                    { href: "/kindergarten", img: homethumb4 },
-                    { href: "/quran-learning", img: homethumb5 },
-                    { href: "/shop", img: homethumb6 },
-                    { href: "/language-academy", img: homethumb7 },
+                    { href: "/courses", img: homethumb1 },
+                    { href: "/courses", img: homethumb2 },
+                    { href: "/courses", img: homethumb3 },
+                    { href: "/courses", img: homethumb4 },
+                    { href: "/courses", img: homethumb5 },
+                    { href: "/courses", img: homethumb6 },
+                    { href: "/courses", img: homethumb7 },
                 ].map(({ href, img }, index) => (
                     <div key={index} className={`thumb-shape-0${index + 1} thumb-shape-common`}>
                         <Link href={href}>

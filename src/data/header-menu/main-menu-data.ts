@@ -1,12 +1,6 @@
 
 import { MenuItem } from "@/interFace/interFace";
 import homeOneImg from "../../../public/assets/images/menu/menu-home-1.webp";
-import homeTowImg from "../../../public/assets/images/menu/menu-home-2.webp";
-import homeThreeImg from "../../../public/assets/images/menu/menu-home-3.webp";
-import homeFourImg from "../../../public/assets/images/menu/menu-home-4.webp";
-import homeFiveImg from "../../../public/assets/images/menu/menu-home-5.webp";
-import homeSixImg from "../../../public/assets/images/menu/menu-home-6.webp";
-import homeSevenImg from "../../../public/assets/images/menu/menu-home-7.webp";
 import coummingSoonImg from "../../../public/assets/images/menu/menu-home-soon.webp";
 
 const main_menu_data: MenuItem[] = [
@@ -21,14 +15,6 @@ const main_menu_data: MenuItem[] = [
     previewImg: true,
     submenus: [
       { title: "Online Course", link: "/online-course", previewImg: homeOneImg },
-      { title: "University", link: "/university", previewImg: homeTowImg },
-      { title: "Modern Schooling", link: "/modern-schooling", previewImg: homeThreeImg },
-      { title: "Kindergarten", link: "/kindergarten", previewImg: homeFourImg },
-      { title: "Quran Learning", link: "/quran-learning", previewImg: homeFiveImg },
-      { title: "Book Store", link: "/book-store", previewImg: homeSixImg },
-      { title: "Language Academy", link: "/language-academy", previewImg: homeSevenImg },
-      { title: "Kitchen Coach - Soon", link: "#", previewImg: coummingSoonImg },
-      { title: "Marketplace - Soon", link: "#", previewImg: coummingSoonImg },
       { title: "Course Hub - Soon", link: "#", previewImg: coummingSoonImg },
     ],
   },
@@ -114,7 +100,7 @@ const main_menu_data: MenuItem[] = [
     children: false,
     megaMenu: true,
     active: true,
-    title: "Pages",
+    title: "About",
     pluseIncon: true,
     pageLayout: true,
     link: "#",
@@ -197,7 +183,7 @@ const main_menu_data: MenuItem[] = [
     active: true,
     megaMenu: true,
     children: true,
-    title: "Dashboard",
+    title: "Contact",
     pluseIncon: true,
     link: "#",
     submenus: [
@@ -250,7 +236,7 @@ const main_menu_data: MenuItem[] = [
     children: true,
     megaMenu: false,
     active: true,
-    title: "Elements",
+    title: "Login",
     pluseIncon: true,
     link: "#",
     submenus: [
