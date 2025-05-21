@@ -1,1 +1,37 @@
-830 *650 px
+HomeMain.tsx
+_____________
+Create a "What You’ll Find on Enamnotes.com" section:
+
+✓ Hands-on Android Course  
+✓ Downloadable Code Projects  
+✓ Weekly Blog Articles  
+6–8 featured Android/SEO courses (use cards or thumbnails)
+
+
+
+📚5. "20+ Responsive and Dynamic course Pages
+
+✅ Keep layout (carousel or grid)
+✏️ Replace with:
+
+6–8 featured Android/SEO courses (use cards or thumbnails)
+
+Each card: Title + short summary + "View Details"
+
+
+
+
+📖 6. 105+ Designed Pages
+
+❌ Remove
+It promotes the theme — not your content.
+
+💡 Replace With:
+A section like:
+
+text
+CopyEdit
+📘 Free Blog Guides  
+Explore bite-sized tutorials & industry insights.
+
+Use 3–4 blog post previews here.

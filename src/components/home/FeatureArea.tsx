@@ -11,7 +11,7 @@ const FeatureArea = () => {
                     <div className="row justify-content-center">
                         <div className="col-xl-7 col-lg-7">
                             <div className="section-title-wrapper text-center section-title-space">
-                                <span className="bd-section-subtitle">EXPLORE OUR TOP FEATURES</span>
+                                <span className="bd-section-subtitle"></span>
                                 <h2 className="bd-section-title">Unlock Exceptional Features</h2>
                             </div>
                         </div>

@@ -61,8 +61,8 @@ const DemoBannerArea = () => {
                                 <p>Hands-On Projects to Master In-Demand Skills – From Zero to Portfolio-Worthy Apps & SEO Campaigns.</p>
                             </div>
                             <div className="demo-banner-btn d-flex flex-wrap align-items-center justify-content-center gap-15 mt-30 wow bdFadeInUp" data-wow-delay=".6s">
-                                <Link className="bd-btn btn-outline-border-white" href="#homesDemos">
-                                    Explore Demo
+                                <Link className="bd-btn btn-outline-border-white" href="#home">
+                                    Enam Notes
                                 </Link>
                             </div>
                         </div>

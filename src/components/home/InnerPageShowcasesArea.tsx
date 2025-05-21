@@ -13,7 +13,7 @@ const InnerPageShowcasesArea = () => {
                         <div className="col-xl-8">
                             <div className="section-title-wrapper text-center section-title-space">
                                 <span className="bd-section-subtitle">Explore {`iStudy's`} Inner Pages</span>
-                                <h2 className="bd-section-title">105+ Versatile and Beautifully Designed Pages</h2>
+                                <h2 className="bd-section-title">What You’ll Find on Enamnotes.com</h2>
                             </div>
                         </div>
                     </div>
