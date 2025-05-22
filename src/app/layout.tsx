@@ -38,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="robots" content="noindex, nofollow" />
+           <meta name="robots" content="index" />
       </head>
       <body suppressHydrationWarning className={`body-bg ${roboto.variable} ${bigShoulders.variable}`}>
         <VideoProvider>

@@ -1,10 +1,10 @@
 import React from 'react';
 import DemoBannerArea from './DemoBannerArea';
-//import DemoPresentationArea from './DemoPresentationArea';
-//import CoursePageDemo from './CoursePageDemoSection';
+import DemoPresentationArea from './DemoPresentationArea';
+import CoursePageDemo from './CoursePageDemoSection';
 //import DemoGridSection from './DemoGridSection';
 import InnerPageShowcasesArea from './InnerPageShowcasesArea';
-import FeatureArea from './FeatureArea';
+//import FeatureArea from './FeatureArea';
 //import ElementsArea from './ElementsArea';
 //import DemoHeaderFooterArea from './DemoHeaderFooterArea';
 import HomeFaqArea from './HomeFaqArea';
@@ -16,12 +16,12 @@ const HomeMain = () => {
     return (
         <>
             <DemoBannerArea />
-            { /*<DemoPresentationArea />*/}
-            { /* <CoursePageDemo />*/}
+            <DemoPresentationArea />
+            <CoursePageDemo />
             { /*<DemoGridSection />*/}
              { /*<DashboardDemoArea/>*/}
             <InnerPageShowcasesArea />
-            <FeatureArea />
+            { /*<FeatureArea />*/}
             { /*<ElementsArea />*/}
             { /* <DemoHeaderFooterArea /> */}
             { /* <ReviewArea />*/}
