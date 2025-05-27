@@ -10,83 +10,59 @@ const TermsConditionArea = () => {
                         <div className="col-xl-10">
                             <div className="bd-policy-wrapper p-relative z-index-1">
                                 <div className="bd-policy-item">
-                                    <h4 className="bd-policy-title">Introduction</h4>
-                                    <p>Welcome to iStudy. These Terms and Conditions govern your use of our platform. By accessing
-                                        or using our website, you agree to be bound by these Terms and Conditions and our Privacy
-                                        Policy. If you do not agree to these Terms and Conditions, please do not use our platform.
-                                    </p>
+                                    <h4 className="bd-policy-title">Effective Date</h4>
+                                    <p>Effective Date: 27/05/2025</p>
                                 </div>
 
                                 <div className="bd-policy-item">
-                                    <h4 className="bd-policy-title">Use of Our Platform</h4>
-                                    <p className="mb-10">You may use our platform for educational purposes only. You agree not to use
-                                        our
-                                        platform:</p>
-                                    <ul>
-                                        <li>In any way that violates any applicable law or regulation.</li>
-                                        <li>To engage in any conduct that restricts or inhibits {`anyone's`} use or enjoyment of the
-                                            platform.</li>
-                                    </ul>
+                                    <h4 className="bd-policy-title">Welcome</h4>
+                                    <p>Welcome to <strong>EnamNotes.com</strong>, a platform built to empower beginners and students in their journey to master coding skills.</p>
                                 </div>
 
                                 <div className="bd-policy-item">
-                                    <h4 className="bd-policy-title">Intellectual Property</h4>
-                                    <p>All content on our platform, including but not limited to text, graphics, logos, images, and
-                                        software, is the property of iStudy or its content suppliers and is protected by
-                                        copyright laws.</p>
+                                    <h4 className="bd-policy-title">Agreement to Terms</h4>
+                                    <p>By accessing and using our website, you agree to comply with and be bound by the following terms and conditions. If you disagree with any part of these terms, please do not use the site.</p>
                                 </div>
 
                                 <div className="bd-policy-item">
-                                    <h4 className="bd-policy-title">Links to Third-Party Websites</h4>
-                                    <p>Our platform may contain links to third-party websites that are not owned or controlled by
-                                        us.
-                                        We have no control over, and assume no responsibility for, the content, privacy policies, or
-                                        practices of any third-party websites. You acknowledge and agree that we shall not be
-                                        responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be
-                                        caused by or in connection with the use of or reliance on any such content, goods, or
-                                        services available on or through any such third-party websites.</p>
+                                    <h4 className="bd-policy-title">1. Use of the Website</h4>
+                                    <p>You agree to use this website only for lawful educational purposes and in a way that does not infringe the rights or restrict the use of others.</p>
                                 </div>
 
                                 <div className="bd-policy-item">
-                                    <h4 className="bd-policy-title">Limitation of Liability</h4>
-                                    <p>In no event shall iStudy, nor its directors, employees, partners, agents, suppliers, or
-                                        affiliates, be liable for any indirect, incidental, special, consequential, or punitive
-                                        damages, including without limitation, loss of profits, data, use, goodwill, or other
-                                        intangible losses, resulting from (i) your access to or use of or inability to access or use
-                                        our platform; (ii) any conduct or content of any third party on our platform; (iii) any
-                                        content
-                                        obtained from our platform; and (iv) unauthorized access, use, or alteration of your
-                                        transmissions or content, whether based on warranty, contract, tort (including negligence),
-                                        or any other legal theory, whether or not we have been informed of the possibility of such
-                                        damage, and even if a remedy set forth herein is found to have failed of its essential
-                                        purpose.</p>
+                                    <h4 className="bd-policy-title">2. Content Ownership</h4>
+                                    <p>All content on this site, including articles, videos, infographics, and tutorials, is owned by EnamNotes unless otherwise stated. You may reference the material with proper credit, but redistribution without permission is prohibited.</p>
                                 </div>
 
                                 <div className="bd-policy-item">
-                                    <h4 className="bd-policy-title">Governing Law</h4>
-                                    <p>These Terms and Conditions shall be governed by and construed in accordance with the laws of
-                                        [YourCountry], without regard to its conflict of law provisions.</p>
+                                    <h4 className="bd-policy-title">3. User Accounts</h4>
+                                    <p>Some features (e.g., enrolling in courses) may require account creation. You agree to provide accurate information and to keep your credentials secure.</p>
                                 </div>
 
                                 <div className="bd-policy-item">
-                                    <h4 className="bd-policy-title">Changes to Terms and Conditions</h4>
-                                    <p>We reserve the right to modify these Terms and Conditions at any time. If we make material
-                                        changes to these Terms and Conditions, we will notify you by posting the updated Terms and
-                                        Conditions on our platform.</p>
+                                    <h4 className="bd-policy-title">4. Limitation of Liability</h4>
+                                    <p>We aim to provide accurate, up-to-date content. However, EnamNotes is not responsible for any decisions made based on the content, including coding errors or business outcomes.</p>
+                                </div>
+
+                                <div className="bd-policy-item">
+                                    <h4 className="bd-policy-title">5. External Links</h4>
+                                    <p>Our website may link to third-party tools (e.g., GitHub, YouTube). We are not responsible for the content or privacy practices of external sites.</p>
+                                </div>
+
+                                <div className="bd-policy-item">
+                                    <h4 className="bd-policy-title">6. Modification of Terms</h4>
+                                    <p>We reserve the right to change these terms at any time. You’ll be notified of significant changes via email or on this page.</p>
                                 </div>
 
                                 <div className="bd-policy-contact">
                                     <h4 className="bd-policy-title">Contact Us</h4>
-                                    <p className="mb-10">If you have any questions or concerns about these Terms and Conditions, please
-                                        contact us at</p>
-
+                                    <p className="mb-10">If you have any questions or concerns about these Terms and Conditions, please contact us at:</p>
                                     <ul>
-                                        <li>Email: <span><Link href="mailto:contact@istudy.com">contact@istudy.com</Link></span></li>
+                                        <li>Email: <span><Link href="mailto:md.enamul19@gmail.com">md.enamul19@gmail.com</Link></span></li>
                                     </ul>
-
                                     <div className="bd-policy-address">
                                         <p className="mb-0">
-                                            <Link href="#">1234 Education Lane, <br/> Knowledge City, 56789, United State</Link>
+                                            <Link href="#">Dhaka <br/> Bangladesh</Link>
                                         </p>
                                     </div>
                                 </div>
