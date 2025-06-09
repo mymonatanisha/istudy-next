@@ -1,8 +1,12 @@
 //@refresh
+
 import HomeMain from "@/components/home/HomeMain";
 import Wrapper from "@/layout/DefaultWrapper";
 import { Metadata } from "next";
 import Script from "next/script";
+import React from "react";
+
+
 export const metadata: Metadata = {
   title: "Project-base App Dev Course",
 };
@@ -13,8 +17,11 @@ const Home = () => {
         <Wrapper>
           <main className="main-area">
             <HomeMain />
+            
           </main>
         </Wrapper>
+
+        
         {/* Adsterra Social Bar script */}
         <Script
         id="adsterra-social-bar"

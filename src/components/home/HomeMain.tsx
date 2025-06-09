@@ -12,6 +12,9 @@ import HomeFaqArea from './HomeFaqArea';
 //import ResponsiveArea from './ResponsiveArea';
 //import ReviewArea from './ReviewArea';
 //import DashboardDemoArea from './DashboardDemoArea';
+import VideoCarousel from "@/components/home/VideoCarousel";
+import ShortsCarousel from "@/components/home/ShortsCarousel";
+
 
 const HomeMain = () => {
     return (
@@ -33,6 +36,8 @@ const HomeMain = () => {
             <CoursePageDemo />
             { /*<DemoGridSection />*/}
              { /*<DashboardDemoArea/>*/}
+            <VideoCarousel />
+            <ShortsCarousel />
             <InnerPageShowcasesArea />
             { /*<FeatureArea />*/}
             { /*<ElementsArea />*/}

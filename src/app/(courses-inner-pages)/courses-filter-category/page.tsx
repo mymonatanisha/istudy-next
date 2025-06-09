@@ -4,7 +4,10 @@ import { Metadata } from 'next';
 import React from 'react';
 
 export const metadata: Metadata = {
-    title: "Filter Category - Education & Online Courses React NextJs Template",
+    title: "Project-base app dev course with AI",
+    description: "Explore our extensive range of online courses and educational resources. Filter by category to find the perfect course for your learning needs. Join us today and start your journey towards knowledge and skill enhancement.",
+    keywords: "online courses, app development, learning, skill enhancement, education,mobile app development, AI tools, project-based learning",
+
 };
 
 const CoursesFilterCategory = () => {
