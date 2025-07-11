@@ -1,5 +1,4 @@
 import React from 'react';
-import Script from 'next/script';
 import DemoBannerArea from './DemoBannerArea';
 import DemoPresentationArea from './DemoPresentationArea';
 import CoursePageDemo from './CoursePageDemoSection';
