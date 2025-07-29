@@ -9,6 +9,7 @@ import { Toaster } from "sonner";
 import ReduxProvider from "@/redux/provider";
 import { VideoProvider } from "@/contextApi/VideoProvider";
 import GlobalVideoModal from "@/components/common/popup/GlobalVideoModal";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { Metadata } from "next";
 
 // Load Roboto font
@@ -41,6 +42,7 @@ export default function RootLayout({
            <meta name="robots" content="index" />
       </head>
       <body suppressHydrationWarning className={`body-bg ${roboto.variable} ${bigShoulders.variable}`}>
+        <GoogleAnalytics />
         <VideoProvider>
           <ReduxProvider>
             <AppProvider>
