@@ -1,0 +1,470 @@
+@use "../utils" as *;
+
+/*----------------------------------------*/
+/*  Checkbox Image Upload Form Styles
+/*----------------------------------------*/
+
+.bd-checkbox-image-upload-form {
+  .bd-form {
+    .bd-form-group {
+      .checkbox-option {
+        margin-bottom: 25px;
+        
+        label {
+          font-weight: 500;
+          color: var(--bd-text-body);
+          cursor: pointer;
+          transition: color 0.3s ease;
+          
+          &:hover {
+            color: var(--bd-primary);
+          }
+        }
+      }
+    }
+  }
+  
+  .bd-image-upload-section {
+    margin-bottom: 30px;
+    
+    .bd-upload-area {
+      border: 2px dashed var(--bd-border-secondary);
+      border-radius: 12px;
+      padding: 30px;
+      background: var(--bd-grey-bg);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        border-color: var(--bd-primary);
+        background: rgba(var(--bd-primary-rgb), 0.05);
+      }
+    }
+    
+    .bd-upload-preview {
+      margin-bottom: 20px;
+      
+      .bd-image-preview {
+        position: relative;
+        display: inline-block;
+        
+        .bd-remove-image-btn {
+          position: absolute;
+          top: -10px;
+          right: -10px;
+          background: var(--bd-danger);
+          color: var(--bd-white);
+          border: none;
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: 14px;
+          transition: all 0.3s ease;
+          
+          &:hover {
+            background: var(--bd-danger-hover);
+            transform: scale(1.1);
+          }
+        }
+      }
+      
+      .bd-upload-placeholder {
+        text-align: center;
+        color: var(--bd-text-light);
+        
+        .bd-upload-icon {
+          font-size: 48px;
+          margin-bottom: 15px;
+          color: var(--bd-border-secondary);
+        }
+        
+        p {
+          margin-bottom: 5px;
+          font-weight: 500;
+        }
+        
+        small {
+          font-size: 12px;
+          color: var(--bd-text-muted);
+        }
+      }
+    }
+    
+    .bd-upload-controls {
+      .bd-file-input {
+        display: none;
+      }
+    }
+  }
+  
+  .bd-form-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    
+    .bd-btn {
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      
+      i {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+/*----------------------------------------*/
+/*  Uploaded Images Database Styles
+/*----------------------------------------*/
+
+.bd-uploaded-images-database {
+  margin-top: 50px;
+  
+  .bd-database-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--bd-border-primary);
+    
+    .bd-database-title {
+      color: var(--bd-text-heading);
+      margin: 0;
+      
+      i {
+        margin-right: 10px;
+        color: var(--bd-primary);
+      }
+    }
+    
+    .bd-database-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      
+      .bd-total-count {
+        font-weight: 500;
+        color: var(--bd-text-body);
+        padding: 8px 16px;
+        background: var(--bd-grey-bg);
+        border-radius: 20px;
+        font-size: 14px;
+      }
+    }
+  }
+  
+  .bd-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--bd-text-light);
+    
+    .bd-empty-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      color: var(--bd-border-secondary);
+    }
+    
+    h5 {
+      margin-bottom: 10px;
+      color: var(--bd-text-body);
+    }
+    
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+  
+  .bd-database-content {
+    .bd-database-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      
+      @media #{$xs} {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .bd-database-item {
+      background: var(--bd-white);
+      border: 1px solid var(--bd-border-secondary);
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      
+      &:hover {
+        border-color: var(--bd-primary);
+        box-shadow: 0 5px 20px rgba(var(--bd-primary-rgb), 0.15);
+        transform: translateY(-2px);
+      }
+      
+      .bd-item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+        
+        .checkbox-option {
+          label {
+            font-size: 14px;
+            font-weight: 500;
+          }
+        }
+        
+        .bd-remove-btn {
+          background: var(--bd-danger);
+          color: var(--bd-white);
+          border: none;
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          
+          &:hover {
+            background: var(--bd-danger-hover);
+            transform: scale(1.1);
+          }
+        }
+      }
+      
+      .bd-item-image {
+        margin-bottom: 15px;
+        text-align: center;
+        
+        .bd-no-image {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 200px;
+          background: var(--bd-grey-bg);
+          border-radius: 8px;
+          color: var(--bd-text-light);
+          
+          i {
+            font-size: 48px;
+            margin-bottom: 10px;
+          }
+        }
+      }
+      
+      .bd-item-info {
+        .bd-info-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 8px;
+          font-size: 14px;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+          
+          strong {
+            color: var(--bd-text-heading);
+            min-width: 70px;
+          }
+          
+          .bd-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+            
+            &.checked {
+              color: var(--bd-success);
+            }
+            
+            &.unchecked {
+              color: var(--bd-warning);
+            }
+            
+            i {
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/*----------------------------------------*/
+/*  Demo Page Specific Styles
+/*----------------------------------------*/
+
+.bd-image-upload-demo-area {
+  .bd-demo-card {
+    background: var(--bd-white);
+    border: 1px solid var(--bd-border-secondary);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    
+    .bd-demo-card-header {
+      background: var(--bd-grey-bg);
+      padding: 25px 30px;
+      border-bottom: 1px solid var(--bd-border-secondary);
+      
+      .bd-demo-card-title {
+        margin: 0 0 10px 0;
+        color: var(--bd-text-heading);
+        
+        i {
+          margin-right: 10px;
+          color: var(--bd-primary);
+        }
+      }
+      
+      .bd-demo-card-description {
+        margin: 0;
+        color: var(--bd-text-body);
+        font-size: 14px;
+      }
+    }
+    
+    .bd-demo-card-body {
+      padding: 40px 30px;
+    }
+  }
+  
+  .bd-upload-stats {
+    .bd-stat-card {
+      background: var(--bd-white);
+      border: 1px solid var(--bd-border-secondary);
+      border-radius: 10px;
+      padding: 25px 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        border-color: var(--bd-primary);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(var(--bd-primary-rgb), 0.15);
+      }
+      
+      .bd-stat-icon {
+        font-size: 36px;
+        color: var(--bd-primary);
+        margin-bottom: 15px;
+      }
+      
+      .bd-stat-content {
+        h5 {
+          margin: 0 0 8px 0;
+          color: var(--bd-text-heading);
+          font-size: 16px;
+        }
+        
+        .bd-stat-number {
+          font-size: 24px;
+          font-weight: 700;
+          color: var(--bd-primary);
+        }
+        
+        .bd-stat-text {
+          font-size: 14px;
+          color: var(--bd-text-body);
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  
+  .bd-features-list {
+    background: var(--bd-grey-bg);
+    border-radius: 10px;
+    padding: 25px 30px;
+    
+    .bd-features-title {
+      margin: 0 0 20px 0;
+      color: var(--bd-text-heading);
+    }
+    
+    .bd-features-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      
+      li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        color: var(--bd-text-body);
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        i {
+          color: var(--bd-success);
+          margin-right: 10px;
+          width: 16px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+/*----------------------------------------*/
+/*  Responsive Design
+/*----------------------------------------*/
+
+@media #{$md} {
+  .bd-checkbox-image-upload-form {
+    .bd-form-actions {
+      flex-direction: column;
+      
+      .bd-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+  
+  .bd-uploaded-images-database {
+    .bd-database-header {
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+      
+      .bd-database-actions {
+        justify-content: center;
+      }
+    }
+  }
+  
+  .bd-image-upload-demo-area {
+    .bd-demo-card {
+      .bd-demo-card-header,
+      .bd-demo-card-body {
+        padding: 20px;
+      }
+    }
+    
+    .bd-features-list {
+      padding: 20px;
+    }
+  }
+}
+
+@media #{$xs} {
+  .bd-database-content {
+    .bd-database-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
