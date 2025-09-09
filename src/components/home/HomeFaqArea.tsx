@@ -10,11 +10,11 @@ interface FaqItemProps {
 }
 
 const faqData: FaqItemProps[] = [
-    { id: "Nine", question: "What is iStudy? How does it work?", answer: "iStudy is a feature-rich HTML5 template designed specifically for educational platforms. It provides a variety of pre-designed layouts, including those for universities, online courses, training centers, and more. The template allows for easy customization and offers a well-documented, clean code base to create powerful, professional educational websites." },
-    { id: "Ten", question: "Can I get free support?", answer: "Yes, we provide free support to iStudy users. Our dedicated support team is ready to assist with any technical issues or questions." },
-    { id: "Eleven", question: "Can I customize elements as I like?", answer: "Absolutely! iStudy is designed with flexibility in mind. You can easily customize various elements to match your specific needs." },
-    { id: "Twelve", question: "Do you have online documentation?", answer: "Yes, iStudy comes with comprehensive online documentation. This guides you through template installation, customization, and troubleshooting." },
-    { id: "Thirteen", question: "Can I build a complete website with this template?", answer: "Yes, iStudy is a fully functional HTML5 template that allows you to build a complete educational website with pre-built pages and customizability." },
+    { id: "Nine", question: "Do I need coding experience to start?", answer: "No, our beginner-friendly Android course starts from zero using practical project-based learning." },
+    { id: "Ten", question: "Are the courses free or paid?", answer: "Most blog content is free. Premium Android crash courses will require a one-time enrollment fee." },
+    { id: "Eleven", question: "Do you offer certificates?", answer: "Yes. After completing a course, you can download a verified certificate of completion from your dashboard." },
+    { id: "Twelve", question: "Can I access content on mobile?", answer: "Yes. The platform is fully responsive and mobile-friendly." },
+    { id: "Thirteen", question: "Can I ask questions or get support?", answer: "Absolutely! Use the contact page or join our community group linked in your dashboard." },
 ];
 const FaqItem: React.FC<FaqItemProps> = ({ id, question, answer }) => {
     const isFirst = id === faqData[0].id;
@@ -78,9 +78,9 @@ const HomeFaqArea: React.FC = () => {
                 <div className="row justify-content-center">
                     <div className="col-lg-12">
                         <div className="section-title-wrapper text-center section-title-space">
-                            <span className="bd-section-subtitle">ANY QUESTION</span>
-                            <h2 className="bd-section-title mb-15">Do you have any Question?</h2>
-                            <p className="description">Check out our FAQ section to see if we can help</p>
+                            <span className="bd-section-subtitle">Got a Question?</span>
+                            <h2 className="bd-section-title mb-15">Start Confidently</h2>
+                            <p className="description">Find answers to common app development questions from our learners.</p>
                         </div>
                     </div>
                 </div>
@@ -102,16 +102,16 @@ const HomeFaqArea: React.FC = () => {
                         <div className="row gy-30">
                             <ServiceBox 
                                 icon={OnlineDocumentationSvg} 
-                                title="Online Documentation" 
+                                title="About Us" 
                                 link="#" 
-                                btnText="View Documentation" 
+                                btnText="About Us" 
                                 btnClass="btn-primary" 
                             />
                             <ServiceBox 
                                 icon={SupportSvg} 
                                 title="Dedicated Support" 
-                                link="https://support.topylo.com" 
-                                btnText="Get Support" 
+                                link="https://wa.me/8801721186833?text=Hi%20there%2C%20I%20have%20a%20question%20about%20your%20course. " 
+                                btnText="Get Support (Whatsapp)" 
                                 btnClass="btn-secondary" 
                             />
                         </div>

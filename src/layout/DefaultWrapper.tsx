@@ -2,21 +2,21 @@
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import BacktoTop from "@/utils/BacktoTop";
-import FooterFour from "./footer/FooterFour";
-import FooterTwo from "./footer/FooterTwo";
+//import FooterFour from "./footer/FooterFour";
+//import FooterTwo from "./footer/FooterTwo";
 import HeaderThree from "./header/HeaderThree";
 import HeaderTwo from "./header/HeaderTwo";
 import HeaderOne from "./header/HeaderOne";
 import FooterThree from "./footer/FooterThree";
-import FooterOne from "./footer/FooterOne";
+//import FooterOne from "./footer/FooterOne";
 import HeaderFour from "./header/HeaderFour";
-import FooterFive from "./footer/FooterFive";
+//import FooterFive from "./footer/FooterFive";
 import HeaderFive from "./header/HeaderFive";
 import CommonFooter from "./footer/CommonFooter";
-import KindergartentFooter from "./footer/KindergartentFooter";
+//import KindergartentFooter from "./footer/KindergartentFooter";
 import KindergartenHeader from "./header/KindergartenHeader";
 import QuranLearningHeader from "./header/QuranLearningHeader";
-import QuranLearningFooter from "./footer/QuranLearningFooter";
+//import QuranLearningFooter from "./footer/QuranLearningFooter";
 import LanguageAcademyHeader from "./header/LanguageAcademyHeader";
 import Preloader from "@/components/common/preloader/Preloader";
 import WOW from 'wow.js';
@@ -68,14 +68,14 @@ const Wrapper: React.FC<WrapperProps> = ({ children }) => {
   };
 
   const footerMap: Record<string, React.ReactNode> = {
-    "/": <FooterOne />,
-    "/online-course": <FooterTwo />,
+    "/": <FooterThree />,
+    "/online-course": <FooterThree />,
     "/university": <FooterThree />,
-    "/modern-schooling": <FooterFour />,
-    "/kindergarten": <KindergartentFooter />,
-    "/about-kindergarten": <KindergartentFooter />,
-    "/quran-learning": <QuranLearningFooter />,
-    "/book-store": <FooterFive />,
+    "/modern-schooling": <FooterThree />,
+    "/kindergarten": <FooterThree />,
+    "/about-kindergarten": <FooterThree />,
+    "/quran-learning": <FooterThree />,
+    "/book-store": <FooterThree />,
   };
 
   return (

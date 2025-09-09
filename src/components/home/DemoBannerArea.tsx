@@ -30,7 +30,7 @@ const DemoBannerArea = () => {
                                         ))}
                                     </div>
                                     <div className="content">
-                                        <span className="subtitle">Satisfied Users</span>
+                                        <span className="subtitle">Trusted by New Coders</span>
                                     </div>
                                 </div>
                                 <div className="demo-banner-top">
@@ -38,34 +38,31 @@ const DemoBannerArea = () => {
                                         <Image src={bannerAward} alt="Award Image" />
                                     </div>
                                     <div className="content">
-                                        <span className="subtitle">#1 Top New Template</span>
+                                        <span className="subtitle">Founder-Led Platform</span>
                                     </div>
                                 </div>
                             </div>
                             <div className="content cd-headline clip wow bdFadeInUp" data-wow-delay=".4s">
                                 <h1 className="demo-banner-title mb-20">
-                                    Build Your Dream Site in
+                                    Master App Development
                                     <br className="d-none d-sm-block" />
-                                    Minutes for <br className="demo-break" />
+                                     To <br className="demo-break" />
                                     <span className="cd-words-wrapper cd-words-wrapper-two">
                                         <TypedText
                                             strings={[
-                                                "Online Courses",
-                                                "University",
-                                                "Kindergarten",
-                                                "Quran Learning",
-                                                "Modern Schooling",
-                                                "Language Academy",
-                                                "Book Shop",
+                                                "Learn, Build, Earn",
+                                                "Build Skills, Earn More",
+                                                "Grow Your Expertise & Income",
+                                               
                                             ]}
                                         />
                                     </span>
                                 </h1>
-                                <p>Transform your educational platform with iStudy, a premium HTML5 template</p>
+                                <p>Hands-On Projects to Master In-Demand Skills – From Zero to Portfolio-Worthy Apps & SEO Campaigns.</p>
                             </div>
                             <div className="demo-banner-btn d-flex flex-wrap align-items-center justify-content-center gap-15 mt-30 wow bdFadeInUp" data-wow-delay=".6s">
-                                <Link className="bd-btn btn-outline-border-white" href="#homesDemos">
-                                    Explore Demo
+                                <Link className="bd-btn btn-outline-border-white" href="#home">
+                                    Enam Notes
                                 </Link>
                             </div>
                         </div>
@@ -74,13 +71,13 @@ const DemoBannerArea = () => {
             </div>
             <div className="bd-banner-demo-thumb shape-move d-none d-xl-block">
                 {[
-                    { href: "/online-course", img: homethumb1 },
-                    { href: "/university", img: homethumb2 },
-                    { href: "/modern-schooling", img: homethumb3 },
-                    { href: "/kindergarten", img: homethumb4 },
-                    { href: "/quran-learning", img: homethumb5 },
-                    { href: "/shop", img: homethumb6 },
-                    { href: "/language-academy", img: homethumb7 },
+                    { href: "/courses", img: homethumb1 },
+                    { href: "/courses", img: homethumb2 },
+                    { href: "/courses", img: homethumb3 },
+                    { href: "/courses", img: homethumb4 },
+                    { href: "/courses", img: homethumb5 },
+                    { href: "/courses", img: homethumb6 },
+                    { href: "/courses", img: homethumb7 },
                 ].map(({ href, img }, index) => (
                     <div key={index} className={`thumb-shape-0${index + 1} thumb-shape-common`}>
                         <Link href={href}>

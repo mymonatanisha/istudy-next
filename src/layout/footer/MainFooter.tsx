@@ -21,24 +21,23 @@ const MainFooter = ({ children }: MainFooterProps) => {
                                     <div className="bd-footer-widget-content">
                                         <div className="bd-footer-widget-logo">
                                             <Link href="/">
-                                                <Image src={Logo} alt="image" priority />
+                                                <Image src={Logo} alt="image" width={120} height={60} priority />
                                             </Link>
                                         </div>
-                                        <p className="bd-footer-widget-description">Education focused website or template is an
-                                            essential part that provides visitors with insights into the program. </p>
+                                        <p className="bd-footer-widget-description">Empower your journey with a platform designed to inspire learning, unlock potential, and fuel your passion for growth.</p>
                                         <div className="bd-footer-widget-contact-info">
                                             <div className="bd-footer-widget-contact-item">
                                                 <span>Phone:</span>
-                                                <Link href="tell:123456789">
-                                                    +123-4567-8900</Link>
+                                                <Link href="tell:+880-1721-186833">
+                                                    +880-1721-186833</Link>
                                             </div>
                                             <div className="bd-footer-widget-contact-item">
                                                 <span>Email:</span>
-                                                <Link href="mailto:istudy@mail.com"> istudy@mail.com</Link>
+                                                <Link href="mailto:md.enamul19@gmail.com"> md.enamul19@gmail.com</Link>
                                             </div>
                                             <div className="bd-footer-widget-contact-item">
                                                 <span>Address:</span>
-                                                <Link href="#"> 27 Division St, New York</Link>
+                                                <Link href="#"> Dhaka, Bangladesh</Link>
                                             </div>
                                         </div>
                                     </div>
@@ -53,15 +52,15 @@ const MainFooter = ({ children }: MainFooterProps) => {
                                         <div className="bd-footer-social">
                                             <div className="theme-social social-brand-color">
                                                 <ul className="social-icon-list">
-                                                    <li><Link className="facebook" href="https://www.facebook.com/" target="_blank"><i className="fa-brands fa-facebook-f"></i></Link>
+                                                    <li><Link className="facebook" href="https://www.facebook.com/profile.php?id=100090663220608" target="_blank"><i className="fa-brands fa-facebook-f"></i></Link>
                                                     </li>
-                                                    <li><Link className="twitter" href="https://x.com/" target="_blank"><i className="fa-brands fa-x-twitter"></i></Link>
+                                                    <li><Link className="twitter" href="https://x.com/enamnotes" target="_blank"><i className="fa-brands fa-x-twitter"></i></Link>
                                                     </li>
-                                                    <li><Link className="linkedin" href="https://www.linkedin.com/feed/" target="_blank"><i className="fa-brands fa-linkedin-in"></i></Link>
+                                                    <li><Link className="linkedin" href="https://www.linkedin.com/in/enamul-huq/" target="_blank"><i className="fa-brands fa-linkedin-in"></i></Link>
                                                     </li>
-                                                    <li><Link className="instagram" href="https://www.instagram.com/" target="_blank"><i className="fa-brands fa-instagram"></i></Link>
+                                                    <li><Link className="instagram" href="https://www.instagram.com/enamnotes/" target="_blank"><i className="fa-brands fa-instagram"></i></Link>
                                                     </li>
-                                                    <li><Link className="youtube" href="https://www.youtube.com/"><i className="fa-brands fa-youtube"></i></Link>
+                                                    <li><Link className="youtube" href="https://www.youtube.com/@EnamNotes"><i className="fa-brands fa-youtube"></i></Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -84,7 +83,7 @@ const MainFooter = ({ children }: MainFooterProps) => {
                         <div className="row gy-10 align-items-center justify-content-lg-between justify-content-center">
                             <div className="col-xxl-4 col-xl-5 col-lg-5 col-md-8">
                                 <div className="bd-footer-copyright text-lg-start text-center">
-                                    <p className="underline">© Copyright <span>{getCurrentYear()}</span> | Developed By iStudy</p>
+                                    <p className="underline">© Copyright <span>{getCurrentYear()}</span> | Developed By enamnotes</p>
                                 </div>
                             </div>
                             <div className="col-xxl-5 col-xl-7 col-lg-7 col-md-12">
@@ -92,7 +91,7 @@ const MainFooter = ({ children }: MainFooterProps) => {
                                     <ul className="justify-content-lg-end justify-content-center">
                                         <li className="underline"><Link href="/terms-conditions">Terms and Conditions</Link></li>
                                         <li className="underline"><Link href="/privacy-policy">Privacy and Policy</Link></li>
-                                        <li className="underline"><Link href="/purchase-guide">Purchase Guide</Link></li>
+                                        
                                     </ul>
                                 </div>
                             </div>

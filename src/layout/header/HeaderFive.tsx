@@ -30,13 +30,13 @@ const HeaderFive = () => {
                 <div className="bd-header-top">
                     <div className="bd-header-top-left">
                         <ul>
-                            <li><Link href="tel:+8884467880"><span><i className="fa-solid fa-phone-volume"></i></span>(888) 446-7880</Link></li>
-                            <li><Link href="mailto:example@istudy.com"><span><i
-                                className="fa-sharp fa-light fa-envelope"></i></span>example@istudy.com</Link></li>
+                            <li><Link href="tel:+8801721186833"><span><i className="fa-solid fa-phone-volume"></i></span>(+88) 017 2118-6833</Link></li>
+                            <li><Link href="mailto:md.enamul19@gmail.com"><span><i
+                                className="fa-sharp fa-light fa-envelope"></i></span>md.enamul19@gmail.com</Link></li>
                         </ul>
                     </div>
                     <div className="bd-header-top-right text-md-end">
-                        <Link href="#"><span><i className="fa-sharp fa-regular fa-location-dot"></i></span>Brooklyn, NY 12207, New York</Link>
+                        <Link href="#"><span><i className="fa-sharp fa-regular fa-location-dot"></i></span>Dhaka, Bangladesh</Link>
                     </div>
                 </div>
                 <div className={`bd-header-area header-style-one ${scrollDirection === "down" ? "bd-sticky" : ""}`}>
