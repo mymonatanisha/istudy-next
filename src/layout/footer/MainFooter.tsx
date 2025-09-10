@@ -52,16 +52,17 @@ const MainFooter = ({ children }: MainFooterProps) => {
                                         <div className="bd-footer-social">
                                             <div className="theme-social social-brand-color">
                                                 <ul className="social-icon-list">
-                                                    <li><Link className="facebook" href="https://www.facebook.com/profile.php?id=100090663220608" target="_blank"><i className="fa-brands fa-facebook-f"></i></Link>
-                                                    </li>
-                                                    <li><Link className="twitter" href="https://x.com/enamnotes" target="_blank"><i className="fa-brands fa-x-twitter"></i></Link>
-                                                    </li>
-                                                    <li><Link className="linkedin" href="https://www.linkedin.com/in/enamul-huq/" target="_blank"><i className="fa-brands fa-linkedin-in"></i></Link>
-                                                    </li>
-                                                    <li><Link className="instagram" href="https://www.instagram.com/enamnotes/" target="_blank"><i className="fa-brands fa-instagram"></i></Link>
+                                                    <li><Link className="facebook" href="https://www.facebook.com/enamnotescom/" target="_blank"><i className="fa-brands fa-facebook-f"></i></Link>
                                                     </li>
                                                     <li><Link className="youtube" href="https://www.youtube.com/@EnamNotes"><i className="fa-brands fa-youtube"></i></Link>
                                                     </li>
+                                                    <li><Link className="tiktok" href="https://www.tiktok.com/@enamnotes" target="_blank"><i className="fa-brands fa-tiktok"></i></Link>
+                                                    </li>
+                                                    <li><Link className="linkedin" href="https://www.linkedin.com/in/enamul-huq/" target="_blank"><i className="fa-brands fa-linkedin-in"></i></Link>
+                                                    </li>
+                                                    <li><Link className="twitter" href="https://x.com/enamnotes" target="_blank"><i className="fa-brands fa-x-twitter"></i></Link>
+                                                    </li>
+                                                    
                                                 </ul>
                                             </div>
                                         </div>

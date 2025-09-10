@@ -19,12 +19,13 @@ const Home = () => {
         </main>
       </Wrapper>
 
-      {/* Adsterra Social Bar script */}
-      <Script
-        id="adsterra-social-bar"
-        strategy="afterInteractive"
-        src="//pl26850584.profitableratecpm.com/8f/88/2b/8f882b070aa288aa986892f6ee6b951d.js"
-      />
+        {/* Adsterra Social Bar script hidden
+        <Script
+          id="adsterra-social-bar"
+          strategy="afterInteractive"
+          src="//pl26850584.profitableratecpm.com/8f/88/2b/8f882b070aa288aa986892f6ee6b951d.js"
+        />
+        */}
     </>
   );
 };
