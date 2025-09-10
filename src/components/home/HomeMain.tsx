@@ -19,7 +19,8 @@ const HomeMain = () => {
     return (
         <>
             <DemoBannerArea />
-            <DemoPresentationArea />
+            { /*<DemoPresentationArea />*/ }
+           
 
             {/* Adsterra Native Banner START */}
             {/*
@@ -34,12 +35,13 @@ const HomeMain = () => {
             */}
             {/* Adsterra Native Banner END */}
             
-            <CoursePageDemo />
+            
             { /*<DemoGridSection />*/}
-             { /*<DashboardDemoArea/>*/}
+            { /*<DashboardDemoArea/>*/}
             <VideoCarousel />
+            <CoursePageDemo />
             <ShortsCarousel />
-            <InnerPageShowcasesArea />
+            { /*<InnerPageShowcasesArea />*/}
             { /*<FeatureArea />*/}
             { /*<ElementsArea />*/}
             { /* <DemoHeaderFooterArea /> */}

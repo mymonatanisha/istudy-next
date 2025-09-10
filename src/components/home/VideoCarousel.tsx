@@ -16,22 +16,27 @@ const videoData = [
   {
     title: "Intro to Android Studio",
     thumbnail: "/assets/images/video-gallery/video1.webp",
-    youtubeUrl: "https://www.youtube.com/watch?v=eW-TDktPJh8",
+    youtubeUrl: "https://www.youtube.com/watch?v=MZFXBw-iT3Q",
   },
   {
-    title: "Java Basics for Android",
+    title: "Android Development Eco System",
     thumbnail: "/assets/images/video-gallery/video2.webp",
-    youtubeUrl: "https://www.youtube.com/watch?v=Ap0y5kbp-l0&t=2s",
+    youtubeUrl: "https://www.youtube.com/watch?v=jnl_DlXG6Tk",
   },
   {
-    title: "Building a Login UI",
+    title: "Android SDK Explained",
     thumbnail: "/assets/images/video-gallery/video3.webp",
-    youtubeUrl: "https://www.youtube.com/watch?v=KhAHmhIFMKE",
+    youtubeUrl: "https://www.youtube.com/watch?v=rkGiHjjVVxw",
   },
   {
-    title: "Publishing Android App",
-    thumbnail: "/assets/images/video-gallery/video3.webp",
-    youtubeUrl: "https://www.youtube.com/watch?v=3omXvEEp2Hk",
+    title: "Android Packages explained", 
+    thumbnail: "/assets/images/video-gallery/video4.webp",
+    youtubeUrl: "https://www.youtube.com/watch?v=rkJU_5xMzps",
+  },
+    {
+    title: "Android Dev Tools & Workflows Explained", 
+    thumbnail: "/assets/images/video-gallery/video5.webp",
+    youtubeUrl: "https://www.youtube.com/watch?v=JS3ysmYI2G4",
   },
 ];
 
