@@ -22,10 +22,10 @@ import courseBg8 from "../../../public/assets/images/course/course-bg-8.webp";
 import courseBg9 from "../../../public/assets/images/course/course-bg-9.webp";
 
 //modern schooling page image
-import courseThumb1 from "../../../public/assets/images/course/course-thumb-10.webp";
-import courseThumb2 from "../../../public/assets/images/course/course-thumb-11.webp";
-import courseThumb3 from "../../../public/assets/images/course/course-thumb-12.webp";
-import courseThumb4 from "../../../public/assets/images/course/course-thumb-13.webp";
+// import courseThumb1 from "../../../public/assets/images/course/course-thumb-10.webp";
+// import courseThumb2 from "../../../public/assets/images/course/course-thumb-11.webp";
+// import courseThumb3 from "../../../public/assets/images/course/course-thumb-12.webp";
+// import courseThumb4 from "../../../public/assets/images/course/course-thumb-13.webp";
 //brand image
 import brandImg1 from "../../../public/assets/images/brand/brand-img-1.webp";
 import brandImg2 from "../../../public/assets/images/brand/brand-img-2.webp";
@@ -35,74 +35,78 @@ import brandImg5 from "../../../public/assets/images/brand/brand-img-5.webp";
 import brandImg6 from "../../../public/assets/images/brand/brand-img-6.webp";
 //avatar image
 import avatar1 from "../../../public/assets/images/avatar/avatar.webp";
-import avatar2 from "../../../public/assets/images/avatar/avatar2.webp";
+//import avatar2 from "../../../public/assets/images/avatar/avatar2.webp";
 //courses grid two image
-import shapeImg1 from "../../../public/assets/images/course/course-shape-1.webp";
-import shapeImg2 from "../../../public/assets/images/course/course-shape-2.webp";
-import shapeImg3 from "../../../public/assets/images/course/course-shape-3.webp";
-import shapeImg4 from "../../../public/assets/images/course/course-shape-4.webp";
-import shapeImg5 from "../../../public/assets/images/course/course-shape-5.webp";
-import shapeImg6 from "../../../public/assets/images/course/course-shape-6.webp";
-import shapeImg7 from "../../../public/assets/images/course/course-shape-7.webp";
-import shapeImg8 from "../../../public/assets/images/course/course-shape-8.webp";
-import shapeImg9 from "../../../public/assets/images/course/course-shape-9.webp";
+// import shapeImg1 from "../../../public/assets/images/course/course-shape-1.webp";
+// import shapeImg2 from "../../../public/assets/images/course/course-shape-2.webp";
+// import shapeImg3 from "../../../public/assets/images/course/course-shape-3.webp";
+// import shapeImg4 from "../../../public/assets/images/course/course-shape-4.webp";
+// import shapeImg5 from "../../../public/assets/images/course/course-shape-5.webp";
+// import shapeImg6 from "../../../public/assets/images/course/course-shape-6.webp";
+// import shapeImg7 from "../../../public/assets/images/course/course-shape-7.webp";
+// import shapeImg8 from "../../../public/assets/images/course/course-shape-8.webp";
+// import shapeImg9 from "../../../public/assets/images/course/course-shape-9.webp";
 
-import thumb1 from "../../../public/assets/images/course/course-thumb-1.webp";
-import thumb2 from "../../../public/assets/images/course/course-thumb-2.webp";
-import thumb3 from "../../../public/assets/images/course/course-thumb-3.webp";
-import thumb4 from "../../../public/assets/images/course/course-thumb-4.webp";
-import thumb5 from "../../../public/assets/images/course/course-thumb-5.webp";
-import thumb6 from "../../../public/assets/images/course/course-thumb-6.webp";
-import thumb7 from "../../../public/assets/images/course/course-thumb-7.webp";
-import thumb8 from "../../../public/assets/images/course/course-thumb-8.webp";
-import thumb9 from "../../../public/assets/images/course/course-thumb-9.webp";
+// import thumb1 from "../../../public/assets/images/course/course-thumb-1.webp";
+// import thumb2 from "../../../public/assets/images/course/course-thumb-2.webp";
+// import thumb3 from "../../../public/assets/images/course/course-thumb-3.webp";
+// import thumb4 from "../../../public/assets/images/course/course-thumb-4.webp";
+// import thumb5 from "../../../public/assets/images/course/course-thumb-5.webp";
+// import thumb6 from "../../../public/assets/images/course/course-thumb-6.webp";
+// import thumb7 from "../../../public/assets/images/course/course-thumb-7.webp";
+// import thumb8 from "../../../public/assets/images/course/course-thumb-8.webp";
+// import thumb9 from "../../../public/assets/images/course/course-thumb-9.webp";
 
 // text shape
-import cscTextShape from '../../../public/assets/images/course/csc.webp';
-import bapTextShape from '../../../public/assets/images/course/bap.webp';
-import bbaTextShape from '../../../public/assets/images/course/bba.webp';
-import mscdsTextShape from '../../../public/assets/images/course/mscds.webp';
-import mphTextShape from '../../../public/assets/images/course/mph.webp';
-import aiTextShape from '../../../public/assets/images/course/ai.webp';
+// import cscTextShape from '../../../public/assets/images/course/csc.webp';
+// import bapTextShape from '../../../public/assets/images/course/bap.webp';
+// import bbaTextShape from '../../../public/assets/images/course/bba.webp';
+// import mscdsTextShape from '../../../public/assets/images/course/mscds.webp';
+// import mphTextShape from '../../../public/assets/images/course/mph.webp';
+// import aiTextShape from '../../../public/assets/images/course/ai.webp';
+
 //davelopment logo
-import htmlShape from "../../../public/assets/images/shape/html.webp";
-import javaShape from "../../../public/assets/images/shape/java.webp";
-import wordpressShape from "../../../public/assets/images/shape/wordpress.webp";
-import angularShape from "../../../public/assets/images/shape/angular.webp";
-import laravelShape from "../../../public/assets/images/shape/laravel.webp";
-import inertiaShape from "../../../public/assets/images/shape/inertiajs.webp";
-import javascriptShape from "../../../public/assets/images/shape/javascript.webp";
-import illustratorShape from "../../../public/assets/images/shape/illustrator.webp";
-import photoshopShape from "../../../public/assets/images/shape/photoshop.webp";
+// import htmlShape from "../../../public/assets/images/shape/html.webp";
+// import javaShape from "../../../public/assets/images/shape/java.webp";
+// import wordpressShape from "../../../public/assets/images/shape/wordpress.webp";
+// import angularShape from "../../../public/assets/images/shape/angular.webp";
+// import laravelShape from "../../../public/assets/images/shape/laravel.webp";
+// import inertiaShape from "../../../public/assets/images/shape/inertiajs.webp";
+// import javascriptShape from "../../../public/assets/images/shape/javascript.webp";
+// import illustratorShape from "../../../public/assets/images/shape/illustrator.webp";
+// import photoshopShape from "../../../public/assets/images/shape/photoshop.webp";
 
 //bg image
-import courseThreeBg1 from "../../../public/assets/images/course/course-3-bg-1.webp";
-import courseThreeBg2 from "../../../public/assets/images/course/course-3-bg-2.webp";
-import courseThreeBg3 from "../../../public/assets/images/course/course-3-bg-3.webp";
-import courseThreeBg4 from "../../../public/assets/images/course/course-3-bg-4.webp";
-import courseThreeBg5 from "../../../public/assets/images/course/course-3-bg-5.webp";
-import courseThreeBg6 from "../../../public/assets/images/course/course-3-bg-6.webp";
-import courseThreeBg7 from "../../../public/assets/images/course/course-3-bg-7.webp";
-import courseThreeBg8 from "../../../public/assets/images/course/course-3-bg-8.webp";
-import courseThreeBg9 from "../../../public/assets/images/course/course-3-bg-9.webp";
+// import courseThreeBg1 from "../../../public/assets/images/course/course-3-bg-1.webp";
+// import courseThreeBg2 from "../../../public/assets/images/course/course-3-bg-2.webp";
+// import courseThreeBg3 from "../../../public/assets/images/course/course-3-bg-3.webp";
+// import courseThreeBg4 from "../../../public/assets/images/course/course-3-bg-4.webp";
+// import courseThreeBg5 from "../../../public/assets/images/course/course-3-bg-5.webp";
+// import courseThreeBg6 from "../../../public/assets/images/course/course-3-bg-6.webp";
+// import courseThreeBg7 from "../../../public/assets/images/course/course-3-bg-7.webp";
+// import courseThreeBg8 from "../../../public/assets/images/course/course-3-bg-8.webp";
+// import courseThreeBg9 from "../../../public/assets/images/course/course-3-bg-9.webp";
+
 //program image
-import homeProgramImg1 from "../../../public/assets/images/program/home-program-1.webp";
-import homeProgramImg2 from "../../../public/assets/images/program/home-program-2.webp";
-import homeProgramImg3 from "../../../public/assets/images/program/home-program-3.webp";
-import homeProgramImg4 from "../../../public/assets/images/program/home-program-4.webp";
-import homeProgramImg5 from "../../../public/assets/images/program/home-program-5.webp";
-import homeProgramImg6 from "../../../public/assets/images/program/home-program-6.webp";
-import courseShape from "../../../public/assets/images/shape/course-shape.webp";
+// import homeProgramImg1 from "../../../public/assets/images/program/home-program-1.webp";
+// import homeProgramImg2 from "../../../public/assets/images/program/home-program-2.webp";
+// import homeProgramImg3 from "../../../public/assets/images/program/home-program-3.webp";
+// import homeProgramImg4 from "../../../public/assets/images/program/home-program-4.webp";
+// import homeProgramImg5 from "../../../public/assets/images/program/home-program-5.webp";
+// import homeProgramImg6 from "../../../public/assets/images/program/home-program-6.webp";
+// import courseShape from "../../../public/assets/images/shape/course-shape.webp";
+
 // quarn learning image
-import quarnLearningImg from "../../../public/assets/images/course/course-thumb-20.webp";
-import quarnLearningImg2 from "../../../public/assets/images/course/course-thumb-21.webp";
-import quarnLearningImg3 from "../../../public/assets/images/course/course-thumb-22.webp";
+// import quarnLearningImg from "../../../public/assets/images/course/course-thumb-20.webp";
+// import quarnLearningImg2 from "../../../public/assets/images/course/course-thumb-21.webp";
+// import quarnLearningImg3 from "../../../public/assets/images/course/course-thumb-22.webp";
+
 // language Academy image
-import LangugagecourseThumb1 from "../../../public/assets/images/course/course-thumb-14.webp";
-import LangugagecourseThumb2 from "../../../public/assets/images/course/course-thumb-15.webp";
-import LangugagecourseThumb3 from "../../../public/assets/images/course/course-thumb-16.webp";
-import LangugagecourseThumb4 from "../../../public/assets/images/course/course-thumb-17.webp";
-import LangugagecourseThumb5 from "../../../public/assets/images/course/course-thumb-18.webp";
+// import LangugagecourseThumb1 from "../../../public/assets/images/course/course-thumb-14.webp";
+// import LangugagecourseThumb2 from "../../../public/assets/images/course/course-thumb-15.webp";
+// import LangugagecourseThumb3 from "../../../public/assets/images/course/course-thumb-16.webp";
+// import LangugagecourseThumb4 from "../../../public/assets/images/course/course-thumb-17.webp";
+// import LangugagecourseThumb5 from "../../../public/assets/images/course/course-thumb-18.webp";
 
 
 const coursesData: ICourse[] = [
