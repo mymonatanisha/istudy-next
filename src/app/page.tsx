@@ -3,7 +3,7 @@
 import HomeMain from "@/components/home/HomeMain";
 import Wrapper from "@/layout/DefaultWrapper";
 import { Metadata } from "next";
-import Script from "next/script";
+//import Script from "next/script";
 import React from "react";
 
 export const metadata: Metadata = {
