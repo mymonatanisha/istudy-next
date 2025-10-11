@@ -39,7 +39,7 @@ const ContactAddressArea = () => {
                         <div className="col-xl-12">
                             <div className="bd-contact-map">
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.3995816270603!2d-122.1726349236816!3d37.427664232078364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fbb2a678bea9d%3A0x29cdf01a44fc687f!2sStanford%20University!5e0!3m2!1sen!2sbd!4v1727155102819!5m2!1sen!2sbd" width="600" height="400" style={{ border: '0' }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade">
+                                    src="https://www.google.com/maps/embed?pb=!1m16!1m11!1m3!1d139.66691242153112!2d90.42155529352287!3d23.773526206882202!2m2!1f20.63386298162675!2f0!3m2!1i1024!2i768!4f46.257226498458195!3m2!1m1!2s!5e1!3m2!1sen!2sbd!4v1760194616483!5m2!1sen!2sbd" width="600" height="450" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade">
                                 </iframe>
                             </div>
                         </div>
