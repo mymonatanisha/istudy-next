@@ -44,10 +44,8 @@ const UniversitySidebar = () => {
                                 </div>
                             </div>
                             <div className="bd-offcanvas-about d-none d-lg-block mb-30">
-                                <h4 className="bd-offcanvas-title-meta">About iStudy</h4>
-                                <p>Empowering learners and educators with a comprehensive platform that bridges the gap between
-                                    traditional and modern education. iStudy inspires excellence in education and fosters growth for
-                                    a brighter future.</p>
+                                <h4 className="bd-offcanvas-title-meta">About Enamnotes</h4>
+                                <p>Master Android app development and digital content creation with EnamNotes. Explore free tutorials, coding lessons, freelancing guides, and AI-powered learning resources designed for beginners and tech enthusiasts who want to earn and grow online.</p>
                             </div>
                             <div className="bd-offcanvas-contact mb-30">
                                 <h4 className="bd-offcanvas-title-meta">Contact Info</h4>
@@ -58,23 +56,23 @@ const UniversitySidebar = () => {
                                                 <i className="fal fa-map-marker-alt"></i></Link>
                                         </div>
                                         <div className="bd-offcanvas-contact-text">
-                                            <Link target="_blank" href="#">123 Knowledge Lane, Learnville, 54321, USA</Link>
+                                            <Link target="_blank" href="#">Gulshan, Dhaka, 1212, Bangladesh</Link>
                                         </div>
                                     </li>
                                     <li className="d-flex align-items-center gap-10">
                                         <div className="bd-offcanvas-contact-icon">
-                                            <Link href="tel:+1234567890"><i className="far fa-phone"></i></Link>
+                                            <Link href="tel:+880-1721186833"><i className="far fa-phone"></i></Link>
                                         </div>
                                         <div className="bd-offcanvas-contact-text">
-                                            <Link href="tel:+1234567890">+1-234-567-890</Link>
+                                            <Link href="tel:+880-1721186833">+880-1721186833</Link>
                                         </div>
                                     </li>
                                     <li className="d-flex align-items-center gap-10">
                                         <div className="bd-offcanvas-contact-icon">
-                                            <Link href="mailto:info@istudy.com"><i className="fal fa-envelope"></i></Link>
+                                            <Link href="mailto:info@enamnotes.com"><i className="fal fa-envelope"></i></Link>
                                         </div>
                                         <div className="bd-offcanvas-contact-text">
-                                            <Link href="mailto:info@istudy.com">info@istudy.com</Link>
+                                            <Link href="mailto:info@enamnotes.com">info@enamnotes.com</Link>
                                         </div>
                                     </li>
                                 </ul>
