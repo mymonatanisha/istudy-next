@@ -6,14 +6,14 @@ export const contactData: ContactItem[] = [
         title: "Dhaka Office",
         details: [
             "Gulshan, Dhaka-1212, Bangladesh",
-            { text: "www.enamnotes.com", link: "https://www.enamnotes.com" }
+            { text: "www.enamnotes.com", link: "https://enamnotes.com" }
         ]
     },
     {
         icon: "fa-light fa-phone",
         title: "Call Us",
         details: [
-            "+880 17-21186833"
+            "+880 17-21186833 (WhatsApp)",
             
         ]
     },
@@ -29,7 +29,7 @@ export const contactData: ContactItem[] = [
         icon: "fa-light fa-globe",
         title: "Visit Our Website",
         details: [
-            { text: "www.enamnotes.com", link: "https://www.enamnotes.com" }
+            { text: "www.enamnotes.com", link: "https://enamnotes.com" }
 
         ]
     }
