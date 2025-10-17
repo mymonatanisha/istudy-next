@@ -14,6 +14,8 @@ import BlogCommentForm from '@/form/BlogCommentForm';
 
 const BlogDetailsMain = ({ blogId }: { blogId: number }) => {
     const blog = blogData.find((item) => item.id == blogId);
+      if (!blog) return <div>Post not found.</div>;
+      if (blog.isPublished === false) return <div>Post unavailable.</div>; // can't return 404 here
     return (
         <>
             <BlogBreadcrumb blog={blog} />

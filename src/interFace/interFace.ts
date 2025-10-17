@@ -213,8 +213,12 @@ export interface IBlog {
   thumbnail?:StaticImageData;
   buttonShow?:boolean;
   buttonLink?:boolean;
-  daynamicLink?:boolean
-  boxShadowClass?:boolean
+  daynamicLink?:boolean;
+  boxShadowClass?:boolean;
+  
+  // <-- add these publishing fields
+  isPublished?: boolean;
+  publishDate?: string; // optional: if you want schedule logic later
 
 }
 // Define an interface for the mission vision data 

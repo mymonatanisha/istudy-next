@@ -1,9 +1,9 @@
 import { IBlog } from "@/interFace/interFace";
-import blogImg1 from "../../public/assets/images/blog/blog-thumb-01.webp";
+//import blogImg1 from "../../public/assets/images/blog/blog-thumb-01.webp";
 import blogImg2 from "../../public/assets/images/blog/blog-thumb-02.webp";
 import blogImg3 from "../../public/assets/images/blog/blog-thumb-03.webp";
 //university blog image
-import blogImg4 from "../../public/assets/images/blog/blog-thumb-04.webp";
+//import blogImg4 from "../../public/assets/images/blog/blog-thumb-04.webp";
 import blogImg5 from "../../public/assets/images/blog/blog-thumb-05.webp";
 import blogImg6 from "../../public/assets/images/blog/blog-thumb-06.webp";
 //modern scholling image
@@ -19,9 +19,9 @@ import blogImg13 from "../../public/assets/images/blog/blog-thumb-22.webp";
 import blogImg14 from "../../public/assets/images/blog/blog-thumb-10.webp";
 import blogImg15 from "../../public/assets/images/blog/blog-thumb-16.webp";
 //blog list
-import blogImg16 from "../../public/assets/images/blog/blog-thumb-17.webp"
-import blogImg17 from "../../public/assets/images/blog/blog-thumb-18.webp"
-import blogImg18 from "../../public/assets/images/blog/blog-thumb-19.webp"
+//import blogImg16 from "../../public/assets/images/blog/blog-thumb-17.webp"
+//import blogImg17 from "../../public/assets/images/blog/blog-thumb-18.webp"
+//import blogImg18 from "../../public/assets/images/blog/blog-thumb-19.webp"
 //kindergarten page blog image
 import blogImg19 from "../../public/assets/images/blog/blog-thumb-11.webp";
 import blogImg20 from "../../public/assets/images/blog/blog-thumb-12.webp";
@@ -32,14 +32,14 @@ import blogImg23 from "../../public/assets/images/blog/blog-thumb-15.webp";
 
 
 const blogData: IBlog[] = [
-    {
+   /* {
         id: 1,
         image: blogImg1,
         title: "How to Stay Motivated and Succeed in Online Courses",
         authorName: "Alice Johnson",
         date: "November 10 2024",
         description: "Discover the must-have books of the season, from thrilling mysteries to inspiring biographies."
-    },
+    },*/
     {
         id: 2,
         image: blogImg2,
@@ -57,7 +57,7 @@ const blogData: IBlog[] = [
         description: "Books of the season, from thrilling mysteries to inspiring biographies."
     },
     // university blog data start
-    {
+   /* {
         id: 4,
         image: blogImg4,
         date: '15',
@@ -66,7 +66,7 @@ const blogData: IBlog[] = [
         comments: 0,
         title: 'How to Choose the Right Major Insights from Graduates',
 
-    },
+    },*/
     {
         id: 5,
         image: blogImg5,
@@ -144,14 +144,14 @@ const blogData: IBlog[] = [
         date: "Aug 10 2024",
     },
     //blog sidebar recent data start
-    {
+    /*{
         id: 14,
         image: blogImg1,
         title: "Exploring Online Learning Strategies",
         authorName: "Alex Harper",
         date: "10 Oct, 2024",
-    },
-    {
+    },*/
+    /*{
         id: 15,
         image: blogImg4,
         title: "The Future of University Education",
@@ -164,7 +164,7 @@ const blogData: IBlog[] = [
         title: "Kindergarten Learning Through Play",
         authorName: "Michael Reed",
         date: "05 Aug, 2024",
-    },
+    },*/
 
     //blog data
     {
@@ -184,7 +184,7 @@ const blogData: IBlog[] = [
         id: 18,
         type: 'slider',
         images: [
-            blogImg1,
+       //     blogImg1,
             blogImg2,
             blogImg3,
         ],
@@ -205,7 +205,7 @@ const blogData: IBlog[] = [
         authorName: 'Malcolm X',
         boxShadowClass: false
     },
-    {
+   /* {
         id: 20,
         type: 'video',
         thumbnail: blogImg15,
@@ -223,7 +223,7 @@ const blogData: IBlog[] = [
         buttonShow: true,
         buttonLink: true,
         boxShadowClass: true
-    },
+    },*/
     {
         id: 22,
         type: 'text',
@@ -234,17 +234,19 @@ const blogData: IBlog[] = [
         boxShadowClass: true
     },
     //blog list data
+    // add isPublished: false to the post object you want hidden
     {
         id: 23,
-        badge: "Online Course",
+        badge: "App Development Course",
         image: blogImg5,
-        title: "The rise of online learning platforms in 2024",
-        authorName: "Alice Johnson",
-        date: "Dec 25, 2024",
-        comments: 12,
-        description: "Online learning has transformed education by providing accessibility and flexibility to learners worldwide."
+        title: "Enamapppartone - First Step in App Development",
+        authorName: "Enamul Huq",
+        date: "Oct 17, 2025",
+        comments: 1,
+        description: "Universities are adapting to new technologies and changing the traditional educational landscape to meet students' needs."
+           
     },
-    {
+    /*{
         id: 24,
         badge: "University",
         image: blogImg6,
@@ -253,6 +255,8 @@ const blogData: IBlog[] = [
         date: "Dec 25, 2024",
         comments: 12,
         description: "Universities are adapting to new technologies and changing the traditional educational landscape to meet students' needs."
+     
+        
     },
     {
         id: 25,
@@ -322,7 +326,7 @@ const blogData: IBlog[] = [
         authorName: "Kevin Brown",
         date: "September 25, 2024",
         description: "Online learning has transformed education by providing accessibility and flexibility to learners worldwide."
-    },
+    },*/
     {
         id: 32,
         image: blogImg5,
@@ -378,7 +382,7 @@ const blogData: IBlog[] = [
         date: '20 May 2024',
         authorName: 'David William',
         comments: 0,
-        title: 'The Benefits of Play-Based Learning in Kindergarten',
+        title: 'Blog post 1',
         description: 'As children play together, they learn to get along with one another, cooperate, communicate effectively.',
         image: blogImg19,
     },
@@ -387,34 +391,40 @@ const blogData: IBlog[] = [
         date: '05 Aug 2024',
         authorName: 'Josheph',
         comments: 0,
-        title: 'Exploring Nature How Outdoor Play & Learning',
+        title: 'Blog post 2',
         description: 'This unrestricted play encourages problem-solving skills and critical thinking as children navigate the challenges.',
         image: blogImg20,
+        isPublished: false
     },
     //quran learning blog data start
     {
         id: 40,
         image: blogImg21,
         badge: "Islamic Knowledge",
-        title: "The Wisdom of Patience in Islam",
+        title: "blog post 3",
         authorName: "Imam Hassan",
-        date: "March 12, 2024"
+        date: "March 12, 2024",
+        isPublished: false
+
     },
     {
         id: 41,
         image: blogImg22,
         badge: "Islamic Studies",
-        title: "Understanding The Five Pillars of Islam",
+        title: "blog post 4",
         authorName: "Aisha Zain",
-        date: "March 12, 2024"
+        date: "March 12, 2024",
+        isPublished: false
     },
     {
         id: 42,
         image: blogImg23,
         badge: "Spirituality",
-        title: "The Role of Compassion in Islam",
+        title: "blog post 5",
         authorName: "Ahmed Karim",
-        date: "April 5, 2024"
+        date: "April 5, 2024",
+        isPublished: false
     }
 ];
+
 export default blogData;
