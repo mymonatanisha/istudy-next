@@ -3,7 +3,14 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
-const shortsData = [
+interface Short {
+  id: string;
+  title: string;
+  thumbnail: string;
+  link: string;
+}
+
+const shortsData: Short[] = [
   { id: "short1", title: "What Is Android? | Basic Level", thumbnail: "/assets/images/shorts/short1.webp", link: "https://www.youtube.com/shorts/MLZrTzsIJ6I" },
   { id: "short2", title: "What Is an Activity in Android? | Basic Level", thumbnail: "/assets/images/shorts/short2.webp", link: "https://www.youtube.com/shorts/XzyquUUDuPk" },
   { id: "short3", title: "Android Activity Lifecycle Explained with a Stage Actor | Basic Level", thumbnail: "/assets/images/shorts/short3.webp", link: "https://www.youtube.com/shorts/etbvw3wxhsU" },
@@ -32,7 +39,7 @@ function getYouTubeShortsEmbedUrl(url: string) {
 }
 
 const ShortsCarousel = () => {
-  const [modalShort, setModalShort] = useState<any>(null);
+  const [modalShort, setModalShort] = useState<Short | null>(null);
 
   return (
     <section className="shorts-carousel-area section-space">
