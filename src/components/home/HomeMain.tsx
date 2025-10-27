@@ -13,6 +13,7 @@ import HomeFaqArea from './HomeFaqArea';
 //import DashboardDemoArea from './DashboardDemoArea';
 import VideoCarousel from "@/components/home/VideoCarousel";
 import ShortsCarousel from "@/components/home/ShortsCarousel";
+import JokeGenerator from "@/components/common/joke-generator/JokeGenerator";
 
 
 const HomeMain = () => {
@@ -39,6 +40,7 @@ const HomeMain = () => {
             { /*<DemoGridSection />*/}
             { /*<DashboardDemoArea/>*/}
             <VideoCarousel />
+            <JokeGenerator />
             <CoursePageDemo />
             <ShortsCarousel />
             { /*<InnerPageShowcasesArea />*/}
