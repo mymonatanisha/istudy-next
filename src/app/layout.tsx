@@ -1,4 +1,3 @@
-import { Roboto, Big_Shoulders_Display } from "next/font/google";
 import "./globals.scss";
 import "swiper/css/bundle";
 import "react-photo-view/dist/react-photo-view.css";
@@ -10,20 +9,6 @@ import ReduxProvider from "@/redux/provider";
 import { VideoProvider } from "@/contextApi/VideoProvider";
 import GlobalVideoModal from "@/components/common/popup/GlobalVideoModal";
 import { Metadata } from "next";
-
-// Load Roboto font
-const roboto = Roboto({
-  variable: "--font-roboto",
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "500", "700", "900"],
-});
-
-// Load Big Shoulders Display font
-const bigShoulders = Big_Shoulders_Display({
-  variable: "--font-big-shoulders",
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
 
 export const metadata: Metadata = {
   title: "Project base App Development Course",
@@ -40,7 +25,7 @@ export default function RootLayout({
       <head>
            <meta name="robots" content="index" />
       </head>
-      <body suppressHydrationWarning className={`body-bg ${roboto.variable} ${bigShoulders.variable}`}>
+      <body suppressHydrationWarning className="body-bg" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
         <VideoProvider>
           <ReduxProvider>
             <AppProvider>

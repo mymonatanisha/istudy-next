@@ -3,6 +3,7 @@ import { configureStore as configureStoreRTK } from "@reduxjs/toolkit";
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST,PURGE,REGISTER,Persistor} from "redux-persist";
 import { cartSlice } from "./slices/cartSlice";
 import { wishlistSlice } from "./slices/wishlistSlice";
+import { imageUploadSlice } from "./slices/imageUploadSlice";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 
 const createNoopStorage = () => {
@@ -35,6 +36,7 @@ const persistedReducer = persistReducer(
   combineReducers({
     cart: cartSlice.reducer,
     wishlist: wishlistSlice.reducer,
+    imageUpload: imageUploadSlice.reducer,
   })
 );
 

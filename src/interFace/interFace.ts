@@ -451,5 +451,22 @@ interface IEventType {
   date: string;
 }
 
+// Interface for image upload with checkbox functionality
+export interface IImageUploadItem {
+  id: string;
+  checkboxChecked: boolean;
+  imageSrc: string | null;
+  imageFile: File | null;
+  uploadedAt: string;
+}
+
+// Interface for image upload form props
+export interface IImageUploadFormProps {
+  onUpload?: (item: IImageUploadItem) => void;
+  allowMultiple?: boolean;
+  checkboxLabel?: string;
+  uploadButtonText?: string;
+}
+
 
 
