@@ -1,11 +1,9 @@
-import { Roboto, Big_Shoulders_Display } from "next/font/google";
 import "./globals.scss";
 import "swiper/css/bundle";
 import "react-photo-view/dist/react-photo-view.css";
 import "nouislider/dist/nouislider.css";
 import "react-circular-progressbar/dist/styles.css";
 import AppProvider from "@/contextApi/AppProvider";
-import { Toaster } from "sonner";
 import ReduxProvider from "@/redux/provider";
 import { VideoProvider } from "@/contextApi/VideoProvider";
 import GlobalVideoModal from "@/components/common/popup/GlobalVideoModal";
@@ -13,20 +11,6 @@ import { Metadata } from "next";
 import React from 'react';
 import Script from 'next/script';
 import Analytics from '@/components/common/Analytics';
-
-// Load Roboto font
-const roboto = Roboto({
-  variable: "--font-roboto",
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "500", "700", "900"],
-});
-
-// Load Big Shoulders Display font
-const bigShoulders = Big_Shoulders_Display({
-  variable: "--font-big-shoulders",
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
 
 export const metadata: Metadata = {
   title: "Project base App Development Course",

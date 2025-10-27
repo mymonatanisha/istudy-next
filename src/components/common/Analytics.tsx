@@ -7,7 +7,7 @@ export default function Analytics() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const gtag = (window as any).gtag;
+    const gtag = (window as Window & typeof globalThis & { gtag?: (...args: unknown[]) => void }).gtag;
     if (typeof gtag === "function") {
       gtag("event", "page_view", {
         page_path: pathname,
