@@ -38,7 +38,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <meta name="robots" content="index" />
         {GA_ID && (
           <>
             <Script
@@ -55,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Script>
           </>
         )}
+        <meta name="robots" content="index" />
       </head>
       <body suppressHydrationWarning>
         <VideoProvider>
