@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 
 interface FormValues {
     studentFirstName: string;
-    studentLastName: string;
+  //  studentLastName: string;
     studentUserName: string;
     studentPhoneNumber: string;
     studentSkill?: string;
@@ -32,7 +32,7 @@ const StudentForm = () => {
                             <input
                                 {...register("studentFirstName", { required: "First Name is required" })}
                                 type="text"
-                                placeholder="First Name"
+                                placeholder="Full Name"
                             />
                             <ErrorMsg error={errors?.studentFirstName?.message} />
                         </div>
@@ -40,12 +40,7 @@ const StudentForm = () => {
 
                     <div className="col-lg-6">
                         <div className="form-group">
-                            <input
-                                {...register("studentLastName", { required: "Last Name is required" })}
-                                type="text"
-                                placeholder="Last Name"
-                            />
-                            <ErrorMsg error={errors?.studentLastName?.message} />
+                           
                         </div>
                     </div>
 

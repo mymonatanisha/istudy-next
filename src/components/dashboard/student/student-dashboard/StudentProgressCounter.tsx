@@ -3,12 +3,12 @@ import { ICounterItem } from "@/interFace/dashboard-interface";
 import React from "react";
 
 const counterData: ICounterItem[] = [
-    { icon: "fa-solid fa-book-open", count: 15, text: "Total Courses Taken" },
-    { icon: "fa-solid fa-user-check", count: 11, text: "Courses Enrolled" },
-    { icon: "fa-solid fa-book-reader", count: 9, text: "Active Courses" },
-    { icon: "fa-solid fa-check-circle", count: 95, text: "Courses Completed", symbol: "+" },
-    { icon: "fa-solid fa-users", count: 595, text: "Total Students in Courses", symbol: "+" },
-    { icon: "fa-solid fa-wallet", count: 95, text: "Total Fees Paid", symbol: "$" },
+    { icon: "fa-solid fa-book-open", count: 1, text: "Total Courses Taken" },
+    { icon: "fa-solid fa-user-check", count: 1, text: "Courses Enrolled" },
+    { icon: "fa-solid fa-book-reader", count: 1, text: "Active Courses" },
+   // { icon: "fa-solid fa-check-circle", count: 95, text: "Courses Completed", symbol: "+" },
+   // { icon: "fa-solid fa-users", count: 595, text: "Total Students in Courses", symbol: "+" },
+  //  { icon: "fa-solid fa-wallet", count: 95, text: "Total Fees Paid", symbol: "$" },
 ];
 
 const StudentProgressCounter: React.FC = () => {

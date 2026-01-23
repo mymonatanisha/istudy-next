@@ -1,11 +1,11 @@
 "use client"
 import { RootState } from '@/redux/store';
 import Link from 'next/link';
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const CardCheckout = () => {
-    const [shippingCost, setShippingCost] = useState(0);
+   // const [shippingCost, setShippingCost] = useState(0);
     const cartProducts = useSelector(
         (state: RootState) => state.cart.cartProducts
     );
@@ -22,7 +22,7 @@ const CardCheckout = () => {
                     <span className="bd-cart-checkout-top-title">Subtotal</span>
                     <span className="bd-cart-checkout-top-price">${totalPrice.toFixed(2)}</span>
                 </div>
-                <div className="bd-cart-checkout-shipping">
+             {/*   <div className="bd-cart-checkout-shipping">
                     <h4 className="bd-cart-checkout-shipping-title">Shipping</h4>
                     <div className="bd-cart-checkout-shipping-option-wrapper">
                         <div className="bd-cart-checkout-shipping-option">
@@ -38,10 +38,10 @@ const CardCheckout = () => {
                             <label htmlFor="free_shipping">Free shipping</label>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="bd-cart-checkout-total d-flex align-items-center justify-content-between">
                     <span>Total</span>
-                    <span>${(totalPrice + shippingCost).toFixed(2)}</span>
+                    <span>${(totalPrice ).toFixed(2)}</span>
                 </div>
                 <div className="bd-cart-checkout-proceed text-center">
                     <Link className="bd-btn btn-primary" href="/checkout"><span className="text">Proceed to

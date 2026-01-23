@@ -22,17 +22,11 @@ const StudentProfileMain = () => {
                                     <td>December 25, 2024 12:30pm</td>
                                 </tr>
                                 <tr>
-                                    <th>First Name</th>
+                                    <th>Full Name</th>
                                     <td>Sarah A.</td>
                                 </tr>
-                                <tr>
-                                    <th>Last Name</th>
-                                    <td>Janney</td>
-                                </tr>
-                                <tr>
-                                    <th>Username</th>
-                                    <td>janneysarah</td>
-                                </tr>
+                               
+                                
                                 <tr>
                                     <th>Email</th>
                                     <td>info@gamil.com</td>
@@ -42,16 +36,10 @@ const StudentProfileMain = () => {
                                     <td>+967 019 2425 990</td>
                                 </tr>
                                 <tr>
-                                    <th>Occupation/Skill</th>
-                                    <td>Application Developer</td>
+                                    <th>LinkedIn Profile link</th>
+                                    <td>&nbsp;</td>
                                 </tr>
-                                <tr>
-                                    <th>Biography</th>
-                                    <td>Hello! {`I'm`} Sarah A. Janney, a 24-year-old web developer and student
-                                        with a passion for creating digital experiences. Currently pursuing
-                                        a degree in web development at Hatharvard University, I am
-                                        enthusiastic about all things web development.</td>
-                                </tr>
+                               
                             </tbody>
                         </table>
                     </div>
