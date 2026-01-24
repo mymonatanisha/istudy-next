@@ -1,6 +1,9 @@
 /**
  * Server-side helper to fetch YouTube playlist items using YouTube Data API v3
  * This runs only on the server and keeps the API key secure
+ * 
+ * SETUP: To enable this feature, add YT_API_KEY to your .env.local file
+ * See .env.example for the required environment variable format
  */
 
 import { PlaylistVideo } from '@/types/youtube';
