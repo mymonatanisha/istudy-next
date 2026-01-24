@@ -8,7 +8,7 @@ import SidebarMenu from '../sidebar/SidebarMenu';
 import CommonHeaderMainMenu from './component/MainMenu';
 import useGlobalContext from '@/hooks/useContexts';
 import useCart from '@/hooks/useCart';
-import SelerAccountForm from '@/form/SelerAccountForm';
+import HeaderAuthClient from '@/components/auth/HeaderAuthClient';
 
 const HeaderFour = () => {
     const { scrollDirection, toggleSidebarMenu } = useGlobalContext();
@@ -44,18 +44,8 @@ const HeaderFour = () => {
                                             Become A Seller</Link>
                                     </div>
                                     <div className="bd-header-meta">
-                                        <div className="bd-user-dropdown">
-                                            <button className="meta-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i className="fa-solid fa-user"></i></button>
-                                            <div className="dropdown-menu">
-                                                <div className="bd-dropdown-login-form">
-                                                    <div className="bd-dropdown-login-head">
-                                                        <h6 className="title">Sign in</h6>
-                                                        <span className="new-link underline">
-                                                            <Link href="/sign-up">Create an Account</Link></span>
-                                                    </div>
-                                                    <SelerAccountForm />
-                                                </div>
-                                            </div>
+                                        <div className="bd-header-sign-btn">
+                                            <HeaderAuthClient />
                                         </div>
                                         <button onClick={()=> setOpenCart(true)} className="cartmini-open-btn meta-icon" type="button"><i
                                             className="fa-regular fa-cart-shopping"></i>

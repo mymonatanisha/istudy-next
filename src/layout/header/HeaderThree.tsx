@@ -9,6 +9,7 @@ import UniversityHeaderMenu from './component/UniversityHeaderMenu';
 import UniversitySidebar from '../sidebar/UniversitySidebar';
 import useGlobalContext from '@/hooks/useContexts';
 import useCart from '@/hooks/useCart';
+import HeaderAuthClient from '@/components/auth/HeaderAuthClient';
 
 const HeaderThree = () => {
     const { toggleSidebarMenu, scrollDirection } = useGlobalContext();
@@ -62,8 +63,7 @@ const HeaderThree = () => {
                                         className="fa-regular fa-cart-shopping"></i><span className="item-number">{TotalCartQuantity}</span></button>
                                 </div>
                                 <div className="bd-header-sign-btn">
-                                    <div className="underline"><Link className="bd-btn-text text-primary" href="/sign-in">ERP Login</Link></div>
-                                    <Link className="bd-btn btn-outline-border-primary h-40px" href="/apply-online">Apply</Link>
+                                    <HeaderAuthClient />
                                 </div>
                                 <div className="bd-header-hamburger">
                                     <div className="sidebar-toggle">

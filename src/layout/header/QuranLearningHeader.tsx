@@ -10,6 +10,7 @@ import SidebarCart from '@/components/common/sidebar-cart/SidebarCart';
 import SidebarMenu from '../sidebar/SidebarMenu';
 import useGlobalContext from '@/hooks/useContexts';
 import useCart from '@/hooks/useCart';
+import HeaderAuthClient from '@/components/auth/HeaderAuthClient';
 
 const QuranLearningHeader = () => {
     const { scrollDirection, toggleSidebarMenu } = useGlobalContext();
@@ -54,7 +55,7 @@ const QuranLearningHeader = () => {
                                         className="fa-regular fa-cart-shopping"></i><span className="item-number">{TotalCartQuantity}</span></button>
                                 </div>
                                 <div className="bd-header-sign-btn">
-                                    <Link className="bd-btn btn-outline-border-secondary h-40px" href="/courses-list-two">Find Courses</Link>
+                                    <HeaderAuthClient />
                                 </div>
                                 <div className="bd-header-hamburger">
                                     <div className="sidebar-toggle">
