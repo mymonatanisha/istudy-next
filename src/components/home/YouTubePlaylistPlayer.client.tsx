@@ -3,13 +3,7 @@
 import React, { useState, useRef } from "react";
 import YouTube, { YouTubeProps, YouTubePlayer } from "react-youtube";
 import Image from "next/image";
-
-export interface PlaylistVideo {
-  videoId: string;
-  title: string;
-  thumbnail: string;
-  publishedAt: string;
-}
+import { PlaylistVideo } from "@/types/youtube";
 
 interface YouTubePlaylistPlayerProps {
   playlistVideos: PlaylistVideo[];

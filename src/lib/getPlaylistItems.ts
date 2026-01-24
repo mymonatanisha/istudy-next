@@ -3,12 +3,7 @@
  * This runs only on the server and keeps the API key secure
  */
 
-export interface PlaylistVideo {
-  videoId: string;
-  title: string;
-  thumbnail: string;
-  publishedAt: string;
-}
+import { PlaylistVideo } from '@/types/youtube';
 
 /**
  * Fetches playlist items from YouTube Data API v3
