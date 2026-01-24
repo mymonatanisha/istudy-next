@@ -2,7 +2,39 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20.x
+- PostgreSQL database
+- npm or yarn package manager
+
+### Environment Setup
+
+1. Copy the `.env.example` file to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Update the environment variables in `.env` with your actual values:
+   - `DATABASE_URL`: Your PostgreSQL connection string
+   - `JWT_SECRET`: A secure random string for JWT token signing
+   - `NEXT_PUBLIC_BASE_URL`: Your application URL
+
+### Local Development
+
+First, install dependencies:
+
+```bash
+npm install
+```
+
+Then, run the Prisma migrations to set up your database:
+
+```bash
+npx prisma migrate dev
+```
+
+Finally, run the development server:
 
 ```bash
 npm run dev
@@ -34,3 +66,104 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Deploy on Heroku
+
+### Prerequisites
+
+- [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed
+- Heroku account
+
+### Deployment Steps
+
+1. **Login to Heroku:**
+   ```bash
+   heroku login
+   ```
+
+2. **Create a new Heroku app (or use existing):**
+   ```bash
+   heroku create your-app-name
+   ```
+
+3. **Add PostgreSQL database:**
+   ```bash
+   heroku addons:create heroku-postgresql:mini
+   ```
+   
+   This will automatically set the `DATABASE_URL` environment variable.
+
+4. **Set required environment variables:**
+   ```bash
+   heroku config:set JWT_SECRET="your-secure-random-string"
+   heroku config:set NEXT_PUBLIC_BASE_URL="https://your-app-name.herokuapp.com"
+   heroku config:set NODE_ENV="production"
+   ```
+   
+   Generate a secure JWT secret:
+   ```bash
+   # On Linux/Mac:
+   openssl rand -base64 32
+   ```
+
+5. **Deploy to Heroku:**
+   ```bash
+   git push heroku main
+   ```
+   
+   Or if you're on a different branch:
+   ```bash
+   git push heroku your-branch:main
+   ```
+
+6. **Verify deployment:**
+   ```bash
+   heroku logs --tail
+   heroku open
+   ```
+
+### Heroku Configuration
+
+The app uses the following Heroku configuration files:
+
+- **Procfile**: Defines the web process and release command
+  - `web`: Starts the Next.js production server
+  - `release`: Runs database migrations before each deployment
+
+- **package.json engines**: Specifies Node.js version
+  ```json
+  {
+    "engines": {
+      "node": "20.x"
+    }
+  }
+  ```
+
+- **heroku-postbuild script**: Runs after dependencies are installed
+  - Generates Prisma Client
+  - Deploys database migrations
+  - Builds the Next.js application
+
+### Troubleshooting
+
+**Database Connection Issues:**
+- Verify DATABASE_URL is set: `heroku config:get DATABASE_URL`
+- Check Heroku logs: `heroku logs --tail`
+
+**Build Failures:**
+- Ensure all dependencies are in `dependencies` (not `devDependencies`)
+- TypeScript and Prisma CLI are in `devDependencies` (correct for this setup)
+
+**Migration Issues:**
+- Check migration status: `heroku run npx prisma migrate status`
+- View database: `heroku pg:psql`
+
+**Environment Variables:**
+- List all config vars: `heroku config`
+- Update a variable: `heroku config:set VAR_NAME=value`
+
+### Important Notes
+
+- The app uses Node.js 20.x (specified in package.json engines)
+- Database migrations run automatically during deployment via the Procfile release phase
+- Next.js config is now in JavaScript (next.config.js) to avoid TypeScript compilation issues in production
