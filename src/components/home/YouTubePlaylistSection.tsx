@@ -24,10 +24,7 @@ const YouTubePlaylistSection = async () => {
 
         {playlistVideos && playlistVideos.length > 0 ? (
           // Render client player with server-fetched data
-          <YouTubePlaylistPlayer
-            playlistVideos={playlistVideos}
-            playlistId={PLAYLIST_ID}
-          />
+          <YouTubePlaylistPlayer playlistVideos={playlistVideos} />
         ) : (
           // Fallback: iframe embed if API key not available
           <div className="playlist-fallback">

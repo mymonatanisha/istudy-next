@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import YouTube, { YouTubeProps, YouTubePlayer } from "react-youtube";
 import Image from "next/image";
 
@@ -13,12 +13,10 @@ export interface PlaylistVideo {
 
 interface YouTubePlaylistPlayerProps {
   playlistVideos: PlaylistVideo[];
-  playlistId: string;
 }
 
 const YouTubePlaylistPlayer: React.FC<YouTubePlaylistPlayerProps> = ({
   playlistVideos,
-  playlistId,
 }) => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [player, setPlayer] = useState<YouTubePlayer | null>(null);
@@ -151,7 +149,7 @@ const YouTubePlaylistPlayer: React.FC<YouTubePlaylistPlayerProps> = ({
           </div>
           
           <div className="thumbnail-list" ref={thumbnailListRef}>
-            {filteredVideos.map((video, index) => {
+            {filteredVideos.map((video) => {
               const actualIndex = playlistVideos.findIndex(
                 (v) => v.videoId === video.videoId
               );
@@ -195,7 +193,7 @@ const YouTubePlaylistPlayer: React.FC<YouTubePlaylistPlayerProps> = ({
           
           {filteredVideos.length === 0 && (
             <div className="no-results">
-              <p>No videos found matching "{searchQuery}"</p>
+              <p>No videos found matching &quot;{searchQuery}&quot;</p>
             </div>
           )}
         </div>

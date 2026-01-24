@@ -52,7 +52,9 @@ export async function getPlaylistItems(
 
     // Map the response to our interface
     const videos: PlaylistVideo[] = data.items
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .filter((item: any) => item.snippet?.resourceId?.videoId) // Filter out deleted videos
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .map((item: any) => ({
         videoId: item.snippet.resourceId.videoId,
         title: item.snippet.title,
