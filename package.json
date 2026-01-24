@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "postinstall": "npm rebuild sharp",
-    "heroku-postbuild": "prisma generate && next build",
+    "heroku-postbuild": "prisma generate && prisma migrate deploy && next build",
     "start": "next start -p $PORT",
     "clean": "rm -rf package-lock.json .next yarn.lock node_modules && yarn install",
     "lint": "next lint"
