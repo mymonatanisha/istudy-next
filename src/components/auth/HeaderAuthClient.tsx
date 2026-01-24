@@ -32,19 +32,25 @@ export default function HeaderAuthClient() {
 
   if (!email) {
     return (
-      <div style={{ display: "flex", gap: 12 }}>
-        <Link href="/sign-in" className="btn btn-outline">Login</Link>
-        <Link href="/sign-up" className="btn btn-primary">Register</Link>
-      </div>
+      <>
+        <Link className="bd-btn btn-outline-primary h-40px" href="/sign-in">Login</Link>
+        <Link className="bd-btn btn-outline-border-primary h-40px" href="/sign-up">Register</Link>
+      </>
     );
   }
 
   return (
-    <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-      <span>Hi, {email}</span>
-      <Link href="/student-dashboard" className="btn btn-outline">Dashboard</Link>
-      <form action="/api/auth/logout" method="post">
-        <button type="submit" className="btn btn-secondary">Logout</button>
+    <div className="bd-header-user-info" style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+      <span className="user-email" style={{ color: "var(--bd-text-color)", fontSize: "14px" }}>
+        Hi, {email}
+      </span>
+      <Link className="bd-btn btn-outline-primary h-40px" href="/student-dashboard">
+        Dashboard
+      </Link>
+      <form action="/api/auth/logout" method="post" style={{ margin: 0 }}>
+        <button type="submit" className="bd-btn btn-outline-border-primary h-40px">
+          Logout
+        </button>
       </form>
     </div>
   );

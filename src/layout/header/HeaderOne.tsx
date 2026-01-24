@@ -5,6 +5,7 @@ import Link from 'next/link';
 import SidebarMenu from '../sidebar/SidebarMenu';
 import CommonHeaderMainMenu from './component/MainMenu';
 import useGlobalContext from '@/hooks/useContexts';
+import HeaderAuthClient from '@/components/auth/HeaderAuthClient';
 
 const HeaderOne = () => {
     const { scrollDirection, toggleSidebarMenu } = useGlobalContext();
@@ -28,11 +29,7 @@ const HeaderOne = () => {
                         </div>
                         <div className="bd-header-right">
                             <div className="bd-header-sign-btn">
-                                <Link className="bd-btn bd-marquee-btn marquee-text-auto" href="https://enamnotes.com" target="_blank">
-                                    <span data-text="Join Free">
-                                        Join Free
-                                    </span>
-                                </Link>
+                                <HeaderAuthClient />
                             </div>
                             <div className="bd-header-hamburger">
                                 <div className="sidebar-toggle">
