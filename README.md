@@ -67,60 +67,73 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-## Deploy on Heroku
+## Deployment to Heroku
 
 ### Prerequisites
 
-- [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed
-- Heroku account
+- Heroku CLI installed
+- Git repository connected to Heroku
 
-### Deployment Steps
+### Setup Steps
 
-1. **Login to Heroku:**
-   ```bash
-   heroku login
-   ```
-
-2. **Create a new Heroku app (or use existing):**
+1. **Create a Heroku app:**
    ```bash
    heroku create your-app-name
    ```
 
-3. **Add PostgreSQL database:**
+2. **Add PostgreSQL database:**
    ```bash
-   heroku addons:create heroku-postgresql:mini
+   heroku addons:create heroku-postgresql:essential-0 -a your-app-name
    ```
-   
-   This will automatically set the `DATABASE_URL` environment variable.
+   This automatically sets the `DATABASE_URL` environment variable.
 
-4. **Set required environment variables:**
+3. **Set required environment variables:**
    ```bash
-   heroku config:set JWT_SECRET="your-secure-random-string"
-   heroku config:set NEXT_PUBLIC_BASE_URL="https://your-app-name.herokuapp.com"
-   heroku config:set NODE_ENV="production"
-   ```
+   # Generate a secure JWT secret
+   heroku config:set JWT_SECRET="$(openssl rand -base64 32)" -a your-app-name
    
-   Generate a secure JWT secret:
-   ```bash
-   # On Linux/Mac:
-   openssl rand -base64 32
+   # Set Node environment
+   heroku config:set NODE_ENV="production" -a your-app-name
    ```
 
-5. **Deploy to Heroku:**
+4. **Deploy the app:**
    ```bash
    git push heroku main
    ```
-   
-   Or if you're on a different branch:
+
+5. **Verify deployment:**
    ```bash
-   git push heroku your-branch:main
+   heroku logs --tail -a your-app-name
    ```
 
-6. **Verify deployment:**
-   ```bash
-   heroku logs --tail
-   heroku open
-   ```
+### Database Management
+
+**Run migrations manually (if needed):**
+```bash
+heroku run npx prisma migrate deploy -a your-app-name
+```
+
+**Access PostgreSQL console:**
+```bash
+heroku pg:psql -a your-app-name
+```
+
+**View database data:**
+```sql
+SELECT * FROM "User";
+```
+
+### Environment Variables
+
+View all config vars:
+```bash
+heroku config -a your-app-name
+```
+
+Required variables:
+- `DATABASE_URL` - PostgreSQL connection string (auto-set by addon)
+- `JWT_SECRET` - Secret key for JWT token signing (must set manually)
+- `NODE_ENV` - Set to "production" for secure cookies
 
 ### Heroku Configuration
 
