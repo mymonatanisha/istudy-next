@@ -10,15 +10,27 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ### Environment Setup
 
-1. Copy the `.env.example` file to `.env`:
+1. Copy the `.env.example` file to `.env.local` (recommended) or `.env`:
    ```bash
-   cp .env.example .env
+   cp .env.example .env.local
    ```
+   
+   > **Note:** `.env.local` is preferred for local development as it's automatically git-ignored and won't be accidentally committed.
 
-2. Update the environment variables in `.env` with your actual values:
+2. Update the environment variables in `.env.local` with your actual values:
    - `DATABASE_URL`: Your PostgreSQL connection string
    - `JWT_SECRET`: A secure random string for JWT token signing
-   - `NEXT_PUBLIC_BASE_URL`: Your application URL
+   - `NEXT_PUBLIC_BASE_URL`: Your application URL (usually `http://localhost:3000` for local dev)
+   - `YT_API_KEY` (optional): YouTube Data API v3 key for enhanced playlist features
+
+3. **YouTube Playlist Feature** (Optional):
+   - Without a YouTube API key, the playlist will show in basic iframe mode
+   - To enable the full interactive player with thumbnails and search:
+     1. Get an API key from [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+     2. Enable the YouTube Data API v3 for your project
+     3. Add the key to `YT_API_KEY` in your `.env.local` file
+     4. **Security:** Consider restricting the API key to YouTube Data API v3 only
+   - **Important:** Restart your dev server after adding/changing environment variables
 
 ### Local Development
 
