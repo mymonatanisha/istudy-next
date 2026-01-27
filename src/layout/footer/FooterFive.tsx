@@ -98,7 +98,7 @@ const FooterFive = () => {
                         <div className="row justify-content-center">
                             <div className="col-lg-8">
                                 <div className="bd-footer-copyright text-center">
-                                    <p className="underline">© Copyright <span>{getCurrentYear()}</span> Developed By iStudy</p>
+                                    <p className="underline">© Copyright <span>{getCurrentYear()}</span> Developed By Enamnotes</p>
                                 </div>
                             </div>
                         </div>
