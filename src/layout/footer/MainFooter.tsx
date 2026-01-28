@@ -67,13 +67,16 @@ const MainFooter = ({ children }: MainFooterProps) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <h6 className="bd-footer-widget-title mb-20">Download App</h6>
+                                    {/* --- HIDDEN DOWNLOAD SECTION START --- */}
+                                    {/* <h6 className="bd-footer-widget-title mb-20">Download App</h6>
                                     <div className="bd-footer-from-content">
                                         <div className="bd-footer-app-btn d-flex align-items-center gap-15">
-                                            <Link className="bd-app-btn" href="#"><Image src={playStore} style={{ width: "100%", height: "auto" }} alt="play-store" /></Link>
-                                            <Link className="bd-app-btn" href="#"><Image src={appStore} style={{ width: "100%", height: "auto" }} alt="app-store" /></Link>
+                                            <Link className="bd-app-btn" href="#"><Image src={playStore} style={{width:"100%", height:"auto"}} alt="play-store" /></Link>
+                                            <Link className="bd-app-btn" href="#"><Image src={appStore} style={{width:"100%", height:"auto"}} alt="app-store" /></Link>
                                         </div>
-                                    </div>
+                                    </div> 
+                                    */}
+                                    {/* --- HIDDEN DOWNLOAD SECTION END --- */}
                                 </div>
                             </div>
                         </div>
