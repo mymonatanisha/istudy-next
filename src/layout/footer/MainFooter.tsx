@@ -84,7 +84,7 @@ const MainFooter = ({ children }: MainFooterProps) => {
                         <div className="row gy-10 align-items-center justify-content-lg-between justify-content-center">
                             <div className="col-xxl-4 col-xl-5 col-lg-5 col-md-8">
                                 <div className="bd-footer-copyright text-lg-start text-center">
-                                    <p className="underline">© Copyright <span>{getCurrentYear()}</span> | Developed By enamnotes</p>
+                                    <p className="underline">© Copyright <span>{getCurrentYear()}</span> | Developed By Enamnotes</p>
                                 </div>
                             </div>
                             <div className="col-xxl-5 col-xl-7 col-lg-7 col-md-12">
