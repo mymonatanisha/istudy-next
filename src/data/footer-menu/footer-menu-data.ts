@@ -43,7 +43,7 @@ export const UniversityFooterMenuLinks = [
     spacingClass: 'footer-1-col-2',
     links: [
       { name: 'About Us', href: '/under-maintenance' },
-      { name: 'Our Programs', href: '/courses' },
+      { name: 'Our Courses', href: '/courses' },
       //{ name: 'Events', href: '/event' },
       //{ name: 'Faculty Members', href: '/faculty-members' },
       //{ name: 'Faculty Details', href: '/instructor/instructor-details' },
@@ -55,7 +55,7 @@ export const UniversityFooterMenuLinks = [
     spacingClass: 'footer-1-col-3',
     links: [
       { name: 'Contact Us', href: '/contact-us' },
-      { name: 'Latest News', href: '/blog-grid' },
+     //  { name: 'Latest News', href: '/blog-grid' },
       { name: 'FAQ’s', href: '/under-maintenance' },
      // { name: 'Gallery', href: '/gallery' },
       //{ name: 'Vision & Mission', href: '/mvs' },
@@ -96,9 +96,9 @@ export const ShopFooterMenuLinks = [
       spacingClass: "footer-5-col-2",
       links: [
         { name: 'About Us', href: '/about-online-course' },
-        { name: 'Latest News', href: '/blog' },
+       // { name: 'Latest News', href: '/blog' },
         { name: 'Shop', href: '/shop' },
-        { name: 'Pricing Table', href: '/pricing-table' },
+    //    { name: 'Pricing Table', href: '/pricing-table' },
         { name: 'Events', href: '/event' },
       ],
     },
@@ -133,7 +133,7 @@ export const CommonFooterMenuLinks = [
     spacingClass: 'footer-1-col-2',
     links: [
       { name: 'About Us', href: '/about-university' },
-      { name: 'Our Programs', href: '/courses' },
+      { name: 'Our Courses', href: '/courses' },
      // { name: 'Events', href: '/event' },
       //{ name: 'Instructor', href: '/instructor' },
       //{ name: 'Instructor Details', href: '/instructor/instructor-details' },
@@ -145,7 +145,7 @@ export const CommonFooterMenuLinks = [
     spacingClass: 'footer-1-col-3',
     links: [
       { name: 'Contact Us', href: '/contact-us' },
-      { name: 'Latest News', href: '/blog' },
+    //  { name: 'Latest News', href: '/blog' },
       { name: 'FAQ’s', href: '/faq' },
       //{ name: 'Gallery', href: '/gallery' },
       //{ name: 'Vision & Mission', href: '/mvs' },
