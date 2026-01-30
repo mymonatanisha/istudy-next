@@ -1,0 +1,132 @@
+-- EnamNotes core schema (PostgreSQL)
+-- Includes users, courses (with modules/lessons), enrollments, and orders.
+
+CREATE TYPE IF NOT EXISTS user_role AS ENUM ('STUDENT', 'INSTRUCTOR', 'ADMIN');
+CREATE TYPE IF NOT EXISTS course_level AS ENUM ('BEGINNER', 'INTERMEDIATE', 'ADVANCED');
+CREATE TYPE IF NOT EXISTS enrollment_status AS ENUM ('ENROLLED', 'COMPLETED', 'CANCELLED');
+CREATE TYPE IF NOT EXISTS order_status AS ENUM ('PENDING', 'PAID', 'FAILED', 'REFUNDED');
+
+CREATE TABLE IF NOT EXISTS "User" (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL UNIQUE,
+  passwordHash TEXT NOT NULL,
+  role user_role NOT NULL DEFAULT 'STUDENT',
+  resetToken TEXT UNIQUE,
+  resetTokenExpires TIMESTAMP(3),
+  createdAt TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS "UserProfile" (
+  userId INTEGER PRIMARY KEY REFERENCES "User"(id) ON DELETE CASCADE,
+  bio TEXT,
+  avatarUrl TEXT,
+  phone TEXT,
+  country TEXT,
+  city TEXT,
+  website TEXT,
+  facebook TEXT,
+  twitter TEXT,
+  linkedin TEXT,
+  youtube TEXT,
+  headline TEXT
+);
+
+CREATE TABLE IF NOT EXISTS "Note" (
+  id SERIAL PRIMARY KEY,
+  title TEXT NOT NULL,
+  content TEXT,
+  createdAt TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  userId INTEGER REFERENCES "User"(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS "CourseCategory" (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL UNIQUE,
+  slug TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS "CourseTag" (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL UNIQUE,
+  slug TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS "Course" (
+  id SERIAL PRIMARY KEY,
+  title TEXT NOT NULL,
+  slug TEXT NOT NULL UNIQUE,
+  description TEXT,
+  level course_level NOT NULL DEFAULT 'BEGINNER',
+  language TEXT,
+  price NUMERIC(10,2) NOT NULL DEFAULT 0,
+  isPublished BOOLEAN NOT NULL DEFAULT FALSE,
+  thumbnailUrl TEXT,
+  introVideoUrl TEXT,
+  categoryId INTEGER REFERENCES "CourseCategory"(id) ON DELETE SET NULL,
+  instructorId INTEGER NOT NULL REFERENCES "User"(id) ON DELETE CASCADE,
+  createdAt TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS "CourseTagOnCourse" (
+  courseId INTEGER NOT NULL REFERENCES "Course"(id) ON DELETE CASCADE,
+  tagId INTEGER NOT NULL REFERENCES "CourseTag"(id) ON DELETE CASCADE,
+  PRIMARY KEY (courseId, tagId)
+);
+
+CREATE TABLE IF NOT EXISTS "CourseModule" (
+  id SERIAL PRIMARY KEY,
+  courseId INTEGER NOT NULL REFERENCES "Course"(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,
+  orderIndex INTEGER NOT NULL DEFAULT 0,
+  createdAt TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS "CourseModule_courseId_orderIndex_idx" ON "CourseModule"(courseId, orderIndex);
+
+CREATE TABLE IF NOT EXISTS "Lesson" (
+  id SERIAL PRIMARY KEY,
+  courseModuleId INTEGER NOT NULL REFERENCES "CourseModule"(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,
+  slug TEXT NOT NULL,
+  content TEXT,
+  videoUrl TEXT,
+  durationMinutes INTEGER,
+  orderIndex INTEGER NOT NULL DEFAULT 0,
+  isPreview BOOLEAN NOT NULL DEFAULT FALSE,
+  createdAt TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE (courseModuleId, slug)
+);
+
+CREATE INDEX IF NOT EXISTS "Lesson_courseModuleId_orderIndex_idx" ON "Lesson"(courseModuleId, orderIndex);
+
+CREATE TABLE IF NOT EXISTS "Enrollment" (
+  id SERIAL PRIMARY KEY,
+  userId INTEGER NOT NULL REFERENCES "User"(id) ON DELETE CASCADE,
+  courseId INTEGER NOT NULL REFERENCES "Course"(id) ON DELETE CASCADE,
+  status enrollment_status NOT NULL DEFAULT 'ENROLLED',
+  progressPercent INTEGER NOT NULL DEFAULT 0,
+  enrolledAt TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE (userId, courseId)
+);
+
+CREATE INDEX IF NOT EXISTS "Enrollment_courseId_status_idx" ON "Enrollment"(courseId, status);
+
+CREATE TABLE IF NOT EXISTS "Order" (
+  id SERIAL PRIMARY KEY,
+  userId INTEGER NOT NULL REFERENCES "User"(id) ON DELETE CASCADE,
+  courseId INTEGER NOT NULL REFERENCES "Course"(id) ON DELETE CASCADE,
+  totalAmount NUMERIC(10,2) NOT NULL,
+  currency TEXT NOT NULL DEFAULT 'USD',
+  status order_status NOT NULL DEFAULT 'PENDING',
+  paymentProvider TEXT,
+  transactionId TEXT,
+  createdAt TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS "Order_userId_status_idx" ON "Order"(userId, status);
+CREATE INDEX IF NOT EXISTS "Order_courseId_idx" ON "Order"(courseId);
