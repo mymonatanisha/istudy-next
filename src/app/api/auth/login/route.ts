@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     const secret = process.env.JWT_SECRET;
     if (!secret) return NextResponse.json({ error: "JWT_SECRET is not set" }, { status: 500 });
 
-    const token = jwt.sign({ sub: user.id, email: user.email }, secret, { expiresIn: "7d" });
+    const token = jwt.sign({ sub: user.id, email: user.email, role: user.role }, secret, { expiresIn: "7d" });
     const res = NextResponse.json({ ok: true }, { status: 200 });
 
     const secure = process.env.NODE_ENV === "production";

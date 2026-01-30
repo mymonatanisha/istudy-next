@@ -1,17 +1,31 @@
 import CountUpContent from "@/components/common/counter/CountUpContent";
+import { prisma } from "@/lib/prisma";
+import { getAuthUser } from "@/lib/auth";
 import { ICounterItem } from "@/interFace/dashboard-interface";
 import React from "react";
 
-const counterData: ICounterItem[] = [
-    { icon: "fa-solid fa-book-open", count: 1, text: "Total Courses Taken" },
-    { icon: "fa-solid fa-user-check", count: 1, text: "Courses Enrolled" },
-    { icon: "fa-solid fa-book-reader", count: 1, text: "Active Courses" },
-   // { icon: "fa-solid fa-check-circle", count: 95, text: "Courses Completed", symbol: "+" },
-   // { icon: "fa-solid fa-users", count: 595, text: "Total Students in Courses", symbol: "+" },
-  //  { icon: "fa-solid fa-wallet", count: 95, text: "Total Fees Paid", symbol: "$" },
-];
+const StudentProgressCounter = async () => {
+    const auth = await getAuthUser();
+    if (!auth) {
+        return (
+            <div className="col-12">
+                <p className="text-center">Please sign in to see your progress.</p>
+            </div>
+        );
+    }
 
-const StudentProgressCounter: React.FC = () => {
+    const [totalEnrollments, completedEnrollments, activeEnrollments] = await Promise.all([
+        prisma.enrollment.count({ where: { userId: auth.id } }),
+        prisma.enrollment.count({ where: { userId: auth.id, status: "COMPLETED" } }),
+        prisma.enrollment.count({ where: { userId: auth.id, status: "ENROLLED" } }),
+    ]);
+
+    const counterData: ICounterItem[] = [
+        { icon: "fa-solid fa-book-open", count: completedEnrollments, text: "Total Courses Taken" },
+        { icon: "fa-solid fa-user-check", count: totalEnrollments, text: "Courses Enrolled" },
+        { icon: "fa-solid fa-book-reader", count: activeEnrollments, text: "Active Courses" },
+    ];
+
     return (
         <>
             {counterData.map((item, index) => (

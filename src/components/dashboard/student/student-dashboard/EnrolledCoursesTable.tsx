@@ -1,21 +1,47 @@
 import React from "react";
+import { prisma } from "@/lib/prisma";
+import { getAuthUser } from "@/lib/auth";
 
-type Course = {
-    name: string;
-    instructor: string;
-    startDate: string;
-    status: "Ongoing" | "Ongoing" | "Not yet started";
+const statusClass = (status: string) => {
+    if (status === "COMPLETED") return "badge-success";
+    if (status === "ENROLLED") return "badge-warning";
+    return "badge-danger";
 };
 
-const enrolledCourses: Course[] = [
-    { name: "Build apps with AI", instructor: "Enamul Huq", startDate: "----------------", status: "Not yet started" },
-  //  { name: "Advanced Python Programming", instructor: "Jane Smith", startDate: "15-08-2024", status: "Completed" },
-  //  { name: "Project Management Fundamentals", instructor: "Michael Brown", startDate: "20-09-2024", status: "Ongoing" },
-  //  { name: "Graphic Design Basics", instructor: "Emily Davis", startDate: "10-07-2024", status: "Completed" },
-  //  { name: "Digital Marketing 101", instructor: "Sarah Lee", startDate: "05-10-2024", status: "Ongoing" },
-];
+const formatDate = (date: Date) =>
+    new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "2-digit", year: "numeric" }).format(date);
 
-const EnrolledCoursesTable: React.FC = () => {
+const EnrolledCoursesTable = async () => {
+    const auth = await getAuthUser();
+    if (!auth) {
+        return (
+            <div className="bd-dashboard-course-table">
+                <p className="text-center">Please sign in to view your enrolled courses.</p>
+            </div>
+        );
+    }
+
+    const enrollments = await prisma.enrollment.findMany({
+        where: { userId: auth.id },
+        include: {
+            course: {
+                include: {
+                    instructor: true,
+                },
+            },
+        },
+        orderBy: { enrolledAt: "desc" },
+        take: 10,
+    });
+
+    if (enrollments.length === 0) {
+        return (
+            <div className="bd-dashboard-course-table">
+                <p className="text-center">No enrollments yet.</p>
+            </div>
+        );
+    }
+
     return (
         <div className="bd-dashboard-course-table table-responsive">
             <table className="table table-head-bg">
@@ -28,14 +54,14 @@ const EnrolledCoursesTable: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {enrolledCourses.map((course, index) => (
-                        <tr key={index}>
-                            <td>{course.name}</td>
-                            <td>{course.instructor}</td>
-                            <td>{course.startDate}</td>
+                    {enrollments.map((enrollment) => (
+                        <tr key={enrollment.id}>
+                            <td>{enrollment.course.title}</td>
+                            <td>{enrollment.course.instructor.name}</td>
+                            <td>{formatDate(enrollment.enrolledAt)}</td>
                             <td>
-                                <div className={`bd-badge ${course.status === "Ongoing" ? "badge-warning" : "badge-success"}`}>
-                                    {course.status}
+                                <div className={`bd-badge ${statusClass(enrollment.status)}`}>
+                                    {enrollment.status}
                                 </div>
                             </td>
                         </tr>

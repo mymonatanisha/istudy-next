@@ -45,7 +45,7 @@ export async function POST(req: Request) {
     const passwordHash = await bcrypt.hash(password, 10);
     const user = await prisma.user.create({
       data: { name: trimmedName, email: trimmedEmail, passwordHash },
-      select: { id: true, name: true, email: true, createdAt: true },
+      select: { id: true, name: true, email: true, role: true, createdAt: true },
     });
 
     // Sign JWT and set cookie (auto-login)
@@ -57,7 +57,7 @@ export async function POST(req: Request) {
       );
     }
     const token = jwt.sign(
-      { sub: user.id, email: user.email },
+      { sub: user.id, email: user.email, role: user.role },
       secret,
       { expiresIn: "7d" }
     );

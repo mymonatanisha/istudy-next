@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { verify, JwtPayload } from "jsonwebtoken";
 
-export type AuthUser = { id: number; email: string };
+export type AuthUser = { id: number; email: string; role?: string };
 
 export async function getAuthUser(): Promise<AuthUser | null> {
   // Next.js 15 dynamic API must be awaited
@@ -19,7 +19,7 @@ export async function getAuthUser(): Promise<AuthUser | null> {
       return null;
     }
 
-    const payload = decoded as JwtPayload & { email?: string };
+    const payload = decoded as JwtPayload & { email?: string; role?: string };
 
     const sub = payload.sub;
     const email = payload.email;
@@ -29,7 +29,7 @@ export async function getAuthUser(): Promise<AuthUser | null> {
     }
 
     const id = typeof sub === "string" ? Number(sub) : sub;
-    return { id, email };
+    return { id, email, role: payload.role };
   } catch {
     return null;
   }
