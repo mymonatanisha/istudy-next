@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     const resetTokenExpires = new Date(Date.now() + 60 * 60 * 1000);
     await prisma.user.update({ where: { email }, data: { resetToken, resetTokenExpires } });
 
-    const resetLink = `${process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"}/reset?token=${resetToken}`;
+    const resetLink = `${process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000"}/reset?token=${resetToken}`;
     console.log("Password reset link:", resetLink);
     return NextResponse.json({ message: "Reset link generated" }, { status: 200 });
   } catch (err) {
