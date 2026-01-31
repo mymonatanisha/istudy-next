@@ -13,7 +13,7 @@ model User {
   name              String
   email             String    @unique
   passwordHash      String
-  role              UserRole  @default(STUDENT)
+  role              UserRole?
   resetToken        String?   @unique
   resetTokenExpires DateTime?
   createdAt         DateTime  @default(now())
@@ -33,7 +33,6 @@ model Note {
   createdAt DateTime @default(now())
   userId    Int?
   user      User?    @relation(fields: [userId], references: [id])
-}
 }
 
 model UserProfile {
