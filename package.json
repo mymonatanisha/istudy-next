@@ -8,7 +8,13 @@
     "postinstall": "npm rebuild sharp",
     "start": "next start",
     "clean": "rm -rf package-lock.json .next yarn.lock node_modules && yarn install",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:status": "prisma migrate status",
+    "db:studio": "prisma studio",
+    "verify-db": "node scripts/verify-db-state.js"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
