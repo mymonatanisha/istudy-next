@@ -57,7 +57,7 @@ const CartMain = () => {
                                                     <th style={{ minWidth: "140px" }}>Images</th>
                                                     <th style={{ minWidth: "250px" }}>Product</th>
                                                     <th>Unit Price</th>
-                                                    <th>Quantity</th>
+                                                 
                                                     <th>Remove</th>
                                                 </tr>
                                             </thead>
@@ -85,17 +85,7 @@ const CartMain = () => {
                                                                 </td>
                                                                 <td><Link href={`/shop/shop-details/${item.id}`}>{item?.title}</Link></td>
                                                                 <td>{`$${item.price?.toFixed(2)}`}</td>
-                                                                <td>
-                                                                    <div className="bd-product-quantity">
-                                                                        <span onClick={() => handDecressCart(item)} className="decrease">
-                                                                            <i className="fa-regular fa-minus"></i>
-                                                                        </span>
-                                                                        <input className="bd-product-quantity-input" type="text" onChange={handleChange} value={item.quantity} readOnly />
-                                                                        <span onClick={() => handleAddToCart(item)} className="increase">
-                                                                            <i className="fa-regular fa-plus"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                </td>
+
                                                                 <td>
                                                                     <button onClick={() => handleDelteProduct(item)} className="removeRow"><i className="fa fa-times"></i> Remove</button>
                                                                 </td>

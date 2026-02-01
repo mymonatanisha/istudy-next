@@ -15,7 +15,7 @@ import useGlobalContext from '@/hooks/useContexts';
 const CheckoutMain = () => {
     const { toggleOpen, isOpen } = useGlobalContext();
     const [isCouponOpen, setIsCouponOpen] = useState<boolean>(false);
-    const [shippingCost, setShippingCost] = useState(0);
+    //const [shippingCost, setShippingCost] = useState(0);
     const cartProducts = useSelector(
         (state: RootState) => state.cart.cartProducts
     );
@@ -91,11 +91,14 @@ const CheckoutMain = () => {
                                                 <span>{item?.quantity && item?.price ? `$${(Number(item.quantity) * Number(item.price)).toFixed(2)}` : 'N/A'}</span>
                                             </li>
                                         ))}
+                                        
+                                        {/*
+
                                         <li className="order-info-list-subtotal">
                                             <span>Subtotal</span>
                                             <span>${totalPrice.toFixed(2)}</span>
                                         </li>
-                                        {/* -- shipping -- */}
+                                         -- shipping -- 
                                         <li className="order-info-list-shipping">
                                             <span>Shipping</span>
                                             <div className="order-info-list-shipping-item d-flex flex-column align-items-start">
@@ -113,10 +116,12 @@ const CheckoutMain = () => {
                                                 </span>
                                             </div>
                                         </li>
+                                        */}
+
                                         {/* -- total -- */}
                                         <li className="order-info-list-total">
                                             <span>Total</span>
-                                            <span>${(totalPrice + shippingCost).toFixed(2)}</span>
+                                            <span>${(totalPrice ).toFixed(2)}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -126,6 +131,11 @@ const CheckoutMain = () => {
                                         <input id="read_all" type="checkbox" />
                                         <label htmlFor="read_all">I have read and agree to the website.</label>
                                     </div>
+                                
+                                <div className="checkout-input mb-0">
+                                <label>Transaction ID </label>
+                                <input type="text" placeholder="Transaction ID or Reference Number" />
+                                </div>
                                 </div>
                                 <div className="checkout-btn-wrapper">
                                     <button onClick={() => toast.success("Your order has been placed successfully! 🎉")} type="submit" className="bd-btn btn-outline-primary">Place Order</button>

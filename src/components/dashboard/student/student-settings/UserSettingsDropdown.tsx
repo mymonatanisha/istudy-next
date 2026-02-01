@@ -24,11 +24,7 @@ const UserSettingsDropdown = () => {
                             Change Password
                         </Link>
                     </li>
-                    <li>
-                        <Link className="dropdown-item" href="/student-social-profile">
-                            Social Profile
-                        </Link>
-                    </li>
+                    
                     <li>
                         <Link className="dropdown-item" href="/student-upload-photo">
                             Upload Photo

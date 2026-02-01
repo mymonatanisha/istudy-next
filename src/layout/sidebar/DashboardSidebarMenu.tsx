@@ -10,16 +10,16 @@ const DashboardSidebarMenu = () => {
     const menuItems = [
         { href: "/student-dashboard", icon: "fa-gauge-high", label: "Dashboard" },
         { href: "/student-profile", icon: "fa-id-badge", label: "My Profile" },
-        { href: "/student-analytics", icon: "fa-chart-line", label: "Analytics" },
-        { href: "/student-enrolled-courses", icon: "fa-book-reader", label: "Enrolled Courses" },
-        { href: "/student-books", icon: "fa-book", label: "My Books" },
-        { href: "/student-wishlist", icon: "fa-heart", label: "Wishlist" },
-        { href: "/student-my-quiz-attempts", icon: "fa-file-lines", label: "My Quiz Attempts" },
-        { href: "/student-assignments", icon: "fa-tasks", label: "Assignments" },
-        { href: "/student-reviews", icon: "fa-comment-dots", label: "Reviews" },
+       // { href: "/student-analytics", icon: "fa-chart-line", label: "Analytics" },
+       // { href: "/student-enrolled-courses", icon: "fa-book-reader", label: "Enrolled Courses" },
+       // { href: "/student-books", icon: "fa-book", label: "My Books" },
+       // { href: "/student-wishlist", icon: "fa-heart", label: "Wishlist" },
+        //{ href: "/student-my-quiz-attempts", icon: "fa-file-lines", label: "My Quiz Attempts" },
+        //{ href: "/student-assignments", icon: "fa-tasks", label: "Assignments" },
+        //{ href: "/student-reviews", icon: "fa-comment-dots", label: "Reviews" },
         { href: "/student-purchase-history", icon: "fa-receipt", label: "Purchase History" },
-        { href: "/student-announcements", icon: "fa-bullhorn", label: "Announcement" },
-        { href: "/student-certificate", icon: "fa-award", label: "My Achievement" },
+        //{ href: "/student-announcements", icon: "fa-bullhorn", label: "Announcement" },
+        //{ href: "/student-certificate", icon: "fa-award", label: "My Achievement" },
     ];
 
     const userItems = [
