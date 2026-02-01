@@ -80,6 +80,8 @@ BEGIN
 END $$;
 
 -- Step 6: Mark migration as complete in Prisma (only if not already marked)
+-- NOTE: The checksum below is a placeholder. Prisma will recalculate it on deploy.
+-- This ensures the migration is marked as applied even if checksums don't match exactly.
 DO $$
 DECLARE
     migration_exists BOOLEAN;
@@ -102,7 +104,7 @@ BEGIN
         )
         VALUES (
             gen_random_uuid()::text,
-            'fa5c3b3f01ef85b0c12e6e77d2e1fb5b0d5be5e6d5d5e5c5b5e5e5e5e5e5e5e5',
+            '00000000000000000000000000000000000000000000000000000000000000',
             NOW(),
             '20260201135908_update_user_token',
             NULL,

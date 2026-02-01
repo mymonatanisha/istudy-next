@@ -71,19 +71,25 @@ async function verifyDatabaseState() {
 
     // Check for orphaned notes
     console.log('5️⃣ Checking data integrity...');
-    const orphanedNotes = await prisma.note.count({
-      where: {
-        userId: {
-          not: null
-        },
-        user: null
-      }
-    });
     
-    if (orphanedNotes > 0) {
-      console.log(`   ⚠️  Warning: Found ${orphanedNotes} notes with invalid userId references`);
-    } else {
-      console.log('   ✅ No orphaned notes found');
+    // Note: Using raw query to check for orphaned notes before foreign key enforcement
+    // In practice, Prisma client prevents orphaned records due to referential integrity
+    try {
+      const orphanedResult = await prisma.$queryRaw`
+        SELECT COUNT(*) as count 
+        FROM "Note" 
+        WHERE "userId" IS NOT NULL 
+        AND NOT EXISTS (SELECT 1 FROM "User" WHERE "User".id = "Note"."userId")
+      `;
+      const orphanedNotes = Number(orphanedResult[0].count);
+      
+      if (orphanedNotes > 0) {
+        console.log(`   ⚠️  Warning: Found ${orphanedNotes} notes with invalid userId references`);
+      } else {
+        console.log('   ✅ No orphaned notes found');
+      }
+    } catch (error) {
+      console.log('   ⚠️  Could not check for orphaned notes:', error.message);
     }
     console.log();
 

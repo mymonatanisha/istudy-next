@@ -27,6 +27,7 @@ BEGIN
         SELECT 1 FROM pg_class c
         JOIN pg_namespace n ON n.oid = c.relnamespace
         WHERE c.relname = 'roles_name_key'
+        AND n.nspname = 'public'
     ) THEN
         CREATE UNIQUE INDEX "roles_name_key" ON "roles"("name");
     END IF;
