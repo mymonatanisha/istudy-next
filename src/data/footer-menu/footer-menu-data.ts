@@ -6,7 +6,6 @@ export const CourseFooterMenuLinks = [
     spacingClass: "footer-2-col-2",
     links: [
       { name: 'About Us', href: '/about-online-course' },
-      { name: 'News', href: '/blog' },
       { name: 'Event', href: '/event' },
      // { name: 'Shop', href: '/shop' },
       //{ name: 'Pricing Table', href: '/pricing-table' }
@@ -55,7 +54,6 @@ export const UniversityFooterMenuLinks = [
     spacingClass: 'footer-1-col-3',
     links: [
       { name: 'Contact Us', href: '/contact-us' },
-      { name: 'Latest News', href: '/blog-grid' },
       { name: 'FAQ’s', href: '/under-maintenance' },
      // { name: 'Gallery', href: '/gallery' },
       //{ name: 'Vision & Mission', href: '/mvs' },
@@ -96,7 +94,6 @@ export const ShopFooterMenuLinks = [
       spacingClass: "footer-5-col-2",
       links: [
         { name: 'About Us', href: '/about-online-course' },
-        { name: 'Latest News', href: '/blog' },
         { name: 'Shop', href: '/shop' },
         { name: 'Pricing Table', href: '/pricing-table' },
         { name: 'Events', href: '/event' },
@@ -145,7 +142,6 @@ export const CommonFooterMenuLinks = [
     spacingClass: 'footer-1-col-3',
     links: [
       { name: 'Contact Us', href: '/contact-us' },
-      { name: 'Latest News', href: '/blog' },
       { name: 'FAQ’s', href: '/faq' },
       //{ name: 'Gallery', href: '/gallery' },
       //{ name: 'Vision & Mission', href: '/mvs' },

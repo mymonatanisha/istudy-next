@@ -294,38 +294,6 @@ const main_mobile_menu_data: MenuItem[] = [
         pluseIncon: false,
       }
     ]
-  },
-  {
-    id: 6,
-    hasDropdown: true,
-    children: true,
-    megaMenu: false,
-    active: true,
-    title: "Blog",
-    pluseIncon: true,
-    lastDropdown: true,
-    link: "#",
-    submenus: [
-      {
-        title: "Blog Standard",
-        link: "/blog",
-        pluseIncon: false,
-      },
-      {
-        title: "Blog Advanced",
-        link: "#",
-        pluseIncon: true,
-        megaMenu: [
-          { title: "Blog List", link: "/blog-list" },
-          { title: "Blog Grid", link: "/blog-grid" },
-        ],
-      },
-      {
-        title: "blog-details",
-        link: "/blog/blog-details",
-        pluseIncon: false,
-      }
-    ],
   }
 ];
 
