@@ -56,16 +56,6 @@ const main_menu_data: MenuItem[] = [
     pluseIncon: true,
     link: "/sign-in",
   },
-  {
-    id: 6,
-    hasDropdown: true,
-    active: true,
-    megaMenu: true,
-    children: true,
-    title: "Blog",
-    pluseIncon: true,
-    link: "/blog-grid",
-  },
 ];
 
 export default main_menu_data;
