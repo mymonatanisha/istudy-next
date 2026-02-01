@@ -42,7 +42,7 @@ export default function HeaderAuthClient() {
   return (
     <>
       <Link className="bd-btn btn-outline-primary h-40px" href="/student-dashboard">Dashboard</Link>
-      <form action="/api/auth/logout" method="post" style={{ display: "inline" }}>
+      <form action="/api/auth/logout" method="post" className="d-inline">
         <button type="submit" className="bd-btn btn-outline-border-primary h-40px">Logout</button>
       </form>
     </>
