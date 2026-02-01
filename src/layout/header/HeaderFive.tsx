@@ -10,6 +10,7 @@ import CommonHeaderMainMenu from './component/MainMenu';
 import CategoryDropdown from './component/CategoryDropdown';
 import useGlobalContext from '@/hooks/useContexts';
 import useCart from '@/hooks/useCart';
+import HeaderAuthClient from '@/components/auth/HeaderAuthClient';
 
 const HeaderFive = () => {
     const { scrollDirection, toggleSidebarMenu } = useGlobalContext();
@@ -69,8 +70,7 @@ const HeaderFive = () => {
                                     className="fa-regular fa-cart-shopping"></i><span className="item-number">{TotalCartQuantity}</span></button>
                             </div>
                             <div className="bd-header-sign-btn">
-                                <Link className="bd-btn btn-outline-primary h-40px" href="/sign-in">Login</Link>
-                                <Link className="bd-btn btn-outline-border-primary h-40px" href="/sign-up">Register</Link>
+                                <HeaderAuthClient />
                             </div>
                             <div className="bd-header-hamburger">
                                 <div className="sidebar-toggle">
