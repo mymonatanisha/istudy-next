@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import ErrorMsg from './auth/ErrorMsg';
 
@@ -9,20 +9,92 @@ interface FormData {
     email: string;
     subject?: string;
     message: string;
+    privacyPolicy: boolean;
 }
 
 const ContactForm: React.FC = () => {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm<FormData>();
 
-    const onSubmit = () => {};
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState<{
+        type: 'success' | 'error' | null;
+        message: string;
+    }>({ type: null, message: '' });
+
+    const onSubmit = async (data: FormData) => {
+        if (!data.privacyPolicy) {
+            setSubmitStatus({
+                type: 'error',
+                message: 'Please accept the privacy policy to continue',
+            });
+            return;
+        }
+
+        setIsSubmitting(true);
+        setSubmitStatus({ type: null, message: '' });
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    fullName: data.firstName,
+                    email: data.email,
+                    subject: data.subject,
+                    message: data.message,
+                }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                setSubmitStatus({
+                    type: 'success',
+                    message: result.message || 'Message sent successfully!',
+                });
+                reset();
+            } else {
+                setSubmitStatus({
+                    type: 'error',
+                    message: result.error || 'Failed to send message',
+                });
+            }
+        } catch {
+            setSubmitStatus({
+                type: 'error',
+                message: 'Network error. Please try again.',
+            });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="row gy-30">
+                {/* Status Message */}
+                {submitStatus.type && (
+                    <div className="col-md-12">
+                        <div
+                            className={`alert ${
+                                submitStatus.type === 'success'
+                                    ? 'alert-success'
+                                    : 'alert-danger'
+                            }`}
+                            role="alert"
+                        >
+                            {submitStatus.message}
+                        </div>
+                    </div>
+                )}
+
                 {/* Full Name */}
                 <div className="col-md-12">
                     <div className="form-input-box">
@@ -35,6 +107,7 @@ const ContactForm: React.FC = () => {
                                 id="firstName"
                                 type="text"
                                 placeholder="First Name"
+                                disabled={isSubmitting}
                             />
                               <ErrorMsg error={errors?.firstName?.message} />
                         </div>
@@ -59,6 +132,7 @@ const ContactForm: React.FC = () => {
                                 id="email"
                                 type="email"
                                 placeholder="Email Address"
+                                disabled={isSubmitting}
                             />
                             <ErrorMsg error={errors?.email?.message} />
                         </div>
@@ -72,7 +146,13 @@ const ContactForm: React.FC = () => {
                             <label htmlFor="subject">Subject</label>
                         </div>
                         <div className="form-input">
-                            <input {...register("subject")} id="subject" type="text" placeholder="Subject" />
+                            <input 
+                                {...register("subject")} 
+                                id="subject" 
+                                type="text" 
+                                placeholder="Subject"
+                                disabled={isSubmitting}
+                            />
                         </div>
                     </div>
                 </div>
@@ -88,6 +168,7 @@ const ContactForm: React.FC = () => {
                                 {...register("message", { required: "Message is required" })}
                                 id="message"
                                 placeholder="Message"
+                                disabled={isSubmitting}
                             ></textarea>
                             <ErrorMsg error={errors?.message?.message} />
                         </div>
@@ -95,7 +176,12 @@ const ContactForm: React.FC = () => {
 
                     {/* Privacy Policy Checkbox */}
                     <div className="checkbox-option">
-                        <input id="course-check-1" type="checkbox" />
+                        <input 
+                            {...register("privacyPolicy", { required: true })}
+                            id="course-check-1" 
+                            type="checkbox"
+                            disabled={isSubmitting}
+                        />
                         <label htmlFor="course-check-1">
                             You agree to our friendly{" "}
                             <span className="text-border-highlights">
@@ -104,14 +190,21 @@ const ContactForm: React.FC = () => {
                             </span>
                             .
                         </label>
+                        {errors?.privacyPolicy && (
+                            <ErrorMsg error="You must accept the privacy policy" />
+                        )}
                     </div>
                 </div>
 
                 {/* Submit Button */}
                 <div className="col-xxl-12">
                     <div className="bd-contact-form-btn">
-                        <button className="bd-btn btn-primary w-100" type="submit">
-                            Submit
+                        <button 
+                            className="bd-btn btn-primary w-100" 
+                            type="submit"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? 'Sending...' : 'Submit'}
                         </button>
                     </div>
                 </div>
