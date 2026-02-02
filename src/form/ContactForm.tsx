@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import ErrorMsg from './auth/ErrorMsg';
 
 interface FormData {
-    firstName: string;
+    fullName: string;
     email: string;
     subject?: string;
     message: string;
@@ -45,7 +45,7 @@ const ContactForm: React.FC = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    fullName: data.firstName,
+                    fullName: data.fullName,
                     email: data.email,
                     subject: data.subject,
                     message: data.message,
@@ -103,13 +103,13 @@ const ContactForm: React.FC = () => {
                         </div>
                         <div className="form-input">
                             <input
-                                {...register("firstName", { required: "Full Name is required" })}
+                                {...register("fullName", { required: "Full Name is required" })}
                                 id="firstName"
                                 type="text"
                                 placeholder="First Name"
                                 disabled={isSubmitting}
                             />
-                              <ErrorMsg error={errors?.firstName?.message} />
+                              <ErrorMsg error={errors?.fullName?.message} />
                         </div>
                     </div>
                 </div>

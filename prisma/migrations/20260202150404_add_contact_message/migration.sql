@@ -9,3 +9,9 @@ CREATE TABLE "contact_messages" (
 
     CONSTRAINT "contact_messages_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE INDEX "contact_messages_email_idx" ON "contact_messages"("email");
+
+-- CreateIndex
+CREATE INDEX "contact_messages_createdAt_idx" ON "contact_messages"("createdAt");
