@@ -63,7 +63,7 @@ export async function PUT(request: NextRequest) {
       'occupation',
     ];
 
-    const updateData: Record<string, any> = {};
+    const updateData: Record<string, string | null> = {};
     for (const field of allowedFields) {
       if (field in body) {
         // Basic validation
