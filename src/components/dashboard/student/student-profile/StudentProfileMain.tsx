@@ -66,7 +66,11 @@ const StudentProfileMain = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    // Validate that the field name is one we expect
+    const validFields = ['name', 'firstName', 'lastName', 'username', 'phone', 'linkedIn', 'bio', 'occupation'];
+    if (validFields.includes(name)) {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

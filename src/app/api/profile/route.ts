@@ -73,7 +73,10 @@ export async function PUT(request: NextRequest) {
         } else if (typeof value === 'string') {
           updateData[field] = value.trim();
         } else {
-          updateData[field] = value;
+          // Reject non-string values
+          return NextResponse.json({ 
+            error: `Invalid type for field '${field}'. Expected string or null.` 
+          }, { status: 400 });
         }
       }
     }
