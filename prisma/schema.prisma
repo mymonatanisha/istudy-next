@@ -14,6 +14,16 @@ model User {
   email        String @unique
   passwordHash String
 
+  // Profile fields
+  firstName    String?
+  lastName     String?
+  username     String?
+  phone        String?
+  avatar       String?
+  linkedIn     String?
+  bio          String?
+  occupation   String?
+
   resetToken        String?
   resetTokenExpires DateTime?
 
