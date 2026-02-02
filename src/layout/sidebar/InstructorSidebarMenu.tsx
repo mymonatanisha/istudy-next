@@ -2,10 +2,40 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+type UserData = {
+  name?: string;
+  firstName?: string | null;
+  lastName?: string | null;
+};
 
 const InstructorSidebarMenu = () => {
     const pathname = usePathname();
+    const [userName, setUserName] = useState<string>("User");
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchUserName();
+    }, []);
+
+    const fetchUserName = async () => {
+        try {
+            const res = await fetch('/api/auth/me', { cache: 'no-store' });
+            if (res.ok) {
+                const data = await res.json();
+                const user: UserData = data.user;
+                
+                // Prioritize firstName if available, fallback to name, then default
+                const displayName = user.firstName || user.name || "User";
+                setUserName(displayName);
+            }
+        } catch (error) {
+            console.error('Failed to fetch user name:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const menuItems = [
         { href: "/instructor-dashboard", icon: "fa-gauge-high", label: "Dashboard" },
@@ -34,7 +64,9 @@ const InstructorSidebarMenu = () => {
     return (
         <div className="col-xl-3 col-lg-3 col-md-4">
             <div className="bd-dashboard-menu">
-                <h6 className="bd-dashboard-menu-title mt-0">Welcome, Stefan</h6>
+                <h6 className="bd-dashboard-menu-title mt-0">
+                    Welcome, {loading ? '...' : userName}
+                </h6>
                 <ul>
                     {menuItems.map(({ href, icon, label }) => (
                         <li key={href}>
