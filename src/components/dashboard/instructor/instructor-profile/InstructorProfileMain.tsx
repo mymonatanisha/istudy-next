@@ -286,12 +286,12 @@ const InstructorProfileMain = () => {
                 <div className="col-md-6">
                   <label className="form-label">Address</label>
                   <input
-                    type="url"
+                    type="text"
                     name="avatarUrl"
                     className="form-control"
                     value={formData.avatarUrl || ''}
                     onChange={handleChange}
-                    placeholder="https://example.com/avatar.jpg"
+                    placeholder="Enter your address"
                   />
                 </div>
                 <div className="col-md-6">
