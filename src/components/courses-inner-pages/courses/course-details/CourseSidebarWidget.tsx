@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { cart_product } from '@/redux/slices/cartSlice';
 import { wishlist_product } from '@/redux/slices/wishlistSlice';
 import { useVideoModal } from '@/contextApi/VideoProvider';
+import { useRouter } from 'next/navigation';
 interface ICourseProps {
     course: ICourse
 }
@@ -14,10 +15,14 @@ interface ICourseProps {
 const CourseSidebarWidget = ({ course }: ICourseProps) => {
     const { playVideo } = useVideoModal();
     const dispatch = useDispatch();
+    const router = useRouter();
 
-    const handleAddToCart = (product: ICourse) => {
+    const handleEnrollNow = (product: ICourse) => {
         if (product) {
-            dispatch(cart_product(product))
+            // Add course to cart for checkout
+            dispatch(cart_product(product));
+            // Navigate to checkout page with course ID
+            router.push(`/checkout?courseId=${product.id}`);
         }
     }
     const handleAddToWishlist = (product: ICourse) => {
@@ -120,10 +125,9 @@ const CourseSidebarWidget = ({ course }: ICourseProps) => {
                     </ul>
                 </div>
                 <div className="bd-course-sidebar-widget-btn d-flex-between flex-wrap gap-15">
-                    <button onClick={() => handleAddToCart(course)} className="bd-btn btn-primary w-100"><span className="left-icon"><i
-                        className="fal fa-shopping-cart"></i></span> Add to
-                        cart</button>
-                    <button onClick={() => handleAddToWishlist(course)} className="bd-btn btn-outline-primary w-100"><span className="left-icon"><i
+                    <button onClick={() => handleEnrollNow(course)} className="bd-btn btn-primary w-100" aria-label="Enroll in this course now"><span className="left-icon"><i
+                        className="fal fa-graduation-cap"></i></span> Enroll Now</button>
+                    <button onClick={() => handleAddToWishlist(course)} className="bd-btn btn-outline-primary w-100" aria-label="Add this course to wishlist"><span className="left-icon"><i
                         className="far fa-heart"></i></span> Add to Wishlist</button>
                 </div>
             </div>
