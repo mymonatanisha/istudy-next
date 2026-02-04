@@ -18,29 +18,30 @@ const StudentDashboardBreadcrumb = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                setLoading(true);
+                const res = await fetch('/api/profile', { cache: 'no-store' });
+                
+                if (res.ok) {
+                    const data = await res.json();
+                    setProfile(data.user);
+                }
+            } catch (err) {
+                console.error('Failed to fetch profile:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
         fetchProfile();
     }, []);
-
-    const fetchProfile = async () => {
-        try {
-            setLoading(true);
-            const res = await fetch('/api/profile', { cache: 'no-store' });
-            
-            if (res.ok) {
-                const data = await res.json();
-                setProfile(data.user);
-            }
-        } catch (err) {
-            console.error('Failed to fetch profile:', err);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     // Determine display values
     const displayName = profile?.name || 'Student';
     const displayHeadline = profile?.headline || profile?.occupation || 'Student';
-    const hasAvatar = profile?.avatar && profile.avatar.trim() !== '';
+    const avatarSrc = profile?.avatar?.trim() || '';
+    const hasAvatar = avatarSrc !== '';
 
     return (
         <>
@@ -56,19 +57,25 @@ const StudentDashboardBreadcrumb = () => {
                                     <div className="bd-dashboard-profile-user">
                                         <div className="thumb">
                                             {loading ? (
-                                                <div style={{ width: '100px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f0f0f0', borderRadius: '50%' }}>
+                                                <div style={{ 
+                                                    width: '100%', 
+                                                    height: '100%', 
+                                                    display: 'flex', 
+                                                    alignItems: 'center', 
+                                                    justifyContent: 'center', 
+                                                    background: '#f0f0f0' 
+                                                }}>
                                                     <span>...</span>
                                                 </div>
                                             ) : hasAvatar ? (
                                                 // eslint-disable-next-line @next/next/no-img-element
                                                 <img 
-                                                    src={profile.avatar!} 
+                                                    src={avatarSrc} 
                                                     alt={displayName}
                                                     style={{ 
                                                         width: '100%', 
                                                         height: '100%', 
-                                                        objectFit: 'cover',
-                                                        borderRadius: '50%'
+                                                        objectFit: 'cover' 
                                                     }}
                                                 />
                                             ) : (
