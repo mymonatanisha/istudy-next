@@ -125,9 +125,9 @@ const CourseSidebarWidget = ({ course }: ICourseProps) => {
                     </ul>
                 </div>
                 <div className="bd-course-sidebar-widget-btn d-flex-between flex-wrap gap-15">
-                    <button onClick={() => handleEnrollNow(course)} className="bd-btn btn-primary w-100"><span className="left-icon"><i
+                    <button onClick={() => handleEnrollNow(course)} className="bd-btn btn-primary w-100" aria-label="Enroll in this course now"><span className="left-icon"><i
                         className="fal fa-graduation-cap"></i></span> Enroll Now</button>
-                    <button onClick={() => handleAddToWishlist(course)} className="bd-btn btn-outline-primary w-100"><span className="left-icon"><i
+                    <button onClick={() => handleAddToWishlist(course)} className="bd-btn btn-outline-primary w-100" aria-label="Add this course to wishlist"><span className="left-icon"><i
                         className="far fa-heart"></i></span> Add to Wishlist</button>
                 </div>
             </div>
