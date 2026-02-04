@@ -67,6 +67,7 @@ const StudentProfileMain = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     // Validate that the field name is one we expect
+    // Note: 'avatarUrl' field is now used to store address information (kept for backward compatibility)
     const validFields = ['name', 'username', 'phone', 'avatarUrl', 'linkedIn', 'bio', 'occupation', 'headline'];
     if (validFields.includes(name)) {
       setFormData(prev => ({ ...prev, [name]: value }));
@@ -209,7 +210,7 @@ const StudentProfileMain = () => {
                   <td>{profile.phone || 'Not set'}</td>
                 </tr>
                 <tr>
-                  <th>Avatar URL</th>
+                  <th>Address</th>
                   <td>{profile.avatarUrl || 'Not set'}</td>
                 </tr>
                 <tr>
@@ -284,14 +285,14 @@ const StudentProfileMain = () => {
                   />
                 </div>
                 <div className="col-md-6">
-                  <label className="form-label">Avatar URL</label>
+                  <label className="form-label">Address</label>
                   <input
-                    type="url"
+                    type="text"
                     name="avatarUrl"
                     className="form-control"
                     value={formData.avatarUrl || ''}
                     onChange={handleChange}
-                    placeholder="https://example.com/avatar.jpg"
+                    placeholder="Enter your address"
                   />
                 </div>
                 <div className="col-md-6">
