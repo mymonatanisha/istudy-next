@@ -8,7 +8,7 @@ const counterData: ICounterItem[] = [
     { icon: "fa-solid fa-book-reader", count: 9, text: "Active Courses" },
     { icon: "fa-solid fa-check-circle", count: 95, text: "Courses Completed", symbol: "+" },
     { icon: "fa-solid fa-users", count: 595, text: "Total Students in Courses", symbol: "+" },
-    { icon: "fa-solid fa-wallet", count: 95, text: "Total Fees Paid", symbol: "$" },
+    { icon: "fa-solid fa-wallet", count: 95, text: "Total Fees Paid", symbol: "" },
 ];
 
 const StudentProgressCounter: React.FC = () => {

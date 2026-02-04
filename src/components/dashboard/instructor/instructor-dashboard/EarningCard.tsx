@@ -4,7 +4,7 @@ import { EarningData } from "@/interFace/dashboard-interface";
 
 // EarningCard component
 const EarningCard: React.FC<EarningData> = ({ icon, amount, label, suffix }) => {
-    const symbol = suffix === "$" ? "$" : suffix;
+    const symbol = suffix === "" ? "" : suffix;
     return (
         <div className="col-xl-4 col-lg-6 col-md-12 col-sm-6">
             <div className="bd-counter-wrapper bd-counter-style-six">

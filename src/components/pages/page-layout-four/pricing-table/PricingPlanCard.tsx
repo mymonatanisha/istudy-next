@@ -27,7 +27,7 @@ const PricingPlanCard: React.FC<PricingPlanCardProps> = ({ plan, isYearly }) => 
                                 className="common-price yearly-pricing"
                                 style={{ display: isYearly ? "block" : "none" }}
                             >
-                                <span className="dollar">$</span>
+                                <span className="dollar"></span>
                                 <h2 className="amount">{yearly.price}</h2>
                                 <span className="duration">{yearly.duration}</span>
                             </div>
@@ -35,7 +35,7 @@ const PricingPlanCard: React.FC<PricingPlanCardProps> = ({ plan, isYearly }) => 
                                 className="common-price monthly-pricing"
                                 style={{ display: !isYearly ? "block" : "none" }}
                             >
-                                <span className="dollar">$</span>
+                                <span className="dollar"></span>
                                 <h2 className="amount">{activePrice.price}</h2>
                                 <span className="duration">{activePrice.duration}</span>
                             </div>
