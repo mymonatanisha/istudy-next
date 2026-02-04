@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 type UserProfile = {
   id: number;
@@ -27,6 +28,8 @@ const InstructorProfileMain = () => {
   const [updateLoading, setUpdateLoading] = useState(false);
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [updateError, setUpdateError] = useState<string | null>(null);
+  const [imageError, setImageError] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
 
   useEffect(() => {
     fetchProfile();
@@ -70,7 +73,43 @@ const InstructorProfileMain = () => {
     const validFields = ['name', 'username', 'phone', 'avatarUrl', 'linkedIn', 'bio', 'occupation', 'headline'];
     if (validFields.includes(name)) {
       setFormData(prev => ({ ...prev, [name]: value }));
+      
+      // Reset image error state when avatarUrl changes
+      if (name === 'avatarUrl') {
+        setImageError(false);
+        setImageLoading(true);
+      }
     }
+  };
+
+  const validateImageUrl = (url: string | null | undefined): boolean => {
+    if (!url || url.trim() === '') return false;
+    
+    try {
+      const urlObj = new URL(url);
+      // Check if URL has a valid protocol
+      if (!['http:', 'https:'].includes(urlObj.protocol)) return false;
+      
+      // Check if URL ends with common image extensions
+      const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg', '.bmp', '.ico'];
+      const pathname = urlObj.pathname.toLowerCase();
+      const hasImageExtension = imageExtensions.some(ext => pathname.endsWith(ext));
+      
+      // Accept if it has image extension or if it looks like an image URL
+      return hasImageExtension || pathname.includes('/image') || pathname.includes('/avatar') || pathname.includes('/photo');
+    } catch {
+      return false;
+    }
+  };
+
+  const handleImageLoad = () => {
+    setImageLoading(false);
+    setImageError(false);
+  };
+
+  const handleImageError = () => {
+    setImageLoading(false);
+    setImageError(true);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -177,6 +216,38 @@ const InstructorProfileMain = () => {
             {updateError}
           </div>
         )}
+
+        {/* Avatar Image Display */}
+        <div className="bd-profile-avatar-section text-center mb-4">
+          <div className="bd-profile-avatar-wrapper d-inline-block position-relative">
+            {validateImageUrl(isEditing ? formData.avatarUrl : profile.avatarUrl) && !imageError ? (
+              <>
+                {imageLoading && (
+                  <div className="bd-avatar-placeholder d-flex align-items-center justify-content-center">
+                    <div className="spinner-border text-primary" role="status">
+                      <span className="visually-hidden">Loading image...</span>
+                    </div>
+                  </div>
+                )}
+                <img
+                  src={isEditing ? (formData.avatarUrl || '') : (profile.avatarUrl || '')}
+                  alt={`${profile.name}'s avatar`}
+                  className={`bd-profile-avatar ${imageLoading ? 'd-none' : ''}`}
+                  onLoad={handleImageLoad}
+                  onError={handleImageError}
+                />
+              </>
+            ) : (
+              <div className="bd-avatar-placeholder d-flex align-items-center justify-content-center">
+                <i className="fa-solid fa-user"></i>
+              </div>
+            )}
+          </div>
+          <div className="mt-3">
+            <h5 className="mb-1">{profile.name}</h5>
+            {profile.headline && <p className="text-muted mb-0">{profile.headline}</p>}
+          </div>
+        </div>
 
         {!isEditing ? (
           <div className="bd-dashboard-profile-info table-responsive">
