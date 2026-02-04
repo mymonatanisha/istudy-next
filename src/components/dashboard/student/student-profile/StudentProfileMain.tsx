@@ -67,6 +67,7 @@ const StudentProfileMain = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     // Validate that the field name is one we expect
+    // Note: 'avatarUrl' field is now used to store address information (kept for backward compatibility)
     const validFields = ['name', 'username', 'phone', 'avatarUrl', 'linkedIn', 'bio', 'occupation', 'headline'];
     if (validFields.includes(name)) {
       setFormData(prev => ({ ...prev, [name]: value }));
