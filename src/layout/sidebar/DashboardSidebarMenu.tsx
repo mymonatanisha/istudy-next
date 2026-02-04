@@ -6,8 +6,6 @@ import React, { useState, useEffect } from "react";
 
 type UserData = {
   name?: string;
-  firstName?: string | null;
-  lastName?: string | null;
 };
 
 const DashboardSidebarMenu = () => {
@@ -26,8 +24,8 @@ const DashboardSidebarMenu = () => {
                 const data = await res.json();
                 const user: UserData = data.user;
                 
-                // Prioritize firstName if available, fallback to name, then default
-                const displayName = user.firstName || user.name || "User";
+                // Use name or default to "User"
+                const displayName = user.name || "User";
                 setUserName(displayName);
             }
         } catch (error) {

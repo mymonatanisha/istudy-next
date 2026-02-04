@@ -6,14 +6,14 @@ type UserProfile = {
   id: number;
   name: string;
   email: string;
-  firstName?: string | null;
-  lastName?: string | null;
   username?: string | null;
   phone?: string | null;
   avatar?: string | null;
+  avatarUrl?: string | null;
   linkedIn?: string | null;
   bio?: string | null;
   occupation?: string | null;
+  headline?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -67,7 +67,7 @@ const InstructorProfileMain = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     // Validate that the field name is one we expect
-    const validFields = ['name', 'firstName', 'lastName', 'username', 'phone', 'linkedIn', 'bio', 'occupation'];
+    const validFields = ['name', 'username', 'phone', 'avatarUrl', 'linkedIn', 'bio', 'occupation', 'headline'];
     if (validFields.includes(name)) {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
@@ -197,14 +197,6 @@ const InstructorProfileMain = () => {
                   <td>{profile.name || 'Not set'}</td>
                 </tr>
                 <tr>
-                  <td>First Name</td>
-                  <td>{profile.firstName || 'Not set'}</td>
-                </tr>
-                <tr>
-                  <td>Last Name</td>
-                  <td>{profile.lastName || 'Not set'}</td>
-                </tr>
-                <tr>
                   <td>Username</td>
                   <td>{profile.username || 'Not set'}</td>
                 </tr>
@@ -215,6 +207,14 @@ const InstructorProfileMain = () => {
                 <tr>
                   <td>Phone Number</td>
                   <td>{profile.phone || 'Not set'}</td>
+                </tr>
+                <tr>
+                  <td>Avatar URL</td>
+                  <td>{profile.avatarUrl || 'Not set'}</td>
+                </tr>
+                <tr>
+                  <td>Headline</td>
+                  <td>{profile.headline || 'Not set'}</td>
                 </tr>
                 <tr>
                   <td>Occupation/Skill</td>
@@ -265,26 +265,6 @@ const InstructorProfileMain = () => {
                   />
                 </div>
                 <div className="col-md-6">
-                  <label className="form-label">First Name</label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    className="form-control"
-                    value={formData.firstName || ''}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="col-md-6">
-                  <label className="form-label">Last Name</label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    className="form-control"
-                    value={formData.lastName || ''}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="col-md-6">
                   <label className="form-label">Email (Read-only)</label>
                   <input
                     type="email"
@@ -301,6 +281,28 @@ const InstructorProfileMain = () => {
                     className="form-control"
                     value={formData.phone || ''}
                     onChange={handleChange}
+                  />
+                </div>
+                <div className="col-md-6">
+                  <label className="form-label">Avatar URL</label>
+                  <input
+                    type="url"
+                    name="avatarUrl"
+                    className="form-control"
+                    value={formData.avatarUrl || ''}
+                    onChange={handleChange}
+                    placeholder="https://example.com/avatar.jpg"
+                  />
+                </div>
+                <div className="col-md-6">
+                  <label className="form-label">Headline</label>
+                  <input
+                    type="text"
+                    name="headline"
+                    className="form-control"
+                    value={formData.headline || ''}
+                    onChange={handleChange}
+                    placeholder="e.g., Senior Software Engineer"
                   />
                 </div>
                 <div className="col-md-6">
