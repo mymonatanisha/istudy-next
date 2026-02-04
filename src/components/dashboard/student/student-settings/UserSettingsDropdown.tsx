@@ -11,12 +11,12 @@ const UserSettingsDropdown = () => {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                 >
-                    Edit Profile
+                    Settings
                 </button>
                 <ul className="dropdown-menu">
                     <li>
                         <Link className="dropdown-item" href="/student-settings">
-                            User Settings
+                            Student Settings
                         </Link>
                     </li>
                     <li>
@@ -24,7 +24,6 @@ const UserSettingsDropdown = () => {
                             Change Password
                         </Link>
                     </li>
-                    
                     <li>
                         <Link className="dropdown-item" href="/student-upload-photo">
                             Upload Photo

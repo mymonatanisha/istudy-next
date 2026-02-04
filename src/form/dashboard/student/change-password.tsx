@@ -1,5 +1,5 @@
 import ErrorMsg from '@/form/auth/ErrorMsg';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -10,17 +10,46 @@ type FormData = {
 };
 
 const ChangePasswordForm = () => {
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const {
         register,
         handleSubmit,
         watch,
-        formState: { errors }, reset
+        formState: { errors }, 
+        reset
     } = useForm<FormData>();
 
-    const onSubmit = () => {
-        toast.success('Password updated successfully');
-        reset()
+    const onSubmit = async (data: FormData) => {
+        setIsSubmitting(true);
+        try {
+            const response = await fetch('/api/user/change-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    currentPassword: data.studentCurrentPassword,
+                    newPassword: data.studentNewPassword,
+                    confirmPassword: data.studentConfirmPassword,
+                }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                toast.success('Password updated successfully');
+                reset();
+            } else {
+                toast.error(result.error || 'Failed to update password');
+            }
+        } catch (error) {
+            console.error('Password change error:', error);
+            toast.error('An error occurred while changing password');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
+
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)} className="row g-30">
@@ -31,6 +60,7 @@ const ChangePasswordForm = () => {
                             id="studentPassword"
                             type="password"
                             placeholder="Current Password"
+                            disabled={isSubmitting}
                         />
                         <ErrorMsg error={errors?.studentCurrentPassword?.message} />
                     </div>
@@ -46,6 +76,7 @@ const ChangePasswordForm = () => {
                             id="studentNewPassword"
                             type="password"
                             placeholder="New Password"
+                            disabled={isSubmitting}
                         />
                         <ErrorMsg error={errors?.studentNewPassword?.message} />
                     </div>
@@ -62,14 +93,15 @@ const ChangePasswordForm = () => {
                             id="studentConfirmPassword"
                             type="password"
                             placeholder="Confirm Password"
+                            disabled={isSubmitting}
                         />
                         <ErrorMsg error={errors?.studentConfirmPassword?.message} />
                     </div>
                 </div>
 
                 <div className="col-lg-12">
-                    <button type="submit" className="bd-btn btn-primary">
-                        Save Changes
+                    <button type="submit" className="bd-btn btn-primary" disabled={isSubmitting}>
+                        {isSubmitting ? 'Saving...' : 'Save Changes'}
                     </button>
                 </div>
             </form>

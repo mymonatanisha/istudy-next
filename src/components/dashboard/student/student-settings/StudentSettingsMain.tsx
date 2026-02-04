@@ -1,6 +1,7 @@
 "use client";
-import StudentForm from "@/form/dashboard/student/student-form";
+import ChangePasswordForm from "@/form/dashboard/student/change-password";
 import UserSettingsDropdown from "./UserSettingsDropdown";
+import StudentUploadPhoto from "./StudentUploadPhoto";
 
 const StudentSettingsMain = () => {
 
@@ -13,9 +14,20 @@ const StudentSettingsMain = () => {
                         <UserSettingsDropdown />
                     </div>
                 </div>
+                
+                {/* Upload Photo Section */}
+                <div className="dashboard-profile-info mb-30">
+                    <div className="dashboard-profile-inner">
+                        <h5 className="mb-20">Upload Photo</h5>
+                        <StudentUploadPhoto />
+                    </div>
+                </div>
+
+                {/* Change Password Section */}
                 <div className="dashboard-profile-info">
                     <div className="dashboard-profile-inner">
-                        <StudentForm />
+                        <h5 className="mb-20">Change Password</h5>
+                        <ChangePasswordForm />
                     </div>
                 </div>
             </div>
