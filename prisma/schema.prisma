@@ -15,14 +15,14 @@ model User {
   passwordHash String
 
   // Profile fields
-  firstName    String?
-  lastName     String?
   username     String?
   phone        String?
   avatar       String?
+  avatarUrl    String?
   linkedIn     String?
   bio          String?
   occupation   String?
+  headline     String?
 
   resetToken        String?
   resetTokenExpires DateTime?

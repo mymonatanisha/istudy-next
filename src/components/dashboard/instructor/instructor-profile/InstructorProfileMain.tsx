@@ -6,14 +6,14 @@ type UserProfile = {
   id: number;
   name: string;
   email: string;
-  firstName?: string | null;
-  lastName?: string | null;
   username?: string | null;
   phone?: string | null;
   avatar?: string | null;
+  avatarUrl?: string | null;
   linkedIn?: string | null;
   bio?: string | null;
   occupation?: string | null;
+  headline?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -67,7 +67,7 @@ const InstructorProfileMain = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     // Validate that the field name is one we expect
-    const validFields = ['name', 'firstName', 'lastName', 'username', 'phone', 'linkedIn', 'bio', 'occupation'];
+    const validFields = ['name', 'username', 'phone', 'avatarUrl', 'linkedIn', 'bio', 'occupation', 'headline'];
     if (validFields.includes(name)) {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
@@ -189,39 +189,39 @@ const InstructorProfileMain = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td>Registration Date</td>
+                  <th>Registration Date</th>
                   <td>{formatDate(profile.createdAt)}</td>
                 </tr>
                 <tr>
-                  <td>Full Name</td>
+                  <th>Full Name</th>
                   <td>{profile.name || 'Not set'}</td>
                 </tr>
                 <tr>
-                  <td>First Name</td>
-                  <td>{profile.firstName || 'Not set'}</td>
-                </tr>
-                <tr>
-                  <td>Last Name</td>
-                  <td>{profile.lastName || 'Not set'}</td>
-                </tr>
-                <tr>
-                  <td>Username</td>
+                  <th>Username</th>
                   <td>{profile.username || 'Not set'}</td>
                 </tr>
                 <tr>
-                  <td>Email</td>
+                  <th>Email</th>
                   <td>{profile.email}</td>
                 </tr>
                 <tr>
-                  <td>Phone Number</td>
+                  <th>Phone Number</th>
                   <td>{profile.phone || 'Not set'}</td>
                 </tr>
                 <tr>
-                  <td>Occupation/Skill</td>
+                  <th>Avatar URL</th>
+                  <td>{profile.avatarUrl || 'Not set'}</td>
+                </tr>
+                <tr>
+                  <th>Headline</th>
+                  <td>{profile.headline || 'Not set'}</td>
+                </tr>
+                <tr>
+                  <th>Occupation/Skill</th>
                   <td>{profile.occupation || 'Not set'}</td>
                 </tr>
                 <tr>
-                  <td>LinkedIn Profile</td>
+                  <th>LinkedIn Profile</th>
                   <td>
                     {profile.linkedIn ? (
                       <a href={profile.linkedIn} target="_blank" rel="noopener noreferrer">
@@ -233,7 +233,7 @@ const InstructorProfileMain = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td>Biography</td>
+                  <th>Biography</th>
                   <td>{profile.bio || 'Not set'}</td>
                 </tr>
               </tbody>
@@ -265,26 +265,6 @@ const InstructorProfileMain = () => {
                   />
                 </div>
                 <div className="col-md-6">
-                  <label className="form-label">First Name</label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    className="form-control"
-                    value={formData.firstName || ''}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="col-md-6">
-                  <label className="form-label">Last Name</label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    className="form-control"
-                    value={formData.lastName || ''}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="col-md-6">
                   <label className="form-label">Email (Read-only)</label>
                   <input
                     type="email"
@@ -301,6 +281,28 @@ const InstructorProfileMain = () => {
                     className="form-control"
                     value={formData.phone || ''}
                     onChange={handleChange}
+                  />
+                </div>
+                <div className="col-md-6">
+                  <label className="form-label">Avatar URL</label>
+                  <input
+                    type="url"
+                    name="avatarUrl"
+                    className="form-control"
+                    value={formData.avatarUrl || ''}
+                    onChange={handleChange}
+                    placeholder="https://example.com/avatar.jpg"
+                  />
+                </div>
+                <div className="col-md-6">
+                  <label className="form-label">Headline</label>
+                  <input
+                    type="text"
+                    name="headline"
+                    className="form-control"
+                    value={formData.headline || ''}
+                    onChange={handleChange}
+                    placeholder="e.g., Senior Software Engineer"
                   />
                 </div>
                 <div className="col-md-6">
