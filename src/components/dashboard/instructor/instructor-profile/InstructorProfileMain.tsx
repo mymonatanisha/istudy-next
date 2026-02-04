@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 
 type UserProfile = {
   id: number;
@@ -229,6 +228,7 @@ const InstructorProfileMain = () => {
                     </div>
                   </div>
                 )}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={isEditing ? (formData.avatarUrl || '') : (profile.avatarUrl || '')}
                   alt={`${profile.name}'s avatar`}
