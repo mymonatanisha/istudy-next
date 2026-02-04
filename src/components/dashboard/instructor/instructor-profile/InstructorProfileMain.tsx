@@ -209,7 +209,7 @@ const InstructorProfileMain = () => {
                   <td>{profile.phone || 'Not set'}</td>
                 </tr>
                 <tr>
-                  <th>Avatar URL</th>
+                  <th>Address</th>
                   <td>{profile.avatarUrl || 'Not set'}</td>
                 </tr>
                 <tr>
@@ -284,7 +284,7 @@ const InstructorProfileMain = () => {
                   />
                 </div>
                 <div className="col-md-6">
-                  <label className="form-label">Avatar URL</label>
+                  <label className="form-label">Address</label>
                   <input
                     type="url"
                     name="avatarUrl"
