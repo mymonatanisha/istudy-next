@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { validateImageUrl } from '@/utils/imageValidation';
 
 type UserProfile = {
   id: number;
@@ -78,26 +79,6 @@ const InstructorProfileMain = () => {
         setImageError(false);
         setImageLoading(true);
       }
-    }
-  };
-
-  const validateImageUrl = (url: string | null | undefined): boolean => {
-    if (!url || url.trim() === '') return false;
-    
-    try {
-      const urlObj = new URL(url);
-      // Check if URL has a valid protocol
-      if (!['http:', 'https:'].includes(urlObj.protocol)) return false;
-      
-      // Check if URL ends with common image extensions
-      const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg', '.bmp', '.ico'];
-      const pathname = urlObj.pathname.toLowerCase();
-      const hasImageExtension = imageExtensions.some(ext => pathname.endsWith(ext));
-      
-      // Accept if it has image extension or if it looks like an image URL
-      return hasImageExtension || pathname.includes('/image') || pathname.includes('/avatar') || pathname.includes('/photo');
-    } catch {
-      return false;
     }
   };
 
@@ -229,6 +210,10 @@ const InstructorProfileMain = () => {
                   </div>
                 )}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
+                {/* Note: User-provided URLs are validated by validateImageUrl() which checks for
+                    valid protocols (http/https) and image file extensions. For enhanced security
+                    in production, consider implementing Content Security Policy (CSP) headers
+                    and/or using an image proxy service. */}
                 <img
                   src={isEditing ? (formData.avatarUrl || '') : (profile.avatarUrl || '')}
                   alt={`${profile.name}'s avatar`}
