@@ -31,10 +31,10 @@ const ShopListSingleCard = ({ item }:IShopListProps) => {
                     }
                     <h6 className="bd-product-title underline mb-10">{item.title}</h6>
                     <div className="bd-product-price mb-10">
-                        <span className="current-price">{`$${item.price}`}</span>{ " "}
+                        <span className="current-price">{`${item.price}`}</span>{ " "}
                         {
                             item.discount ? <>
-                            <span className="old-price">{`$${item.discount}`}</span>
+                            <span className="old-price">{`${item.discount}`}</span>
                             </> : ""
                         }
                         

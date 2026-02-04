@@ -63,20 +63,20 @@ const ShopDetailsMain = ({ id }: idType) => {
                                         <div className="bd-book-format-option selected">
                                             <span className="bd-book-format-type">Hardcover</span>
                                             <span className="bd-book-format-price">
-                                                {book?.discount && <span className="old-price">{`$${book?.discount}`}</span>}{" "}
-                                                <span className="new-price">{`$${book?.price}`}</span>
+                                                {book?.discount && <span className="old-price">{`${book?.discount}`}</span>}{" "}
+                                                <span className="new-price">{`${book?.price}`}</span>
                                             </span>
                                         </div>
                                         <div className="bd-book-format-option">
                                             <span className="bd-book-format-type">Paperback</span>
                                             <span className="bd-book-format-price">
-                                                <span className="old-price">$12.99</span>{" "}
-                                                <span className="new-price">$10.99</span>
+                                                <span className="old-price">12.99</span>{" "}
+                                                <span className="new-price">10.99</span>
                                             </span>
                                         </div>
                                         <div className="bd-book-format-option">
                                             <span className="bd-book-format-type">eBook</span>
-                                            <span className="new-price">$6.99</span>
+                                            <span className="new-price">6.99</span>
                                         </div>
                                     </div>
                                 </div>

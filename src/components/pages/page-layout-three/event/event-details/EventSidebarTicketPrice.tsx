@@ -10,8 +10,8 @@ const EventSidebarTicketPrice = () => {
                 <div className="bd-event-price-wrap d-flex-between">
                     <span className="title">Ticket Price</span>
                     <div className="bd-event-price">
-                        <span className="current-price">$59.00</span>
-                        <span className="old-price">$79.00</span>
+                        <span className="current-price">59.00</span>
+                        <span className="old-price">79.00</span>
                     </div>
                 </div>
             </div>

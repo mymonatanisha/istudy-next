@@ -85,8 +85,8 @@ const CourseDetailsBreadcrumb = ({ subtitle, description, courseBreadcrumbBuySho
                                             <div className="bd-course-sidebar-widget-price mb-20">
                                                 <div className="d-flex-between">
                                                     <div className="bd-course-price">
-                                                        <span className="current-price">$139.00</span>
-                                                        <span className="old-price">$199.00</span>
+                                                        <span className="current-price">139.00</span>
+                                                        <span className="old-price">199.00</span>
                                                     </div>
                                                     <span className="bd-badge badge-danger">30% Off</span>
                                                 </div>

@@ -33,8 +33,8 @@ const CommonCourseSingleCardTwo = ({ course }: ICourseProps) => {
                         <h5 className="bd-course-title underline mb-10"><Link href={`/courses/course-details/${course.id}`}>{course.title}</Link></h5>
                         <div className="bd-course-rating d-flex-between">
                             <div className="bd-course-price">
-                                <span className="current-price">{`$${course.price}.00`}</span>
-                                {course.discount && <span className="old-price">{`$${course.discount}.00`}</span>}
+                                <span className="current-price">{`${course.price}.00`}</span>
+                                {course.discount && <span className="old-price">{`${course.discount}.00`}</span>}
                             </div>
                             <div className="bd-course-rating-wrap d-flex align-items-center gap-10">
                                 <div className="bd-course-rating-icon fs-14 d-flex rating-color">

@@ -49,8 +49,8 @@ const CourseListCard = ({ course }: ICourseProps) => {
                         </div>
                     </div>
                     <div className="bd-course-price">
-                        <span className="current-price text-primary">{`$${course.price}`}</span>
-                        {course.discount && <span className="old-price">{`$${course.discount}`}</span>}
+                        <span className="current-price text-primary">{`${course.price}`}</span>
+                        {course.discount && <span className="old-price">{`${course.discount}`}</span>}
                     </div>
                 </div>
             </div>

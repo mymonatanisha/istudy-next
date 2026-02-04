@@ -31,7 +31,7 @@ const CourseStyleTwelve: React.FC = () => {
                                             <Link href="#" className="bd-badge badge-secondary"> {course.price} </Link>)
                                             :
                                             (
-                                                <span className="bd-circle-badge warning">{`$${course.price}`}</span>
+                                                <span className="bd-circle-badge warning">{`${course.price}`}</span>
                                             )}
                                     </div>
                                     <div className={`bd-course-thumb-bg ${course.imageBgClass}`}>

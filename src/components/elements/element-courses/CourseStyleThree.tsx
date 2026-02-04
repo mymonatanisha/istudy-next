@@ -56,8 +56,8 @@ const CourseStyleThree = () => (
                                         <Link href="#">{course.title}</Link>
                                     </h5>
                                     <div className="bd-course-price mb-10">
-                                        <span className="current-price">{`$${course.price}.00`}</span>
-                                        {course.oldPrice && <span className="old-price">{`$${course.oldPrice}.00`}</span>}
+                                        <span className="current-price">{`${course.price}.00`}</span>
+                                        {course.oldPrice && <span className="old-price">{`${course.oldPrice}.00`}</span>}
                                     </div>
                                     <div className="bd-course-meta d-flex-between">
                                         <div className="bd-course-author">

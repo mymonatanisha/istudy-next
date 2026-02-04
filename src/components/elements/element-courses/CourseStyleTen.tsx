@@ -64,8 +64,8 @@ const CourseStyleTen = () => {
                                         </div>
                                     </div>
                                     <div className="bd-course-price">
-                                        <span className="current-price has-big">{`$${course.price}.00`}</span>
-                                        <span className="old-price has-big">{`$${course.oldPrice}.00`}</span>
+                                        <span className="current-price has-big">{`${course.price}.00`}</span>
+                                        <span className="old-price has-big">{`${course.oldPrice}.00`}</span>
                                     </div>
                                 </div>
                             </div>

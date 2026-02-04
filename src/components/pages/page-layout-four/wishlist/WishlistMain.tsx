@@ -66,15 +66,15 @@ const WishlistMain = () => {
                                                                 </div>
                                                             </td>
                                                             <td><Link href={`/shop/shop-details/${item.id}`}>{item?.title}</Link></td>
-                                                            <td>${item.price ? item.price.toFixed(2) : "0.00"}</td>
-                                                            <td><button
+                                                            <td>{item.price ? item.price.toFixed(2) : "0.00"}</td>
+                                                             <td><button
                                                                 onClick={(e) => {
                                                                     e.preventDefault();
                                                                     handleAddToCart(item);
                                                                 }}
                                                                 className="bd-btn btn-primary">Add to Cart</button>
                                                             </td>
-                                                            <td>{`$${item.price?.toFixed(2) ?? 0}`}</td>
+                                                            <td>{`${item.price?.toFixed(2) ?? 0}`}</td>
                                                             <td><button onClick={() => dispatch(remove_wishlist_product(item))} className="removeRow"><i className="fa fa-times"></i> Remove</button></td>
                                                         </tr>
                                                     ) : (
@@ -87,7 +87,7 @@ const WishlistMain = () => {
 
                                                             <td><Link href={`/shop/shop-details/${item.id}`}>{item?.title}</Link></td>
 
-                                                            <td>${item.price ? item.price.toFixed(2) : "0.00"}</td>
+                                                            <td>{item.price ? item.price.toFixed(2) : "0.00"}</td>
                                                             <td><button
                                                                 onClick={(e) => {
                                                                     e.preventDefault();
@@ -95,7 +95,7 @@ const WishlistMain = () => {
                                                                 }}
                                                                 className="bd-btn btn-primary">Add to Cart</button>
                                                             </td>
-                                                            <td>{`$${item.price?.toFixed(2) ?? 0}`}</td>
+                                                            <td>{`${item.price?.toFixed(2) ?? 0}`}</td>
                                                             <td><button onClick={() => dispatch(remove_wishlist_product(item))} className="removeRow"><i className="fa fa-times"></i> Remove</button></td>
                                                         </tr>
                                                     )

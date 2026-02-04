@@ -131,8 +131,8 @@ const ShopDetailsTwoMain = () => {
                                     Encourage creativity and learning with this Deluxe Building Blocks Set. Designed for children aged 3 and up, this set provides endless opportunities for imaginative play and skill development.
                                 </p>
                                 <div className="bd-product-details-price mb-30">
-                                    <h6 className="current-price">$59.99</h6>
-                                    <h6 className="old-price">$79.99</h6>
+                                    <h6 className="current-price">59.99</h6>
+                                    <h6 className="old-price">79.99</h6>
                                 </div>
                                 <div className="product-details-count-wrap d-flex flex-wrap gap-10 align-items-center mb-30">
                                     <div className="bd-product-quantity">

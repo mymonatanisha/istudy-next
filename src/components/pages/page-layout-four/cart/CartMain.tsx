@@ -84,7 +84,7 @@ const CartMain = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td><Link href={`/shop/shop-details/${item.id}`}>{item?.title}</Link></td>
-                                                                <td>{`$${item.price?.toFixed(2)}`}</td>
+                                                                <td>{`${item.price?.toFixed(2)}`}</td>
 
                                                                 <td>
                                                                     <button onClick={() => handleDelteProduct(item)} className="removeRow"><i className="fa fa-times"></i> Remove</button>
@@ -96,7 +96,7 @@ const CartMain = () => {
                                                                     {item.image && <Image src={item.image} alt="img" />}
                                                                 </Link></td>
                                                                 <td><Link href={`/shop/shop-details/${item.id}`}>{item?.title}</Link></td>
-                                                                <td>{`$${item.price?.toFixed(2)}`}</td>
+                                                                <td>{`${item.price?.toFixed(2)}`}</td>
                                                                 <td>
                                                                     <div className="bd-product-quantity">
                                                                         <span onClick={() => handDecressCart(item)} className="decrease">

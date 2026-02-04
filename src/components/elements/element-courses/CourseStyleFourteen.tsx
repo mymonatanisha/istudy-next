@@ -34,8 +34,8 @@ const CourseStyleFourteen = () => {
                                 </div>
                                 <div className="bd-course-content">
                                     <div className="bd-course-price mb-15">
-                                        <span className="current-price text-primary">${course.price}.00</span>
-                                        <span className="old-price">${course.oldPrice}.00</span>                                    </div>
+                                        <span className="current-price text-primary">{course.price}.00</span>
+                                        <span className="old-price">{course.oldPrice}.00</span>                                    </div>
                                     <h5 className="bd-course-title underline mb-10"><Link href="#">{course.title}</Link></h5>
                                     <p className="bd-course-description mb-15">{course.courseDescription}</p>
                                     <div className="bd-course-rating d-inline-flex align-items-center gap-10 mb-15">

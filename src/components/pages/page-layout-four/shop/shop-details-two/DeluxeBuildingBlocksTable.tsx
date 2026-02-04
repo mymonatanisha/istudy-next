@@ -53,12 +53,12 @@ const DeluxeBuildingBlocksTable = () => {
                         </tr>
                         <tr>
                             <td>Price</td>
-                            <td>$49.99 per set (Bulk purchase discounts available)</td>
+                            <td>49.99 per set (Bulk purchase discounts available)</td>
                         </tr>
                         <tr>
                             <td>Shipping Information</td>
                             <td>Standard shipping (3-5 business days), Free shipping on
-                                orders over $50</td>
+                                orders over 50</td>
                         </tr>
                     </tbody>
                 </table>
