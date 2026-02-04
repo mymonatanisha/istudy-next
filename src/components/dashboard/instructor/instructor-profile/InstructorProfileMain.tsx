@@ -189,39 +189,39 @@ const InstructorProfileMain = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td>Registration Date</td>
+                  <th>Registration Date</th>
                   <td>{formatDate(profile.createdAt)}</td>
                 </tr>
                 <tr>
-                  <td>Full Name</td>
+                  <th>Full Name</th>
                   <td>{profile.name || 'Not set'}</td>
                 </tr>
                 <tr>
-                  <td>Username</td>
+                  <th>Username</th>
                   <td>{profile.username || 'Not set'}</td>
                 </tr>
                 <tr>
-                  <td>Email</td>
+                  <th>Email</th>
                   <td>{profile.email}</td>
                 </tr>
                 <tr>
-                  <td>Phone Number</td>
+                  <th>Phone Number</th>
                   <td>{profile.phone || 'Not set'}</td>
                 </tr>
                 <tr>
-                  <td>Avatar URL</td>
+                  <th>Avatar URL</th>
                   <td>{profile.avatarUrl || 'Not set'}</td>
                 </tr>
                 <tr>
-                  <td>Headline</td>
+                  <th>Headline</th>
                   <td>{profile.headline || 'Not set'}</td>
                 </tr>
                 <tr>
-                  <td>Occupation/Skill</td>
+                  <th>Occupation/Skill</th>
                   <td>{profile.occupation || 'Not set'}</td>
                 </tr>
                 <tr>
-                  <td>LinkedIn Profile</td>
+                  <th>LinkedIn Profile</th>
                   <td>
                     {profile.linkedIn ? (
                       <a href={profile.linkedIn} target="_blank" rel="noopener noreferrer">
@@ -233,7 +233,7 @@ const InstructorProfileMain = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td>Biography</td>
+                  <th>Biography</th>
                   <td>{profile.bio || 'Not set'}</td>
                 </tr>
               </tbody>
