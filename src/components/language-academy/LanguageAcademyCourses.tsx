@@ -104,8 +104,8 @@ const LanguageAcademyCourses = () => {
                                                     <Link href={`/courses/course-details/${item.id}`}>{item.title}</Link>
                                                 </h5>
                                                 <div className="bd-course-price">
-                                                    <span className="current-price">{`$${item.price}.00`}</span>
-                                                    {item.discount && <span className="old-price">{`$${item.discount}.00`}</span>}
+                                                    <span className="current-price">{`${item.price}.00`}</span>
+                                                    {item.discount && <span className="old-price">{`${item.discount}.00`}</span>}
                                                 </div>
                                                 <div className="bd-course-divider"></div>
                                                 <div className="bd-course-meta d-flex-between">

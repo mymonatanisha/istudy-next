@@ -81,7 +81,7 @@ const BestSellersProductSlider = () => {
                                                         <i className="fa-solid fa-star"></i>
                                                     </span>
                                                     <div className="bd-product-price">
-                                                        <span className="current-price">{`$${item.price}`}</span>
+                                                        <span className="current-price">{`${item.price}`}</span>
                                                     </div>
                                                 </div>
                                                 <div className="bd-product-cart-btn">

@@ -30,7 +30,7 @@ const ShopSingleCard = ({ item }: IShopProps) => {
                             {item.rating && <GetRating averageRating={item.rating} />}
                         </span>
                         <div className="bd-product-price">
-                            <span className="current-price">{`$${item.price}`}</span>
+                            <span className="current-price">{`${item.price}`}</span>
                         </div>
                     </div>
                     <div className="bd-product-cart-btn">

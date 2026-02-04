@@ -20,7 +20,7 @@ const courses: Course[] = [
     {
         id: 1,
         image: courseImg1,
-        price: "$35",
+        price: "35",
         discount: "15% Off",
         title: "Bachelor of Business Administration (Accounting)",
         description: "Helping employees gain skills and development often take a back seat to business",
@@ -30,7 +30,7 @@ const courses: Course[] = [
     {
         id: 2,
         image: courseImg2,
-        price: "$35",
+        price: "35",
         discount: "15% Off",
         title: "Bachelor of Business Administration (Accounting)",
         description: "Helping employees gain skills and development often take a back seat to business",
@@ -40,7 +40,7 @@ const courses: Course[] = [
     {
         id: 3,
         image: courseImg3,
-        price: "$35",
+        price: "35",
         discount: "15% Off",
         title: "Bachelor of Business Administration (Accounting)",
         description: "Helping employees gain skills and development often take a back seat to business",

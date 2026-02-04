@@ -40,8 +40,8 @@ const ModernSchoolingCourseArea = () => {
                                         </div>
                                         <div className="bd-course-content">
                                             <div className="bd-course-price">
-                                                <span className="current-price">{`$${course.price}.00`}</span>
-                                                <span className="old-price">{`$${course.discount}.00`}</span>
+                                                <span className="current-price">{`${course.price}.00`}</span>
+                                                <span className="old-price">{`${course.discount}.00`}</span>
                                             </div>
                                             <h5 className="bd-course-title underline"><Link href={`/courses/course-details/${course.id}`}>{course.title}</Link></h5>
                                             <p className="bd-course-description">{course.courseDescription}</p>

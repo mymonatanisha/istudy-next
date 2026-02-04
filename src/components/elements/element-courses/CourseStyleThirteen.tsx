@@ -37,8 +37,8 @@ const CourseStyleThirteen = () => {
                                 </div>
                                 <div className="bd-course-content">
                                     <div className="bd-course-price">
-                                        <span className="current-price text-primary">${course.price}.00</span>
-                                        <span className="old-price">${course.oldPrice}.00</span>
+                                        <span className="current-price text-primary">{course.price}.00</span>
+                                        <span className="old-price">{course.oldPrice}.00</span>
                                     </div>
                                     <h5 className="bd-course-title underline">
                                         <Link href="3">{course.title}</Link>

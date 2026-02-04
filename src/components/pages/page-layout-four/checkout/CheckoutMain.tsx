@@ -88,7 +88,7 @@ const CheckoutMain = () => {
                                         {cartProducts.map((item) => (
                                             <li className="order-info-list-desc" key={item.id}>
                                                 <p>{item?.title}<span> x {item?.quantity}</span></p>
-                                                <span>{item?.quantity && item?.price ? `$${(Number(item.quantity) * Number(item.price)).toFixed(2)}` : 'N/A'}</span>
+                                                <span>{item?.quantity && item?.price ? `${(Number(item.quantity) * Number(item.price)).toFixed(2)}` : 'N/A'}</span>
                                             </li>
                                         ))}
                                         
@@ -96,7 +96,7 @@ const CheckoutMain = () => {
 
                                         <li className="order-info-list-subtotal">
                                             <span>Subtotal</span>
-                                            <span>${totalPrice.toFixed(2)}</span>
+                                            <span>{totalPrice.toFixed(2)}</span>
                                         </li>
                                          -- shipping -- 
                                         <li className="order-info-list-shipping">
@@ -104,11 +104,11 @@ const CheckoutMain = () => {
                                             <div className="order-info-list-shipping-item d-flex flex-column align-items-start">
                                                 <span>
                                                     <input onClick={() => setShippingCost(20)} id="flat_rate" type="radio" name="shipping" />
-                                                    <label htmlFor="flat_rate">Flat rate: <span>$20.00</span></label>
+                                                    <label htmlFor="flat_rate">Flat rate: <span>20.00</span></label>
                                                 </span>
                                                 <span>
                                                     <input onClick={() => setShippingCost(25)} id="local_pickup" type="radio" name="shipping" />
-                                                    <label htmlFor="local_pickup">Local pickup: <span>$25.00</span></label>
+                                                    <label htmlFor="local_pickup">Local pickup: <span>25.00</span></label>
                                                 </span>
                                                 <span>
                                                     <input onClick={() => setShippingCost(0)} id="free_shipping" type="radio" name="shipping" />
@@ -121,7 +121,7 @@ const CheckoutMain = () => {
                                         {/* -- total -- */}
                                         <li className="order-info-list-total">
                                             <span>Total</span>
-                                            <span>${(totalPrice ).toFixed(2)}</span>
+                                            <span>{(totalPrice ).toFixed(2)}</span>
                                         </li>
                                     </ul>
                                 </div>

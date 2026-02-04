@@ -6,7 +6,7 @@ const BookDetails = () => {
             <tbody>
                 <tr>
                     <td><strong>Price:</strong></td>
-                    <td><span className="old-price">$30.00</span> <span className="new-price">$27.90</span></td>
+                    <td><span className="old-price">30.00</span> <span className="new-price">27.90</span></td>
                 </tr>
                 <tr>
                     <td><strong>Publisher:</strong></td>

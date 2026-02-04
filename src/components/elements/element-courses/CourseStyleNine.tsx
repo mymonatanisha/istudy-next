@@ -106,8 +106,8 @@ const CourseStyleNine = () => {
                                                     </ul>
                                                 </div>
                                                 <div className="bd-course-price mb-20">
-                                                    <span className="current-price has-big text-primary">{`$${course.price}.00`}</span>
-                                                    <span className="old-price has-big">{`$${course.oldPrice}.00`}</span>
+                                                    <span className="current-price has-big text-primary">{`${course.price}.00`}</span>
+                                                    <span className="old-price has-big">{`${course.oldPrice}.00`}</span>
                                                 </div>
                                                 <div className="bd-course-action-btn d-flex align-items-center gap-15">
                                                     <Link href="#" className="bd-btn btn-outline-border-primary">View Details</Link>

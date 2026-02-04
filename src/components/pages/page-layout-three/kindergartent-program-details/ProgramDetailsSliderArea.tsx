@@ -87,7 +87,7 @@ const ProgramDetailsSliderArea = ({program}:IPropsType) => {
                                     </div>
                                     <div className="bd-program-details-cat">
                                         <span>Per/Month</span>
-                                        <h5>$160.00</h5>
+                                        <h5>160.00</h5>
                                     </div>
                                 </div>
                             </div>

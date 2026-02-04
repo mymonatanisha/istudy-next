@@ -5,12 +5,12 @@ import Link from "next/link";
 
 // Earnings data array
 const earningsData: EarningData[] = [
-    { icon: "fa-dollar-sign", amount: 950, label: "Total Earnings", suffix: "$" },
-    { icon: "fa-wallet", amount: 9, label: "Current Balance", suffix: "$" },
-    { icon: "fa-arrow-down", amount: 350, label: "Total Withdraws", suffix: "$" },
+    { icon: "fa-dollar-sign", amount: 950, label: "Total Earnings", suffix: "" },
+    { icon: "fa-wallet", amount: 9, label: "Current Balance", suffix: "" },
+    { icon: "fa-arrow-down", amount: 350, label: "Total Withdraws", suffix: "" },
     { icon: "fa-book-open", amount: 95, label: "Active Course", suffix: "+" },
     { icon: "fa-user-graduate", amount: 15995, label: "Total Student", suffix: "+" },
-    { icon: "fa-receipt", amount: 95, label: "Deducted Fees", suffix: "$" }
+    { icon: "fa-receipt", amount: 95, label: "Deducted Fees", suffix: "" }
 ];
 
 const InstructorDashboardMain: React.FC = () => {

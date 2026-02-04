@@ -20,7 +20,7 @@ const ProductPrice: React.FC = () => {
 
             sliderInstance.current.on("update", (values: (string | number)[]) => {
                 if (amountRef.current) {
-                    amountRef.current.value = `$${values[0].toString()} - $${values[1].toString()}`;
+                    amountRef.current.value = `${values[0].toString()} - ${values[1].toString()}`;
                 }
             });
         }

@@ -62,7 +62,7 @@ const SidebarCart: React.FC<HeaderCartProps> = ({ openCart, setOpenCart }) => {
                                                     <div className="bd-sidebar-cart-content">
                                                         <h5 className="bd-sidebar-cart-title"><Link href={`/shop/shop-details/${item.id}`}>{item.title}</Link></h5>
                                                         <div className="bd-sidebar-cart-price-wrapper">
-                                                            <span className="bd-sidebar-cart-price">{`$${Number(item.price || 0).toFixed(2)}`}</span>
+                                                            <span className="bd-sidebar-cart-price">{`${Number(item.price || 0).toFixed(2)}`}</span>
                                                             <span className="bd-sidebar-cart-quantity">{" "}x{item.quantity}</span>
                                                         </div>
                                                     </div>
@@ -80,7 +80,7 @@ const SidebarCart: React.FC<HeaderCartProps> = ({ openCart, setOpenCart }) => {
                                                     <div className="bd-sidebar-cart-content">
                                                         <h5 className="bd-sidebar-cart-title"><Link href={`/shop/shop-details/${item.id}`}>{item.title}</Link></h5>
                                                         <div className="bd-sidebar-cart-price-wrapper">
-                                                            <span className="bd-sidebar-cart-price">{`$${Number(item.price || 0).toFixed(2)}`}</span>
+                                                            <span className="bd-sidebar-cart-price">{`${Number(item.price || 0).toFixed(2)}`}</span>
                                                             <span className="bd-sidebar-cart-quantity">{" "}x{item.quantity}</span>
                                                         </div>
                                                     </div>
@@ -104,7 +104,7 @@ const SidebarCart: React.FC<HeaderCartProps> = ({ openCart, setOpenCart }) => {
                         <div className="bd-sidebar-cart-checkout">
                             <div className="bd-sidebar-cart-checkout-title mb-30">
                                 <h5>Subtotal:</h5>
-                                <span>{`$${totalPrice.toFixed(2)}`}</span>
+                                <span>{`${totalPrice.toFixed(2)}`}</span>
                             </div>
                             <div className="bd-sidebar-cart-checkout-btn">
                                 <Link className="bd-btn btn-primary mb-15 w-100" href="/cart">View Cart</Link>
