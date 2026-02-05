@@ -48,6 +48,13 @@ export async function POST(request: NextRequest) {
     // Get authenticated user if available
     const authUser = await getAuthUser();
     
+    // If userId is provided in the request but no authenticated user, reject it
+    if (userId && !authUser) {
+      return NextResponse.json({ 
+        error: "Unauthorized: Cannot set userId without authentication" 
+      }, { status: 401 });
+    }
+    
     // If userId is provided in the request, verify it matches the authenticated user
     if (userId && authUser && userId !== authUser.id) {
       return NextResponse.json({ 
@@ -65,7 +72,7 @@ export async function POST(request: NextRequest) {
         paymentMethod: paymentMethod.trim(),
         transactionId: transactionId.trim(),
         status: "pending",
-        userId: authUser ? authUser.id : (userId || null),
+        userId: authUser ? authUser.id : null,
       },
     });
 

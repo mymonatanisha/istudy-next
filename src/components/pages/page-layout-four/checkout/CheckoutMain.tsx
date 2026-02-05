@@ -49,11 +49,12 @@ const CheckoutMain = () => {
                     setUser(data.user);
                     // Pre-fill form data from user profile
                     if (data.user) {
-                        setFormData({
+                        setFormData(prev => ({
+                            ...prev,
                             fullName: data.user.name || '',
                             phone: data.user.phone || '',
                             email: data.user.email || '',
-                        });
+                        }));
                     }
                 }
             } catch (error) {
@@ -64,7 +65,7 @@ const CheckoutMain = () => {
         };
         
         fetchUser();
-    }, []);
+    }, []); // Empty dependency array is correct - only fetch once on mount
     
     //const [shippingCost, setShippingCost] = useState(0);
     const cartProducts = useSelector(
