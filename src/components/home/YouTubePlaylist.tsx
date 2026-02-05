@@ -10,18 +10,21 @@ interface YouTubePlaylistProps {
   playlistId?: string;
 }
 
+// Default playlist ID for Android development course
+const DEFAULT_PLAYLIST_ID = "PLg_3d7KmjG4MWxX0fZ9pMDFtXxOfG8uoC";
+
 // Validate playlist ID: should be alphanumeric with underscores, hyphens, and expected length
 const isValidPlaylistId = (id: string): boolean => {
   return /^[A-Za-z0-9_-]{10,50}$/.test(id);
 };
 
 const YouTubePlaylist: React.FC<YouTubePlaylistProps> = ({ 
-  playlistId = "PLg_3d7KmjG4MWxX0fZ9pMDFtXxOfG8uoC" 
+  playlistId = DEFAULT_PLAYLIST_ID 
 }) => {
   // Use validated playlist ID or fallback to default
   const validatedPlaylistId = isValidPlaylistId(playlistId) 
     ? playlistId 
-    : "PLg_3d7KmjG4MWxX0fZ9pMDFtXxOfG8uoC";
+    : DEFAULT_PLAYLIST_ID;
 
   return (
     <section className="youtube-playlist-area section-space">
@@ -42,7 +45,7 @@ const YouTubePlaylist: React.FC<YouTubePlaylistProps> = ({
               src={`https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(validatedPlaylistId)}`}
               title="Complete Android Development Course Playlist"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              sandbox="allow-scripts allow-same-origin allow-presentation"
+              sandbox="allow-scripts allow-presentation"
               allowFullScreen
             />
           </div>
