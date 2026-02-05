@@ -39,6 +39,11 @@ const YouTubePlaylist: React.FC<YouTubePlaylistProps> = ({
 
         <div className="playlist-wrapper">
           <div className="playlist-embed-container">
+            {/* 
+              Note: sandbox includes allow-same-origin along with allow-scripts, which reduces
+              sandbox security benefits. However, this is necessary for YouTube embeds to function
+              properly (loading thumbnails, tracking, and API functionality).
+            */}
             <iframe
               width="100%"
               height="100%"
