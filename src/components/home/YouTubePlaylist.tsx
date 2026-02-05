@@ -44,8 +44,8 @@ const YouTubePlaylist: React.FC<YouTubePlaylistProps> = ({
               height="100%"
               src={`https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(validatedPlaylistId)}`}
               title="Complete Android Development Course Playlist"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              sandbox="allow-scripts allow-presentation"
+              allow="encrypted-media; gyroscope; picture-in-picture"
+              sandbox="allow-scripts allow-same-origin allow-presentation"
               allowFullScreen
             />
           </div>
