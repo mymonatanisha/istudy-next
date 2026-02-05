@@ -3,8 +3,6 @@ import { getCurrentYear } from '@/utils/dateUtils';
 import Link from 'next/link';
 import React from 'react';
 import Logo from '../../../public/assets/images/logo/logo.svg';
-// import playStore from '../../../public/assets/images/icon/play-store.webp';
-// import appStore from '../../../public/assets/images/icon/app-store.webp';
 import Image from 'next/image';
 
 const FooterFive = () => {
@@ -81,14 +79,6 @@ const FooterFive = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    {/* Download App section hidden as per requirement */}
-                                    {/* <h6 className="bd-footer-widget-title mb-20">Download App</h6>
-                                    <div className="bd-footer-from-content">
-                                        <div className="bd-footer-app-btn d-flex align-items-center gap-15">
-                                            <Link className="bd-app-btn" href="#"><Image src={playStore} style={{width:"100%", height:"auto"}} alt="play-store" /></Link>
-                                            <Link className="bd-app-btn" href="#"><Image src={appStore} style={{width:"100%", height:"auto"}} alt="app-store" /></Link>
-                                        </div>
-                                    </div> */}
                                 </div>
                             </div>
                         </div>
