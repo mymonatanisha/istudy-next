@@ -11,10 +11,25 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { toast } from 'sonner';
 import useGlobalContext from '@/hooks/useContexts';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 const CheckoutMain = () => {
     const { toggleOpen, isOpen } = useGlobalContext();
     const [isCouponOpen, setIsCouponOpen] = useState<boolean>(false);
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const courseId = searchParams.get('courseId') || '';
+    
+    // Form state
+    const [formData, setFormData] = useState({
+        fullName: '',
+        phone: '',
+        email: '',
+    });
+    const [transactionId, setTransactionId] = useState('');
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
+    
     //const [shippingCost, setShippingCost] = useState(0);
     const cartProducts = useSelector(
         (state: RootState) => state.cart.cartProducts
@@ -25,6 +40,65 @@ const CheckoutMain = () => {
         }
         return total;
     }, 0);
+
+    const handlePlaceOrder = async () => {
+        // Validation
+        if (!formData.fullName || !formData.phone || !formData.email) {
+            toast.error("Please fill in all billing details");
+            return;
+        }
+
+        if (!selectedPaymentMethod) {
+            toast.error("Please select a payment method");
+            return;
+        }
+
+        if (!transactionId || transactionId.trim() === '') {
+            toast.error("Transaction ID is required");
+            return;
+        }
+
+        if (!courseId) {
+            toast.error("Course ID is missing. Please add ?courseId=XX to the URL");
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        try {
+            const response = await fetch('/api/orders', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    fullName: formData.fullName,
+                    phone: formData.phone,
+                    email: formData.email,
+                    courseId: courseId,
+                    paymentMethod: selectedPaymentMethod,
+                    transactionId: transactionId,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                toast.success("Your order has been placed successfully! 🎉");
+                // Optional: Redirect to thank-you page or clear form
+                setTimeout(() => {
+                    router.push(`/thank-you?orderId=${data.orderId}`);
+                }, 1500);
+            } else {
+                toast.error(data.error || "Failed to place order. Please try again.");
+            }
+        } catch (error) {
+            console.error("Order submission error:", error);
+            toast.error("An error occurred. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     return (
         <>
@@ -69,7 +143,7 @@ const CheckoutMain = () => {
                             <div className="checkout-bill-area">
                                 <h3 className="checkout-bill-title">Billing Details</h3>
                                 <div className="checkout-bill-form">
-                                    <BillingDetailsForm />
+                                    <BillingDetailsForm formData={formData} setFormData={setFormData} />
                                 </div>
                             </div>
                         </div>
@@ -125,7 +199,10 @@ const CheckoutMain = () => {
                                         </li>
                                     </ul>
                                 </div>
-                                <CheckoutPayment />
+                                <CheckoutPayment 
+                                    selectedPaymentMethod={selectedPaymentMethod} 
+                                    setSelectedPaymentMethod={setSelectedPaymentMethod} 
+                                />
                                 <div className="checkout-agree">
                                     <div className="checkout-option mb-15">
                                         <input id="read_all" type="checkbox" />
@@ -133,12 +210,25 @@ const CheckoutMain = () => {
                                     </div>
                                 
                                 <div className="checkout-input mb-0">
-                                <label>Transaction ID </label>
-                                <input type="text" placeholder="Transaction ID or Reference Number" />
+                                <label>Transaction ID <span className="text-danger">*</span></label>
+                                <input 
+                                    type="text" 
+                                    placeholder="Transaction ID or Reference Number" 
+                                    value={transactionId}
+                                    onChange={(e) => setTransactionId(e.target.value)}
+                                    required
+                                />
                                 </div>
                                 </div>
                                 <div className="checkout-btn-wrapper">
-                                    <button onClick={() => toast.success("Your order has been placed successfully! 🎉")} type="submit" className="bd-btn btn-outline-primary">Place Order</button>
+                                    <button 
+                                        onClick={handlePlaceOrder} 
+                                        type="submit" 
+                                        className="bd-btn btn-outline-primary"
+                                        disabled={isSubmitting}
+                                    >
+                                        {isSubmitting ? 'Processing...' : 'Place Order'}
+                                    </button>
                                 </div>
                             </div>
                         </div>

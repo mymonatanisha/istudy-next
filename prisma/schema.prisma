@@ -67,3 +67,22 @@ model ContactMessage {
   @@index([createdAt])
   @@map("contact_messages")
 }
+
+model Order {
+  id            Int      @id @default(autoincrement())
+  fullName      String
+  phone         String
+  email         String
+  courseId      String
+  paymentMethod String
+  transactionId String
+  status        String   @default("pending")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([email])
+  @@index([courseId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("orders")
+}

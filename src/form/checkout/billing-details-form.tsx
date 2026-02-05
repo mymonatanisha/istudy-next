@@ -2,10 +2,33 @@ import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 //import { countryData } from '@/data/dropdown-data';
 //import NiceSelect from '@/components/elements/nice-select/NiceSelect';
-const BillingDetailsForm = () => {
+
+interface BillingDetailsFormProps {
+    formData: {
+        fullName: string;
+        phone: string;
+        email: string;
+    };
+    setFormData: React.Dispatch<React.SetStateAction<{
+        fullName: string;
+        phone: string;
+        email: string;
+    }>>;
+}
+
+const BillingDetailsForm = ({ formData, setFormData }: BillingDetailsFormProps) => {
     const [isPasswordOpen, setIsPasswordOpen] = useState<boolean>(false);
    // const [isAddressOpen, setIsAddressOpen] = useState<boolean>(false);
     //const selectHandler = () => { }
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
     return (
         <>
             <form action="#">
@@ -14,7 +37,14 @@ const BillingDetailsForm = () => {
                         <div className="col-md-6">
                             <div className="checkout-input">
                                 <label>Full Name <span>*</span></label>
-                                <input type="text" placeholder="Full Name" />
+                                <input 
+                                    type="text" 
+                                    name="fullName"
+                                    placeholder="Full Name" 
+                                    value={formData.fullName}
+                                    onChange={handleInputChange}
+                                    required
+                                />
                             </div>
                         </div>
                         
@@ -22,13 +52,27 @@ const BillingDetailsForm = () => {
                         <div className="col-md-12">
                             <div className="checkout-input">
                                 <label>Phone <span>*</span></label>
-                                <input type="text" placeholder="Your whatsapp number" />
+                                <input 
+                                    type="text" 
+                                    name="phone"
+                                    placeholder="Your whatsapp number" 
+                                    value={formData.phone}
+                                    onChange={handleInputChange}
+                                    required
+                                />
                             </div>
                         </div>
                         <div className="col-md-12">
                             <div className="checkout-input">
                                 <label>Email address <span>*</span></label>
-                                <input type="email" placeholder="Email address" />
+                                <input 
+                                    type="email" 
+                                    name="email"
+                                    placeholder="Email address" 
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    required
+                                />
                             </div>
                         </div>
 

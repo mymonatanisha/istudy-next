@@ -10,19 +10,35 @@ import paymentOptionImgRocket from '../../../../../public/assets/images/shape/pa
 //import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const CheckoutPayment = () => {
+interface CheckoutPaymentProps {
+    selectedPaymentMethod: string;
+    setSelectedPaymentMethod: (method: string) => void;
+}
+
+const CheckoutPayment = ({ selectedPaymentMethod, setSelectedPaymentMethod }: CheckoutPaymentProps) => {
     const [isBankTransferOpen, setIsBankTransferOpen] = useState<boolean>(false);
     const [isBkashOpen, setIsBkashOpen] = useState<boolean>(false);
     const [isNagadOpen, setIsNagadOpen] = useState<boolean>(false);
     const [isRocketOpen, setIsRocketOpen] = useState<boolean>(false);
     const [isUpayOpen, setIsUpayOpen] = useState<boolean>(false);
 
+    const handlePaymentSelect = (method: string, toggleFunc: (value: boolean) => void, currentState: boolean) => {
+        setSelectedPaymentMethod(method);
+        toggleFunc(!currentState);
+    };
+
     return (
         <>
             <div className="checkout-payment">
                 <div className="checkout-payment-item">
-                    <input type="radio" id="back_transfer" name="payment" />
-                    <label onClick={() => setIsBankTransferOpen(!isBankTransferOpen)} htmlFor="back_transfer" data-bs-toggle="direct-bank-transfer">Direct Bank
+                    <input 
+                        type="radio" 
+                        id="back_transfer" 
+                        name="payment" 
+                        checked={selectedPaymentMethod === 'bank_transfer'}
+                        onChange={() => handlePaymentSelect('bank_transfer', setIsBankTransferOpen, isBankTransferOpen)}
+                    />
+                    <label onClick={() => handlePaymentSelect('bank_transfer', setIsBankTransferOpen, isBankTransferOpen)} htmlFor="back_transfer" data-bs-toggle="direct-bank-transfer">Direct Bank
                         Transfer <Image src={paymentOptionImgSC} alt="image" /> </label>
                     <AnimatePresence>
                         {isBankTransferOpen && (
@@ -48,9 +64,15 @@ const CheckoutPayment = () => {
 
 
                 <div className="checkout-payment-item paypal-payment">
-                    <input type="radio" id="bKash_transfer" name="payment" />
+                    <input 
+                        type="radio" 
+                        id="bKash_transfer" 
+                        name="payment" 
+                        checked={selectedPaymentMethod === 'bkash'}
+                        onChange={() => handlePaymentSelect('bkash', setIsBkashOpen, isBkashOpen)}
+                    />
                  
-                    <label onClick={() => setIsBkashOpen(!isBkashOpen)} htmlFor="bKash_transfer" data-bs-toggle="direct-bank-transfer">bKash Personal
+                    <label onClick={() => handlePaymentSelect('bkash', setIsBkashOpen, isBkashOpen)} htmlFor="bKash_transfer" data-bs-toggle="direct-bank-transfer">bKash Personal
                         Transfer <Image src={paymentOptionImgbKash} alt="image" /> </label>
                     <AnimatePresence>
                         {isBkashOpen && (
@@ -72,8 +94,14 @@ const CheckoutPayment = () => {
                 </div>
 
                 <div className="checkout-payment-item paypal-payment">
-                    <input type="radio" id="nagad_transfer" name="payment" />
-                     <label onClick={() => setIsNagadOpen(!isNagadOpen)} htmlFor="nagad_transfer" data-bs-toggle="direct-bank-transfer">Nagad Personal
+                    <input 
+                        type="radio" 
+                        id="nagad_transfer" 
+                        name="payment" 
+                        checked={selectedPaymentMethod === 'nagad'}
+                        onChange={() => handlePaymentSelect('nagad', setIsNagadOpen, isNagadOpen)}
+                    />
+                     <label onClick={() => handlePaymentSelect('nagad', setIsNagadOpen, isNagadOpen)} htmlFor="nagad_transfer" data-bs-toggle="direct-bank-transfer">Nagad Personal
                         Transfer <Image src={paymentOptionImgNagad} alt="image" /> </label>
 
 
@@ -100,8 +128,14 @@ const CheckoutPayment = () => {
                 </div>
 
                 <div className="checkout-payment-item paypal-payment">
-                    <input type="radio" id="rocket_transfer" name="payment" />
-                    <label onClick={() => setIsRocketOpen(!isRocketOpen)} htmlFor="rocket_transfer" data-bs-toggle="direct-bank-transfer">Rocket Personal
+                    <input 
+                        type="radio" 
+                        id="rocket_transfer" 
+                        name="payment" 
+                        checked={selectedPaymentMethod === 'rocket'}
+                        onChange={() => handlePaymentSelect('rocket', setIsRocketOpen, isRocketOpen)}
+                    />
+                    <label onClick={() => handlePaymentSelect('rocket', setIsRocketOpen, isRocketOpen)} htmlFor="rocket_transfer" data-bs-toggle="direct-bank-transfer">Rocket Personal
                         Transfer <Image src={paymentOptionImgRocket} alt="image" /> </label>
                     <AnimatePresence>
                         {isRocketOpen && (
@@ -123,8 +157,14 @@ const CheckoutPayment = () => {
                 </div>
 
                 <div className="checkout-payment-item paypal-payment">
-                    <input type="radio" id="upay_transfer" name="payment" />
-                    <label onClick={() => setIsUpayOpen(!isUpayOpen)} htmlFor="upay_transfer" data-bs-toggle="direct-bank-transfer">uPay Personal <Image src={paymentOptionImgUpay} alt="image" /> </label>
+                    <input 
+                        type="radio" 
+                        id="upay_transfer" 
+                        name="payment" 
+                        checked={selectedPaymentMethod === 'upay'}
+                        onChange={() => handlePaymentSelect('upay', setIsUpayOpen, isUpayOpen)}
+                    />
+                    <label onClick={() => handlePaymentSelect('upay', setIsUpayOpen, isUpayOpen)} htmlFor="upay_transfer" data-bs-toggle="direct-bank-transfer">uPay Personal <Image src={paymentOptionImgUpay} alt="image" /> </label>
                     <AnimatePresence>
                         {isUpayOpen && (
                             <motion.div
