@@ -1,7 +1,7 @@
 "use client"
 import Breadcrumbs from '@/components/common/Breadcrumb/Breadcrumbs';
 import BillingDetailsForm from '@/form/checkout/billing-details-form';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CouponCode from '../../../../form/checkout/coupon-code';
 import CustomerLogin from '@/form/checkout/customer-login-form';
 import CheckoutPayment from './CheckoutPayment';
@@ -13,10 +13,19 @@ import { toast } from 'sonner';
 import useGlobalContext from '@/hooks/useContexts';
 import { useSearchParams, useRouter } from 'next/navigation';
 
+interface UserProfile {
+    id: number;
+    name: string;
+    email: string;
+    phone: string | null;
+}
+
 const CheckoutMain = () => {
     const { toggleOpen, isOpen } = useGlobalContext();
     const [isCouponOpen, setIsCouponOpen] = useState<boolean>(false);
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const [user, setUser] = useState<UserProfile | null>(null);
+    const [isLoadingUser, setIsLoadingUser] = useState<boolean>(true);
     const searchParams = useSearchParams();
     const router = useRouter();
     const courseId = searchParams.get('courseId') || '';
@@ -29,6 +38,33 @@ const CheckoutMain = () => {
     });
     const [transactionId, setTransactionId] = useState('');
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
+    
+    // Fetch user data on mount
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await fetch('/api/auth/me');
+                if (response.ok) {
+                    const data = await response.json();
+                    setUser(data.user);
+                    // Pre-fill form data from user profile
+                    if (data.user) {
+                        setFormData({
+                            fullName: data.user.name || '',
+                            phone: data.user.phone || '',
+                            email: data.user.email || '',
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching user:', error);
+            } finally {
+                setIsLoadingUser(false);
+            }
+        };
+        
+        fetchUser();
+    }, []);
     
     //const [shippingCost, setShippingCost] = useState(0);
     const cartProducts = useSelector(
@@ -78,6 +114,7 @@ const CheckoutMain = () => {
                     courseId: courseId,
                     paymentMethod: selectedPaymentMethod,
                     transactionId: transactionId,
+                    userId: user ? user.id : null,
                 }),
             });
 
@@ -108,42 +145,55 @@ const CheckoutMain = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-7">
-                            <div className="checkout-verify mb-30">
-                                <div className="checkout-verify-item">
-                                    <p className="checkout-verify-reveal">Returning customer?
-                                        <button onClick={toggleOpen} type="button" className="checkout-login-form-reveal-btn">Click here to login</button>
-                                    </p>
-                                    <SlideToggleTwo>
-                                        <div className={`return-customer ${isOpen ? 'd-block' : 'd-none'}`}>
-                                            <CustomerLogin />
+                            {!isLoadingUser && (
+                                <>
+                                    {!user ? (
+                                        <div className="checkout-verify mb-30">
+                                            <div className="checkout-verify-item">
+                                                <p className="checkout-verify-reveal">Returning customer?
+                                                    <button onClick={toggleOpen} type="button" className="checkout-login-form-reveal-btn">Click here to login</button>
+                                                </p>
+                                                <SlideToggleTwo>
+                                                    <div className={`return-customer ${isOpen ? 'd-block' : 'd-none'}`}>
+                                                        <CustomerLogin />
+                                                    </div>
+                                                </SlideToggleTwo>
+                                            </div>
+                                            <div className="checkout-verify-item">
+                                                <p className="checkout-verify-reveal">Have a coupon?
+                                                    <button onClick={() => setIsCouponOpen(!isCouponOpen)}
+                                                        type="button" className="checkout-coupon-form-reveal-btn">Click here to enter your code
+                                                    </button>
+                                                </p>
+                                                <AnimatePresence>
+                                                    {isCouponOpen && (
+                                                        <motion.div
+                                                            initial={{ height: 0, opacity: 0 }}
+                                                            animate={{ height: "auto", opacity: 1 }}
+                                                            exit={{ height: 0, opacity: 0 }}
+                                                            transition={{ duration: 0.6, ease: "easeInOut" }}>
+                                                            <div className={`return-customer ${isCouponOpen ? 'd-block' : 'd-none'}`}>
+                                                                <CouponCode />
+                                                            </div>
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
+                                            </div>
                                         </div>
-                                    </SlideToggleTwo>
-                                </div>
-                                <div className="checkout-verify-item">
-                                    <p className="checkout-verify-reveal">Have a coupon?
-                                        <button onClick={() => setIsCouponOpen(!isCouponOpen)}
-                                            type="button" className="checkout-coupon-form-reveal-btn">Click here to enter your code
-                                        </button>
-                                    </p>
-                                    <AnimatePresence>
-                                        {isCouponOpen && (
-                                            <motion.div
-                                                initial={{ height: 0, opacity: 0 }}
-                                                animate={{ height: "auto", opacity: 1 }}
-                                                exit={{ height: 0, opacity: 0 }}
-                                                transition={{ duration: 0.6, ease: "easeInOut" }}>
-                                                <div className={`return-customer ${isCouponOpen ? 'd-block' : 'd-none'}`}>
-                                                    <CouponCode />
-                                                </div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </div>
-                            </div>
+                                    ) : (
+                                        <div className="checkout-verify mb-30">
+                                            <div className="alert alert-info d-flex align-items-center">
+                                                <i className="fas fa-user-check me-2"></i>
+                                                <span>Logged in as <strong>{user.email}</strong></span>
+                                            </div>
+                                        </div>
+                                    )}
+                                </>
+                            )}
                             <div className="checkout-bill-area">
                                 <h3 className="checkout-bill-title">Billing Details</h3>
                                 <div className="checkout-bill-form">
-                                    <BillingDetailsForm formData={formData} setFormData={setFormData} />
+                                    <BillingDetailsForm formData={formData} setFormData={setFormData} isLoggedIn={!!user} />
                                 </div>
                             </div>
                         </div>

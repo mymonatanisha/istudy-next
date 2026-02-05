@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getAuthUser } from "@/lib/auth";
 
 // POST - Create a new order
 export async function POST(request: NextRequest) {
@@ -7,7 +8,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     
     // Validate required fields
-    const { fullName, phone, email, courseId, paymentMethod, transactionId } = body;
+    const { fullName, phone, email, courseId, paymentMethod, transactionId, userId } = body;
     
     if (!fullName || !phone || !email || !courseId || !paymentMethod || !transactionId) {
       return NextResponse.json({ 
@@ -44,6 +45,16 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
+    // Get authenticated user if available
+    const authUser = await getAuthUser();
+    
+    // If userId is provided in the request, verify it matches the authenticated user
+    if (userId && authUser && userId !== authUser.id) {
+      return NextResponse.json({ 
+        error: "User ID mismatch" 
+      }, { status: 403 });
+    }
+
     // Create the order with status = pending
     const order = await prisma.order.create({
       data: {
@@ -54,6 +65,7 @@ export async function POST(request: NextRequest) {
         paymentMethod: paymentMethod.trim(),
         transactionId: transactionId.trim(),
         status: "pending",
+        userId: authUser ? authUser.id : (userId || null),
       },
     });
 
