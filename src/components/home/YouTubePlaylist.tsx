@@ -10,14 +10,14 @@ interface YouTubePlaylistProps {
   playlistId?: string;
 }
 
+// Validate playlist ID: should be alphanumeric with underscores, hyphens, and expected length
+const isValidPlaylistId = (id: string): boolean => {
+  return /^[A-Za-z0-9_-]{10,50}$/.test(id);
+};
+
 const YouTubePlaylist: React.FC<YouTubePlaylistProps> = ({ 
   playlistId = "PLg_3d7KmjG4MWxX0fZ9pMDFtXxOfG8uoC" 
 }) => {
-  // Validate playlist ID: should be alphanumeric with underscores, hyphens, and expected length
-  const isValidPlaylistId = (id: string): boolean => {
-    return /^[A-Za-z0-9_-]{10,50}$/.test(id);
-  };
-
   // Use validated playlist ID or fallback to default
   const validatedPlaylistId = isValidPlaylistId(playlistId) 
     ? playlistId 
@@ -27,7 +27,10 @@ const YouTubePlaylist: React.FC<YouTubePlaylistProps> = ({
     <section className="youtube-playlist-area section-space">
       <div className="container">
         <div className="section-title text-center mb-40">
-          <h2>📚 Complete Course Playlist</h2>
+          <h2>
+            <span aria-hidden="true">📚 </span>
+            Complete Course Playlist
+          </h2>
           <p>Access all our Android development tutorials in one organized playlist.</p>
         </div>
 
