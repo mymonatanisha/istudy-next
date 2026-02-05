@@ -26,7 +26,6 @@ const YouTubePlaylist: React.FC<YouTubePlaylistProps> = ({
               height="100%"
               src={`https://www.youtube.com/embed/videoseries?list=${playlistId}`}
               title="YouTube Playlist"
-              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
