@@ -12,6 +12,7 @@ import HomeFaqArea from './HomeFaqArea';
 //import ReviewArea from './ReviewArea';
 //import DashboardDemoArea from './DashboardDemoArea';
 import VideoCarousel from "@/components/home/VideoCarousel";
+import YouTubePlaylist from "@/components/home/YouTubePlaylist";
 import ShortsCarousel from "@/components/home/ShortsCarousel";
 
 
@@ -39,6 +40,7 @@ const HomeMain = () => {
             { /*<DemoGridSection />*/}
             { /*<DashboardDemoArea/>*/}
             <VideoCarousel />
+            <YouTubePlaylist />
             <CoursePageDemo />
             <ShortsCarousel />
             { /*<InnerPageShowcasesArea />*/}
