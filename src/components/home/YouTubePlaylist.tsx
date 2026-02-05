@@ -39,7 +39,7 @@ const YouTubePlaylist: React.FC<YouTubePlaylistProps> = ({
             <iframe
               width="100%"
               height="100%"
-              src={`https://www.youtube.com/embed/videoseries?list=${validatedPlaylistId}`}
+              src={`https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(validatedPlaylistId)}`}
               title="YouTube Playlist"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
