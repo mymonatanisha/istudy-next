@@ -24,10 +24,10 @@ const YouTubePlaylist: React.FC<YouTubePlaylistProps> = ({ playlistId }) => {
               height="500"
               src={`https://www.youtube.com/embed/videoseries?list=${playlistId}`}
               title="Android Development Course Playlist"
-              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               style={{
+                border: "0",
                 borderRadius: "12px",
                 boxShadow: "0 8px 24px rgba(0, 0, 0, 0.15)",
               }}
