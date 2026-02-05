@@ -29,6 +29,13 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
+    // Validate courseId format (basic check)
+    if (!courseId || !/^[a-zA-Z0-9_-]+$/.test(courseId)) {
+      return NextResponse.json({ 
+        error: "Invalid course ID format" 
+      }, { status: 400 });
+    }
+
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {

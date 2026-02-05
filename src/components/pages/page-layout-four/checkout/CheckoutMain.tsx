@@ -87,7 +87,7 @@ const CheckoutMain = () => {
                 toast.success("Your order has been placed successfully! 🎉");
                 // Optional: Redirect to thank-you page or clear form
                 setTimeout(() => {
-                    router.push(`/thank-you?orderId=${data.orderId}`);
+                    router.push(`/thank-you?orderId=${encodeURIComponent(data.orderId)}`);
                 }, 1500);
             } else {
                 toast.error(data.error || "Failed to place order. Please try again.");
