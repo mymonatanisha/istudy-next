@@ -46,6 +46,17 @@ const MobileMenu = () => {
         return true;
     });
 
+    const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        toggleSidebarMenu(); // Close the sidebar
+        try {
+            await fetch('/api/auth/logout', { method: 'POST' });
+            window.location.href = '/';
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    };
+
     return (
         <>
             <ul>
@@ -57,17 +68,23 @@ const MobileMenu = () => {
                             : `${item?.children === false ? "has-mega-menu" : ""}`
                             } ${activeSubMenu === String(item.id) ? "active" : ""}`}
                     >
-                        <Link
-                            onClick={(e) => {
-                                if (item?.hasDropdown === true) {
-                                    e.preventDefault();
-                                    handleActiveSubMenu(item.id);
-                                }
-                            }}
-                            href={item.link}
-                        >
-                            {item?.title}
-                        </Link>
+                        {item.title === "Logout" ? (
+                            <a href="#" onClick={handleLogout}>
+                                {item?.title}
+                            </a>
+                        ) : (
+                            <Link
+                                onClick={(e) => {
+                                    if (item?.hasDropdown === true) {
+                                        e.preventDefault();
+                                        handleActiveSubMenu(item.id);
+                                    }
+                                }}
+                                href={item.link}
+                            >
+                                {item?.title}
+                            </Link>
+                        )}
                         {/* img dropdown */}
                         {item.previewImg === true && (
                             <ul

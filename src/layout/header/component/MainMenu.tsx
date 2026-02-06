@@ -26,6 +26,16 @@ const CommonHeaderMainMenu = () => {
     return true;
   });
 
+  const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
   return (
     <>
       <ul>
@@ -39,7 +49,11 @@ const CommonHeaderMainMenu = () => {
                 : ""
               }`}
           >
-            <Link  href={item?.link}>{item?.title}</Link>
+            {item.title === "Logout" ? (
+              <a href="#" onClick={handleLogout}>{item?.title}</a>
+            ) : (
+              <Link href={item?.link}>{item?.title}</Link>
+            )}
             {/* img menu */}
             {item?.previewImg === true && (
               <ul className={`mega-menu home-menu-grid`}>
