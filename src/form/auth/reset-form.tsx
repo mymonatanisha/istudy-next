@@ -18,6 +18,7 @@ const ResetForm = ({ token }: ResetFormProps) => {
     const router = useRouter();
     const [loading, setLoading] = React.useState(false);
     const [message, setMessage] = React.useState("");
+    const [isError, setIsError] = React.useState(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm<ResetFormData>();
 
     const password = watch("password");
@@ -25,6 +26,7 @@ const ResetForm = ({ token }: ResetFormProps) => {
     const onSubmit = async (data: ResetFormData) => {
         setLoading(true);
         setMessage("");
+        setIsError(false);
         
         try {
             const response = await fetch('/api/auth/reset', {
@@ -33,7 +35,7 @@ const ResetForm = ({ token }: ResetFormProps) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ 
-                    token: token,
+                    token,
                     newPassword: data.password 
                 }),
             });
@@ -42,6 +44,7 @@ const ResetForm = ({ token }: ResetFormProps) => {
 
             if (response.ok) {
                 setMessage("Password reset successful! Redirecting...");
+                setIsError(false);
                 toast.success("Password reset successful!");
                 
                 // Redirect to sign-in page after 1.5 seconds
@@ -50,11 +53,13 @@ const ResetForm = ({ token }: ResetFormProps) => {
                 }, 1500);
             } else {
                 setMessage(result.error || "Something went wrong");
+                setIsError(true);
                 toast.error(result.error || "Something went wrong");
             }
         } catch (error) {
             console.error('Reset password error:', error);
             setMessage("Network error. Please try again.");
+            setIsError(true);
             toast.error("Network error. Please try again.");
         } finally {
             setLoading(false);
@@ -109,7 +114,7 @@ const ResetForm = ({ token }: ResetFormProps) => {
                     <button className="bd-btn btn-primary w-100" type="submit" disabled={loading}>
                         {loading ? "Resetting..." : "Reset Password"}
                     </button>
-                    {message && <div className={`mt-3 text-center ${message.includes("error") || message.includes("wrong") ? "text-danger" : "text-success"}`}>{message}</div>}
+                    {message && <div className={`mt-3 text-center ${isError ? "text-danger" : "text-success"}`}>{message}</div>}
                 </div>
             </form>
         </>
