@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import avaterImg from '../../../../public/assets/images/avatar/avatar7.webp';
 import profileBgImg from '../../../../public/assets/images/bg/profile-bg.webp';
 import Image from 'next/image';
-import Link from 'next/link';
+
 
 type UserProfile = {
   name?: string;
@@ -94,9 +94,6 @@ const StudentDashboardBreadcrumb = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="bd-dashboard-profile-btn">
-                                        <Link href="/become-instructor" className="bd-btn btn-secondary-white">Become Instructor</Link>
                                     </div>
                                 </div>
                             </div>
