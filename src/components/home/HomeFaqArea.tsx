@@ -73,7 +73,7 @@ const ServiceBox: React.FC<ServiceBoxProps> = ({ icon: Icon, title, link, btnTex
 
 const HomeFaqArea: React.FC = () => {
     return (
-        <div className="faq-area section-space">
+        <div id="faq" className="faq-area section-space">
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-lg-12">
