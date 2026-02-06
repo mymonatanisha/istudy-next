@@ -9,24 +9,23 @@ export default function HeaderAuthClient() {
   const [email, setEmail] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(true);
 
-  React.useEffect(() => {
-    let active = true;
-    (async () => {
-      try {
-        const res = await fetch("/api/auth/me", { cache: "no-store" });
-        if (!active) return;
-        if (res.ok) {
-          const data: Me = await res.json();
-          setEmail(data.user?.email ?? null);
-        } else {
-          setEmail(null);
-        }
-      } finally {
-        if (active) setLoading(false);
+  const fetchAuthStatus = React.useCallback(async () => {
+    try {
+      const res = await fetch("/api/auth/me", { cache: "no-store" });
+      if (res.ok) {
+        const data: Me = await res.json();
+        setEmail(data.user?.email ?? null);
+      } else {
+        setEmail(null);
       }
-    })();
-    return () => { active = false; };
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  React.useEffect(() => {
+    fetchAuthStatus();
+  }, [fetchAuthStatus]);
 
   if (loading) return null; // or a small skeleton
 
@@ -39,10 +38,25 @@ export default function HeaderAuthClient() {
     );
   }
 
+  const handleLogout = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/auth/logout", { method: "POST" });
+      if (res.ok) {
+        // Clear the email state to show login/register buttons
+        setEmail(null);
+        // Redirect to home page
+        window.location.href = "/";
+      }
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
   return (
     <>
       <Link className="bd-btn btn-outline-primary h-40px" href="/student-dashboard">Dashboard</Link>
-      <form action="/api/auth/logout" method="post" className="d-inline">
+      <form onSubmit={handleLogout} className="d-inline">
         <button type="submit" className="bd-btn btn-outline-border-primary h-40px">Logout</button>
       </form>
     </>
