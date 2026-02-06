@@ -4,9 +4,12 @@ import React from 'react';
 import logoImg from "../../../public/assets/images/logo/logo.svg";
 import MobileMenu from '../header/component/MainMobileMenu';
 import useGlobalContext from '@/hooks/useContexts';
+import { useAuth } from '@/hooks/useAuth';
 
 const SidebarMenu = () => {
     const { openSidebar, setOpenSidebar } = useGlobalContext();
+    const { isAuthenticated, loading } = useAuth();
+    
     return (
         <>
             {/* -- Offcanvas area start -- */}
@@ -81,8 +84,20 @@ const SidebarMenu = () => {
                             <div className="bd-offcanvas-btn-wrap mb-30">
                                 <h4 className="bd-offcanvas-title-meta">Account</h4>
                                 <div className="bd-offcanvas-btn d-flex align-items-center gap-30">
-                                    <Link className="bd-btn btn-primary" href="/sign-in">Log In</Link>
-                                    <Link className="bd-btn btn-outline-border-secondary" href="/sign-up">Get Started</Link>
+                                    {!loading && !isAuthenticated && (
+                                        <>
+                                            <Link className="bd-btn btn-primary" href="/sign-in">Log In</Link>
+                                            <Link className="bd-btn btn-outline-border-secondary" href="/sign-up">Get Started</Link>
+                                        </>
+                                    )}
+                                    {!loading && isAuthenticated && (
+                                        <>
+                                            <Link className="bd-btn btn-primary" href="/student-dashboard">Dashboard</Link>
+                                            <form action="/api/auth/logout" method="post" style={{ display: 'inline' }}>
+                                                <button type="submit" className="bd-btn btn-outline-border-secondary">Logout</button>
+                                            </form>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                             <div className="bd-offcanvas-social">

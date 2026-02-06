@@ -294,7 +294,27 @@ const main_mobile_menu_data: MenuItem[] = [
         pluseIncon: false,
       }
     ]
-  }
+  },
+  {
+    id: 6,
+    hasDropdown: false,
+    children: false,
+    active: true,
+    title: "Login",
+    pluseIncon: false,
+    link: "/sign-in",
+    hideWhenAuth: true, // Hide when user is authenticated
+  },
+  {
+    id: 7,
+    hasDropdown: false,
+    children: false,
+    active: true,
+    title: "Logout",
+    pluseIncon: false,
+    link: "/api/auth/logout",
+    requireAuth: true, // Show only when authenticated
+  },
 ];
 
 export default main_mobile_menu_data;

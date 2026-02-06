@@ -1,14 +1,35 @@
+"use client";
 
 import main_menu_data from "@/data/header-menu/main-menu-data";
+import { useAuth } from "@/hooks/useAuth";
 import Image from "next/image";
 import Link from "next/link";
 
 const CommonHeaderMainMenu = () => {
+  const { isAuthenticated, loading } = useAuth();
+
+  // Don't render anything while loading to avoid menu flashing
+  if (loading) {
+    return <ul></ul>;
+  }
+
+  // Filter menu items based on authentication state
+  const filteredMenuData = main_menu_data.filter((item) => {
+    // Hide items that should be hidden when authenticated
+    if (item.hideWhenAuth && isAuthenticated) {
+      return false;
+    }
+    // Hide items that require authentication when not authenticated
+    if (item.requireAuth && !isAuthenticated) {
+      return false;
+    }
+    return true;
+  });
 
   return (
     <>
       <ul>
-        {main_menu_data.map((item) => (
+        {filteredMenuData.map((item) => (
           <li
             key={item.id}
             className={`${item?.children === true
