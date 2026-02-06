@@ -312,7 +312,7 @@ const main_mobile_menu_data: MenuItem[] = [
     active: true,
     title: "Logout",
     pluseIncon: false,
-    link: "/api/auth/logout",
+    link: "#", // Handled by client-side logout handler
     requireAuth: true, // Show only when authenticated
   },
 ];

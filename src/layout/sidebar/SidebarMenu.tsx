@@ -10,6 +10,21 @@ const SidebarMenu = () => {
     const { openSidebar, setOpenSidebar } = useGlobalContext();
     const { isAuthenticated, loading } = useAuth();
     
+    const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setOpenSidebar(false); // Close the sidebar
+        try {
+            const res = await fetch('/api/auth/logout', { method: 'POST' });
+            if (res.ok) {
+                window.location.href = '/';
+            } else {
+                console.error('Logout failed');
+            }
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    };
+    
     return (
         <>
             {/* -- Offcanvas area start -- */}
@@ -80,7 +95,6 @@ const SidebarMenu = () => {
                                     </li>
                                 </ul>
                             </div>
-
                             <div className="bd-offcanvas-btn-wrap mb-30">
                                 <h4 className="bd-offcanvas-title-meta">Account</h4>
                                 <div className="bd-offcanvas-btn d-flex align-items-center gap-30">
@@ -93,9 +107,7 @@ const SidebarMenu = () => {
                                     {!loading && isAuthenticated && (
                                         <>
                                             <Link className="bd-btn btn-primary" href="/student-dashboard">Dashboard</Link>
-                                            <form action="/api/auth/logout" method="post" style={{ display: 'inline' }}>
-                                                <button type="submit" className="bd-btn btn-outline-border-secondary">Logout</button>
-                                            </form>
+                                            <button onClick={handleLogout} className="bd-btn btn-outline-border-secondary">Logout</button>
                                         </>
                                     )}
                                 </div>

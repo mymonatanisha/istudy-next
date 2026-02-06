@@ -50,8 +50,12 @@ const MobileMenu = () => {
         e.preventDefault();
         toggleSidebarMenu(); // Close the sidebar
         try {
-            await fetch('/api/auth/logout', { method: 'POST' });
-            window.location.href = '/';
+            const res = await fetch('/api/auth/logout', { method: 'POST' });
+            if (res.ok) {
+                window.location.href = '/';
+            } else {
+                console.error('Logout failed');
+            }
         } catch (error) {
             console.error('Logout error:', error);
         }
