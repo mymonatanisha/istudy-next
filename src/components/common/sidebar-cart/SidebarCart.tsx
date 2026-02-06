@@ -95,7 +95,7 @@ const SidebarCart: React.FC<HeaderCartProps> = ({ openCart, setOpenCart }) => {
                                 <div className={`bd-sidebar-cart-empty text-center ${cartProducts.length === 0 ? '' : 'd-none'}`}>
                                     <Image src={emtyImg} style={{ width: '100%', height: 'auto' }} alt="Empty Cart" />
                                     <p>Your Cart is empty</p>
-                                    <Link href="/shop" className="bd-btn btn-primary">Go to Shop</Link>
+                                    <Link href="/courses" className="bd-btn btn-primary">Go to Shop</Link>
                                 </div>
                             )}
                         </div>
