@@ -44,6 +44,8 @@ export interface MenuItem {
   megaMenu?: boolean;
   pageLayout?: boolean;
   lastDropdown?: boolean;
+  requireAuth?: boolean; // Show only when authenticated
+  hideWhenAuth?: boolean; // Hide when authenticated
 }
 
 // Define an interface for the categories data

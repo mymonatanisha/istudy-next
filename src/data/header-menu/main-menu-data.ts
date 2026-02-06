@@ -55,6 +55,27 @@ const main_menu_data: MenuItem[] = [
     title: "Login",
     pluseIncon: true,
     link: "/sign-in",
+    hideWhenAuth: true, // Hide when user is authenticated
+  },
+  {
+    id: 6,
+    hasDropdown: false,
+    children: false,
+    active: true,
+    title: "Dashboard",
+    pluseIncon: false,
+    link: "/student-dashboard",
+    requireAuth: true, // Show only when authenticated
+  },
+  {
+    id: 7,
+    hasDropdown: false,
+    children: false,
+    active: true,
+    title: "Logout",
+    pluseIncon: false,
+    link: "#", // Handled by client-side logout handler
+    requireAuth: true, // Show only when authenticated
   },
 ];
 

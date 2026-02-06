@@ -1,5 +1,6 @@
 import main_mobile_menu_data from "@/data/header-menu/main-mobile-menu-data";
 import useGlobalContext from "@/hooks/useContexts";
+import { useAuth } from "@/hooks/useAuth";
 import { MenuItem } from "@/interFace/interFace";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +8,7 @@ import React, { useState } from "react";
 
 const MobileMenu = () => {
     const { toggleSidebarMenu } = useGlobalContext();
+    const { isAuthenticated, loading } = useAuth();
     const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
     const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
 
@@ -26,10 +28,43 @@ const MobileMenu = () => {
         setActiveMegaMenu(activeMegaMenu === indexStr ? null : indexStr);
     };
 
+    // Don't render menu items while loading
+    if (loading) {
+        return <ul></ul>;
+    }
+
+    // Filter menu items based on authentication state
+    const filteredMenuData = main_mobile_menu_data.filter((item) => {
+        // Hide items that should be hidden when authenticated
+        if (item.hideWhenAuth && isAuthenticated) {
+            return false;
+        }
+        // Hide items that require authentication when not authenticated
+        if (item.requireAuth && !isAuthenticated) {
+            return false;
+        }
+        return true;
+    });
+
+    const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        toggleSidebarMenu(); // Close the sidebar
+        try {
+            const res = await fetch('/api/auth/logout', { method: 'POST' });
+            if (res.ok) {
+                window.location.href = '/';
+            } else {
+                console.error('Logout failed');
+            }
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    };
+
     return (
         <>
             <ul>
-                {main_mobile_menu_data?.map((item: MenuItem) => (
+                {filteredMenuData?.map((item: MenuItem) => (
                     <li
                         key={item.id}
                         className={`${item?.children === true
@@ -37,17 +72,23 @@ const MobileMenu = () => {
                             : `${item?.children === false ? "has-mega-menu" : ""}`
                             } ${activeSubMenu === String(item.id) ? "active" : ""}`}
                     >
-                        <Link
-                            onClick={(e) => {
-                                if (item?.hasDropdown === true) {
-                                    e.preventDefault();
-                                    handleActiveSubMenu(item.id);
-                                }
-                            }}
-                            href={item.link}
-                        >
-                            {item?.title}
-                        </Link>
+                        {item.title === "Logout" ? (
+                            <a href="#" onClick={handleLogout}>
+                                {item?.title}
+                            </a>
+                        ) : (
+                            <Link
+                                onClick={(e) => {
+                                    if (item?.hasDropdown === true) {
+                                        e.preventDefault();
+                                        handleActiveSubMenu(item.id);
+                                    }
+                                }}
+                                href={item.link}
+                            >
+                                {item?.title}
+                            </Link>
+                        )}
                         {/* img dropdown */}
                         {item.previewImg === true && (
                             <ul

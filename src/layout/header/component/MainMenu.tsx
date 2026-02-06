@@ -1,14 +1,49 @@
+"use client";
 
 import main_menu_data from "@/data/header-menu/main-menu-data";
+import { useAuth } from "@/hooks/useAuth";
 import Image from "next/image";
 import Link from "next/link";
 
 const CommonHeaderMainMenu = () => {
+  const { isAuthenticated, loading } = useAuth();
+
+  // Don't render anything while loading to avoid menu flashing
+  if (loading) {
+    return <ul></ul>;
+  }
+
+  // Filter menu items based on authentication state
+  const filteredMenuData = main_menu_data.filter((item) => {
+    // Hide items that should be hidden when authenticated
+    if (item.hideWhenAuth && isAuthenticated) {
+      return false;
+    }
+    // Hide items that require authentication when not authenticated
+    if (item.requireAuth && !isAuthenticated) {
+      return false;
+    }
+    return true;
+  });
+
+  const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    try {
+      const res = await fetch('/api/auth/logout', { method: 'POST' });
+      if (res.ok) {
+        window.location.href = '/';
+      } else {
+        console.error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
 
   return (
     <>
       <ul>
-        {main_menu_data.map((item) => (
+        {filteredMenuData.map((item) => (
           <li
             key={item.id}
             className={`${item?.children === true
@@ -18,7 +53,11 @@ const CommonHeaderMainMenu = () => {
                 : ""
               }`}
           >
-            <Link  href={item?.link}>{item?.title}</Link>
+            {item.title === "Logout" ? (
+              <a href="#" onClick={handleLogout}>{item?.title}</a>
+            ) : (
+              <Link href={item?.link}>{item?.title}</Link>
+            )}
             {/* img menu */}
             {item?.previewImg === true && (
               <ul className={`mega-menu home-menu-grid`}>
