@@ -36,6 +36,7 @@ const ForgotForm = () => {
                 toast.error(result.error || "Something went wrong");
             }
         } catch (error) {
+            console.error('Forgot password error:', error);
             setMessage("Network error. Please try again.");
             toast.error("Network error. Please try again.");
         } finally {

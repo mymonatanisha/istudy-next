@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import Link from 'next/link';
 import ForgotPasswordBg from '../../../../../public/assets/images/contact/forgot-password-bg.webp';
 import ResetArea from '@/components/pages/page-layout-five/reset/ResetArea';
 import { useSearchParams } from 'next/navigation';
@@ -28,7 +29,7 @@ const Reset = () => {
                                 <div className="bd-authentication-form-wrapper">
                                     <h3 className="title mb-10 text-danger">Invalid Reset Link</h3>
                                     <p className="subtitle">The password reset link is missing or invalid. Please request a new reset link.</p>
-                                    <a href="/forgot" className="bd-btn btn-primary w-100 mt-3">Back to Forgot Password</a>
+                                    <Link href="/forgot" className="bd-btn btn-primary w-100 mt-3">Back to Forgot Password</Link>
                                 </div>
                             </div>
                         </div>
