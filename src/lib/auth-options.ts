@@ -70,10 +70,24 @@ export const authOptions = {
       }
       return true;
     },
-    async jwt({ token, user }: any) {
+    async jwt({ token, user, account }: any) {
+      // When user signs in for the first time (user object is available)
       if (user) {
         token.id = user.id;
       }
+      
+      // For OAuth sign-ins, if we don't have an ID yet, fetch from database
+      // This ensures user ID is cached in the session token
+      if (!token.id && token.email && account?.provider) {
+        const dbUser = await prisma.user.findUnique({
+          where: { email: token.email },
+          select: { id: true }
+        });
+        if (dbUser) {
+          token.id = dbUser.id;
+        }
+      }
+      
       return token;
     },
     async session({ session, token }: any) {
