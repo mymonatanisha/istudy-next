@@ -7,6 +7,7 @@ const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || 'placeholder-client-id'
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || 'placeholder-client-secret';
 
 export const authOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GoogleProvider({
       clientId: GOOGLE_CLIENT_ID,
@@ -84,6 +85,7 @@ export const authOptions = {
   },
   pages: {
     signIn: '/sign-in',
+    error: '/sign-in',
   },
   session: {
     strategy: "jwt" as const,
