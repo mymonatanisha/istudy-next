@@ -9,6 +9,7 @@ import Image from 'next/image';
 type UserProfile = {
   name?: string;
   avatar?: string | null;
+  avatarUrl?: string | null;
   headline?: string | null;
   occupation?: string | null;
 };
@@ -40,7 +41,8 @@ const StudentDashboardBreadcrumb = () => {
     // Determine display values
     const displayName = profile?.name || 'Student';
     const displayHeadline = profile?.headline || profile?.occupation || 'Student';
-    const avatarSrc = profile?.avatar?.trim() || '';
+    // Prioritize avatarUrl (for OAuth users) over avatar (for uploaded photos)
+    const avatarSrc = profile?.avatarUrl?.trim() || profile?.avatar?.trim() || '';
     const hasAvatar = avatarSrc !== '';
 
     return (
