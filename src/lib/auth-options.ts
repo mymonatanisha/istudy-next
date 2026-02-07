@@ -77,6 +77,7 @@ export const authOptions = {
       }
       
       // For OAuth sign-ins, if we don't have an ID yet, fetch from database
+      // This ensures user ID is cached in the session token
       if (!token.id && token.email && account?.provider) {
         const dbUser = await prisma.user.findUnique({
           where: { email: token.email },

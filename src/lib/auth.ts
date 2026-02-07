@@ -58,7 +58,8 @@ export async function getAuthUser(): Promise<AuthUser | null> {
         return { id: sessionUser.id, email: sessionUser.email };
       }
       
-      // Fallback: Look up user by email to get their ID (for legacy sessions)
+      // Fallback: Look up user by email to get their ID (for legacy sessions only)
+      // This can be removed once all OAuth users have re-authenticated with the updated jwt callback
       const user = await prisma.user.findUnique({
         where: { email: sessionUser.email },
         select: { id: true, email: true }
@@ -68,10 +69,10 @@ export async function getAuthUser(): Promise<AuthUser | null> {
         return { id: user.id, email: user.email };
       }
       
-      console.error("NextAuth session found but user not in database:", sessionUser.email);
+      console.error("NextAuth session found but user not in database (legacy session)");
     }
   } catch (error) {
-    console.error("NextAuth session check error:", error);
+    console.error("Failed to retrieve NextAuth session during authentication check:", error instanceof Error ? error.message : error);
   }
 
   return null;
