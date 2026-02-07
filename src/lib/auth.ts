@@ -6,6 +6,14 @@ import { prisma } from "./prisma";
 
 export type AuthUser = { id: number; email: string };
 
+// Extended session user type for NextAuth
+type SessionUser = {
+  id?: number;
+  email?: string;
+  name?: string;
+  image?: string;
+};
+
 export async function getAuthUser(): Promise<AuthUser | null> {
   // Next.js 15 dynamic API must be awaited
   const cookieStore = await cookies();
@@ -42,16 +50,17 @@ export async function getAuthUser(): Promise<AuthUser | null> {
   // If no JWT token, check for NextAuth session (for OAuth login)
   try {
     const session = await getServerSession(authOptions);
-    if (session?.user?.email) {
+    const sessionUser = session?.user as SessionUser | undefined;
+    
+    if (sessionUser?.email) {
       // Check if user ID is in the session (set by jwt callback in auth-options)
-      const userId = (session.user as any).id;
-      if (userId) {
-        return { id: userId, email: session.user.email };
+      if (sessionUser.id) {
+        return { id: sessionUser.id, email: sessionUser.email };
       }
       
       // Fallback: Look up user by email to get their ID (for legacy sessions)
       const user = await prisma.user.findUnique({
-        where: { email: session.user.email },
+        where: { email: sessionUser.email },
         select: { id: true, email: true }
       });
       
@@ -59,10 +68,10 @@ export async function getAuthUser(): Promise<AuthUser | null> {
         return { id: user.id, email: user.email };
       }
       
-      console.error("NextAuth session found but user not in database:", session.user.email);
+      console.error("NextAuth session found but user not in database:", sessionUser.email);
     }
   } catch (error) {
-    console.error("NextAuth session check error:", error, "User email:", (await getServerSession(authOptions))?.user?.email || "unknown");
+    console.error("NextAuth session check error:", error);
   }
 
   return null;
