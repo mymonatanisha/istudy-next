@@ -12,7 +12,7 @@ model User {
   id           Int    @id @default(autoincrement())
   name         String
   email        String @unique
-  passwordHash String
+  passwordHash String?
 
   // Profile fields
   username     String?
@@ -34,8 +34,29 @@ model User {
   role    Role? @relation(fields: [role_id], references: [id])
 
   notes Note[]
+  accounts Account[]
 
   @@map("User")
+}
+
+model Account {
+  id                 Int     @id @default(autoincrement())
+  userId             Int
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
 }
 
 model Note {
