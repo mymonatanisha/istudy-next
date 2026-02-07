@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { verify, JwtPayload } from "jsonwebtoken";
-import { getServerSession } from "next-auth";
+import { getServerSession } from "next-auth/next";
 import { authOptions } from "./auth-options";
 import { prisma } from "./prisma";
 
