@@ -13,6 +13,7 @@ import { Metadata } from "next";
 import React from 'react';
 import Script from 'next/script';
 import Analytics from '@/components/common/Analytics';
+import NextAuthProvider from '@/components/providers/NextAuthProvider';
 
 // Load Roboto font
 //const roboto = Roboto({
@@ -53,15 +54,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Script>
       </head>
       <body suppressHydrationWarning>
-        <VideoProvider>
-          <ReduxProvider>
-            <AppProvider>
-              <Analytics />
-              {children}
-            </AppProvider>
-            <GlobalVideoModal />
-          </ReduxProvider>
-        </VideoProvider>
+        <NextAuthProvider>
+          <VideoProvider>
+            <ReduxProvider>
+              <AppProvider>
+                <Analytics />
+                {children}
+              </AppProvider>
+              <GlobalVideoModal />
+            </ReduxProvider>
+          </VideoProvider>
+        </NextAuthProvider>
       </body>
     </html>
   );
