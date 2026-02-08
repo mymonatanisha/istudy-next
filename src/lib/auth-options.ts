@@ -34,9 +34,19 @@ export const authOptions = {
             data: {
               name: user.name || "",
               email: user.email!,
-              avatarUrl: user.image,
+              avatar: user.image,
             },
           });
+        } else {
+          // Update existing OAuth user's avatar if they have a profile image
+          if (user.image) {
+            await prisma.user.update({
+              where: { id: existingUser.id },
+              data: {
+                avatar: user.image,
+              },
+            });
+          }
         }
 
         // Create or update account
