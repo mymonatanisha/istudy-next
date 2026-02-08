@@ -38,8 +38,9 @@ export const authOptions = {
             },
           });
         } else {
-          // Update existing OAuth user's avatar only if it's empty or different
-          if (user.image && existingUser.avatar !== user.image) {
+          // Update existing OAuth user's avatar only if they have a new profile image
+          // and it differs from their current avatar
+          if (user.image && (!existingUser.avatar || existingUser.avatar !== user.image)) {
             await prisma.user.update({
               where: { id: existingUser.id },
               data: {
