@@ -38,12 +38,13 @@ export const authOptions = {
             },
           });
         } else {
-          // Migrate existing OAuth users: move avatarUrl to avatar field
+          // Migrate existing OAuth users: update avatar field with OAuth profile picture
           // Only do this if avatar is empty or is an OAuth URL (not a base64 image)
           // Base64 images start with "data:image/" while OAuth URLs start with "http"
           const hasManuallyUploadedAvatar = existingUser.avatar?.startsWith('data:image/');
           const shouldMigrateAvatar = user.image && !hasManuallyUploadedAvatar;
           
+          // Only update if migration is needed AND the value differs (prevents redundant writes)
           if (shouldMigrateAvatar && existingUser.avatar !== user.image) {
             await prisma.user.update({
               where: { id: existingUser.id },
