@@ -9,7 +9,7 @@ import Image from 'next/image';
 type UserProfile = {
   name?: string;
   avatar?: string | null;
-  avatarUrl?: string | null;
+  address?: string | null;
   headline?: string | null;
   occupation?: string | null;
 };
@@ -42,7 +42,7 @@ const StudentDashboardBreadcrumb = () => {
     const displayName = profile?.name || 'Student';
     const displayHeadline = profile?.headline || profile?.occupation || 'Student';
     // Use avatar field (for both OAuth users and uploaded photos)
-    const avatarSrc = profile?.avatar?.trim() || profile?.avatarUrl?.trim() || '';
+    const avatarSrc = profile?.avatar?.trim() || profile?.address?.trim() || '';
     const hasAvatar = avatarSrc !== '';
 
     return (

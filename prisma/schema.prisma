@@ -18,7 +18,7 @@ model User {
   username     String?
   phone        String?
   avatar       String?
-  avatarUrl    String?
+  address      String?
   linkedIn     String?
   bio          String?
   occupation   String?
