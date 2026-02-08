@@ -15,7 +15,7 @@ export async function GET() {
       username: true,
       phone: true,
       avatar: true,
-      avatarUrl: true,
+      address: true,
       linkedIn: true,
       bio: true,
       occupation: true,

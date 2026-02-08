@@ -17,8 +17,8 @@ const StudentUploadPhoto = () => {
         if (response.ok) {
           const data = await response.json();
           // Use avatar field (for both OAuth users and uploaded photos)
-          if (data.user?.avatar || data.user?.avatarUrl) {
-            setImage(data.user.avatar || data.user.avatarUrl);
+          if (data.user?.avatar || data.user?.address) {
+            setImage(data.user.avatar || data.user.address);
           }
         }
       } catch (error) {

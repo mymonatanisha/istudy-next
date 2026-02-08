@@ -9,7 +9,7 @@ type UserProfile = {
   username?: string | null;
   phone?: string | null;
   avatar?: string | null;
-  avatarUrl?: string | null;
+  address?: string | null;
   linkedIn?: string | null;
   bio?: string | null;
   occupation?: string | null;
@@ -67,8 +67,8 @@ const StudentProfileMain = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     // Validate that the field name is one we expect
-    // Note: 'avatarUrl' field is now used to store address information (kept for backward compatibility)
-    const validFields = ['name', 'username', 'phone', 'avatarUrl', 'linkedIn', 'bio', 'occupation', 'headline'];
+    // Note: 'address' field stores the user's address
+    const validFields = ['name', 'username', 'phone', 'address', 'linkedIn', 'bio', 'occupation', 'headline'];
     if (validFields.includes(name)) {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
@@ -211,7 +211,7 @@ const StudentProfileMain = () => {
                 </tr>
                 <tr>
                   <th>Address</th>
-                  <td>{profile.avatarUrl || 'Not set'}</td>
+                  <td>{profile.address || 'Not set'}</td>
                 </tr>
                 <tr>
                   <th>Headline</th>
@@ -288,9 +288,9 @@ const StudentProfileMain = () => {
                   <label className="form-label">Address</label>
                   <input
                     type="text"
-                    name="avatarUrl"
+                    name="address"
                     className="form-control"
-                    value={formData.avatarUrl || ''}
+                    value={formData.address || ''}
                     onChange={handleChange}
                     placeholder="Enter your address"
                   />
