@@ -29,7 +29,7 @@ export const authOptions = {
         });
 
         if (!existingUser) {
-          // Create new user
+          // Create new user with profile picture in avatar field
           existingUser = await prisma.user.create({
             data: {
               name: user.name || "",
@@ -37,17 +37,6 @@ export const authOptions = {
               avatar: user.image,
             },
           });
-        } else {
-          // Update existing OAuth user's avatar only if they have a new profile image
-          // and it differs from their current avatar
-          if (user.image && (!existingUser.avatar || existingUser.avatar !== user.image)) {
-            await prisma.user.update({
-              where: { id: existingUser.id },
-              data: {
-                avatar: user.image,
-              },
-            });
-          }
         }
 
         // Create or update account
