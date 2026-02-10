@@ -55,6 +55,10 @@ export const authOptions = {
           }
         }
 
+        // ✅ FIX: Attach database user ID to the user object
+        // This ensures the jwt callback receives the correct ID
+        user.id = existingUser.id;
+
         // Create or update account
         await prisma.account.upsert({
           where: {
