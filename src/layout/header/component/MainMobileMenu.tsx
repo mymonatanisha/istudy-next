@@ -5,10 +5,12 @@ import { MenuItem } from "@/interFace/interFace";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const MobileMenu = () => {
+    const router = useRouter();
     const { toggleSidebarMenu } = useGlobalContext();
-    const { isAuthenticated, loading } = useAuth();
+    const { isAuthenticated, loading, logout } = useAuth();
     const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
     const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
 
@@ -48,11 +50,13 @@ const MobileMenu = () => {
 
     const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        toggleSidebarMenu(); // Close the sidebar
+        toggleSidebarMenu();
         try {
             const res = await fetch('/api/auth/logout', { method: 'POST' });
             if (res.ok) {
-                window.location.href = '/';
+                logout();
+                router.push('/');
+                router.refresh();
             } else {
                 console.error('Logout failed');
             }

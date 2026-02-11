@@ -37,5 +37,10 @@ export function useAuth() {
     };
   }, []);
 
-  return { user, loading, isAuthenticated: !!user };
+  const logout = () => {
+    setUser(null);
+    setLoading(false);
+  };
+
+  return { user, loading, isAuthenticated: !!user, logout };
 }

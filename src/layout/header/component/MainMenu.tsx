@@ -4,9 +4,11 @@ import main_menu_data from "@/data/header-menu/main-menu-data";
 import { useAuth } from "@/hooks/useAuth";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const CommonHeaderMainMenu = () => {
-  const { isAuthenticated, loading } = useAuth();
+  const router = useRouter();
+  const { isAuthenticated, loading, logout } = useAuth();
 
   // Don't render anything while loading to avoid menu flashing
   if (loading) {
@@ -31,7 +33,9 @@ const CommonHeaderMainMenu = () => {
     try {
       const res = await fetch('/api/auth/logout', { method: 'POST' });
       if (res.ok) {
-        window.location.href = '/';
+        logout();
+        router.push('/');
+        router.refresh();
       } else {
         console.error('Logout failed');
       }
