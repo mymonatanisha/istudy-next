@@ -55,7 +55,7 @@ const InstructorSidebarMenu = () => {
         { href: "/instructor-certificate", icon: "fa-award", label: "Certificate" },
     ];
 
-    const handleLogout = async (e: React.MouseEvent) => {
+    const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         try {
             const res = await fetch('/api/auth/logout', { method: 'POST' });
@@ -113,15 +113,7 @@ const InstructorSidebarMenu = () => {
                     <li>
                         <button 
                             onClick={handleLogout} 
-                            style={{ 
-                                cursor: 'pointer',
-                                background: 'none',
-                                border: 'none',
-                                padding: 0,
-                                font: 'inherit',
-                                textAlign: 'left',
-                                width: '100%'
-                            }}
+                            className="bd-dashboard-menu-logout-btn"
                         >
                             <span><i className="fa-light fa-sign-out-alt"></i></span> Logout
                         </button>
