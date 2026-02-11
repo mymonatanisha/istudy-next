@@ -120,6 +120,8 @@ export async function POST(request: NextRequest) {
           secret,
           { expiresIn: "7d" }
         );
+      } else {
+        console.warn("JWT_SECRET not configured - user will not be auto-logged in");
       }
     }
 

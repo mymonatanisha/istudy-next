@@ -93,6 +93,12 @@ const CheckoutMain = () => {
             return;
         }
 
+        // Validate password length
+        if (!user && formData.password && formData.password.length < 8) {
+            toast.error("Password must be at least 8 characters");
+            return;
+        }
+
         if (!selectedPaymentMethod) {
             toast.error("Please select a payment method");
             return;

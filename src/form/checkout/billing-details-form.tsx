@@ -84,6 +84,7 @@ const BillingDetailsForm = ({ formData, setFormData, isLoggedIn }: BillingDetail
                                         placeholder="Create a password for your account" 
                                         value={formData.password}
                                         onChange={handleInputChange}
+                                        minLength={8}
                                         required
                                     />
                                 </div>
