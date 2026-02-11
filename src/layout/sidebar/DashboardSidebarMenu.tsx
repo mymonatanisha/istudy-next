@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
 type UserData = {
@@ -10,6 +10,7 @@ type UserData = {
 
 const DashboardSidebarMenu = () => {
     const pathname = usePathname();
+    const router = useRouter();
     const [userName, setUserName] = useState<string>("User");
     const [loading, setLoading] = useState(true);
 
@@ -50,9 +51,23 @@ const DashboardSidebarMenu = () => {
         //{ href: "/student-certificate", icon: "fa-award", label: "My Achievement" },
     ];
 
+    const handleLogout = async (e: React.MouseEvent) => {
+        e.preventDefault();
+        try {
+            const res = await fetch('/api/auth/logout', { method: 'POST' });
+            if (res.ok) {
+                router.push('/');
+                router.refresh();
+            } else {
+                console.error('Logout failed');
+            }
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    };
+
     const userItems = [
         { href: "/student-settings", icon: "fa-sliders", label: "Settings" },
-        { href: "/", icon: "fa-sign-out-alt", label: "Logout" },
     ];
 
     return (
@@ -79,6 +94,11 @@ const DashboardSidebarMenu = () => {
                             </Link>
                         </li>
                     ))}
+                    <li>
+                        <a href="#" onClick={handleLogout} style={{ cursor: 'pointer' }}>
+                            <span><i className="fa-light fa-sign-out-alt"></i></span> Logout
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
