@@ -35,6 +35,7 @@ const CheckoutMain = () => {
         fullName: '',
         phone: '',
         email: '',
+        password: '',
     });
     const [transactionId, setTransactionId] = useState('');
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
@@ -54,6 +55,7 @@ const CheckoutMain = () => {
                             fullName: data.user.name || '',
                             phone: data.user.phone || '',
                             email: data.user.email || '',
+                            password: '', // Keep empty for logged-in users
                         }));
                     }
                 }
@@ -85,6 +87,18 @@ const CheckoutMain = () => {
             return;
         }
 
+        // Validate password for non-logged-in users
+        if (!user && !formData.password) {
+            toast.error("Password is required");
+            return;
+        }
+
+        // Validate password length
+        if (!user && formData.password && formData.password.length < 8) {
+            toast.error("Password must be at least 8 characters");
+            return;
+        }
+
         if (!selectedPaymentMethod) {
             toast.error("Please select a payment method");
             return;
@@ -112,6 +126,7 @@ const CheckoutMain = () => {
                     fullName: formData.fullName,
                     phone: formData.phone,
                     email: formData.email,
+                    password: formData.password, // Include password for guest users
                     courseId: courseId,
                     paymentMethod: selectedPaymentMethod,
                     transactionId: transactionId,
@@ -255,11 +270,6 @@ const CheckoutMain = () => {
                                     setSelectedPaymentMethod={setSelectedPaymentMethod} 
                                 />
                                 <div className="checkout-agree">
-                                    <div className="checkout-option mb-15">
-                                        <input id="read_all" type="checkbox" />
-                                        <label htmlFor="read_all">I have read and agree to the website.</label>
-                                    </div>
-                                
                                 <div className="checkout-input mb-0">
                                 <label>Transaction ID <span className="text-danger">*</span></label>
                                 <input 

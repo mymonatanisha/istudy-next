@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 // POST - Create a new order
 export async function POST(request: NextRequest) {
@@ -8,7 +10,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     
     // Validate required fields
-    const { fullName, phone, email, courseId, paymentMethod, transactionId, userId } = body;
+    const { fullName, phone, email, courseId, paymentMethod, transactionId, userId, password } = body;
     
     if (!fullName || !phone || !email || !courseId || !paymentMethod || !transactionId) {
       return NextResponse.json({ 
@@ -62,6 +64,67 @@ export async function POST(request: NextRequest) {
       }, { status: 403 });
     }
 
+    let userIdForOrder = authUser ? authUser.id : null;
+    let userCreated = false;
+    let token: string | undefined;
+
+    // If user is not authenticated but provided password, create a new account
+    if (!authUser && password) {
+      // Validate password
+      if (password.length < 8) {
+        return NextResponse.json(
+          { error: "Password must be at least 8 characters" },
+          { status: 400 }
+        );
+      }
+
+      const trimmedEmail = email.trim().toLowerCase();
+
+      // Check if user already exists
+      const existingUser = await prisma.user.findUnique({
+        where: { email: trimmedEmail },
+      });
+
+      if (existingUser) {
+        return NextResponse.json(
+          { error: "Email already registered. Please login instead." },
+          { status: 409 }
+        );
+      }
+
+      // Create new user
+      const passwordHash = await bcrypt.hash(password, 10);
+
+      const newUser = await prisma.user.create({
+        data: {
+          name: fullName.trim(),
+          email: trimmedEmail,
+          phone: phone.trim(),
+          passwordHash,
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      });
+
+      userIdForOrder = newUser.id;
+      userCreated = true;
+
+      // Generate JWT token for auto-login
+      const secret = process.env.JWT_SECRET;
+      if (secret) {
+        token = jwt.sign(
+          { sub: newUser.id, email: newUser.email },
+          secret,
+          { expiresIn: "7d" }
+        );
+      } else {
+        console.warn("JWT_SECRET not configured - user will not be auto-logged in");
+      }
+    }
+
     // Create the order with status = pending
     const order = await prisma.order.create({
       data: {
@@ -72,16 +135,31 @@ export async function POST(request: NextRequest) {
         paymentMethod: paymentMethod.trim(),
         transactionId: transactionId.trim(),
         status: "pending",
-        userId: authUser ? authUser.id : null,
+        userId: userIdForOrder,
       },
     });
 
-    return NextResponse.json({ 
+    const response = NextResponse.json({ 
       success: true,
-      message: "Order placed successfully",
+      message: userCreated ? "Account created and order placed successfully" : "Order placed successfully",
       orderId: order.id,
-      order
+      order,
+      userCreated
     }, { status: 201 });
+
+    // Set JWT cookie if user was just created
+    if (token) {
+      const secure = process.env.NODE_ENV === "production";
+      response.cookies.set("token", token, {
+        httpOnly: true,
+        secure,
+        sameSite: "lax",
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7, // 7 days
+      });
+    }
+
+    return response;
   } catch (error) {
     console.error("Order creation error:", error);
     return NextResponse.json({ 

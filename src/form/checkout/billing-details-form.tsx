@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import React from 'react';
 //import { countryData } from '@/data/dropdown-data';
 //import NiceSelect from '@/components/elements/nice-select/NiceSelect';
 
@@ -8,20 +7,18 @@ interface BillingDetailsFormProps {
         fullName: string;
         phone: string;
         email: string;
+        password: string;
     };
     setFormData: React.Dispatch<React.SetStateAction<{
         fullName: string;
         phone: string;
         email: string;
+        password: string;
     }>>;
     isLoggedIn: boolean;
 }
 
 const BillingDetailsForm = ({ formData, setFormData, isLoggedIn }: BillingDetailsFormProps) => {
-    const [isPasswordOpen, setIsPasswordOpen] = useState<boolean>(false);
-   // const [isAddressOpen, setIsAddressOpen] = useState<boolean>(false);
-    //const selectHandler = () => { }
-
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -79,31 +76,17 @@ const BillingDetailsForm = ({ formData, setFormData, isLoggedIn }: BillingDetail
 
                         {!isLoggedIn && (
                             <div className="col-md-12">
-                                <div className="checkout-option-wrapper create-acc">
-                                    <div className="checkout-option mb-15">
-                                        <input id="cbox" type="checkbox" />
-                                        <label onClick={() => setIsPasswordOpen(!isPasswordOpen)} htmlFor="cbox">Create an account?</label>
-                                    </div>
-                                    <AnimatePresence>
-                                        {isPasswordOpen && (
-                                            <motion.div
-                                                initial={{ height: 0, opacity: 0 }}
-                                                animate={{ height: "auto", opacity: 1 }}
-                                                exit={{ height: 0, opacity: 0 }}
-                                                transition={{ duration: 0.6, ease: "easeInOut" }}
-                                                className='overflow-hidden'
-                                            >
-                                                <div className={`checkout-input create-account ${isPasswordOpen ? 'd-block' : 'd-none'}`}>
-                                                    <p>Create an account by entering the information below. If you
-                                                        are a
-                                                        returning
-                                                        customer please login at the top of the page.</p>
-                                                    <label>Account Password <span>*</span></label>
-                                                    <input type="password" placeholder="Password" />
-                                                </div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
+                                <div className="checkout-input">
+                                    <label>Password <span>*</span></label>
+                                    <input 
+                                        type="password" 
+                                        name="password"
+                                        placeholder="Create a password for your account" 
+                                        value={formData.password}
+                                        onChange={handleInputChange}
+                                        minLength={8}
+                                        required
+                                    />
                                 </div>
                             </div>
                         )}
