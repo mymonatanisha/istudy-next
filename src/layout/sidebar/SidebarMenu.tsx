@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 const SidebarMenu = () => {
     const router = useRouter();
     const { openSidebar, setOpenSidebar } = useGlobalContext();
-    const { isAuthenticated, loading } = useAuth();
+    const { isAuthenticated, loading, logout } = useAuth();
     
     const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -18,6 +18,7 @@ const SidebarMenu = () => {
         try {
             const res = await fetch('/api/auth/logout', { method: 'POST' });
             if (res.ok) {
+                logout();
                 router.push('/');
                 router.refresh();
             } else {

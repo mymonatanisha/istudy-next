@@ -111,9 +111,20 @@ const InstructorSidebarMenu = () => {
                         </li>
                     ))}
                     <li>
-                        <a href="#" onClick={handleLogout} style={{ cursor: 'pointer' }}>
+                        <button 
+                            onClick={handleLogout} 
+                            style={{ 
+                                cursor: 'pointer',
+                                background: 'none',
+                                border: 'none',
+                                padding: 0,
+                                font: 'inherit',
+                                textAlign: 'left',
+                                width: '100%'
+                            }}
+                        >
                             <span><i className="fa-light fa-sign-out-alt"></i></span> Logout
-                        </a>
+                        </button>
                     </li>
                 </ul>
             </div>

@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 const MobileMenu = () => {
     const router = useRouter();
     const { toggleSidebarMenu } = useGlobalContext();
-    const { isAuthenticated, loading } = useAuth();
+    const { isAuthenticated, loading, logout } = useAuth();
     const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
     const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
 
@@ -54,6 +54,7 @@ const MobileMenu = () => {
         try {
             const res = await fetch('/api/auth/logout', { method: 'POST' });
             if (res.ok) {
+                logout();
                 router.push('/');
                 router.refresh();
             } else {
