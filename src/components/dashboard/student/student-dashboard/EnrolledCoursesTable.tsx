@@ -111,7 +111,7 @@ const EnrolledCoursesTable: React.FC = () => {
                 <div className="text-center py-5">
                     <i className="fa-solid fa-book-open fa-3x mb-3 text-muted"></i>
                     <h5>No Enrolled Courses Yet</h5>
-                    <p className="text-muted">You haven't enrolled in any courses. Browse our course catalog to get started!</p>
+                    <p className="text-muted">You haven&apos;t enrolled in any courses. Browse our course catalog to get started!</p>
                     <Link href="/courses" className="bd-btn btn-style radius-6 mt-3">
                         Browse Courses
                     </Link>
