@@ -1,0 +1,246 @@
+/* Admin Dashboard Styles */
+
+/* Stats Cards */
+.bd-dashboard-stats-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.bd-dashboard-stats-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.bd-dashboard-stats-card-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.bd-dashboard-stats-card-icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0b4dad;
+  color: white;
+  border-radius: 8px;
+  font-size: 1.5rem;
+}
+
+.bd-dashboard-stats-card-content {
+  flex: 1;
+}
+
+.bd-dashboard-stats-card-value {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.bd-dashboard-stats-card-title {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0.25rem 0 0.5rem 0;
+}
+
+.bd-dashboard-stats-card-trend {
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.bd-dashboard-stats-card-trend.positive {
+  color: #28a745;
+}
+
+.bd-dashboard-stats-card-trend.negative {
+  color: #dc3545;
+}
+
+/* Widgets */
+.bd-dashboard-widget {
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.bd-dashboard-widget.white-bg {
+  background: white;
+}
+
+/* Charts */
+.bd-dashboard-chart-wrapper {
+  padding: 0;
+}
+
+.bd-dashboard-chart-header {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 1rem;
+}
+
+.bd-dashboard-chart-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.bd-dashboard-chart-body {
+  padding: 0;
+}
+
+/* Tables */
+.bd-dashboard-table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.bd-dashboard-table {
+  margin: 0;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bd-dashboard-table thead {
+  background: #f8fafc;
+}
+
+.bd-dashboard-table thead th {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #4a5568;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  border-bottom: 2px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.bd-dashboard-table tbody td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+}
+
+.bd-dashboard-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.bd-dashboard-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* Section Headers */
+.bd-dashboard-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.bd-dashboard-section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.bd-dashboard-view-all {
+  font-size: 0.875rem;
+  color: #0b4dad;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.bd-dashboard-view-all:hover {
+  color: #0939aa;
+}
+
+/* Order ID Badge */
+.bd-dashboard-order-id {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: #0b4dad;
+  background: #e6f0ff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+/* Customer Info */
+.bd-dashboard-customer-info strong {
+  display: block;
+  color: #1a1a1a;
+}
+
+.bd-dashboard-customer-info small {
+  font-size: 0.8rem;
+}
+
+/* Search Wrapper */
+.bd-dashboard-search-wrapper {
+  position: relative;
+}
+
+.bd-dashboard-search-wrapper .input-group-text {
+  background: white;
+  border-right: none;
+  color: #666;
+}
+
+.bd-dashboard-search-wrapper .form-control {
+  border-left: none;
+}
+
+.bd-dashboard-search-wrapper .form-control:focus {
+  border-color: #0b4dad;
+  box-shadow: 0 0 0 0.2rem rgba(11, 77, 173, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+  .bd-dashboard-stats-card-value {
+    font-size: 1.5rem;
+  }
+
+  .bd-dashboard-section-title {
+    font-size: 1.125rem;
+  }
+
+  .bd-dashboard-table-wrapper {
+    border: none;
+    border-radius: 0;
+  }
+
+  .bd-dashboard-table thead th,
+  .bd-dashboard-table tbody td {
+    padding: 0.5rem;
+    font-size: 0.8125rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .bd-dashboard-stats-card {
+    padding: 1rem;
+  }
+
+  .bd-dashboard-stats-card-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
+
+  .bd-dashboard-widget {
+    padding: 1rem;
+  }
+}
