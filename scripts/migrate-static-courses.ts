@@ -3,6 +3,9 @@ import coursesData from '../src/data/courses/courses-data';
 
 const prisma = new PrismaClient();
 
+// Constants
+const DEFAULT_INSTRUCTOR_NAME = 'Unknown Instructor';
+
 // Helper function to generate slug from title
 function generateSlug(title: string): string {
   return title
@@ -76,7 +79,7 @@ async function main() {
         badgeClass: course.badgeClass || null,
         
         // Instructor info
-        instructorName: course.instructorName || 'Unknown Instructor',
+        instructorName: course.instructorName || DEFAULT_INSTRUCTOR_NAME,
         instructorAvatar: getImagePath(course.instructorImage),
         
         // Stats

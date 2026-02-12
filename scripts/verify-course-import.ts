@@ -108,7 +108,7 @@ async function main() {
     if (duplicateSlugs.length > 0) {
       console.log(`⚠️  Found ${duplicateSlugs.length} duplicate slug(s):`);
       duplicateSlugs.forEach(({ slug, count }) => {
-        console.log(`   - "${slug}" appears ${count} times`);
+        console.log(`   - "${slug}" appears ${Number(count)} times`);
         issues.push({ courseId: 0, issue: `Duplicate slug: ${slug}` });
       });
     }
@@ -125,7 +125,7 @@ async function main() {
     if (duplicateLegacyIds.length > 0) {
       console.log(`⚠️  Found ${duplicateLegacyIds.length} duplicate legacyId(s):`);
       duplicateLegacyIds.forEach(({ legacyId, count }) => {
-        console.log(`   - legacyId ${legacyId} appears ${count} times`);
+        console.log(`   - legacyId ${legacyId} appears ${Number(count)} times`);
         issues.push({ courseId: 0, issue: `Duplicate legacyId: ${legacyId}` });
       });
     }
