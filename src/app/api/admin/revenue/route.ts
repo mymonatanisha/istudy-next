@@ -30,6 +30,15 @@ export async function GET() {
                 title: true,
                 price: true,
                 instructorId: true,
+                instructorName: true,
+              },
+              include: {
+                instructor: {
+                  select: {
+                    id: true,
+                    name: true,
+                  }
+                }
               }
             },
             student: {
@@ -118,6 +127,7 @@ export async function GET() {
         const existing = instructorEarningsMap.get(instructorId);
         const price = order.enrollment.course.price;
         const instructorEarning = price * (1 - platformCommission);
+        const instructorName = order.enrollment.course.instructor?.name || order.enrollment.course.instructorName || 'Unknown';
         
         if (existing) {
           existing.earnings += instructorEarning;
@@ -125,7 +135,7 @@ export async function GET() {
           existing.students += 1;
         } else {
           instructorEarningsMap.set(instructorId, {
-            name: order.enrollment.student?.name || 'Unknown',
+            name: instructorName,
             earnings: instructorEarning,
             courses: new Set([order.enrollment.course.id]),
             students: 1,
