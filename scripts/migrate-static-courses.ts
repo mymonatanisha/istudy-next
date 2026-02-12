@@ -14,7 +14,7 @@ function generateSlug(title: string, id: number): string {
   return title
     .toLowerCase()
     .trim()
-    .replace(/[^\w\s-]/g, '') // Remove special characters except spaces and hyphens
+    .replace(/[^\w\s-]/g, '') // Remove special characters (keeps alphanumeric, spaces, hyphens, underscores)
     .replace(/\s+/g, '-')      // Replace spaces with hyphens
     .replace(/-+/g, '-')       // Replace multiple hyphens with single hyphen
     .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
