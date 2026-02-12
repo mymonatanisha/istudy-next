@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import SearchBar from '@/components/admin/common/SearchBar';
 import Pagination from '@/components/admin/common/Pagination';
@@ -29,11 +29,7 @@ const CoursesTable = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [statusFilter, setStatusFilter] = useState('');
 
-  useEffect(() => {
-    fetchCourses();
-  }, [currentPage, search, statusFilter]);
-
-  const fetchCourses = async () => {
+  const fetchCourses = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams({
@@ -61,7 +57,11 @@ const CoursesTable = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, search, statusFilter]);
+
+  useEffect(() => {
+    fetchCourses();
+  }, [fetchCourses]);
 
   const handleSearch = (value: string) => {
     setSearch(value);

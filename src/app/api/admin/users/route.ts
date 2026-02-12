@@ -28,7 +28,11 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * perPage;
 
     // Build where clause
-    const where: any = {};
+    interface WhereClause {
+      OR?: Array<{ name?: { contains: string; mode: 'insensitive' }; email?: { contains: string; mode: 'insensitive' } }>;
+      role_id?: number;
+    }
+    const where: WhereClause = {};
     
     if (search) {
       where.OR = [

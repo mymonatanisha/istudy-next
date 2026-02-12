@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import SearchBar from '@/components/admin/common/SearchBar';
 import Pagination from '@/components/admin/common/Pagination';
@@ -26,11 +26,7 @@ const UsersTable = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [roleFilter, setRoleFilter] = useState('');
 
-  useEffect(() => {
-    fetchUsers();
-  }, [currentPage, search, roleFilter]);
-
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams({
@@ -58,7 +54,11 @@ const UsersTable = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, search, roleFilter]);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   const handleSearch = (value: string) => {
     setSearch(value);

@@ -27,7 +27,10 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * perPage;
 
     // Build where clause
-    const where: any = {};
+    interface WhereClause {
+      status?: string;
+    }
+    const where: WhereClause = {};
     
     if (statusFilter) {
       where.status = statusFilter;

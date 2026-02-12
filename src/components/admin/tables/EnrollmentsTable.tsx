@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Pagination from '@/components/admin/common/Pagination';
 import StatusBadge from '@/components/admin/common/StatusBadge';
 import Link from 'next/link';
@@ -34,11 +34,7 @@ const EnrollmentsTable = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [statusFilter, setStatusFilter] = useState('');
 
-  useEffect(() => {
-    fetchEnrollments();
-  }, [currentPage, statusFilter]);
-
-  const fetchEnrollments = async () => {
+  const fetchEnrollments = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams({
@@ -65,7 +61,11 @@ const EnrollmentsTable = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, statusFilter]);
+
+  useEffect(() => {
+    fetchEnrollments();
+  }, [fetchEnrollments]);
 
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString('en-US', {

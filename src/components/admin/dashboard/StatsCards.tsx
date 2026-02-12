@@ -11,7 +11,14 @@ interface StatsCardProps {
   decimals?: number;
 }
 
-const StatsCards: React.FC<{ stats: any }> = ({ stats }) => {
+interface StatsData {
+  users: { total: number; trend: number };
+  courses: { total: number; trend: number };
+  revenue: { total: number; trend: number };
+  enrollments: { total: number; trend: number };
+}
+
+const StatsCards: React.FC<{ stats: StatsData }> = ({ stats }) => {
   const cards: StatsCardProps[] = [
     {
       title: 'Total Users',

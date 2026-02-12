@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Pagination from '@/components/admin/common/Pagination';
 import StatusBadge from '@/components/admin/common/StatusBadge';
@@ -35,11 +35,7 @@ const OrdersTable = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [statusFilter, setStatusFilter] = useState('');
 
-  useEffect(() => {
-    fetchOrders();
-  }, [currentPage, statusFilter]);
-
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams({
@@ -66,7 +62,11 @@ const OrdersTable = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, statusFilter]);
+
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
 
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString('en-US', {

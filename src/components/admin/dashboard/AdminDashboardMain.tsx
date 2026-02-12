@@ -12,7 +12,16 @@ interface DashboardData {
     revenue: { total: number; thisMonth: number; trend: number };
     enrollments: { total: number; thisMonth: number; trend: number };
   };
-  recentOrders: any[];
+  recentOrders: Array<{
+    id: number;
+    orderId: string;
+    customerName: string;
+    customerEmail: string;
+    courseTitle: string;
+    amount: number;
+    status: string;
+    date: Date;
+  }>;
   charts: {
     revenue: { date: string; revenue: number }[];
     userGrowth: { date: string; users: number }[];
