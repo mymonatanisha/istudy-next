@@ -136,14 +136,22 @@ const EnrolledCoursesTable: React.FC = () => {
                     {enrollments.map((enrollment) => (
                         <tr key={enrollment.id}>
                             <td>
-                                <Link href={`/course-details/${enrollment.courseSlug}`} className="text-decoration-none">
+                                <Link 
+                                    href={`/course-details/${enrollment.courseSlug}`} 
+                                    className="text-decoration-none"
+                                    aria-label={`View ${enrollment.courseName} course details`}
+                                >
                                     {enrollment.courseName}
                                 </Link>
                             </td>
                             <td>{enrollment.instructor}</td>
                             <td>{formatDate(enrollment.enrolledAt)}</td>
                             <td>
-                                <div className="progress" style={{ height: '8px' }}>
+                                <div 
+                                    className="progress" 
+                                    style={{ height: '8px' }}
+                                    aria-label={`Course completion progress: ${enrollment.progress} percent`}
+                                >
                                     <div 
                                         className="progress-bar bg-success" 
                                         role="progressbar" 
