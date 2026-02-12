@@ -35,6 +35,8 @@ model User {
 
   notes Note[]
   accounts Account[]
+  enrollments Enrollment[] @relation("StudentEnrollments")
+  coursesInstructed Course[] @relation("InstructorCourses")
 
   @@map("User")
 }
@@ -102,10 +104,91 @@ model Order {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
+  enrollment Enrollment?
+
   @@index([email])
   @@index([courseId])
   @@index([status])
   @@index([createdAt])
   @@index([userId])
   @@map("orders")
+}
+
+model Course {
+  id                Int       @id @default(autoincrement())
+  title             String
+  slug              String    @unique
+  courseTag         String?
+  badge             String?
+  badgeClass        String?
+  
+  // Instructor info
+  instructorName    String
+  instructorAvatar  String?
+  instructorId      Int?
+  instructor        User?     @relation("InstructorCourses", fields: [instructorId], references: [id])
+  
+  // Stats
+  lessons           Int       @default(0)
+  students          Int       @default(0)
+  rating            Float     @default(0)
+  
+  // Pricing
+  price             Float
+  oldPrice          Float?
+  
+  // Content
+  courseDescription String    @db.Text
+  shortDescription  String?   @db.Text
+  
+  // Media
+  thumbnail         String?
+  coverImage        String?
+  
+  // Publishing
+  status            String    @default("draft") // draft, published, archived
+  featured          Boolean   @default(false)
+  publishedAt       DateTime?
+  
+  // Legacy support
+  legacyId          Int?
+  isLegacy          Boolean   @default(false)
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  enrollments       Enrollment[]
+  
+  @@index([slug])
+  @@index([status])
+  @@index([featured])
+  @@index([instructorId])
+  @@index([legacyId])
+  @@map("courses")
+}
+
+model Enrollment {
+  id             Int       @id @default(autoincrement())
+  studentId      Int
+  courseId       Int
+  orderId        Int?      @unique
+  
+  status         String    @default("active") // active, completed, expired, cancelled
+  progress       Float     @default(0) // 0-100%
+  
+  enrolledAt     DateTime  @default(now())
+  lastAccessedAt DateTime  @default(now())
+  completedAt    DateTime?
+  expiresAt      DateTime?
+  
+  student        User      @relation("StudentEnrollments", fields: [studentId], references: [id], onDelete: Cascade)
+  course         Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  order          Order?    @relation(fields: [orderId], references: [id])
+  
+  @@unique([studentId, courseId])
+  @@index([studentId])
+  @@index([courseId])
+  @@index([status])
+  @@index([enrolledAt])
+  @@map("enrollments")
 }

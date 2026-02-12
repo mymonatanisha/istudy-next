@@ -14,7 +14,8 @@
     "db:migrate:dev": "prisma migrate dev",
     "db:status": "prisma migrate status",
     "db:studio": "prisma studio",
-    "verify-db": "node scripts/verify-db-state.js"
+    "verify-db": "node scripts/verify-db-state.js",
+    "seed:sample": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} scripts/seed-sample-courses.ts"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
@@ -64,6 +65,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.2.5",
     "prisma": "^5.15.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
   "engines": {
