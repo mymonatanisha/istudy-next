@@ -268,9 +268,6 @@ CREATE INDEX "admin_logs_createdAt_idx" ON "admin_logs"("createdAt");
 CREATE UNIQUE INDEX "system_settings_key_key" ON "system_settings"("key");
 
 -- CreateIndex
-CREATE INDEX "system_settings_key_idx" ON "system_settings"("key");
-
--- CreateIndex
 CREATE INDEX "system_settings_category_idx" ON "system_settings"("category");
 
 -- CreateIndex
@@ -290,9 +287,6 @@ CREATE UNIQUE INDEX "support_tickets_ticketNumber_key" ON "support_tickets"("tic
 
 -- CreateIndex
 CREATE INDEX "support_tickets_userId_idx" ON "support_tickets"("userId");
-
--- CreateIndex
-CREATE INDEX "support_tickets_ticketNumber_idx" ON "support_tickets"("ticketNumber");
 
 -- CreateIndex
 CREATE INDEX "support_tickets_status_idx" ON "support_tickets"("status");
@@ -361,7 +355,7 @@ ALTER TABLE "course_drafts" ADD CONSTRAINT "course_drafts_courseId_fkey" FOREIGN
 ALTER TABLE "course_drafts" ADD CONSTRAINT "course_drafts_createdBy_fkey" FOREIGN KEY ("createdBy") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "course_drafts" ADD CONSTRAINT "course_drafts_updatedBy_fkey" FOREIGN KEY ("updatedBy") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "course_drafts" ADD CONSTRAINT "course_drafts_updatedBy_fkey" FOREIGN KEY ("updatedBy") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "admin_logs" ADD CONSTRAINT "admin_logs_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

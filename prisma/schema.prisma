@@ -361,7 +361,7 @@ model CourseDraft {
 
   course  Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
   creator User   @relation("DraftCreator", fields: [createdBy], references: [id], onDelete: Cascade)
-  updater User?  @relation("DraftUpdater", fields: [updatedBy], references: [id])
+  updater User?  @relation("DraftUpdater", fields: [updatedBy], references: [id], onDelete: SetNull)
 
   @@index([courseId])
   @@index([createdBy])
