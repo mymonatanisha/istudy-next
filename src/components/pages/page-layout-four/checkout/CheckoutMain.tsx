@@ -284,7 +284,7 @@ const CheckoutMain = () => {
                                 <div className="checkout-btn-wrapper">
                                     <button 
                                         onClick={handlePlaceOrder} 
-                                        type="submit" 
+                                        type="button" 
                                         className="bd-btn btn-outline-primary"
                                         disabled={isSubmitting}
                                     >
