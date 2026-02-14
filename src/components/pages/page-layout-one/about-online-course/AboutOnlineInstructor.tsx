@@ -22,7 +22,7 @@ const AboutOnlineInstructor = () => {
                         {
                             instructorsData.slice(0, 4).map((instructor) => (
                                 <div key={instructor.id} className="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                                    <CoursesInstructoreArea instructor={instructor} />
+                                    <CoursesInstructoreArea instructor={instructor} disableLink={true} />
                                 </div>
                             ))
                         }

@@ -5,10 +5,11 @@ import Link from 'next/link';
 import React from 'react';
 
 interface IInstructorProps {
-  instructor: Iinstructor
+  instructor: Iinstructor;
+  disableLink?: boolean;
 }
 
-const CoursesInstructoreArea = ({ instructor }: IInstructorProps) => {
+const CoursesInstructoreArea = ({ instructor, disableLink = false }: IInstructorProps) => {
   return (
     <>
       {/* -- instructor area start -- */}
@@ -16,13 +17,21 @@ const CoursesInstructoreArea = ({ instructor }: IInstructorProps) => {
         <div className="bd-instructor-item">
           <div className="bd-instructor-thumb-wrap">
             <div className="bd-instructor-thumb">
-              <Link href={`/instructor/instructor-details/${instructor.id}`}>
+              {disableLink ? (
                 <Image
                   style={{ width: '100%', height: 'auto' }}
                   src={instructor.image}
                   alt="image"
                 />
-              </Link>
+              ) : (
+                <Link href={`/instructor/instructor-details/${instructor.id}`}>
+                  <Image
+                    style={{ width: '100%', height: 'auto' }}
+                    src={instructor.image}
+                    alt="image"
+                  />
+                </Link>
+              )}
             </div>
             <div className="bd-instructor-social theme-social has-white circle text-center">
               <ul className="social-icon-list">
@@ -59,9 +68,13 @@ const CoursesInstructoreArea = ({ instructor }: IInstructorProps) => {
           </div>
           <div className="bd-instructor-info">
             <h6 className="name underline">
-              <Link href={`/instructor/instructor-details/${instructor.id}`}>
-                {instructor.name}
-              </Link>
+              {disableLink ? (
+                instructor.name
+              ) : (
+                <Link href={`/instructor/instructor-details/${instructor.id}`}>
+                  {instructor.name}
+                </Link>
+              )}
             </h6>
             <span>{instructor.title}</span>
           </div>
