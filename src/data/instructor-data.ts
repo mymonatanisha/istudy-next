@@ -6,7 +6,7 @@ import instructorThumbOne from '../../public/assets/images/instructor/instructor
 export const instructorsData: Iinstructor[] = [
   {
     id: 1,
-    name: 'Mohammad Enamul Huq',
+    name: 'Enam ul Haque',
     title: 'Founder & Lead Instructor (Mobile App Development)',
     image: instructorImg1,
     socialLinks: {
@@ -18,14 +18,63 @@ export const instructorsData: Iinstructor[] = [
   },
   {
     id: 2,
-    name: 'Mohammad Enamul Huq',
-    title: 'SEO & Digital Marketing Trainer',
+    name: 'UI/UX Specialist',
+    title: 'Frontend Development Mentor',
+    image: instructorImg10,
+    socialLinks: {
+      facebook: '#',
+      twitter: '#',
+      linkedin: '#',
+      instagram: '#',
+    },
+  },
+  {
+    id: 3,
+    
+	name: 'SEO & Digital Marketing Trainer',
+    title: 'Growth & Online Strategy Mentor',
+    image: instructorImg1,
+    socialLinks: {
+      facebook: '#',
+      twitter: '#',
+      linkedin: '#',
+      instagram: '#',
+    },
+  },
+  {
+    id: 4,
+    name: 'Digital Skills Trainer',
+    title: 'Design & User Experience Trainer',
+    image: instructorImg10,
+    socialLinks: {
+      facebook: '#',
+      twitter: '#',
+      linkedin: '#',
+      instagram: '#',
+    },
+  },
+  {
+    id: 5,
+    name: 'Backend Development Expert',
+    title: 'Node.js & Database Instructor',
+    image: instructorImg1,
+    socialLinks: {
+      facebook: '#',
+      twitter: '#',
+      linkedin: '#',
+      instagram: '#',
+    },
+  },
+  {
+    id: 6,
+	name: 'Programming Mentor',
+    title: 'JavaScript & React Instructor',
     image: instructorThumbOne,
     socialLinks: {
-      facebook: 'https://www.facebook.com/enamnotes121/',
-      twitter: 'https://x.com/enamnotes',
-      linkedin: 'https://www.linkedin.com/in/enamul-huq/',
-      instagram: 'https://www.instagram.com/enamnotes/',
+      facebook: '#',
+      twitter: '#',
+      linkedin: '#',
+      instagram: '#',
     },
   },
 ];
