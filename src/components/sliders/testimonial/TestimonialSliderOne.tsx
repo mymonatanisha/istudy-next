@@ -28,7 +28,7 @@ const TestimonialSliderOne = () => {
                         <button
                             className="bd-play-btn popup-video"
                             type='button'
-                            onClick={() => playVideo("INY3ETimTjg", "youtube")}
+                            onClick={() => playVideo("jnl_DlXG6Tk", "youtube")}
                         >
                             <i className="fa-regular fa-play"></i>
                         </button>
