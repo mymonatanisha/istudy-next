@@ -1,12 +1,13 @@
 import { Iinstructor } from "@/interFace/interFace";
 import instructorImg1 from "../../public/assets/images/instructor/instructor-thumb-01.webp";
 import instructorImg10 from "../../public/assets/images/instructor/instructor-thumb-06.webp";
-import instructorThumbOne from '../../public/assets/images/instructor/instructor-thumb-18.webp';
+import instructorThumbOne from '../../public/assets/images/instructor/instructor-thumb-14.webp';
+import instructorThumb2 from '../../public/assets/images/instructor/instructor-thumb-02.webp';
 
 export const instructorsData: Iinstructor[] = [
   {
     id: 1,
-    name: 'Enam ul Haque',
+    name: 'Enamul Huq',
     title: 'Founder & Lead Instructor (Mobile App Development)',
     image: instructorImg1,
     socialLinks: {
@@ -33,7 +34,7 @@ export const instructorsData: Iinstructor[] = [
     
 	name: 'SEO & Digital Marketing Trainer',
     title: 'Growth & Online Strategy Mentor',
-    image: instructorImg1,
+    image: instructorThumb2,
     socialLinks: {
       facebook: '#',
       twitter: '#',
@@ -41,34 +42,11 @@ export const instructorsData: Iinstructor[] = [
       instagram: '#',
     },
   },
-  {
-    id: 4,
-    name: 'Digital Skills Trainer',
-    title: 'Design & User Experience Trainer',
-    image: instructorImg10,
-    socialLinks: {
-      facebook: '#',
-      twitter: '#',
-      linkedin: '#',
-      instagram: '#',
-    },
-  },
+
   {
     id: 5,
-    name: 'Backend Development Expert',
-    title: 'Node.js & Database Instructor',
-    image: instructorImg1,
-    socialLinks: {
-      facebook: '#',
-      twitter: '#',
-      linkedin: '#',
-      instagram: '#',
-    },
-  },
-  {
-    id: 6,
-	name: 'Programming Mentor',
-    title: 'JavaScript & React Instructor',
+    name: 'Mymona Akter Tanisha',
+    title: 'Video Editing Instructor (Adobe Premiere Pro)',
     image: instructorThumbOne,
     socialLinks: {
       facebook: '#',
@@ -77,6 +55,7 @@ export const instructorsData: Iinstructor[] = [
       instagram: '#',
     },
   },
+ 
 ];
 
 export default instructorsData;
