@@ -67,7 +67,7 @@ const CoursesInstructoreArea = ({ instructor, disableLink = false }: IInstructor
             </div>
           </div>
           <div className="bd-instructor-info">
-            <h6 className="name underline">
+            <h6 className={`name ${disableLink ? '' : 'underline'}`}>
               {disableLink ? (
                 instructor.name
               ) : (
