@@ -1,7 +1,6 @@
 import SignUpForm from '@/form/auth/sign-up-form';
 import React from 'react';
 import Logo from '../../../../../public/assets/images/logo/logo.svg';
-import facebook from '../../../../../public/assets/images/shape/facebook.svg';
 import google from '../../../../../public/assets/images/shape/google.svg';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -25,9 +24,6 @@ const SignUpArea = () => {
                                 <div className="bd-divider-line"></div>
                             </div>
                             <div className="bd-alter-sign mb-20">
-                                <button className="bd-btn btn-outline-primary w-100" type="button"><span
-                                    className="thumb"><Image style={{ width: "100%", height: "auto" }} src={facebook}
-                                        alt="facebook" /></span>Facebook</button>
                                 <button className="bd-btn btn-outline-secondary w-100" type="button"><span
                                     className="thumb"><Image style={{ width: "100%", height: "auto" }} src={google}
                                         alt="google" /></span>Google</button>
