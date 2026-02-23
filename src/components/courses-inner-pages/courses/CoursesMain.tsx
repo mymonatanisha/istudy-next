@@ -6,59 +6,11 @@ import CourseListCard from '../../common/courses-card/CourseListCard';
 import coursesData from '@/data/courses/courses-data';
 import AdBoxCard from '../../common/courses-card/AdBoxCard';
 import { courseOrderEnum } from '@/data/dropdown-data';
-import { courseCategoriesData } from '@/data/categories';
-import { courseLevelsData } from '@/data/courses/LevelCheckbox';
-import { courseSidebarPriceFilterData } from '@/data/courses/coursePriceFilterData';
-import { courseRatingFilterData } from '@/data/courses/courseRatingFilterData';
-import { Instructor, PriceFilter } from '@/interFace/interFace';
-import { instructorsData, instructorsFilterDataTwo } from '@/data/courses/instructorFilterData';
 import Breadcrumbs from '../../common/Breadcrumb/Breadcrumbs';
-import { languagesData } from '@/data/courses/languageData';
-import { videoDurationsData } from '@/data/courses/video-duration-data';
-import { subcategoriesDataTwo } from '@/data/courses/subcategoryFilerData';
-import { featuresDataTwo } from '@/data/courses/feature-filter-data';
-import CourseFilterTwo from '@/components/common/course-filtering/CourseFilterTwo';
 import NiceSelect from '@/components/elements/nice-select/NiceSelect';
 
 const CoursesMain = () => {
     const [isGridView, setIsGridView] = useState(true);
-    const [instructors, setInstructors] = useState<Instructor[]>(instructorsFilterDataTwo.slice(0, 3));
-    const [ratingFilters, setRatingFilters] = useState(courseRatingFilterData);
-    const [levels, setLevels] = useState(courseLevelsData);
-    const [isPriceFilters, setIsPriceFilters] = useState(courseSidebarPriceFilterData);
-    const [, setSelectedFeatures] = useState<string[]>([]);
-    const [, setSelectedDurations] = useState<string[]>([]);
-
-    //rating handle filter
-    const handleFilterChange = (stars: number, isChecked: boolean) => {
-        setRatingFilters((prevFilters) => prevFilters.map((filter) => filter.stars === stars ? { ...filter, isChecked } : filter))
-    };
-
-    // Function to handle price checkbox state change
-    const handlePriceFilterChange = (updatedFilters: PriceFilter[]) => {
-        setIsPriceFilters(updatedFilters);
-    };
-
-    // Function to handle level checkbox state change
-    const handleLevelChange = (updatedLevels: typeof courseLevelsData) => {
-        setLevels(updatedLevels);
-    };
-    // Function to handle instructor checkbox state change
-    const instructorFilterChange = (updatedInstructors: typeof instructorsData) => {
-        setInstructors(updatedInstructors);
-    };
-
-    const handleFeatureChange = (id: string, isChecked: boolean) => {
-        setSelectedFeatures((prev) =>
-            isChecked ? [...prev, id] : prev.filter((featureId) => featureId !== id)
-        );
-    };
-    //hangle duration change
-    const handleDurationChange = (id: string, isChecked: boolean) => {
-        setSelectedDurations((prev) =>
-            isChecked ? [...prev, id] : prev.filter((durationId) => durationId !== id)
-        );
-    };
 
     //handle toggle
     const handleGridClick = () => {
@@ -121,7 +73,7 @@ const CoursesMain = () => {
                         </div>
                     </div>
                     <div className="row gy-30">
-                        <div className="col-xxl-9 col-xl-9 col-lg-8">
+                        <div className="col-12">
                             {/* -- course grid style -- */}
                             <div className={`display-layout-grid ${isGridView ? "active" : ""}`} style={{ height: isGridView ? "auto" : "0", overflow: "hidden" }}>
                                 <div className="row g-30">
@@ -151,27 +103,6 @@ const CoursesMain = () => {
                                     className="fa-duotone fa-spinner"></i></span></Link>
                             </div>
                             {/* -- course-more style end -- */}
-                        </div>
-                        <div className="col-xxl-3 col-xl-3 col-lg-4">
-                            <div className="bd-course-sidebar sidebar-right sidebar-sticky">
-                                <CourseFilterTwo
-                                    levels={levels}
-                                    isPriceFilters={isPriceFilters}
-                                    ratingFilters={ratingFilters}
-                                    instructors={instructors}
-                                    courseCategoriesData={courseCategoriesData}
-                                    videoDurationsData={videoDurationsData.slice(2, 5)}
-                                    subcategoriesData={subcategoriesDataTwo}
-                                    languagesData={languagesData.slice(0, 3)}
-                                    featuresData={featuresDataTwo}
-                                    handleLevelChange={handleLevelChange}
-                                    handlePriceFilterChange={handlePriceFilterChange}
-                                    handleFilterChange={handleFilterChange}
-                                    instructorFilterChange={instructorFilterChange}
-                                    handleDurationChange={handleDurationChange}
-                                    handleFeatureChange={handleFeatureChange}
-                                />
-                            </div>
                         </div>
                     </div>
                 </div>
