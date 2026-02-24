@@ -1005,8 +1005,6 @@ const coursesData: ICourse[] = [
       //  smallText: "Concepts",
         courseTag: "Live Classes",
         courseTagTwo: "Learn React",
-        lessons: "na",
-        students: "na",
       //  rating: 4.6,
        // ratingNum: 250,
         price: 2000,
