@@ -41,7 +41,7 @@ export const UniversityFooterMenuLinks = [
     title: 'Online Platform',
     spacingClass: 'footer-1-col-2',
     links: [
-      { name: 'About Us', href: '/under-maintenance' },
+      { name: 'About Us', href: '/about-online-course' },
       { name: 'Our Programs', href: '/courses' },
       //{ name: 'Events', href: '/event' },
       //{ name: 'Faculty Members', href: '/faculty-members' },
@@ -129,7 +129,7 @@ export const CommonFooterMenuLinks = [
     title: 'Online Platform',
     spacingClass: 'footer-1-col-2',
     links: [
-      { name: 'About Us', href: '/about-university' },
+      { name: 'About Us', href: '/about-online-course' },
       { name: 'Our Programs', href: '/courses' },
      // { name: 'Events', href: '/event' },
       //{ name: 'Instructor', href: '/instructor' },
