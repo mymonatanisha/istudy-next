@@ -1,6 +1,7 @@
 import InstructorDetailsMain from "@/components/pages/page-layout-three/Instructor/Instructor-details/InstructorDetailsMain";
 import Wrapper from "@/layout/DefaultWrapper";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 import React from "react";
 
 export const metadata: Metadata = {
