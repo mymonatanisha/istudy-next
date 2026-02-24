@@ -8,7 +8,7 @@ import Link from 'next/link';
 import CourseWillYouLearn from './CourseWillYouLearn';
 import CourseRequirements from './CourseRequirements';
 import CourseCurriculum from './CourseCurriculum';
-import DetailsInstructor from './DetailsInstructor';
+//import DetailsInstructor from './DetailsInstructor';
 import CourseSidebarWidget from './CourseSidebarWidget';
 
 const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
@@ -68,7 +68,7 @@ const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
                                 <CourseWillYouLearn />
                                 <CourseRequirements />
                                 <CourseCurriculum />
-                                <DetailsInstructor />
+                                {/* <DetailsInstructor /> */}
                             </div>
                         </div>
                         <div className="col-xxl-4 col-xl-4 col-lg-4">
