@@ -1030,8 +1030,8 @@ const coursesData: ICourse[] = [
         courseTitleClass: "text-warning",
         FontSizeClass: "fs-2",
         courseTagTwo: "Beginner",
-        lessons: ,
-        students: n/a,
+       // lessons: "na",
+       // students: "na",
        // rating: 4.8,
         //ratingNum: 258,
         price: 0,  // FREE
