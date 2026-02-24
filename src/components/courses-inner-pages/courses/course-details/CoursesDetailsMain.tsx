@@ -48,14 +48,17 @@ const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
                                             <div className="name"><Link href="/instructor/instructor-details">{course?.instructorName ? course?.instructorName : "John Doe"}</Link></div>
                                         </div>
                                     </div>
-                                    <div className="bd-course-details-meta-item border-line-meta">
-                                        <p className="title">Total Enrolled</p>
-                                        <span className="subtitle">180</span>
-                                    </div>
-                                    <div className="bd-course-details-meta-item border-line-meta">
-                                        <p className="title">Last Update</p>
-                                        <span className="subtitle">15 January 2026</span>
-                                    </div>
+                                   {/*
+<div className="bd-course-details-meta-item border-line-meta">
+    <p className="title">Total Enrolled</p>
+    <span className="subtitle">180</span>
+</div>
+
+<div className="bd-course-details-meta-item border-line-meta">
+    <p className="title">Last Update</p>
+    <span className="subtitle">15 January 2026</span>
+</div>
+*/}
                                     <div className="bd-course-details-meta-item">
                                         <p className="title">Category</p>
                                         <span className="subtitle"><Link href="#">App Development</Link></span>
