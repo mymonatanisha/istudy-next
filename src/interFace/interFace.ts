@@ -145,7 +145,7 @@ export interface ICourse {
   students?: number;
   courseName?: string;
   courseDescription: string;
-  rating: number;
+  rating?: number;
   price?: number;
   discount?: number;
   certificateBadge?: string;
