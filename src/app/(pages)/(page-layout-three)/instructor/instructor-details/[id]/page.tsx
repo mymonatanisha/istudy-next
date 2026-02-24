@@ -4,22 +4,30 @@ import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-    title: "Instructor Details - Education & Online Courses React NextJs Template",
+    title: "Instructor Details - Education & Online Courses Platform- Enamnotes",
 };
 
 interface PageProps {
-    params: Promise<{ id: number }>;
+    params: Promise<{ id: string }>;
 }
 
 const InstructorDetails = async (props: PageProps) => {
+
     const resolvedParams = await props.params;
     const { id } = resolvedParams;
+ 
+    const blockedInstructorIds = new Set([1, 2, 3, 5]);
+
+    if (blockedInstructorIds.has(Number(id))) {
+        redirect("/under-maintenance");
+    }
+
 
     return (
         <>
             <Wrapper>
                 <main>
-                    <InstructorDetailsMain id={id} />
+                   <InstructorDetailsMain id={Number(id)} />
                 </main>
             </Wrapper>
         </>
