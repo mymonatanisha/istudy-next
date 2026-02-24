@@ -9,10 +9,7 @@ import CourseWillYouLearn from './CourseWillYouLearn';
 import CourseRequirements from './CourseRequirements';
 import CourseCurriculum from './CourseCurriculum';
 import DetailsInstructor from './DetailsInstructor';
-import StudentFeedback from './StudentFeedback';
-import CourseDetailsReviews from './CourseDetalisReviews';
 import CourseSidebarWidget from './CourseSidebarWidget';
-import CommonReviewForm from '../../../common/course-details/CommonReviewForm';
 
 const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
     const course = coursesData.find((item) => item.id == courseId);
@@ -72,9 +69,6 @@ const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
                                 <CourseRequirements />
                                 <CourseCurriculum />
                                 <DetailsInstructor />
-                                <StudentFeedback />
-                                <CourseDetailsReviews />
-                                <CommonReviewForm/>
                             </div>
                         </div>
                         <div className="col-xxl-4 col-xl-4 col-lg-4">
