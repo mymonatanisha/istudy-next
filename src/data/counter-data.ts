@@ -4,22 +4,22 @@ const counterData: ICounter[] = [
     // online course page counter data start
     {
         id: 1,
-        counterNum: 1009,
+        counterNum: 2,
         counterText: "Courses Available"
     },
     {
         id: 2,
-        counterNum: 9313,
+        counterNum: 220,
         counterText: "Active Learners"
     },
     {
         id: 3,
-        counterNum: 2015,
+        counterNum: 3,
         counterText: "Expert Instructors"
     },
     {
         id: 4,
-        counterNum: 1105,
+        counterNum: 0,
         counterText: "Awards Received"
     },
     // online course page counter data end
