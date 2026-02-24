@@ -51,12 +51,12 @@ const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
                                    
 <div className="bd-course-details-meta-item border-line-meta">
     <p className="title">Total Enrolled</p>
-    <span className="subtitle"></span>
+    <span className="subtitle">Updating..</span>
 </div>
 
 <div className="bd-course-details-meta-item border-line-meta">
     <p className="title">Last Update</p>
-    <span className="subtitle"></span>
+    <span className="subtitle">Updating..</span>
 </div>
 
                                     <div className="bd-course-details-meta-item">
