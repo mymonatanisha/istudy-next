@@ -3,6 +3,9 @@ import React from 'react';
 import StudentProgressCounter from './StudentProgressCounter';
 import EnrolledCoursesTable from './EnrolledCoursesTable';
 
+const browseAllCourseHref =
+    process.env.NEXT_PUBLIC_STUDENT_DASHBOARD_BROWSE_COURSES_HREF ?? '/courses-list-one';
+
 
 const StudentDashboardMain = () => {
     return (
@@ -26,7 +29,7 @@ const StudentDashboardMain = () => {
                         <EnrolledCoursesTable />
                     </div>
                     <div className="bd-more-button text-center mt-30">
-                        <Link href="/courses-list-one" className="bd-btn btn-primary">Browse All Course</Link>
+                        <Link href={browseAllCourseHref} className="bd-btn btn-primary">Browse All Course</Link>
                     </div>
                 </div>
             </div>
