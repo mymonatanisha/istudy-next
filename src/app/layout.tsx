@@ -52,6 +52,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('config', '${GA_ID}');
           `}
         </Script>
+       <Script
+  src="https://scripts.simpleanalyticscdn.com/latest.js"
+  strategy="afterInteractive"
+  async
+/>
+
       </head>
       <body suppressHydrationWarning>
         <NextAuthProvider>
