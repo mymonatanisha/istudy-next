@@ -86,6 +86,8 @@ const MobileMenu = () => {
                                     if (item?.hasDropdown === true) {
                                         e.preventDefault();
                                         handleActiveSubMenu(item.id);
+                                        } else {
+                                        toggleSidebarMenu();
                                     }
                                 }}
                                 href={item.link}
