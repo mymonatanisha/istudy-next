@@ -271,9 +271,9 @@ const CheckoutMain = () => {
                                     selectedPaymentMethod={selectedPaymentMethod} 
                                     setSelectedPaymentMethod={setSelectedPaymentMethod} 
                                 />
-                                  <div className="payment-instructions mb-3">
-                                  <strong>Payment instruction</strong>
-                                    <ul>
+                                  <div className="payment-instructions mb-3 rounded-2 border p-3 bg-light">
+                                  <p className="mb-2 text-uppercase fw-semibold small text-secondary">Payment Instructions</p>
+                                    <ul className="mb-0 ps-3 small text-secondary lh-base">
                                     <li>Send the course fee using your preferred payment method.</li>
                                       <li>Enter your Transaction ID below.</li>
                                        <li>Click &quot;Confirm Payment & Enroll&quot; button.</li>
