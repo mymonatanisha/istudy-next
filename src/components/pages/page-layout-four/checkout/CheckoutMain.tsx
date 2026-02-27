@@ -277,7 +277,7 @@ const CheckoutMain = () => {
                                     <li>Send the course fee using your preferred payment method.</li>
                                       <li>Enter your Transaction ID below.</li>
                                        <li>Click &quot;Confirm Payment & Enroll&quot; button.</li>
-                                      <li>Access will be activated soon.</li>
+                                      <li>Access will be activated within 5 minutes.</li>
                                     </ul>
                                 </div>
                                 <div className="checkout-agree">
