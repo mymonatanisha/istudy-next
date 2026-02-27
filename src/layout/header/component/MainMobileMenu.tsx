@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 const MobileMenu = () => {
     const router = useRouter();
     const { toggleSidebarMenu } = useGlobalContext();
-    const { isAuthenticated, loading, logout } = useAuth();
+    const { isAuthenticated, logout } = useAuth(); // removed `loading`
     const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
     const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
 
@@ -24,16 +24,15 @@ const MobileMenu = () => {
         setActiveMegaMenu(activeMegaMenu === indexStr ? null : indexStr);
     };
 
-    // -- THE MAIN FIX: Reliable & immediate logout
+    // THE MAIN FIX: Reliable & immediate logout, removes unused `res`
     const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
         e.preventDefault();
         toggleSidebarMenu();
         try {
-            const res = await fetch('/api/auth/logout', { method: 'POST' });
+            await fetch('/api/auth/logout', { method: 'POST' }); // no unused var
             logout(); // Immediately clear client state
             router.push('/'); // Redirect home
-            // Always force a refresh for cookie update and reliable UI
-            router.refresh();
+            router.refresh(); // Always force a refresh
         } catch (error) {
             console.error('Logout error:', error);
         }
@@ -63,7 +62,6 @@ const MobileMenu = () => {
                                 {item.title}
                             </a>
                         ) : (
-                        // --- TOP LEVEL LINK ---
                             <Link
                                 href={item.link}
                                 onClick={(e) => {
