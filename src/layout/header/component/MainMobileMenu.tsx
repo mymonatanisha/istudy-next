@@ -15,87 +15,71 @@ const MobileMenu = () => {
     const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
 
     const handleActiveSubMenu = (index: string | number) => {
-        // Convert index to string for consistent comparisons
         const indexStr = String(index);
-        // If clicking the same menu that's already open, close it
-        // Otherwise, open the clicked menu and close any other
         setActiveSubMenu(activeSubMenu === indexStr ? null : indexStr);
     };
 
     const handleActiveMegaMenu = (index: string | number) => {
-        // Convert index to string for consistent comparisons
         const indexStr = String(index);
-        // If clicking the same mega menu that's already open, close it
-        // Otherwise, open the clicked mega menu and close any other
         setActiveMegaMenu(activeMegaMenu === indexStr ? null : indexStr);
     };
 
-    // Don't render menu items while loading
-    if (loading) {
-        return <ul></ul>;
-    }
-
-    // Filter menu items based on authentication state
-    const filteredMenuData = main_mobile_menu_data.filter((item) => {
-        // Hide items that should be hidden when authenticated
-        if (item.hideWhenAuth && isAuthenticated) {
-            return false;
-        }
-        // Hide items that require authentication when not authenticated
-        if (item.requireAuth && !isAuthenticated) {
-            return false;
-        }
-        return true;
-    });
-
-    const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // -- THE MAIN FIX: Reliable & immediate logout
+    const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
         e.preventDefault();
         toggleSidebarMenu();
         try {
             const res = await fetch('/api/auth/logout', { method: 'POST' });
-            if (res.ok) {
-                logout();
-                router.push('/');
-                router.refresh();
-            } else {
-                console.error('Logout failed');
-            }
+            logout(); // Immediately clear client state
+            router.push('/'); // Redirect home
+            // Always force a refresh for cookie update and reliable UI
+            router.refresh();
         } catch (error) {
             console.error('Logout error:', error);
         }
     };
 
+    // Filter menu data based on auth state
+    const filteredMenuData = main_mobile_menu_data.filter((item) =>
+        (item.hideWhenAuth && isAuthenticated) ? false :
+        (item.requireAuth && !isAuthenticated) ? false :
+        true
+    );
+
     return (
         <>
             <ul>
-                {filteredMenuData?.map((item: MenuItem) => (
+                {filteredMenuData.map((item: MenuItem) => (
                     <li
                         key={item.id}
                         className={`${item?.children === true
                             ? "menu-item-has-children"
-                            : `${item?.children === false ? "has-mega-menu" : ""}`
-                            } ${activeSubMenu === String(item.id) ? "active" : ""}`}
+                            : item?.children === false ? "has-mega-menu" : ""} 
+                            ${activeSubMenu === String(item.id) ? "active" : ""}`}
                     >
+                        {/* --- LOGOUT --- */}
                         {item.title === "Logout" ? (
                             <a href="#" onClick={handleLogout}>
-                                {item?.title}
+                                {item.title}
                             </a>
                         ) : (
+                        // --- TOP LEVEL LINK ---
                             <Link
+                                href={item.link}
                                 onClick={(e) => {
                                     if (item?.hasDropdown === true) {
                                         e.preventDefault();
                                         handleActiveSubMenu(item.id);
-                                        } else {
+                                    } else {
                                         toggleSidebarMenu();
                                     }
                                 }}
-                                href={item.link}
                             >
-                                {item?.title}
+                                {item.title}
                             </Link>
                         )}
-                        {/* img dropdown */}
+
+                        {/* --- IMG DROPDOWN --- */}
                         {item.previewImg === true && (
                             <ul
                                 className="mega-menu mega-grid-4"
@@ -103,12 +87,21 @@ const MobileMenu = () => {
                                     display: activeSubMenu === String(item.id) ? "block" : "none",
                                 }}
                             >
-                                {/* Iterate over submenus */}
                                 {item?.submenus?.map((subItem, index) => (
                                     <li key={index}>
-                                        <Link onClick={toggleSidebarMenu} href={subItem.link} className="home-menu-item">
+                                        <Link 
+                                            onClick={toggleSidebarMenu}
+                                            href={subItem.link}
+                                            className="home-menu-item"
+                                        >
                                             <div className="home-menu-thumb">
-                                                {subItem.previewImg && <Image style={{ width: "100%", height: "auto" }} src={subItem.previewImg} alt="images" />}
+                                                {subItem.previewImg && (
+                                                    <Image
+                                                        style={{ width: "100%", height: "auto" }}
+                                                        src={subItem.previewImg}
+                                                        alt="images"
+                                                    />
+                                                )}
                                             </div>
                                             <div className="home-menu-title">{subItem.title}</div>
                                         </Link>
@@ -117,7 +110,7 @@ const MobileMenu = () => {
                             </ul>
                         )}
 
-                        {/* dropdown menu */}
+                        {/* --- DROPDOWN MENU (with children) --- */}
                         {item?.hasDropdown === true && item?.submenus?.length && (
                             <ul
                                 className="submenu last-children"
@@ -126,22 +119,21 @@ const MobileMenu = () => {
                                 }}
                             >
                                 {item?.submenus?.map((dropdownItem, index) => {
-                                    // Always create string keys for consistency
                                     const megaMenuKey = `${item.id}-${index}`;
                                     return (
                                         <li
                                             key={index}
                                             className={`menu-item-has-children has-arrow ${activeMegaMenu === megaMenuKey ? "dropdown-opened active" : ""}`}
                                         >
-                                            {item?.previewImg === true ? (
-                                                <></>
-                                            ) : (
-                                                <Link 
+                                            {item?.previewImg ? null : (
+                                                <Link
                                                     href={dropdownItem?.link}
                                                     onClick={(e) => {
                                                         if (dropdownItem?.megaMenu?.length) {
                                                             e.preventDefault();
                                                             handleActiveMegaMenu(megaMenuKey);
+                                                        } else {
+                                                            toggleSidebarMenu();
                                                         }
                                                     }}
                                                     className={activeMegaMenu === megaMenuKey ? "active" : ""}
@@ -150,6 +142,7 @@ const MobileMenu = () => {
                                                 </Link>
                                             )}
 
+                                            {/* Mega menu (nested) */}
                                             {dropdownItem?.megaMenu?.length && (
                                                 <ul
                                                     className="submenu"
@@ -171,6 +164,8 @@ const MobileMenu = () => {
                                                     )}
                                                 </ul>
                                             )}
+
+                                            {/* Dropdown expander */}
                                             {dropdownItem?.megaMenu?.length && (
                                                 <button 
                                                     onClick={(e) => {
@@ -187,6 +182,7 @@ const MobileMenu = () => {
                                 })}
                             </ul>
                         )}
+                        {/* Dropdown expander for children */}
                         {item?.hasDropdown === true && (
                             <button 
                                 onClick={(e) => {
