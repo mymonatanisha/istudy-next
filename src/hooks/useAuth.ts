@@ -4,7 +4,6 @@ export function useAuth() {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch current user from the server, no cached cookie.
   const fetchUser = useCallback(async () => {
     setLoading(true);
     try {
@@ -24,27 +23,24 @@ export function useAuth() {
   }, []);
 
   useEffect(() => {
-    let active = true;
-
-    // Only update state if the component is still mounted
+    // PATCH: Remove unused "active" variable
+    // let active = true;   <-- DELETE THIS LINE
     const fetchAndSetUser = async () => {
       await fetchUser();
     };
 
     fetchAndSetUser();
     return () => {
-      active = false;
+      // If you were checking "active", it is unnecessary!
+      // Just leave cleanup empty or remove if not needed
     };
   }, [fetchUser]);
 
-  // Clean logout and trigger user refresh afterwards
   const logout = () => {
     setUser(null);
     setLoading(false);
-    // You can trigger a re-fetch here or let router.refresh() handle it
   };
 
-  // Expose a method to force refresh the user state
   const refreshUser = async () => {
     await fetchUser();
   };
