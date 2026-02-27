@@ -38,8 +38,8 @@ const CheckoutPayment = ({ selectedPaymentMethod, setSelectedPaymentMethod }: Ch
                         checked={selectedPaymentMethod === 'bank_transfer'}
                         onChange={() => handlePaymentSelect('bank_transfer', setIsBankTransferOpen, isBankTransferOpen)}
                     />
-                    <label onClick={() => handlePaymentSelect('bank_transfer', setIsBankTransferOpen, isBankTransferOpen)} htmlFor="back_transfer" data-bs-toggle="direct-bank-transfer">Direct Bank
-                        Transfer <Image src={paymentOptionImgSC} alt="image" /> </label>
+                    <label onClick={() => handlePaymentSelect('bank_transfer', setIsBankTransferOpen, isBankTransferOpen)} htmlFor="back_transfer" data-bs-toggle="direct-bank-transfer">Bank Transfer (Manual Payment)
+                        <Image src={paymentOptionImgSC} alt="image" /> </label>
                     <AnimatePresence>
                         {isBankTransferOpen && (
                             <motion.div
@@ -72,8 +72,7 @@ const CheckoutPayment = ({ selectedPaymentMethod, setSelectedPaymentMethod }: Ch
                         onChange={() => handlePaymentSelect('bkash', setIsBkashOpen, isBkashOpen)}
                     />
                  
-                    <label onClick={() => handlePaymentSelect('bkash', setIsBkashOpen, isBkashOpen)} htmlFor="bKash_transfer" data-bs-toggle="direct-bank-transfer">bKash Personal
-                        Transfer <Image src={paymentOptionImgbKash} alt="image" /> </label>
+                    <label onClick={() => handlePaymentSelect('bkash', setIsBkashOpen, isBkashOpen)} htmlFor="bKash_transfer" data-bs-toggle="direct-bank-transfer">bKash (Send Money) <Image src={paymentOptionImgbKash} alt="image" /> </label>
                     <AnimatePresence>
                         {isBkashOpen && (
                             <motion.div
@@ -101,8 +100,7 @@ const CheckoutPayment = ({ selectedPaymentMethod, setSelectedPaymentMethod }: Ch
                         checked={selectedPaymentMethod === 'nagad'}
                         onChange={() => handlePaymentSelect('nagad', setIsNagadOpen, isNagadOpen)}
                     />
-                     <label onClick={() => handlePaymentSelect('nagad', setIsNagadOpen, isNagadOpen)} htmlFor="nagad_transfer" data-bs-toggle="direct-bank-transfer">Nagad Personal
-                        Transfer <Image src={paymentOptionImgNagad} alt="image" /> </label>
+                     <label onClick={() => handlePaymentSelect('nagad', setIsNagadOpen, isNagadOpen)} htmlFor="nagad_transfer" data-bs-toggle="direct-bank-transfer"> Nagad (Send Money) <Image src={paymentOptionImgNagad} alt="image" /> </label>
 
 
 
@@ -135,8 +133,7 @@ const CheckoutPayment = ({ selectedPaymentMethod, setSelectedPaymentMethod }: Ch
                         checked={selectedPaymentMethod === 'rocket'}
                         onChange={() => handlePaymentSelect('rocket', setIsRocketOpen, isRocketOpen)}
                     />
-                    <label onClick={() => handlePaymentSelect('rocket', setIsRocketOpen, isRocketOpen)} htmlFor="rocket_transfer" data-bs-toggle="direct-bank-transfer">Rocket Personal
-                        Transfer <Image src={paymentOptionImgRocket} alt="image" /> </label>
+                    <label onClick={() => handlePaymentSelect('rocket', setIsRocketOpen, isRocketOpen)} htmlFor="rocket_transfer" data-bs-toggle="direct-bank-transfer">Rocket (Send Money) <Image src={paymentOptionImgRocket} alt="image" /> </label>
                     <AnimatePresence>
                         {isRocketOpen && (
                             <motion.div
@@ -164,7 +161,7 @@ const CheckoutPayment = ({ selectedPaymentMethod, setSelectedPaymentMethod }: Ch
                         checked={selectedPaymentMethod === 'upay'}
                         onChange={() => handlePaymentSelect('upay', setIsUpayOpen, isUpayOpen)}
                     />
-                    <label onClick={() => handlePaymentSelect('upay', setIsUpayOpen, isUpayOpen)} htmlFor="upay_transfer" data-bs-toggle="direct-bank-transfer">uPay Personal <Image src={paymentOptionImgUpay} alt="image" /> </label>
+                    <label onClick={() => handlePaymentSelect('upay', setIsUpayOpen, isUpayOpen)} htmlFor="upay_transfer" data-bs-toggle="direct-bank-transfer">uPay (Send Money) <Image src={paymentOptionImgUpay} alt="image" /> </label>
                     <AnimatePresence>
                         {isUpayOpen && (
                             <motion.div
