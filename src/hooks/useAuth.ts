@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
+// Solution: import AuthUser type
+import type { AuthUser } from "@/lib/auth"; // <-- or define inline if not available
 
 export function useAuth() {
   const [user, setUser] = useState<AuthUser | null>(null);
@@ -23,17 +25,10 @@ export function useAuth() {
   }, []);
 
   useEffect(() => {
-    // PATCH: Remove unused "active" variable
-    // let active = true;   <-- DELETE THIS LINE
     const fetchAndSetUser = async () => {
       await fetchUser();
     };
-
     fetchAndSetUser();
-    return () => {
-      // If you were checking "active", it is unnecessary!
-      // Just leave cleanup empty or remove if not needed
-    };
   }, [fetchUser]);
 
   const logout = () => {
