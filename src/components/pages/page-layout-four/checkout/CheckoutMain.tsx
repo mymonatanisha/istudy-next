@@ -217,6 +217,7 @@ const CheckoutMain = () => {
                             {/* -- checkout place order -- */}
                             <div className="checkout-place sidebar-right sidebar-sticky">
                                 <h3 className="checkout-place-title mb-20">Your Order</h3>
+                                <h5 className="mb-15">Purchase Summary</h5>
                                 <div className="order-info-list">
                                     <ul>
                                         {/* -- header -- */}
@@ -265,10 +266,20 @@ const CheckoutMain = () => {
                                         </li>
                                     </ul>
                                 </div>
+                                <h5 className="mb-15 mt-25">Payment Method</h5>
                                 <CheckoutPayment 
                                     selectedPaymentMethod={selectedPaymentMethod} 
                                     setSelectedPaymentMethod={setSelectedPaymentMethod} 
                                 />
+                                  <div className="payment-instructions mb-3">
+                                  <strong>Payment instruction</strong>
+                                    <ul>
+                                    <li>Send the course fee using your preferred payment method.</li>
+                                      <li>Enter your Transaction ID below.</li>
+                                      <li>Click "Confirm Payment & Enroll".</li>
+                                      <li>Access will be activated after payment verification.</li>
+                                    </ul>
+                                </div>
                                 <div className="checkout-agree">
                                 <div className="checkout-input mb-0">
                                 <label>Transaction ID <span className="text-danger">*</span></label>
@@ -288,7 +299,7 @@ const CheckoutMain = () => {
                                         className="bd-btn btn-outline-primary"
                                         disabled={isSubmitting}
                                     >
-                                        {isSubmitting ? 'Processing...' : 'Place Order'}
+                                    {isSubmitting ? 'Processing...' : 'Confirm Payment & Enroll'}
                                     </button>
                                 </div>
                             </div>
