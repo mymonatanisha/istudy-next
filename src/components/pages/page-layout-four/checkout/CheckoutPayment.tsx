@@ -50,7 +50,7 @@ const CheckoutPayment = ({ selectedPaymentMethod, setSelectedPaymentMethod }: Ch
                                 className='overflow-hidden'
                             >
                                 <div className={`checkout-payment-desc direct-bank-transfer ${isBankTransferOpen ? 'd-block' : 'd-none'}`}>
-                                    <p>Please make payment directly into our bank account and use payment reference as the Order ID. <br /><br />
+                                    
                                     <strong>Bank Name:</strong> Standard Chartered Bank<br />
                                     <strong>Account Name:</strong> MOHAMMAD ENAMUL HUQ<br />
                                     <strong>Account Number:</strong> 18655476301<br />
@@ -83,7 +83,7 @@ const CheckoutPayment = ({ selectedPaymentMethod, setSelectedPaymentMethod }: Ch
                                 className='overflow-hidden'
                             >
                                 <div className={`checkout-payment-desc direct-bank-transfer ${isBkashOpen ? 'd-block' : 'd-none'}`}>
-                                    <p>To complete your purchase, please Send Money to our bKash account. Once the transaction is successful, enter Transaction ID in the box below and click Place Order button. <br /><br />
+                                    
                                     <strong>bKash Personal Number:</strong>01721186833<br />
                                     </p>
                                 </div>
@@ -114,7 +114,7 @@ const CheckoutPayment = ({ selectedPaymentMethod, setSelectedPaymentMethod }: Ch
                                 className='overflow-hidden'
                             >
                                 <div className={`checkout-payment-desc direct-bank-transfer ${isNagadOpen ? 'd-block' : 'd-none'}`}>
-                                    <p>To complete your purchase, please Send Money to our Nagad account. Once the transaction is successful, enter Transaction ID in the box below and click Place Order button. <br /><br />
+                                
                                     <strong>Nagad Personal Number:</strong>01721186833<br />
                                     </p>
                                 </div>
@@ -144,7 +144,7 @@ const CheckoutPayment = ({ selectedPaymentMethod, setSelectedPaymentMethod }: Ch
                                 className='overflow-hidden'
                             >
                                 <div className={`checkout-payment-desc direct-bank-transfer ${isRocketOpen ? 'd-block' : 'd-none'}`}>
-                                    <p>To complete purchase, please Send Money to our Rocket account. Once the transaction is successful, enter Transaction ID in the box below and click Place Order button. <br /><br />
+                               
                                     <strong>Rocket Personal Number:</strong>017211868331<br />
                                     </p>
                                 </div>
@@ -172,7 +172,7 @@ const CheckoutPayment = ({ selectedPaymentMethod, setSelectedPaymentMethod }: Ch
                                 className='overflow-hidden'
                             >
                                 <div className={`checkout-payment-desc direct-bank-transfer ${isUpayOpen ? 'd-block' : 'd-none'}`}>
-                                    <p>To complete purchase, please Send Money to our uPay account. Once the transaction is successful, enter Transaction ID in the box below and click Place Order button. <br /><br />
+                                   
                                     <strong>uPay Personal Number:</strong>01721186833<br />
                                     </p>
                                 </div>
