@@ -32,8 +32,9 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
-    // Validate courseId format (basic check)
-    if (!courseId || !/^[a-zA-Z0-9_-]+$/.test(courseId)) {
+    // Validate courseId format (must be a positive integer)
+    const parsedCourseId = Number(courseId);
+    if (!Number.isInteger(parsedCourseId) || parsedCourseId <= 0) {
       return NextResponse.json({ 
         error: "Invalid course ID format" 
       }, { status: 400 });
@@ -131,7 +132,7 @@ export async function POST(request: NextRequest) {
         fullName: fullName.trim(),
         phone: phone.trim(),
         email: email.trim(),
-        courseId: courseId.trim(),
+        courseId: parsedCourseId,
         paymentMethod: paymentMethod.trim(),
         transactionId: transactionId.trim(),
         status: "pending",

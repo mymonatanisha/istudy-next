@@ -109,7 +109,7 @@ model Order {
   fullName      String
   phone         String
   email         String
-  courseId      String
+  courseId      Int
   paymentMethod String
   transactionId String
   status        String   @default("pending")
