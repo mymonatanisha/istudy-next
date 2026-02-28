@@ -180,9 +180,45 @@ const CreateCourseMain = () => {
                         <CourseUploadTips />
                     </div>
                 </div>
+              </div>
+
+              <div className="d-flex-items justify-content-start gap-30 mt-50">
+                <Link
+                  className={`bd-btn btn-outline-secondary ${
+                    isSubmitting ? "disabled" : ""
+                  }`}
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (!isSubmitting) void handleSave("draft");
+                  }}
+                >
+                  {isSubmitting ? "Saving..." : "Save Draft"}
+                </Link>
+
+                <Link
+                  className={`bd-btn btn-outline-primary ${
+                    isSubmitting ? "disabled" : ""
+                  }`}
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (!isSubmitting) void handleSave("published");
+                  }}
+                >
+                  {isSubmitting ? "Publishing..." : "Publish"}
+                </Link>
+              </div>
             </div>
-        </section>
-    );
+          </div>
+
+          <div className="col-xl-4 col-lg-5 order-lg-1 order-0">
+            <CourseUploadTips />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default CreateCourseMain;

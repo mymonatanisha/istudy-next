@@ -1,7 +1,4 @@
-"use client"
-import NiceSelect from '@/components/elements/nice-select/NiceSelect';
-import { courseLavel } from '@/data/dropdown-data';
-import React from 'react';
+"use client";
 
 type AddProductFormProps = {
     courseType?: 'paid' | 'free';
@@ -110,8 +107,11 @@ const AddProductForm = ({
                     </div>
                 </div>
             </div>
-        </>
-    );
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default AddProductForm;
