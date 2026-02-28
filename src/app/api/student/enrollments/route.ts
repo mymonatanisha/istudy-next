@@ -8,9 +8,8 @@ import { getAuthUser } from "@/lib/auth";
  */
 export async function GET() {
   try {
-    // Verify user session
     const user = await getAuthUser();
-    
+
     if (!user) {
       return NextResponse.json(
         { error: "Unauthorized. Please login to view your enrollments." },
@@ -18,24 +17,25 @@ export async function GET() {
       );
     }
 
-    // Fetch enrollments with course details
     const enrollments = await prisma.enrollment.findMany({
-    where: { studentId: user.id },
-    include: {
-      course: {
-      select: {
-        id: true,
-        title: true,
-        slug: true,
-        thumbnail: true,
-        price: true,
-        // rating: true,  // <-- এইটা আপাতত বাদ
+      where: { studentId: user.id },
+      include: {
+        course: {
+          select: {
+            id: true,
+            title: true,
+            slug: true,
+            thumbnail: true,
+            price: true,
+            lessons: true,
+            instructorName: true,
+            instructorAvatar: true,
+            // rating intentionally excluded to avoid Prisma conversion error (P2032)
+          },
         },
-        },
-       },
+      },
     });
 
-    // Format response data
     const formattedEnrollments = enrollments.map((enrollment) => ({
       id: enrollment.id,
       courseName: enrollment.course.title,
@@ -48,9 +48,9 @@ export async function GET() {
       status: enrollment.status,
       lastAccessedAt: enrollment.lastAccessedAt,
       completedAt: enrollment.completedAt,
-      rating: enrollment.course.rating,
       lessons: enrollment.course.lessons,
       price: enrollment.course.price,
+      // rating removed for now
     }));
 
     return NextResponse.json({
@@ -61,9 +61,9 @@ export async function GET() {
   } catch (error) {
     console.error("Error fetching enrollments:", error);
     return NextResponse.json(
-      { 
+      {
         error: "Failed to fetch enrollments. Please try again later.",
-        details: error instanceof Error ? error.message : "Unknown error"
+        details: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 }
     );
