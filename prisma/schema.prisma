@@ -36,6 +36,7 @@ model User {
   notes             Note[]
   accounts          Account[]
   enrollments       Enrollment[] @relation("StudentEnrollments")
+  orders            Order[]
   coursesInstructed Course[]     @relation("InstructorCourses")
 
   // New relations for admin panel and instructor management
@@ -114,6 +115,7 @@ model Order {
   transactionId String
   status        String   @default("pending")
   userId        Int?
+  user          User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
