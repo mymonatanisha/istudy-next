@@ -20,27 +20,19 @@ export async function GET() {
 
     // Fetch enrollments with course details
     const enrollments = await prisma.enrollment.findMany({
-      where: {
-        studentId: user.id,
-      },
-      include: {
-        course: {
-          select: {
-            id: true,
-            title: true,
-            slug: true,
-            instructorName: true,
-            instructorAvatar: true,
-            thumbnail: true,
-            rating: true,
-            lessons: true,
-            price: true,
-          },
+    where: { studentId: user.id },
+    include: {
+      course: {
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        thumbnail: true,
+        price: true,
+        // rating: true,  // <-- এইটা আপাতত বাদ
         },
-      },
-      orderBy: {
-        enrolledAt: 'desc',
-      },
+        },
+       },
     });
 
     // Format response data
