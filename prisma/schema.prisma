@@ -52,7 +52,7 @@ model User {
   courseDraftsCreated   CourseDraft[]      @relation("DraftCreator")
   courseDraftsUpdated   CourseDraft[]      @relation("DraftUpdater")
 
-  @@map("User")
+  @@map("user")
 }
 
 model Account {
