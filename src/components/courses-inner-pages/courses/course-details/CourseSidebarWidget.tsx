@@ -44,8 +44,8 @@ const CourseSidebarWidget = ({ course }: ICourseProps) => {
                 </div>
                 <div className="bd-course-sidebar-widget-price mb-20">
                     <div className="bd-course-price">
-                        <span className="current-price">{`${course.price ? course.price : 1525}.00`} </span>
-                        <span className="old-price">{`${course.discount ? course.discount : 100}.00`}</span>
+                        <span className="current-price">{`$${course.price ? course.price : 1525}.00`} </span>
+                        <span className="old-price">{`$${course.discount ? course.discount : 100}.00`}</span>
                     </div>
                 </div>
              
