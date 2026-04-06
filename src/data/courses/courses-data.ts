@@ -1007,7 +1007,7 @@ const coursesData: ICourse[] = [
         courseTagTwo: "Moble App dev",
       //  rating: 4.6,
        // ratingNum: 250,
-        price: "39 USD",
+        price: 39,
       //  quantity: 0,
         courseDescription: "Project-based Android app development course designed for beginners, freelancers, and small business owners.",
     },
