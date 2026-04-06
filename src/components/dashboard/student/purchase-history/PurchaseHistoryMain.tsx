@@ -125,7 +125,7 @@ const PurchaseHistoryMain = () => {
                         <p>{purchase.course}</p>
                       </td>
                       <td>
-                        <p>{formatPrice(purchase.price)}</p>
+                        <p>${formatPrice(purchase.price)}</p>
                       </td>
                       <td>
                         <div className={`bd-badge ${badge.className}`}>
