@@ -6,7 +6,7 @@ type CourseLearnListProps = {
 
 const learnTopics: string[][] = [
     [
-        "Build fully responsive websites using HTML, CSS, and JavaScript",
+        "Build data driven apps step by step with hands-on coding",
         "Develop web applications using modern JavaScript frameworks like React",
         "Implement back-end services with Node.js and Express",
     ],
