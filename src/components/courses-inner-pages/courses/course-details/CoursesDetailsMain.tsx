@@ -25,16 +25,6 @@ const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
                             <div className="bd-course-details-wrapper mb-30">
                                 <div className="bd-course-details-heading mb-30">
                                     <h2 className="bd-course-details-title mb--5">{course?.title}: Beginner to Advanced</h2>
-                                    <div className="bd-course-details-rating rating-spacing">
-                                        <ul>
-                                            <li><i className="fas fa-star"></i></li>
-                                            <li><i className="fas fa-star"></i></li>
-                                            <li><i className="fas fa-star"></i></li>
-                                            <li><i className="fas fa-star"></i></li>
-                                            <li><i className="fal fa-star"></i></li>
-                                        </ul>
-                                        <span>(1,230 reviews)</span>
-                                    </div>
                                 </div>
                                 <div className="bd-course-details-meta mb-30">
                                     <div className="bd-course-author border-line-meta">
