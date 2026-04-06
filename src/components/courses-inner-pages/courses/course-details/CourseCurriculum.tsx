@@ -6,7 +6,6 @@ const CourseCurriculum: React.FC = () => {
     return (
         <div className="bd-course-curriculum mb-30">
             <h3 className="bd-course-details-content-title">Curriculum</h3>
-            <span className="bd-course-curriculum-overview">40 lectures | 10h 15m</span>
             <div className="accordion-common-style accordion-transparent">
                 <div className="accordion" id="accordionExample">
                     {curriculamData.map((section, index) => (
