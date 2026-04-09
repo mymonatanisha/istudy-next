@@ -45,10 +45,7 @@ const CourseDetails = async (props: PageProps) => {
   return (
     <>
       {courseJsonLd ? (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
-        />
+        <script type="application/ld+json">{JSON.stringify(courseJsonLd)}</script>
       ) : null}
       <Wrapper>
         <main>
