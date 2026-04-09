@@ -34,7 +34,7 @@ const CourseDetails = async (props: PageProps) => {
           offers: {
             "@type": "Offer",
             priceCurrency: "USD",
-            price: 39,
+            price: "39",
             url: "https://enamnotes.com/courses/course-details/35",
             availability: "https://schema.org/InStock",
           },
@@ -46,6 +46,8 @@ const CourseDetails = async (props: PageProps) => {
         .replace(/</g, "\\u003c")
         .replace(/>/g, "\\u003e")
         .replace(/&/g, "\\u0026")
+        .replace(/\u2028/g, "\\u2028")
+        .replace(/\u2029/g, "\\u2029")
     : null;
 
   return (
