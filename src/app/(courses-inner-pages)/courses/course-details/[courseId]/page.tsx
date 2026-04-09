@@ -14,9 +14,42 @@ interface PageProps {
 const CourseDetails = async (props: PageProps) => {
   const resolvedParams = await props.params;
   const { courseId } = resolvedParams;
+  const isTargetCourse = String(courseId) === "35";
+  const courseJsonLd = isTargetCourse
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        name: "Build your first real mobile app from scratch",
+        description:
+          "Project-based app development course designed for beginners, freelancers, and small business owners.",
+        provider: {
+          "@type": "Organization",
+          name: "Enam Notes",
+          sameAs: "https://enamnotes.com",
+        },
+        url: "https://enamnotes.com/courses/course-details/35",
+        hasCourseInstance: {
+          "@type": "CourseInstance",
+          courseMode: "online",
+          offers: {
+            "@type": "Offer",
+            priceCurrency: "USD",
+            price: "39",
+            url: "https://enamnotes.com/courses/course-details/35",
+            availability: "https://schema.org/InStock",
+          },
+        },
+      }
+    : null;
 
   return (
     <>
+      {courseJsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
+        />
+      ) : null}
       <Wrapper>
         <main>
           <CoursesDetailsMain courseId={courseId} />
