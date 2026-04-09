@@ -41,11 +41,17 @@ const CourseDetails = async (props: PageProps) => {
         },
       }
     : null;
+  const courseJsonLdString = courseJsonLd
+    ? JSON.stringify(courseJsonLd).replace(/</g, "\\u003c")
+    : null;
 
   return (
     <>
-      {courseJsonLd ? (
-        <script type="application/ld+json">{JSON.stringify(courseJsonLd)}</script>
+      {courseJsonLdString ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: courseJsonLdString }}
+        />
       ) : null}
       <Wrapper>
         <main>
