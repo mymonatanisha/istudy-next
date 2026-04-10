@@ -6,7 +6,7 @@ import blogData from '@/data/blog-data';         // <-- import data
 import { notFound } from 'next/navigation';     // <-- import notFound
 
 export const metadata: Metadata = {
-  title: "Blog Details - Education & Online Courses React NextJs Template",
+  title: "Blog Details - Enam Notes Online Courses",
 };
 
 interface PageProps {

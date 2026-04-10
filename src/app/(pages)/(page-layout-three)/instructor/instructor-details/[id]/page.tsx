@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 export const metadata: Metadata = {
-    title: "Instructor Details - Education & Online Courses Platform- Enamnotes",
+    title: "Instructor Details - Enam Notes Online Courses",
 };
 
 interface PageProps {
