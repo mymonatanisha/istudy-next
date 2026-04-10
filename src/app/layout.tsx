@@ -55,10 +55,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Script>
         {META_PIXEL_ID ? (
           <>
-            <Script
-              src="https://connect.facebook.net/en_US/fbevents.js"
-              strategy="afterInteractive"
-            />
             <Script id="meta-pixel-init" strategy="afterInteractive">
               {`
                 !function(f,b,e,v,n,t,s)
