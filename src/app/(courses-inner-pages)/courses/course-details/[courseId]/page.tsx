@@ -1,15 +1,41 @@
 import CoursesDetailsMain from "@/components/courses-inner-pages/courses/course-details/CoursesDetailsMain";
+import coursesData from "@/data/courses/courses-data";
 import Wrapper from "@/layout/DefaultWrapper";
 import { Metadata } from "next";
 import React from "react";
 
-export const metadata: Metadata = {
-  title: "Course Details - Education & Online Courses React NextJs Template",
-};
+const SITE_NAME = "Enam Notes";
 
 interface PageProps {
   params: Promise<{ courseId: number }>;
 }
+
+export const generateMetadata = async (
+  props: PageProps
+): Promise<Metadata> => {
+  const resolvedParams = await props.params;
+  const courseId = Number(resolvedParams.courseId);
+  const course = coursesData.find((item) => item.id === courseId);
+  const courseTitle = course?.title?.trim();
+  const title = courseTitle
+    ? `${courseTitle} | ${SITE_NAME}`
+    : `Course Details | ${SITE_NAME}`;
+  const description =
+    course?.courseDescription?.trim() ??
+    "Explore practical app development courses from Enam Notes.";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      siteName: SITE_NAME,
+      type: "website",
+      url: `https://enamnotes.com/courses/course-details/${courseId}`,
+    },
+  };
+};
 
 const CourseDetails = async (props: PageProps) => {
   const resolvedParams = await props.params;
