@@ -9,6 +9,7 @@ Copy the environment template and configure your database:
 ```bash
 cp .env.example .env
 # Edit .env and set your DATABASE_URL
+# Optional: set NEXT_PUBLIC_META_PIXEL_ID for Meta Pixel tracking
 ```
 
 Generate Prisma client and run migrations:
