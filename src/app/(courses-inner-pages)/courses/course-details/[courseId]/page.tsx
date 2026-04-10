@@ -7,9 +7,12 @@ import React from "react";
 const SITE_NAME = "Enam Notes";
 const DEFAULT_COURSE_DESCRIPTION =
   "Explore practical app development courses from Enam Notes.";
+const COURSES_BY_ID = new Map(
+  coursesData.map((course) => [Number(course.id), course])
+);
 
 interface PageProps {
-  params: Promise<{ courseId: number }>;
+  params: Promise<{ courseId: string }>;
 }
 
 export const generateMetadata = async (
@@ -18,9 +21,7 @@ export const generateMetadata = async (
   const resolvedParams = await props.params;
   const parsedCourseId = Number(resolvedParams.courseId);
   const courseId = Number.isFinite(parsedCourseId) ? parsedCourseId : null;
-  const course = courseId !== null
-    ? coursesData.find((item) => Number(item.id) === courseId)
-    : undefined;
+  const course = courseId !== null ? COURSES_BY_ID.get(courseId) : undefined;
   const courseTitle = course?.title?.trim();
   const title = courseTitle
     ? `${courseTitle} | ${SITE_NAME}`
@@ -46,8 +47,9 @@ export const generateMetadata = async (
 
 const CourseDetails = async (props: PageProps) => {
   const resolvedParams = await props.params;
-  const { courseId } = resolvedParams;
-  const isTargetCourse = String(courseId) === "35";
+  const parsedCourseId = Number(resolvedParams.courseId);
+  const courseId = Number.isFinite(parsedCourseId) ? parsedCourseId : 1;
+  const isTargetCourse = courseId === 35;
   const courseJsonLd = isTargetCourse
     ? {
         "@context": "https://schema.org",
