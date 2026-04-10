@@ -7,7 +7,7 @@ import CommonCountDownTimer from '@/components/common/CountdownTimer/CommonCount
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Under Maintence - Education & Online Courses React NextJs Template",
+    title: "Under Maintenance - Enam Notes Online Courses",
 };
 
 const UnderMaintence = () => {
