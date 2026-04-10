@@ -5,6 +5,8 @@ import { Metadata } from "next";
 import React from "react";
 
 const SITE_NAME = "Enam Notes";
+const DEFAULT_COURSE_DESCRIPTION =
+  "Explore practical app development courses from Enam Notes.";
 
 interface PageProps {
   params: Promise<{ courseId: number }>;
@@ -15,14 +17,15 @@ export const generateMetadata = async (
 ): Promise<Metadata> => {
   const resolvedParams = await props.params;
   const courseId = Number(resolvedParams.courseId);
-  const course = coursesData.find((item) => item.id === courseId);
+  const course = coursesData.find(
+    (item) => String(item.id) === String(courseId)
+  );
   const courseTitle = course?.title?.trim();
   const title = courseTitle
     ? `${courseTitle} | ${SITE_NAME}`
     : `Course Details | ${SITE_NAME}`;
   const description =
-    course?.courseDescription?.trim() ??
-    "Explore practical app development courses from Enam Notes.";
+    course?.courseDescription?.trim() ?? DEFAULT_COURSE_DESCRIPTION;
 
   return {
     title,
