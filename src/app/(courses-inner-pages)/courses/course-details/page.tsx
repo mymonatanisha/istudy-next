@@ -4,7 +4,13 @@ import { Metadata } from 'next';
 import React from 'react';
 
 export const metadata: Metadata = {
-    title: "Course Details - Education & Online Courses React NextJs Template",
+    title: "Course Details | Enam Notes",
+    openGraph: {
+        title: "Course Details | Enam Notes",
+        siteName: "Enam Notes",
+        type: "website",
+        url: "https://enamnotes.com/courses/course-details",
+    },
 };
 
 const CourseDetails = () => {

@@ -7,13 +7,13 @@ type CourseLearnListProps = {
 const learnTopics: string[][] = [
     [
         "Build data driven apps step by step with hands-on coding",
-        "Develop web applications using modern JavaScript frameworks like React",
-        "Implement back-end services with Node.js and Express",
+        "Create interactive features like input fields, buttons, and checkboxes",
+        "Learn to design and develop fully functional apps",
     ],
     [
-        "Understand RESTful APIs and connect front-end to back-end",
-        "Work with databases like MongoDB and MySQL for full-stack applications",
-        "Learn how to deploy web applications to the cloud",
+        "Gain confidence in coding by building your own projects",
+        "Work with databases like sqlite for full-stack applications",
+        "Overcome coding roadblocks with a clear learning roadmap",
     ]
 ];
 
