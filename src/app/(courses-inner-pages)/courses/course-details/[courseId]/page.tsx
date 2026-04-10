@@ -16,10 +16,11 @@ export const generateMetadata = async (
   props: PageProps
 ): Promise<Metadata> => {
   const resolvedParams = await props.params;
-  const courseId = Number(resolvedParams.courseId);
-  const course = coursesData.find(
-    (item) => String(item.id) === String(courseId)
-  );
+  const parsedCourseId = Number(resolvedParams.courseId);
+  const courseId = Number.isFinite(parsedCourseId) ? parsedCourseId : null;
+  const course = courseId !== null
+    ? coursesData.find((item) => Number(item.id) === courseId)
+    : undefined;
   const courseTitle = course?.title?.trim();
   const title = courseTitle
     ? `${courseTitle} | ${SITE_NAME}`
@@ -35,7 +36,10 @@ export const generateMetadata = async (
       description,
       siteName: SITE_NAME,
       type: "website",
-      url: `https://enamnotes.com/courses/course-details/${courseId}`,
+      url:
+        courseId !== null
+          ? `https://enamnotes.com/courses/course-details/${courseId}`
+          : "https://enamnotes.com/courses/course-details",
     },
   };
 };
