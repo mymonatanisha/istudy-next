@@ -34,6 +34,7 @@ export const metadata: Metadata = {
   description: "Master app development with hands-on projects! Enroll in our Project-Based App Development Course to build real-world iOS, Android, and cross-platform apps. Gain practical coding skills, create portfolio-ready projects, and learn from industry experts. Perfect for beginners and intermediates—launch your career in tech today!",
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const GTM_ID = 'GTM-KWM7JPSR';
   const GA_ID = 'G-19ZERJVF8D';
   const metaPixelIdRaw = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim();
   const META_PIXEL_ID = metaPixelIdRaw && /^\d+$/.test(metaPixelIdRaw) ? metaPixelIdRaw : null;
@@ -42,6 +43,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <head>
         <meta name="robots" content="index" />
+        <Script id="gtm-init" strategy="afterInteractive">
+          {`
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${GTM_ID}');
+          `}
+        </Script>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"
@@ -78,6 +88,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       </head>
       <body suppressHydrationWarning>
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         {META_PIXEL_ID ? (
           <noscript>
             <img
