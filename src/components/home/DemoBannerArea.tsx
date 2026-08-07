@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
-import Script from "next/script";
+import TypedText from "@/utils/TypedText";
 import bannerAward from "../../../public/assets/images/landing-page/banner/award.webp";
 import homethumb1 from "../../../public/assets/images/landing-page/banner/index-1.webp";
 import homethumb2 from "../../../public/assets/images/landing-page/banner/index-2.webp";
@@ -21,7 +21,7 @@ const DemoBannerArea = () => {
             <div className="container">
                 <div className="row gy-30 align-items-center justify-content-center">
                     <div className="col-xxl-12 col-xl-12 col-lg-12">
-                        <div className="bd-demo-banner-content hero-content text-center">
+                        <div className="bd-demo-banner-content text-center">
                             <div className="demo-banner-top-inner justify-content-center wow bdFadeInUp" data-wow-delay=".3s">
                                 <div className="demo-banner-top">
                                     <div className="bd-icon rating-spacing-2">
@@ -42,24 +42,28 @@ const DemoBannerArea = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="content wow bdFadeInUp" data-wow-delay=".4s">
-                                <h1 className="demo-banner-title hero-title">
+                            <div className="content cd-headline clip wow bdFadeInUp" data-wow-delay=".4s">
+                                <h1 className="demo-banner-title mb-20">
                                     Master App Development
-                                    <span className="hero-title-break"></span>
-                                    To <span className="hero-highlight">Learn, Build, Earn</span>
+                                    <br className="d-none d-sm-block" />
+                                     To <br className="demo-break" />
+                                    <span className="cd-words-wrapper cd-words-wrapper-two">
+                                        <TypedText
+                                            strings={[
+                                                "Learn, Build, Earn",
+                                                "Build Skills, Earn More",
+                                                "Grow Your Expertise & Income",
+                                               
+                                            ]}
+                                        />
+                                    </span>
                                 </h1>
-                                <p className="hero-subtitle">Hands-On Projects to Master In-Demand Skills – From Zero to Portfolio-Worthy mobile apps.</p>
+                                <p>Hands-On Projects to Master In-Demand Skills – From Zero to Portfolio-Worthy mobile apps.</p>
                             </div>
-                            <div className="wow bdFadeInUp" data-wow-delay=".6s">
-                                <Script src="https://apis.google.com/js/platform.js" strategy="afterInteractive" />
-                                <div className="hero-subscribe-wrap">
-                                    <div
-                                        className="g-ytsubscribe"
-                                        data-channelid="UCZzjuNhPoQP-ungXkMMK2JA"
-                                        data-layout="full"
-                                        data-count="default"
-                                    ></div>
-                                </div>
+                            <div className="demo-banner-btn d-flex flex-wrap align-items-center justify-content-center gap-15 mt-30 wow bdFadeInUp" data-wow-delay=".6s">
+                                <Link className="bd-btn btn-outline-border-white" href="#home">
+                                    Enam Notes
+                                </Link>
                             </div>
                         </div>
                     </div>
