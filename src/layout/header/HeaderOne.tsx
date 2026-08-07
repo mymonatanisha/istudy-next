@@ -29,7 +29,7 @@ const HeaderOne = () => {
                         <div className="bd-header-right">
                             <div className="bd-header-sign-btn">
                                 <Link className="bd-btn bd-marquee-btn marquee-text-auto" href="https://enamnotes.com/sign-up" target="_blank">
-                                    <span data-text="Start Learn">
+                                    <span data-text="Start Learning Free">
                                         Start Learning Free
                                     </span>
                                 </Link>
