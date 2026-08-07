@@ -1,92 +1,59 @@
 "use client"
 import Image from "next/image";
-import Link from "next/link";
-import TypedText from "@/utils/TypedText";
-import bannerAward from "../../../public/assets/images/landing-page/banner/award.webp";
-import homethumb1 from "../../../public/assets/images/landing-page/banner/index-1.webp";
-import homethumb2 from "../../../public/assets/images/landing-page/banner/index-2.webp";
-import homethumb3 from "../../../public/assets/images/landing-page/banner/index-3.webp";
-import homethumb4 from "../../../public/assets/images/landing-page/banner/index-4.webp";
-import homethumb5 from "../../../public/assets/images/landing-page/banner/index-5.webp";
-import homethumb6 from "../../../public/assets/images/landing-page/banner/index-6.webp";
-import homethumb7 from "../../../public/assets/images/landing-page/banner/index-7.webp";
-import MouseMoveEffect from "../common/MouseMoveEffect";
+import Script from "next/script";
+import instructorThumb from "../../../public/assets/images/instructor/instructor-thumb-01.webp";
+
+const YOUTUBE_CHANNEL_ID = process.env.NEXT_PUBLIC_YOUTUBE_CHANNEL_ID || "REPLACE_WITH_YOUTUBE_CHANNEL_ID";
+const hasPlaceholderChannelId = YOUTUBE_CHANNEL_ID === "REPLACE_WITH_YOUTUBE_CHANNEL_ID";
 
 const DemoBannerArea = () => {
-  // Call the custom hook here
-  MouseMoveEffect();
-
     return (
-        <div className="bd-demo-banner-area p-relative theme-bg p-relative bd-noise-bg fix">
+        <section className="bd-demo-banner-area p-relative theme-bg bd-noise-bg fix" aria-labelledby="home-hero-title">
             <div className="container">
                 <div className="row gy-30 align-items-center justify-content-center">
-                    <div className="col-xxl-12 col-xl-12 col-lg-12">
-                        <div className="bd-demo-banner-content text-center">
-                            <div className="demo-banner-top-inner justify-content-center wow bdFadeInUp" data-wow-delay=".3s">
-                                <div className="demo-banner-top">
-                                    <div className="bd-icon rating-spacing-2">
-                                        {[...Array(5)].map((_, index) => (
-                                            <i key={index} className="icon-star"></i>
-                                        ))}
-                                    </div>
-                                    <div className="content">
-                                        <span className="subtitle">Trusted by New Coders</span>
-                                    </div>
-                                </div>
-                                <div className="demo-banner-top">
-                                    <div className="icon">
-                                        <Image src={bannerAward} alt="Award Image" />
-                                    </div>
-                                    <div className="content">
-                                        <span className="subtitle">Founder-Led Platform</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="content cd-headline clip wow bdFadeInUp" data-wow-delay=".4s">
-                                <h1 className="demo-banner-title mb-20">
-                                    Master App Development
-                                    <br className="d-none d-sm-block" />
-                                     To <br className="demo-break" />
-                                    <span className="cd-words-wrapper cd-words-wrapper-two">
-                                        <TypedText
-                                            strings={[
-                                                "Learn, Build, Earn",
-                                                "Build Skills, Earn More",
-                                                "Grow Your Expertise & Income",
-                                               
-                                            ]}
-                                        />
-                                    </span>
+                    <div className="col-xxl-6 col-xl-6 col-lg-6">
+                        <div className="bd-demo-banner-content text-center text-lg-start">
+                            <div className="content">
+                                <h1 id="home-hero-title" className="demo-banner-title mb-20">
+                                    Learn Flutter & Android for Free — From Zero to Job-Ready
                                 </h1>
-                                <p>Hands-On Projects to Master In-Demand Skills – From Zero to Portfolio-Worthy mobile apps.</p>
+                                <p className="demo-banner-subtitle mb-15">
+                                    Free project-based tutorials for beginners. Hands-on video lessons by Enam.
+                                </p>
+                                <p className="demo-banner-description mb-0">
+                                    Start even if you&apos;re a complete beginner and build real apps step by step.
+                                </p>
                             </div>
-                            <div className="demo-banner-btn d-flex flex-wrap align-items-center justify-content-center gap-15 mt-30 wow bdFadeInUp" data-wow-delay=".6s">
-                                <Link className="bd-btn btn-outline-border-white" href="#home">
-                                    Enam Notes
-                                </Link>
+                            <div className="hero-youtube-cta mt-30">
+                                <Script src="https://apis.google.com/js/platform.js" strategy="afterInteractive" />
+                                <div
+                                    className="g-ytsubscribe"
+                                    data-channelid={YOUTUBE_CHANNEL_ID}
+                                    data-layout="default"
+                                    data-theme="dark"
+                                    data-count="default"
+                                ></div>
+                                {hasPlaceholderChannelId && (
+                                    <p className="youtube-subscribe-placeholder-note mt-10 mb-0" role="note">
+                                        Replace <code>NEXT_PUBLIC_YOUTUBE_CHANNEL_ID</code> in your environment with your YouTube channel ID.
+                                    </p>
+                                )}
                             </div>
+                        </div>
+                    </div>
+                    <div className="col-xxl-5 col-xl-5 col-lg-6">
+                        <div className="demo-banner-instructor-thumb text-center text-lg-end">
+                            <Image
+                                src={instructorThumb}
+                                alt="Instructor Enam teaching Android and Flutter app development"
+                                priority
+                                sizes="(max-width: 991px) 80vw, 40vw"
+                            />
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="bd-banner-demo-thumb shape-move d-none d-xl-block">
-                {[
-                    { href: "/courses", img: homethumb1 },
-                    { href: "/courses", img: homethumb2 },
-                    { href: "/courses", img: homethumb3 },
-                    { href: "/courses", img: homethumb4 },
-                    { href: "/courses", img: homethumb5 },
-                    { href: "/courses", img: homethumb6 },
-                    { href: "/courses", img: homethumb7 },
-                ].map(({ href, img }, index) => (
-                    <div key={index} className={`thumb-shape-0${index + 1} thumb-shape-common`}>
-                        <Link href={href}>
-                            <Image className={`shape-${index + 1}`} src={img} style={{ width: "100%", height: "auto" }} alt="image" priority />
-                        </Link>
-                    </div>
-                ))}
-            </div>
-        </div>
+        </section>
     );
 };
 
