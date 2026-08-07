@@ -16,16 +16,9 @@
 /* Demo banner */
 .demo-banner-title {
     color: var(--bd-white);
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    max-width: 14ch;
 
     @media #{$xxl} {
         font-size: 52px;
-    }
-
-    @media #{$xl,$lg} {
-        font-size: 44px;
     }
 
     @media #{$sm,$xs} {
@@ -38,19 +31,21 @@
 }
 
 .bd-demo-banner-area {
-    min-height: 720px;
+    min-height: 850px;
     display: flex;
     align-items: center;
-    padding: 140px 0 90px;
 
     @media #{$lg,$md,$sm,$xs} {
-        min-height: auto;
-        padding: 110px 0 80px;
+        min-height: 600px;
     }
 }
 
 .bd-demo-banner-content {
-    margin-bottom: 0;
+    margin-bottom: 120px;
+
+    @media #{$lg,$md,$sm,$xs} {
+        margin-bottom: 0;
+    }
 }
 
 .demo-banner-shape {
@@ -98,45 +93,6 @@
 .bd-demo-banner-content {
     p {
         color: rgba($color: $white, $alpha: .9);
-    }
-}
-
-.demo-banner-subtitle {
-    font-size: 20px;
-    line-height: 1.5;
-    color: rgba($color: $white, $alpha: .96);
-
-    @media #{$sm,$xs} {
-        font-size: 18px;
-    }
-}
-
-.demo-banner-description {
-    max-width: 46ch;
-}
-
-.hero-youtube-cta {
-    .g-ytsubscribe {
-        display: inline-block;
-    }
-}
-
-.youtube-subscribe-placeholder-note {
-    font-size: 14px;
-    color: rgba($color: $white, $alpha: .78);
-}
-
-.demo-banner-instructor-thumb {
-    img {
-        width: 100%;
-        max-width: 520px;
-        height: auto;
-        border-radius: 14px;
-        box-shadow: 0 20px 55px rgba(0, 0, 0, 0.22);
-    }
-
-    @media #{$md,$sm,$xs} {
-        margin-top: 20px;
     }
 }
 
