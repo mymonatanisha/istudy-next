@@ -1,6 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "@/lib/next-response";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
+import { flutterRoadmap } from "@/data/courses/flutter-course-data";
 
 export async function GET() {
   try {
@@ -61,6 +62,53 @@ export async function GET() {
   }
 }
 
+function getFlutterRoadmapLessons() {
+  return flutterRoadmap.flatMap((section) =>
+    section.lectures.map((lecture) => ({
+      moduleTitle: section.title,
+      lessonTitle: lecture.title,
+      duration: lecture.duration,
+    }))
+  );
+}
+
+async function provisionFlutterRoadmap(courseId: number) {
+  const roadmap = getFlutterRoadmapLessons();
+  const existingModules = await prisma.courseModule.count({ where: { courseId } });
+  if (existingModules > 0) return;
+
+  for (let moduleIndex = 0; moduleIndex < flutterRoadmap.length; moduleIndex++) {
+    const section = flutterRoadmap[moduleIndex];
+    const module = await prisma.courseModule.create({
+      data: {
+        courseId,
+        title: section.title,
+        orderIndex: moduleIndex + 1,
+        isPublished: true,
+        lessons: {
+          create: section.lectures.map((lecture, lessonIndex) => ({
+            title: lecture.title,
+            contentType: "video",
+            duration: undefined,
+            orderIndex: lessonIndex + 1,
+            isFree: true,
+            isPublished: true,
+          })),
+        },
+      },
+    });
+
+    // Keep TypeScript aware that the roadmap is the source for the provisioned lessons.
+    void module;
+  }
+
+  // The roadmap currently contains 45 lessons. Keep the course counter in sync.
+  await prisma.course.update({
+    where: { id: courseId },
+    data: { lessons: roadmap.length },
+  });
+}
+
 /**
  * POST /api/student/enrollments
  * Enroll the authenticated student in a free course.
@@ -89,8 +137,6 @@ export async function POST(request: NextRequest) {
       where: { legacyId: courseLegacyId },
     });
 
-    // Keep the current static catalogue compatible with the database-backed
-    // enrollment system by provisioning the Flutter course on first enrollment.
     if (!course && courseLegacyId === 36) {
       course = await prisma.course.create({
         data: {
@@ -131,6 +177,8 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    await provisionFlutterRoadmap(course.id);
 
     const existingEnrollment = await prisma.enrollment.findUnique({
       where: {
@@ -175,7 +223,7 @@ export async function POST(request: NextRequest) {
         success: true,
         alreadyEnrolled: false,
         enrollmentId: enrollment.id,
-        courseId: course.id,
+        courseId: enrollment.courseId,
         message: "Successfully enrolled in the free course.",
       },
       { status: 201 }
