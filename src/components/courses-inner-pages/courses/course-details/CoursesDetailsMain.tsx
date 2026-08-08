@@ -56,7 +56,7 @@ const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
                                 </div>
                                 <CourseWillYouLearn />
                                 <CourseRequirements />
-                                <CourseCurriculum roadmap={isFlutterCourse ? flutterRoadmap : undefined} />
+                                <CourseCurriculum roadmap={isFlutterCourse ? flutterRoadmap : undefined} courseLegacyId={isFlutterCourse ? flutterCourse.id : undefined} />
                             </div>
                         </div>
                         <div className="col-xxl-4 col-xl-4 col-lg-4">
