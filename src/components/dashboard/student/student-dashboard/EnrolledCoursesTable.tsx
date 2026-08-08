@@ -22,10 +22,9 @@ const EnrolledCoursesTable: React.FC = () => {
         const fetchEnrollments = async () => {
             try {
                 const response = await fetch('/api/student/enrollments');
-                
+
                 if (!response.ok) {
                     if (response.status === 401) {
-                        // User not logged in
                         setLoading(false);
                         return;
                     }
@@ -33,11 +32,11 @@ const EnrolledCoursesTable: React.FC = () => {
                 }
 
                 const data = await response.json();
-                
+
                 if (data.success && data.enrollments) {
                     setEnrollments(data.enrollments);
                 }
-                
+
                 setLoading(false);
             } catch (err) {
                 console.error('Error fetching enrollments:', err);
@@ -51,10 +50,10 @@ const EnrolledCoursesTable: React.FC = () => {
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
         });
     };
 
@@ -136,8 +135,8 @@ const EnrolledCoursesTable: React.FC = () => {
                     {enrollments.map((enrollment) => (
                         <tr key={enrollment.id}>
                             <td>
-                                <Link 
-                                    href={`/course-details/${enrollment.courseSlug}`} 
+                                <Link
+                                    href={`/courses/course-details/${enrollment.courseSlug}`}
                                     className="text-decoration-none"
                                     aria-label={`View ${enrollment.courseName} course details`}
                                 >
@@ -147,14 +146,14 @@ const EnrolledCoursesTable: React.FC = () => {
                             <td>{enrollment.instructor}</td>
                             <td>{formatDate(enrollment.enrolledAt)}</td>
                             <td>
-                                <div 
-                                    className="progress" 
+                                <div
+                                    className="progress"
                                     style={{ height: '8px' }}
                                     aria-label={`Course completion progress: ${enrollment.progress} percent`}
                                 >
-                                    <div 
-                                        className="progress-bar bg-success" 
-                                        role="progressbar" 
+                                    <div
+                                        className="progress-bar bg-success"
+                                        role="progressbar"
                                         style={{ width: `${enrollment.progress}%` }}
                                         aria-valuenow={enrollment.progress}
                                         aria-valuemin={0}
