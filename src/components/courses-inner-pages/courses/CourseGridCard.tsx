@@ -1,15 +1,18 @@
 import GetRating from '@/components/common/GetRating';
 import coursesData from '@/data/courses/courses-data';
+import { flutterCourse } from '@/data/courses/flutter-course-data';
 import RenderTextContent from '@/utils/RenderTextContent';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
 const CourseGridCard = () => {
+    const displayCourses = [...coursesData, flutterCourse];
+
     return (
         <>
             {
-                coursesData.slice(10, 22).map((item) => (
+                displayCourses.slice(10, 23).map((item) => (
                     <div className="col-xxl-4 col-xl-6 col-lg-6 col-md-6" key={item.id}>
                         <div className="bd-course-wrapper style-two">
                             <div className="bd-course-thumb-wrapper bd-course-thumb-style small-style p-relative">
