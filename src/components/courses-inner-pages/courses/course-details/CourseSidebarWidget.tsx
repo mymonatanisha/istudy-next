@@ -19,9 +19,7 @@ const CourseSidebarWidget = ({ course }: ICourseProps) => {
 
     const handleEnrollNow = (product: ICourse) => {
         if (product) {
-            // Add course to cart for checkout
             dispatch(cart_product(product));
-            // Navigate to checkout page with course ID
             router.push(`/checkout?courseId=${product.id}`);
         }
     }
@@ -44,16 +42,20 @@ const CourseSidebarWidget = ({ course }: ICourseProps) => {
                 </div>
                 <div className="bd-course-sidebar-widget-price mb-20">
                     <div className="bd-course-price">
-                        <span className="current-price">{`$${course.price ? course.price : 1525}.00`} </span>
-                        <span className="old-price">{`$${course.discount ? course.discount : 100}.00`}</span>
+                        {course.price === 0 ? (
+                            <span className="current-price">FREE</span>
+                        ) : (
+                            <>
+                                <span className="current-price">${course.price}.00</span>
+                                {course.discount ? <span className="old-price">${course.discount}.00</span> : null}
+                            </>
+                        )}
                     </div>
                 </div>
              
                 <div className="bd-course-sidebar-widget-btn d-flex-between flex-wrap gap-15">
-                    <button onClick={() => handleEnrollNow(course)} className="bd-btn btn-primary w-100" aria-label="Enroll in this course now"><span className="left-icon"><i
-                        className="fal fa-graduation-cap"></i></span> Enroll Now</button>
-                    <button onClick={() => handleAddToWishlist(course)} className="bd-btn btn-outline-primary w-100" aria-label="Add this course to wishlist"><span className="left-icon"><i
-                        className="far fa-heart"></i></span> Add to Wishlist</button>
+                    <button onClick={() => handleEnrollNow(course)} className="bd-btn btn-primary w-100" aria-label="Enroll in this course now"><span className="left-icon"><i className="fal fa-graduation-cap"></i></span> Enroll Now</button>
+                    <button onClick={() => handleAddToWishlist(course)} className="bd-btn btn-outline-primary w-100" aria-label="Add this course to wishlist"><span className="left-icon"><i className="far fa-heart"></i></span> Add to Wishlist</button>
                 </div>
             </div>
         </>
