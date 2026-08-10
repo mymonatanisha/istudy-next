@@ -18,9 +18,10 @@ const CourseSidebarWidget = ({ course }: ICourseProps) => {
     const dispatch = useDispatch();
     const router = useRouter();
     const [isEnrolling, setIsEnrolling] = useState(false);
+    const isComingSoon = course.badge === 'COMING SOON';
 
     const handleEnrollNow = async (product: ICourse) => {
-        if (!product || isEnrolling) return;
+        if (!product || isEnrolling || isComingSoon) return;
 
         if (product.price === 0) {
             try {
@@ -75,7 +76,9 @@ const CourseSidebarWidget = ({ course }: ICourseProps) => {
                 </div>
                 <div className="bd-course-sidebar-widget-price mb-20">
                     <div className="bd-course-price">
-                        {course.price === 0 ? (
+                        {isComingSoon ? (
+                            <span className="current-price">COMING SOON</span>
+                        ) : course.price === 0 ? (
                             <span className="current-price">FREE</span>
                         ) : (
                             <>
@@ -89,12 +92,12 @@ const CourseSidebarWidget = ({ course }: ICourseProps) => {
                 <div className="bd-course-sidebar-widget-btn d-flex-between flex-wrap gap-15">
                     <button
                         onClick={() => handleEnrollNow(course)}
-                        disabled={isEnrolling}
+                        disabled={isEnrolling || isComingSoon}
                         className="bd-btn btn-primary w-100"
-                        aria-label="Enroll in this course now"
+                        aria-label={isComingSoon ? 'Course coming soon' : 'Enroll in this course now'}
                     >
                         <span className="left-icon"><i className="fal fa-graduation-cap"></i></span>
-                        {isEnrolling ? 'Enrolling...' : 'Enroll Now'}
+                        {isComingSoon ? 'Coming Soon' : isEnrolling ? 'Enrolling...' : 'Enroll Now'}
                     </button>
                     <button onClick={() => handleAddToWishlist(course)} className="bd-btn btn-outline-primary w-100" aria-label="Add this course to wishlist"><span className="left-icon"><i className="far fa-heart"></i></span> Add to Wishlist</button>
                 </div>
