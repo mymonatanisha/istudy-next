@@ -2,6 +2,7 @@
 import Breadcrumbs from '@/components/common/Breadcrumb/Breadcrumbs';
 import coursesData from '@/data/courses/courses-data';
 import { flutterCourse, flutterRoadmap } from '@/data/courses/flutter-course-data';
+import { androidAdvancedCourse } from '@/data/courses/android-advanced-course-data';
 import { androidFundamentalsCourse, androidFundamentalsRoadmap } from '@/data/courses/android-fundamentals-course-data';
 import { gitGithubCourse, gitGithubRoadmap } from '@/data/courses/git-github-course-data';
 import Image from 'next/image';
@@ -16,18 +17,21 @@ import CourseSidebarWidget from './CourseSidebarWidget';
 const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
     const course = courseId === flutterCourse.id
         ? flutterCourse
-        : courseId === androidFundamentalsCourse.id
-            ? androidFundamentalsCourse
-            : courseId === gitGithubCourse.id
-                ? gitGithubCourse
-                : coursesData.find((item) => item.id == courseId);
+        : courseId === androidAdvancedCourse.id
+            ? androidAdvancedCourse
+            : courseId === androidFundamentalsCourse.id
+                ? androidFundamentalsCourse
+                : courseId === gitGithubCourse.id
+                    ? gitGithubCourse
+                    : coursesData.find((item) => item.id == courseId);
     const isFlutterCourse = courseId === flutterCourse.id;
+    const isAndroidAdvancedCourse = courseId === androidAdvancedCourse.id;
     const isAndroidFundamentalsCourse = courseId === androidFundamentalsCourse.id;
     const isGitGithubCourse = courseId === gitGithubCourse.id;
 
     return (
         <>
-            <Breadcrumbs breadcrumbTitle={isFlutterCourse ? 'Flutter App Development' : isAndroidFundamentalsCourse ? 'Android App Development with Java/XML' : isGitGithubCourse ? 'Git & GitHub for Developers' : 'Learn Building Apps with AI'} />
+            <Breadcrumbs breadcrumbTitle={isFlutterCourse ? 'Flutter App Development' : isAndroidAdvancedCourse ? 'Android App Development: Beginner to Advanced' : isAndroidFundamentalsCourse ? 'Android App Development with Java/XML' : isGitGithubCourse ? 'Git & GitHub for Developers' : 'Learn Building Apps with AI'} />
             <section className="bd-course-details-area bd-course-details-top section-space-bottom">
                 <div className="container">
                     <div className="row gy-30">
@@ -35,7 +39,7 @@ const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
                             <div className="bd-course-details-wrapper mb-30">
                                 <div className="bd-course-details-heading mb-30">
                                     <h2 className="bd-course-details-title mb--5">
-                                        {course?.title}: {isAndroidFundamentalsCourse ? 'Fundamentals' : isGitGithubCourse ? 'Coming Soon' : 'Beginner to Advanced'}
+                                        {course?.title}{isAndroidFundamentalsCourse ? ': Fundamentals' : isGitGithubCourse ? ': Coming Soon' : ''}
                                     </h2>
                                 </div>
                                 <div className="bd-course-details-meta mb-30">
@@ -57,7 +61,7 @@ const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
                                     </div>
                                     <div className="bd-course-details-meta-item">
                                         <p className="title">Category</p>
-                                        <span className="subtitle"><Link href="#">{isFlutterCourse ? 'Flutter / App Development' : isAndroidFundamentalsCourse ? 'Android / Java / XML' : isGitGithubCourse ? 'Git / GitHub / Developer Tools' : 'App Development'}</Link></span>
+                                        <span className="subtitle"><Link href="#">{isFlutterCourse ? 'Flutter / App Development' : isAndroidAdvancedCourse ? 'Android / Java / XML' : isAndroidFundamentalsCourse ? 'Android / Java / XML' : isGitGithubCourse ? 'Git / GitHub / Developer Tools' : 'App Development'}</Link></span>
                                     </div>
                                 </div>
                                 <div className="bd-course-details-content mb-30">
