@@ -113,8 +113,20 @@ const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLega
                                                     </div>
                                                     <p className="title mb-0">{lecture.title}</p>
                                                 </div>
-                                                <div className="bd-course-curriculum-meta d-flex-items gap-10">
+                                                <div className="bd-course-curriculum-meta d-flex-items gap-10 flex-wrap justify-content-end">
                                                     <span className="duration">{lecture.duration}</span>
+                                                    {lecture.videos?.map((video) => (
+                                                        <Link
+                                                            key={video.url}
+                                                            href={video.url}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="btn btn-sm btn-outline-primary"
+                                                        >
+                                                            <i className={`fa-brands fa-youtube me-1`}></i>
+                                                            {video.type === "short" ? "Watch Short" : "Watch"}
+                                                        </Link>
+                                                    ))}
                                                     {isFlutterCourse && isEnrolled && progressLesson ? (
                                                         <button
                                                             type="button"
@@ -125,9 +137,9 @@ const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLega
                                                         >
                                                             {savingLessonId === progressLesson.id ? "..." : completed ? "Done" : "Complete"}
                                                         </button>
-                                                    ) : (
+                                                    ) : !lecture.videos?.length ? (
                                                         <span className="status"><i className="fa-solid fa-lock"></i></span>
-                                                    )}
+                                                    ) : null}
                                                 </div>
                                             </div>
                                         );
