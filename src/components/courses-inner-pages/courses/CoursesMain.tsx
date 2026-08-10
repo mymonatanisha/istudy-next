@@ -24,8 +24,8 @@ const CoursesMain = () => {
     // Legacy course records remain available in the data source for future use.
     const featuredCourses = useMemo(() => [
         flutterCourse,
-        androidAdvancedCourse,
         androidFundamentalsCourse,
+        androidAdvancedCourse,
         gitGithubCourse,
     ], []);
 
