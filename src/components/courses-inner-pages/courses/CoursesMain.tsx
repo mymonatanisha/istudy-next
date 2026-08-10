@@ -24,10 +24,10 @@ const CoursesMain = () => {
     // Other legacy course records remain available in the data source for future use.
     const featuredCourses = useMemo(() => [
         flutterCourse,
-        coursesData.find((course) => course.id === 36),
+        ...coursesData.filter((course) => course.id === 36),
         androidFundamentalsCourse,
         gitGithubCourse,
-    ].filter(Boolean), []);
+    ], []);
 
     const filteredCourses = useMemo(() => {
         const query = searchValue.trim().toLowerCase();
