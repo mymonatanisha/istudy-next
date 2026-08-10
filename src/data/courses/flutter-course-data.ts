@@ -80,7 +80,7 @@ export const flutterRoadmap: FlutterRoadmapSection[] = [
         videos: [
           {
             title: "Dart Function",
-            url: "https://www.youtube.com/watch?v=PPWvM5u-WTA&list=PLg_3d7KmjG4PSJPvVDIVUq3uhAU1yVMkP&index=4",
+            url: "https://www.youtube.com/watch?v=PPWvM5u-WTA",
           },
         ],
       },
@@ -90,7 +90,7 @@ export const flutterRoadmap: FlutterRoadmapSection[] = [
         videos: [
           {
             title: "If-Else",
-            url: "https://www.youtube.com/watch?v=j8UrYVkE358&list=PLg_3d7KmjG4PSJPvVDIVUq3uhAU1yVMkP&index=7&t=45s",
+            url: "https://www.youtube.com/watch?v=j8UrYVkE358&t=45s",
           },
           {
             title: "For-in Loop",
@@ -104,7 +104,7 @@ export const flutterRoadmap: FlutterRoadmapSection[] = [
         videos: [
           {
             title: "Dart Class & Object",
-            url: "https://www.youtube.com/watch?v=e10kj_-_a1Q&list=PLg_3d7KmjG4PSJPvVDIVUq3uhAU1yVMkP&index=6",
+            url: "https://www.youtube.com/watch?v=e10kj_-_a1Q",
           },
         ],
       },
@@ -114,7 +114,7 @@ export const flutterRoadmap: FlutterRoadmapSection[] = [
         videos: [
           {
             title: "Dart Maps",
-            url: "https://www.youtube.com/watch?v=Gsx3UNgtYl0&list=PLg_3d7KmjG4PSJPvVDIVUq3uhAU1yVMkP&index=7",
+            url: "https://www.youtube.com/watch?v=Gsx3UNgtYl0",
           },
         ],
       },
@@ -124,7 +124,7 @@ export const flutterRoadmap: FlutterRoadmapSection[] = [
         videos: [
           {
             title: "Dart Null Safety",
-            url: "https://www.youtube.com/watch?v=KMMW665YTlE&list=PLg_3d7KmjG4PSJPvVDIVUq3uhAU1yVMkP&index=9&t=105s",
+            url: "https://www.youtube.com/watch?v=KMMW665YTlE&t=105s",
           },
         ],
       },
@@ -138,7 +138,7 @@ export const flutterRoadmap: FlutterRoadmapSection[] = [
         videos: [
           {
             title: "Dart Brackets",
-            url: "https://www.youtube.com/watch?v=BC1euUwiayI&list=PLg_3d7KmjG4PSJPvVDIVUq3uhAU1yVMkP&index=4",
+            url: "https://www.youtube.com/watch?v=BC1euUwiayI",
           },
         ],
       },
@@ -236,7 +236,7 @@ export const flutterRoadmap: FlutterRoadmapSection[] = [
         videos: [
           {
             title: "Complete Flutter Learning Path",
-            url: "https://www.youtube.com/watch?v=ArI2rGgkHpI&list=PLg_3d7KmjG4PSJPvVDIVUq3uhAU1yVMkP&index=2",
+            url: "https://www.youtube.com/watch?v=ArI2rGgkHpI",
           },
         ],
       },
