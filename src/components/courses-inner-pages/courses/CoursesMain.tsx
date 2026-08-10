@@ -4,13 +4,13 @@ import Link from 'next/link';
 import React, { useMemo, useState } from 'react';
 import CourseGridCard from './CourseGridCard';
 import CourseListCard from '../../common/courses-card/CourseListCard';
-import coursesData from '@/data/courses/courses-data';
 import Breadcrumbs from '../../common/Breadcrumb/Breadcrumbs';
 import NiceSelect from '@/components/elements/nice-select/NiceSelect';
 import { courseOrderEnum } from '@/data/dropdown-data';
 import { flutterCourse } from '@/data/courses/flutter-course-data';
 import { androidFundamentalsCourse } from '@/data/courses/android-fundamentals-course-data';
 import { gitGithubCourse } from '@/data/courses/git-github-course-data';
+import { androidAdvancedCourse } from '@/data/courses/android-advanced-course-data';
 import CoursePageSidebar from './CoursePageSidebar';
 import FeaturedFlutterCourse from './FeaturedFlutterCourse';
 
@@ -20,12 +20,19 @@ const CoursesMain = () => {
     const [searchValue, setSearchValue] = useState('');
     const [selectedPrice, setSelectedPrice] = useState<'all' | 'free' | 'paid'>('all');
 
-    const allCourses = useMemo(() => [...coursesData, flutterCourse, androidFundamentalsCourse, gitGithubCourse], []);
+    // Keep the public Courses page focused on the four current/official learning tracks.
+    // Other legacy course records remain available in the data source for future use.
+    const featuredCourses = useMemo(() => [
+        flutterCourse,
+        androidAdvancedCourse,
+        androidFundamentalsCourse,
+        gitGithubCourse,
+    ], []);
 
     const filteredCourses = useMemo(() => {
         const query = searchValue.trim().toLowerCase();
 
-        return allCourses.filter((course) => {
+        return featuredCourses.filter((course) => {
             const matchesSearch = !query || [
                 course.title,
                 course.courseName,
@@ -40,8 +47,9 @@ const CoursesMain = () => {
 
             return matchesSearch && matchesPrice;
         });
-    }, [allCourses, searchValue, selectedPrice]);
+    }, [featuredCourses, searchValue, selectedPrice]);
 
+    const flutterVisible = filteredCourses.some((course) => course.id === flutterCourse.id);
     const regularCourses = filteredCourses.filter((course) => course.id !== flutterCourse.id);
 
     const selectHandler = () => { };
@@ -52,7 +60,7 @@ const CoursesMain = () => {
 
             <section className="bd-course-area section-space course-page-redesign">
                 <div className="container">
-                    <FeaturedFlutterCourse />
+                    {flutterVisible && <FeaturedFlutterCourse />}
 
                     <div className="course-page-toolbar mb-30">
                         <div>
