@@ -2,13 +2,14 @@ import CoursesDetailsMain from "@/components/courses-inner-pages/courses/course-
 import coursesData from "@/data/courses/courses-data";
 import { flutterCourse } from "@/data/courses/flutter-course-data";
 import { androidFundamentalsCourse } from "@/data/courses/android-fundamentals-course-data";
+import { gitGithubCourse } from "@/data/courses/git-github-course-data";
 import Wrapper from "@/layout/DefaultWrapper";
 import { Metadata } from "next";
 import React from "react";
 
 const SITE_NAME = "Enam Notes";
 const DEFAULT_COURSE_DESCRIPTION = "Explore practical app development courses from Enam Notes.";
-const ALL_COURSES = [...coursesData, flutterCourse, androidFundamentalsCourse];
+const ALL_COURSES = [...coursesData, flutterCourse, androidFundamentalsCourse, gitGithubCourse];
 const COURSES_BY_ID = new Map(ALL_COURSES.map((course) => [Number(course.id), course]));
 
 interface PageProps {
