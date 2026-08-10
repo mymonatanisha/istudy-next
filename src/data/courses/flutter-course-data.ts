@@ -2,9 +2,21 @@ import { ICourse } from "@/interFace/interFace";
 import instructorImg2 from "../../../public/assets/images/course/course-instructor-2.webp";
 import courseBg2 from "../../../public/assets/images/course/course-bg-2.webp";
 
+export interface FlutterRoadmapLecture {
+  title: string;
+  duration: string;
+  videoUrl?: string;
+  videoType?: "long" | "short";
+}
+
 export interface FlutterRoadmapSection {
   title: string;
-  lectures: { title: string; duration: string }[];
+  lectures: FlutterRoadmapLecture[];
+}
+
+export interface FlutterQuickShort {
+  title: string;
+  videoUrl: string;
 }
 
 export const flutterCourse: ICourse = {
@@ -54,9 +66,17 @@ export const flutterRoadmap: FlutterRoadmapSection[] = [
   {
     title: "Dart Programming শেখা",
     lectures: [
-      { title: "Variable & Data Types শেখা", duration: "" },
+      {
+        title: "Variable & Data Types শেখা",
+        duration: "",
+        videoUrl: "https://www.youtube.com/shorts/9XGxPzDCjl8",
+        videoType: "short",
+      },
       { title: "Function লেখা", duration: "" },
-      { title: "if-else এবং Loop", duration: "" },
+      {
+        title: "if-else এবং Loop",
+        duration: "",
+      },
       { title: "Class & Object বোঝা", duration: "" },
       { title: "List, Map & Set ব্যবহার", duration: "" },
       { title: "Null-safety বোঝা", duration: "" },
@@ -75,7 +95,12 @@ export const flutterRoadmap: FlutterRoadmapSection[] = [
   {
     title: "Flutter Basics ও Widget",
     lectures: [
-      { title: "runApp() ও Widget Tree বোঝা", duration: "" },
+      {
+        title: "runApp() ও Widget Tree বোঝা",
+        duration: "",
+        videoUrl: "https://www.youtube.com/shorts/FPf4gi3YkVs",
+        videoType: "short",
+      },
       { title: "Stateless Widget তৈরি (stless snippet)", duration: "" },
       { title: "Stateful Widget ও setState() (stful snippet)", duration: "" },
       { title: "Common Widgets: Scaffold, AppBar, Text, Container", duration: "" },
@@ -145,5 +170,30 @@ export const flutterRoadmap: FlutterRoadmapSection[] = [
       { title: "App signing ও keystore তৈরি", duration: "" },
       { title: "Google Play Store-এ publish", duration: "" },
     ],
+  },
+];
+
+// These are verified Shorts from the user's supplied video list.
+// They are kept separate from the main roadmap so Shorts do not replace core lessons.
+export const flutterQuickShorts: FlutterQuickShort[] = [
+  {
+    title: "Dart Data Types Explained in 60 Seconds",
+    videoUrl: "https://www.youtube.com/shorts/9XGxPzDCjl8",
+  },
+  {
+    title: "Flutter Roadmap in 60 Seconds",
+    videoUrl: "https://www.youtube.com/shorts/1CQ8d2biId8",
+  },
+  {
+    title: "Cross-Platform App Dev Easy with Flutter",
+    videoUrl: "https://www.youtube.com/shorts/9Xv2fMLn1_8",
+  },
+  {
+    title: "Flutter Explained in 60 Seconds",
+    videoUrl: "https://www.youtube.com/shorts/FPf4gi3YkVs",
+  },
+  {
+    title: "React Native VS Flutter in 2026",
+    videoUrl: "https://www.youtube.com/shorts/j8MBk39bpmc",
   },
 ];
