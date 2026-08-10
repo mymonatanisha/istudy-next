@@ -2,9 +2,19 @@ import { ICourse } from "@/interFace/interFace";
 import instructorImg2 from "../../../public/assets/images/course/course-instructor-2.webp";
 import courseBg2 from "../../../public/assets/images/course/course-bg-2.webp";
 
+export interface FlutterLectureVideo {
+  title: string;
+  url: string;
+  type?: "video" | "short";
+}
+
 export interface FlutterRoadmapSection {
   title: string;
-  lectures: { title: string; duration: string }[];
+  lectures: {
+    title: string;
+    duration: string;
+    videos?: FlutterLectureVideo[];
+  }[];
 }
 
 export const flutterCourse: ICourse = {
@@ -54,13 +64,84 @@ export const flutterRoadmap: FlutterRoadmapSection[] = [
   {
     title: "Dart Programming শেখা",
     lectures: [
-      { title: "Variable & Data Types শেখা", duration: "" },
-      { title: "Function লেখা", duration: "" },
-      { title: "if-else এবং Loop", duration: "" },
-      { title: "Class & Object বোঝা", duration: "" },
-      { title: "List, Map & Set ব্যবহার", duration: "" },
-      { title: "Null-safety বোঝা", duration: "" },
-      { title: "Async/Await ও Future", duration: "" },
+      {
+        title: "Variable & Data Types শেখা",
+        duration: "",
+        videos: [
+          {
+            title: "Dart Data Types",
+            url: "https://www.youtube.com/watch?v=B0DjULvkoI0",
+          },
+        ],
+      },
+      {
+        title: "Function লেখা",
+        duration: "",
+        videos: [
+          {
+            title: "Dart Function",
+            url: "https://www.youtube.com/watch?v=PPWvM5u-WTA&list=PLg_3d7KmjG4PSJPvVDIVUq3uhAU1yVMkP&index=4",
+          },
+        ],
+      },
+      {
+        title: "if-else এবং Loop",
+        duration: "",
+        videos: [
+          {
+            title: "If-Else",
+            url: "https://www.youtube.com/watch?v=j8UrYVkE358&list=PLg_3d7KmjG4PSJPvVDIVUq3uhAU1yVMkP&index=7&t=45s",
+          },
+          {
+            title: "For-in Loop",
+            url: "https://www.youtube.com/watch?v=AYrNS-djhMk",
+          },
+        ],
+      },
+      {
+        title: "Class & Object বোঝা",
+        duration: "",
+        videos: [
+          {
+            title: "Dart Class & Object",
+            url: "https://www.youtube.com/watch?v=e10kj_-_a1Q&list=PLg_3d7KmjG4PSJPvVDIVUq3uhAU1yVMkP&index=6",
+          },
+        ],
+      },
+      {
+        title: "List, Map & Set ব্যবহার",
+        duration: "",
+        videos: [
+          {
+            title: "Dart Maps",
+            url: "https://www.youtube.com/watch?v=Gsx3UNgtYl0&list=PLg_3d7KmjG4PSJPvVDIVUq3uhAU1yVMkP&index=7",
+          },
+        ],
+      },
+      {
+        title: "Null-safety বোঝা",
+        duration: "",
+        videos: [
+          {
+            title: "Dart Null Safety",
+            url: "https://www.youtube.com/watch?v=KMMW665YTlE&list=PLg_3d7KmjG4PSJPvVDIVUq3uhAU1yVMkP&index=9&t=105s",
+          },
+        ],
+      },
+      {
+        title: "Async/Await ও Future",
+        duration: "",
+      },
+      {
+        title: "Dart Brackets বোঝা",
+        duration: "",
+        videos: [
+          {
+            title: "Dart Brackets",
+            url: "https://www.youtube.com/watch?v=BC1euUwiayI&list=PLg_3d7KmjG4PSJPvVDIVUq3uhAU1yVMkP&index=4",
+          },
+        ],
+      },
     ],
   },
   {
@@ -144,6 +225,32 @@ export const flutterRoadmap: FlutterRoadmapSection[] = [
       { title: "APK ও AAB build করা", duration: "" },
       { title: "App signing ও keystore তৈরি", duration: "" },
       { title: "Google Play Store-এ publish", duration: "" },
+    ],
+  },
+  {
+    title: "Flutter Roadmap Videos",
+    lectures: [
+      {
+        title: "Flutter Learning Path",
+        duration: "",
+        videos: [
+          {
+            title: "Complete Flutter Learning Path",
+            url: "https://www.youtube.com/watch?v=ArI2rGgkHpI&list=PLg_3d7KmjG4PSJPvVDIVUq3uhAU1yVMkP&index=2",
+          },
+        ],
+      },
+      {
+        title: "Flutter App Roadmap",
+        duration: "",
+        videos: [
+          {
+            title: "Flutter App Roadmap",
+            url: "https://www.youtube.com/shorts/1CQ8d2biId8",
+            type: "short",
+          },
+        ],
+      },
     ],
   },
 ];
