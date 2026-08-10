@@ -3,11 +3,8 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import curriculamData from "@/data/courses/course-curriculam-data";
-import {
-    FlutterQuickShort,
-    FlutterRoadmapSection,
-    flutterQuickShorts,
-} from "@/data/courses/flutter-course-data";
+import { flutterQuickShorts } from "@/data/courses/flutter-course-data";
+import type { FlutterQuickShort, FlutterRoadmapSection } from "@/data/courses/flutter-course-data";
 
 interface ProgressLesson {
     id: number;
@@ -22,7 +19,7 @@ interface CourseCurriculumProps {
 }
 
 const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLegacyId }) => {
-    const sections = roadmap ?? curriculamData;
+    const sections = roadmap ?? (curriculamData as FlutterRoadmapSection[]);
     const isFlutterCourse = Boolean(roadmap && courseLegacyId);
     const [lessons, setLessons] = useState<ProgressLesson[]>([]);
     const [courseProgress, setCourseProgress] = useState(0);
