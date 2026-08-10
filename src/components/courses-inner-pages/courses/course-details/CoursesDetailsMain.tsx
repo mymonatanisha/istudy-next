@@ -3,6 +3,7 @@ import Breadcrumbs from '@/components/common/Breadcrumb/Breadcrumbs';
 import coursesData from '@/data/courses/courses-data';
 import { flutterCourse, flutterRoadmap } from '@/data/courses/flutter-course-data';
 import { androidFundamentalsCourse, androidFundamentalsRoadmap } from '@/data/courses/android-fundamentals-course-data';
+import { gitGithubCourse, gitGithubRoadmap } from '@/data/courses/git-github-course-data';
 import Image from 'next/image';
 import React from 'react';
 import avatarImg from '../../../../../public/assets/images/avatar/avatar.webp';
@@ -17,13 +18,16 @@ const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
         ? flutterCourse
         : courseId === androidFundamentalsCourse.id
             ? androidFundamentalsCourse
-            : coursesData.find((item) => item.id == courseId);
+            : courseId === gitGithubCourse.id
+                ? gitGithubCourse
+                : coursesData.find((item) => item.id == courseId);
     const isFlutterCourse = courseId === flutterCourse.id;
     const isAndroidFundamentalsCourse = courseId === androidFundamentalsCourse.id;
+    const isGitGithubCourse = courseId === gitGithubCourse.id;
 
     return (
         <>
-            <Breadcrumbs breadcrumbTitle={isFlutterCourse ? 'Flutter App Development' : isAndroidFundamentalsCourse ? 'Android App Development with Java/XML' : 'Learn Building Apps with AI'} />
+            <Breadcrumbs breadcrumbTitle={isFlutterCourse ? 'Flutter App Development' : isAndroidFundamentalsCourse ? 'Android App Development with Java/XML' : isGitGithubCourse ? 'Git & GitHub for Developers' : 'Learn Building Apps with AI'} />
             <section className="bd-course-details-area bd-course-details-top section-space-bottom">
                 <div className="container">
                     <div className="row gy-30">
@@ -31,7 +35,7 @@ const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
                             <div className="bd-course-details-wrapper mb-30">
                                 <div className="bd-course-details-heading mb-30">
                                     <h2 className="bd-course-details-title mb--5">
-                                        {course?.title}: {isAndroidFundamentalsCourse ? 'Fundamentals' : 'Beginner to Advanced'}
+                                        {course?.title}: {isAndroidFundamentalsCourse ? 'Fundamentals' : isGitGithubCourse ? 'Coming Soon' : 'Beginner to Advanced'}
                                     </h2>
                                 </div>
                                 <div className="bd-course-details-meta mb-30">
@@ -53,7 +57,7 @@ const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
                                     </div>
                                     <div className="bd-course-details-meta-item">
                                         <p className="title">Category</p>
-                                        <span className="subtitle"><Link href="#">{isFlutterCourse ? 'Flutter / App Development' : isAndroidFundamentalsCourse ? 'Android / Java / XML' : 'App Development'}</Link></span>
+                                        <span className="subtitle"><Link href="#">{isFlutterCourse ? 'Flutter / App Development' : isAndroidFundamentalsCourse ? 'Android / Java / XML' : isGitGithubCourse ? 'Git / GitHub / Developer Tools' : 'App Development'}</Link></span>
                                     </div>
                                 </div>
                                 <div className="bd-course-details-content mb-30">
@@ -63,7 +67,7 @@ const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
                                 <CourseWillYouLearn />
                                 <CourseRequirements />
                                 <CourseCurriculum
-                                    roadmap={isFlutterCourse ? flutterRoadmap : isAndroidFundamentalsCourse ? androidFundamentalsRoadmap : undefined}
+                                    roadmap={isFlutterCourse ? flutterRoadmap : isAndroidFundamentalsCourse ? androidFundamentalsRoadmap : isGitGithubCourse ? gitGithubRoadmap : undefined}
                                     courseLegacyId={isFlutterCourse ? flutterCourse.id : undefined}
                                 />
                             </div>
