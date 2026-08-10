@@ -2,6 +2,7 @@
 import Breadcrumbs from '@/components/common/Breadcrumb/Breadcrumbs';
 import coursesData from '@/data/courses/courses-data';
 import { flutterCourse, flutterRoadmap } from '@/data/courses/flutter-course-data';
+import { androidFundamentalsCourse, androidFundamentalsRoadmap } from '@/data/courses/android-fundamentals-course-data';
 import Image from 'next/image';
 import React from 'react';
 import avatarImg from '../../../../../public/assets/images/avatar/avatar.webp';
@@ -14,19 +15,24 @@ import CourseSidebarWidget from './CourseSidebarWidget';
 const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
     const course = courseId === flutterCourse.id
         ? flutterCourse
-        : coursesData.find((item) => item.id == courseId);
+        : courseId === androidFundamentalsCourse.id
+            ? androidFundamentalsCourse
+            : coursesData.find((item) => item.id == courseId);
     const isFlutterCourse = courseId === flutterCourse.id;
+    const isAndroidFundamentalsCourse = courseId === androidFundamentalsCourse.id;
 
     return (
         <>
-            <Breadcrumbs breadcrumbTitle={isFlutterCourse ? 'Flutter App Development' : 'Learn Building Apps with AI'} />
+            <Breadcrumbs breadcrumbTitle={isFlutterCourse ? 'Flutter App Development' : isAndroidFundamentalsCourse ? 'Android App Development with Java/XML' : 'Learn Building Apps with AI'} />
             <section className="bd-course-details-area bd-course-details-top section-space-bottom">
                 <div className="container">
                     <div className="row gy-30">
                         <div className="col-xxl-8 col-xl-8 col-lg-8">
                             <div className="bd-course-details-wrapper mb-30">
                                 <div className="bd-course-details-heading mb-30">
-                                    <h2 className="bd-course-details-title mb--5">{course?.title}: Beginner to Advanced</h2>
+                                    <h2 className="bd-course-details-title mb--5">
+                                        {course?.title}: {isAndroidFundamentalsCourse ? 'Fundamentals' : 'Beginner to Advanced'}
+                                    </h2>
                                 </div>
                                 <div className="bd-course-details-meta mb-30">
                                     <div className="bd-course-author border-line-meta">
@@ -47,7 +53,7 @@ const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
                                     </div>
                                     <div className="bd-course-details-meta-item">
                                         <p className="title">Category</p>
-                                        <span className="subtitle"><Link href="#">{isFlutterCourse ? 'Flutter / App Development' : 'App Development'}</Link></span>
+                                        <span className="subtitle"><Link href="#">{isFlutterCourse ? 'Flutter / App Development' : isAndroidFundamentalsCourse ? 'Android / Java / XML' : 'App Development'}</Link></span>
                                     </div>
                                 </div>
                                 <div className="bd-course-details-content mb-30">
@@ -56,7 +62,10 @@ const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
                                 </div>
                                 <CourseWillYouLearn />
                                 <CourseRequirements />
-                                <CourseCurriculum roadmap={isFlutterCourse ? flutterRoadmap : undefined} courseLegacyId={isFlutterCourse ? flutterCourse.id : undefined} />
+                                <CourseCurriculum
+                                    roadmap={isFlutterCourse ? flutterRoadmap : isAndroidFundamentalsCourse ? androidFundamentalsRoadmap : undefined}
+                                    courseLegacyId={isFlutterCourse ? flutterCourse.id : undefined}
+                                />
                             </div>
                         </div>
                         <div className="col-xxl-4 col-xl-4 col-lg-4">
