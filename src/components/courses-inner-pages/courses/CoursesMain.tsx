@@ -4,13 +4,13 @@ import Link from 'next/link';
 import React, { useMemo, useState } from 'react';
 import CourseGridCard from './CourseGridCard';
 import CourseListCard from '../../common/courses-card/CourseListCard';
+import coursesData from '@/data/courses/courses-data';
 import Breadcrumbs from '../../common/Breadcrumb/Breadcrumbs';
 import NiceSelect from '@/components/elements/nice-select/NiceSelect';
 import { courseOrderEnum } from '@/data/dropdown-data';
 import { flutterCourse } from '@/data/courses/flutter-course-data';
 import { androidFundamentalsCourse } from '@/data/courses/android-fundamentals-course-data';
 import { gitGithubCourse } from '@/data/courses/git-github-course-data';
-import { androidAdvancedCourse } from '@/data/courses/android-advanced-course-data';
 import CoursePageSidebar from './CoursePageSidebar';
 import FeaturedFlutterCourse from './FeaturedFlutterCourse';
 
@@ -24,10 +24,10 @@ const CoursesMain = () => {
     // Other legacy course records remain available in the data source for future use.
     const featuredCourses = useMemo(() => [
         flutterCourse,
-        androidAdvancedCourse,
+        coursesData.find((course) => course.id === 36),
         androidFundamentalsCourse,
         gitGithubCourse,
-    ], []);
+    ].filter(Boolean), []);
 
     const filteredCourses = useMemo(() => {
         const query = searchValue.trim().toLowerCase();
