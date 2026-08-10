@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import curriculamData from "@/data/courses/course-curriculam-data";
-import { FlutterRoadmapSection } from "@/data/courses/flutter-course-data";
+import { FlutterRoadmapSection, FlutterLectureVideo } from "@/data/courses/flutter-course-data";
 
 interface ProgressLesson {
     id: number;
@@ -104,7 +104,10 @@ const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLega
                                     {section.lectures.map((lecture, lectureIndex) => {
                                         const progressLesson = getLessonProgress(lecture.title);
                                         const completed = progressLesson?.isCompleted ?? false;
-                                        const videos = "videos" in lecture ? lecture.videos : undefined;
+                                        const videos: FlutterLectureVideo[] =
+                                            "videos" in lecture && Array.isArray(lecture.videos)
+                                                ? (lecture.videos as FlutterLectureVideo[])
+                                                : [];
 
                                         return (
                                             <div key={lectureIndex} className="bd-course-curriculum-content d-flex-between">
@@ -116,7 +119,7 @@ const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLega
                                                 </div>
                                                 <div className="bd-course-curriculum-meta d-flex-items gap-10 flex-wrap justify-content-end">
                                                     <span className="duration">{lecture.duration}</span>
-                                                    {videos?.map((video) => (
+                                                    {videos.map((video) => (
                                                         <Link
                                                             key={video.url}
                                                             href={video.url}
@@ -138,7 +141,7 @@ const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLega
                                                         >
                                                             {savingLessonId === progressLesson.id ? "..." : completed ? "Done" : "Complete"}
                                                         </button>
-                                                    ) : !videos?.length ? (
+                                                    ) : !videos.length ? (
                                                         <span className="status"><i className="fa-solid fa-lock"></i></span>
                                                     ) : null}
                                                 </div>
@@ -151,7 +154,6 @@ const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLega
                     ))}
                 </div>
             </div>
-            {!isFlutterCourse && <Link href="#" className="d-none">Curriculum</Link>}
         </div>
     );
 };
