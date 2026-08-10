@@ -9,6 +9,7 @@ import Breadcrumbs from '../../common/Breadcrumb/Breadcrumbs';
 import NiceSelect from '@/components/elements/nice-select/NiceSelect';
 import { courseOrderEnum } from '@/data/dropdown-data';
 import { flutterCourse } from '@/data/courses/flutter-course-data';
+import { androidFundamentalsCourse } from '@/data/courses/android-fundamentals-course-data';
 import CoursePageSidebar from './CoursePageSidebar';
 import FeaturedFlutterCourse from './FeaturedFlutterCourse';
 
@@ -18,7 +19,7 @@ const CoursesMain = () => {
     const [searchValue, setSearchValue] = useState('');
     const [selectedPrice, setSelectedPrice] = useState<'all' | 'free' | 'paid'>('all');
 
-    const allCourses = useMemo(() => [...coursesData, flutterCourse], []);
+    const allCourses = useMemo(() => [...coursesData, flutterCourse, androidFundamentalsCourse], []);
 
     const filteredCourses = useMemo(() => {
         const query = searchValue.trim().toLowerCase();
