@@ -4,11 +4,11 @@ import Link from 'next/link';
 import React, { useMemo, useState } from 'react';
 import CourseGridCard from './CourseGridCard';
 import CourseListCard from '../../common/courses-card/CourseListCard';
-import coursesData from '@/data/courses/courses-data';
 import Breadcrumbs from '../../common/Breadcrumb/Breadcrumbs';
 import NiceSelect from '@/components/elements/nice-select/NiceSelect';
 import { courseOrderEnum } from '@/data/dropdown-data';
 import { flutterCourse } from '@/data/courses/flutter-course-data';
+import { androidAdvancedCourse } from '@/data/courses/android-advanced-course-data';
 import { androidFundamentalsCourse } from '@/data/courses/android-fundamentals-course-data';
 import { gitGithubCourse } from '@/data/courses/git-github-course-data';
 import CoursePageSidebar from './CoursePageSidebar';
@@ -21,10 +21,10 @@ const CoursesMain = () => {
     const [selectedPrice, setSelectedPrice] = useState<'all' | 'free' | 'paid'>('all');
 
     // Keep the public Courses page focused on the four current/official learning tracks.
-    // Other legacy course records remain available in the data source for future use.
+    // Legacy course records remain available in the data source for future use.
     const featuredCourses = useMemo(() => [
         flutterCourse,
-        ...coursesData.filter((course) => course.id === 36),
+        androidAdvancedCourse,
         androidFundamentalsCourse,
         gitGithubCourse,
     ], []);
