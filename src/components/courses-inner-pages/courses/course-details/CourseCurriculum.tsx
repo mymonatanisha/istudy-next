@@ -104,6 +104,7 @@ const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLega
                                     {section.lectures.map((lecture, lectureIndex) => {
                                         const progressLesson = getLessonProgress(lecture.title);
                                         const completed = progressLesson?.isCompleted ?? false;
+                                        const videos = "videos" in lecture ? lecture.videos : undefined;
 
                                         return (
                                             <div key={lectureIndex} className="bd-course-curriculum-content d-flex-between">
@@ -115,7 +116,7 @@ const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLega
                                                 </div>
                                                 <div className="bd-course-curriculum-meta d-flex-items gap-10 flex-wrap justify-content-end">
                                                     <span className="duration">{lecture.duration}</span>
-                                                    {lecture.videos?.map((video) => (
+                                                    {videos?.map((video) => (
                                                         <Link
                                                             key={video.url}
                                                             href={video.url}
@@ -123,7 +124,7 @@ const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLega
                                                             rel="noopener noreferrer"
                                                             className="btn btn-sm btn-outline-primary"
                                                         >
-                                                            <i className={`fa-brands fa-youtube me-1`}></i>
+                                                            <i className="fa-brands fa-youtube me-1"></i>
                                                             {video.type === "short" ? "Watch Short" : "Watch"}
                                                         </Link>
                                                     ))}
@@ -137,7 +138,7 @@ const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLega
                                                         >
                                                             {savingLessonId === progressLesson.id ? "..." : completed ? "Done" : "Complete"}
                                                         </button>
-                                                    ) : !lecture.videos?.length ? (
+                                                    ) : !videos?.length ? (
                                                         <span className="status"><i className="fa-solid fa-lock"></i></span>
                                                     ) : null}
                                                 </div>
