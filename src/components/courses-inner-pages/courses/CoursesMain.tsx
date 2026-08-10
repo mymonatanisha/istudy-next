@@ -20,12 +20,19 @@ const CoursesMain = () => {
     const [searchValue, setSearchValue] = useState('');
     const [selectedPrice, setSelectedPrice] = useState<'all' | 'free' | 'paid'>('all');
 
-    const allCourses = useMemo(() => [...coursesData, flutterCourse, androidFundamentalsCourse, gitGithubCourse], []);
+    // Keep the public Courses page focused on the four current/official learning tracks.
+    // Other legacy course records remain available in the data source for future use.
+    const featuredCourses = useMemo(() => [
+        flutterCourse,
+        ...coursesData.filter((course) => course.id === 36),
+        androidFundamentalsCourse,
+        gitGithubCourse,
+    ], []);
 
     const filteredCourses = useMemo(() => {
         const query = searchValue.trim().toLowerCase();
 
-        return allCourses.filter((course) => {
+        return featuredCourses.filter((course) => {
             const matchesSearch = !query || [
                 course.title,
                 course.courseName,
@@ -40,8 +47,9 @@ const CoursesMain = () => {
 
             return matchesSearch && matchesPrice;
         });
-    }, [allCourses, searchValue, selectedPrice]);
+    }, [featuredCourses, searchValue, selectedPrice]);
 
+    const flutterVisible = filteredCourses.some((course) => course.id === flutterCourse.id);
     const regularCourses = filteredCourses.filter((course) => course.id !== flutterCourse.id);
 
     const selectHandler = () => { };
@@ -52,7 +60,7 @@ const CoursesMain = () => {
 
             <section className="bd-course-area section-space course-page-redesign">
                 <div className="container">
-                    <FeaturedFlutterCourse />
+                    {flutterVisible && <FeaturedFlutterCourse />}
 
                     <div className="course-page-toolbar mb-30">
                         <div>
