@@ -3,7 +3,11 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import curriculamData from "@/data/courses/course-curriculam-data";
-import { FlutterRoadmapSection } from "@/data/courses/flutter-course-data";
+import {
+    FlutterQuickShort,
+    FlutterRoadmapSection,
+    flutterQuickShorts,
+} from "@/data/courses/flutter-course-data";
 
 interface ProgressLesson {
     id: number;
@@ -67,6 +71,25 @@ const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLega
         }
     };
 
+    const renderShort = (short: FlutterQuickShort) => (
+        <div key={short.videoUrl} className="bd-course-curriculum-content d-flex-between">
+            <div className="bd-course-curriculum-info d-flex-items gap-10">
+                <div className="icon">
+                    <i className="fa-brands fa-youtube"></i>
+                </div>
+                <p className="title mb-0">{short.title}</p>
+            </div>
+            <a
+                href={short.videoUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-sm btn-primary"
+            >
+                Watch Short
+            </a>
+        </div>
+    );
+
     return (
         <div className="bd-course-curriculum mb-30">
             <div className="d-flex-between mb-15">
@@ -115,6 +138,16 @@ const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLega
                                                 </div>
                                                 <div className="bd-course-curriculum-meta d-flex-items gap-10">
                                                     <span className="duration">{lecture.duration}</span>
+                                                    {lecture.videoUrl && (
+                                                        <a
+                                                            href={lecture.videoUrl}
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                            className="btn btn-sm btn-outline-primary"
+                                                        >
+                                                            {lecture.videoType === "short" ? "Watch Short" : "Watch"}
+                                                        </a>
+                                                    )}
                                                     {isFlutterCourse && isEnrolled && progressLesson ? (
                                                         <button
                                                             type="button"
@@ -126,7 +159,7 @@ const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLega
                                                             {savingLessonId === progressLesson.id ? "..." : completed ? "Done" : "Complete"}
                                                         </button>
                                                     ) : (
-                                                        <span className="status"><i className="fa-solid fa-lock"></i></span>
+                                                        !lecture.videoUrl && <span className="status"><i className="fa-solid fa-lock"></i></span>
                                                     )}
                                                 </div>
                                             </div>
@@ -138,6 +171,17 @@ const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLega
                     ))}
                 </div>
             </div>
+
+            {isFlutterCourse && (
+                <div className="mt-30">
+                    <h3 className="bd-course-details-content-title mb-15">⚡ Flutter Quick Shorts</h3>
+                    <p className="mb-15">Short videos to reinforce the main Flutter learning path.</p>
+                    <div className="accordion-body p-0">
+                        {flutterQuickShorts.map(renderShort)}
+                    </div>
+                </div>
+            )}
+
             {!isFlutterCourse && <Link href="#" className="d-none">Curriculum</Link>}
         </div>
     );
