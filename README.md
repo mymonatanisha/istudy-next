@@ -102,3 +102,22 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## License
+
+This project is licensed under the **[PolyForm Noncommercial License 1.0.0](LICENSE)**.
+
+**You CAN:**
+- Use this code for personal learning and study
+- Use it for educational, research, or hobby projects
+- Modify it and build on it for any noncommercial purpose
+
+**You CANNOT:**
+- Use this code (in original or modified form) for any commercial purpose
+- Sell products or services built on this code
+- Use it inside a for-profit product without permission
+
+**Want to use this commercially?**
+Contact me for a commercial license: **[md.enamul19@gmail.com]**
+
+Copyright (c) 2026 Mohammad Enamul Huq. All rights reserved.
