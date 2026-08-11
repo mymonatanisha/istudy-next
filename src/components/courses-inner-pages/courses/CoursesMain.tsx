@@ -21,11 +21,12 @@ const CoursesMain = () => {
     const [selectedPrice, setSelectedPrice] = useState<'all' | 'free' | 'paid'>('all');
 
     // Keep the public Courses page focused on the four current/official learning tracks.
+    // Display order: Flutter (featured) -> Android Fundamentals -> Android Beginner to Advanced -> Git & GitHub.
     // Legacy course records remain available in the data source for future use.
     const featuredCourses = useMemo(() => [
         flutterCourse,
-        androidAdvancedCourse,
         androidFundamentalsCourse,
+        androidAdvancedCourse,
         gitGithubCourse,
     ], []);
 
