@@ -69,7 +69,7 @@ const CourseSidebarWidget = ({ course }: ICourseProps) => {
                 <div className="bd-course-sidebar-widget-thumb mb-20 p-relative">
                     <Image style={{ width: "100%", height: "auto" }} src={courseVideoImg} alt="image" priority/>
                     <div className="thumb-btn">
-                        <button type='button' onClick={() => playVideo("NYwp0VqQOEA", "youtube")} className="bd-video-btn popup-video has-bg">
+                        <button type='button' onClick={() => playVideo("ArI2rGgkHpI", "youtube")} className="bd-video-btn popup-video has-bg">
                             <span className="icon"><i className="fa-solid fa-play"></i></span>
                         </button>
                     </div>
