@@ -44,6 +44,12 @@ export interface MenuItem {
   requireAuth?: boolean;
   hideWhenAuth?: boolean;
 }
+export interface ICategoryFilter {
+  checkId: string | number;
+  name: string;
+  count: number;
+  isChecked?: boolean;
+}
 export interface ICategories {
   id: number;
   title: string;
