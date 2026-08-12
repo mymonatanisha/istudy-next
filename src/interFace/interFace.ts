@@ -155,6 +155,7 @@ export interface ICourse {
   FontSizeClassTwo?: string;
   quantity?:number;
   previewVideoId?: string;
+  previewThumbnailUrl?: string;
 }
 export interface ICourseProps {
   course: ICourse;

@@ -43,7 +43,15 @@ const CourseSidebarWidget = ({ course }: ICourseProps) => {
         <>
             <div className="bd-course-sidebar-widget sidebar-right sidebar-sticky">
                 <div className="bd-course-sidebar-widget-thumb mb-20 p-relative">
-                    <Image style={{ width: "100%", height: "auto" }} src={course.image} alt={`${course.title} course preview`} priority />
+                    {course.previewThumbnailUrl ? (
+                        <img
+                            src={course.previewThumbnailUrl}
+                            alt={`${course.title} video thumbnail`}
+                            style={{ width: "100%", height: "auto", display: "block" }}
+                        />
+                    ) : (
+                        <Image style={{ width: "100%", height: "auto" }} src={course.image} alt={`${course.title} course preview`} priority />
+                    )}
                     {course.previewVideoId && (
                         <div className="thumb-btn">
                             <button type='button' onClick={() => playVideo(course.previewVideoId as string, "youtube")} className="bd-video-btn popup-video has-bg" aria-label={`Play ${course.title} preview`}>
