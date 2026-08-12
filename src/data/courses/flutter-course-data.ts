@@ -57,7 +57,7 @@ export const flutterCourse: ICourse = {
     "App Deployment",
   ],
   instructorName: "Enamul Huq",
-  category: ["App Development", "Flutter"],
+  category: ["Flutter", "Dart", "App Development"],
 };
 
 export const flutterRoadmap: FlutterRoadmapSection[] = [
