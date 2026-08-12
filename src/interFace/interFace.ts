@@ -117,6 +117,17 @@ export interface ICtaData {
   image: StaticImageData;
   bgClass: string;
 }
+export interface IEvent {
+  id: number;
+  image?: StaticImageData;
+  date: string;
+  monthYear: string;
+  location: string;
+  time: string;
+  title: string;
+  description?: string;
+  isActive?: boolean;
+}
 export interface ICourse {
   id: number;
   badge?: string;
