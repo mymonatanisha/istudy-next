@@ -14,11 +14,11 @@ export interface AppContextType {
   isVideoOpen: boolean;
   setIsVideoOpen: React.Dispatch<React.SetStateAction<boolean>>;
   openVideoModal: () => void;
-  isOpen:boolean,
-  toggleOpen:() => void;
-  openSidebar:boolean,
-  setOpenSidebar:React.Dispatch<React.SetStateAction<boolean>>;
-  toggleSidebarMenu:() => void;
+  isOpen: boolean;
+  toggleOpen: () => void;
+  openSidebar: boolean;
+  setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleSidebarMenu: () => void;
 }
 interface Submenu {
   title: string;
@@ -55,27 +55,27 @@ export interface ISchoolinCategories {
   categories: ICategories[];
 }
 export interface ITestimonial {
-  id: number,
-  rating: number,
-  content: string,
-  name: string,
-  avatar: StaticImageData,
+  id: number;
+  rating: number;
+  content: string;
+  name: string;
+  avatar: StaticImageData;
   designation?: string;
-  quoteImage?:StaticImageData;
-  highlight?:string
+  quoteImage?: StaticImageData;
+  highlight?: string;
 }
 export interface Iinstructor {
-  id: number,
-  name: string,
-  title?: string,
-  image: StaticImageData,
-  role?: string,
+  id: number;
+  name: string;
+  title?: string;
+  image: StaticImageData;
+  role?: string;
   socialLinks?: {
-    facebook: string,
-    twitter: string,
-    linkedin: string,
-    instagram?: string,
-  },
+    facebook: string;
+    twitter: string;
+    linkedin: string;
+    instagram?: string;
+  };
 }
 interface TimelineEvent {
   year: string;
@@ -96,17 +96,17 @@ export interface MissionVisionData {
   description: string;
 }
 export interface ICounter {
-  id: number,
-  counterNum: number,
+  id: number;
+  counterNum: number;
   suffix?: string;
   counterText: string;
-  iconClass?:string
+  iconClass?: string;
 }
 export interface IFeature {
-  id: number,
-  icon: string,
-  title: string,
-  description: string,
+  id: number;
+  icon: string;
+  title: string;
+  description: string;
 }
 export interface ICtaData {
   id: number;
@@ -128,6 +128,22 @@ export interface IEvent {
   description?: string;
   isActive?: boolean;
 }
+
+// Book/shop product data type used by shop cards, cart and wishlist.
+export interface ProductsType {
+  id: number;
+  image?: StaticImageData;
+  title: string;
+  rating?: number;
+  price: number;
+  quantity?: number;
+  discount?: number;
+  badge?: string;
+  badgeClass?: string;
+  description?: string;
+  books?: ProductsType[];
+}
+
 export interface ICourse {
   id: number;
   badge?: string;
@@ -166,14 +182,14 @@ export interface ICourse {
   brands?: StaticImageData[];
   buttonText?: string;
   courseTagTwo?: string;
-  avatarImg?: StaticImageData
-  category?: string[]
+  avatarImg?: StaticImageData;
+  category?: string[];
   shape?: StaticImageData;
   badgeClassTwo?: string;
   smallTextThree?: string;
   courseBgClass?: string;
   FontSizeClassTwo?: string;
-  quantity?:number;
+  quantity?: number;
   previewVideoId?: string;
   previewThumbnailUrl?: string;
 }
@@ -196,26 +212,26 @@ export interface ISchoolingWhyChoose {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   title: string;
   description: string;
-  wowDelayDuration: string
+  wowDelayDuration: string;
 }
 export interface IBlog {
   id: number;
-  image?: StaticImageData,
-  title?: string,
-  authorName?: string,
-  date?: string,
-  description?: string,
+  image?: StaticImageData;
+  title?: string;
+  authorName?: string;
+  date?: string;
+  description?: string;
   month?: string;
   comments?: number;
   badge?: string;
-  type?:string;
-  quote?:string;
-  images?:StaticImageData[];
-  thumbnail?:StaticImageData;
-  buttonShow?:boolean;
-  buttonLink?:boolean;
-  daynamicLink?:boolean;
-  boxShadowClass?:boolean;
+  type?: string;
+  quote?: string;
+  images?: StaticImageData[];
+  thumbnail?: StaticImageData;
+  buttonShow?: boolean;
+  buttonLink?: boolean;
+  daynamicLink?: boolean;
+  boxShadowClass?: boolean;
   isPublished?: boolean;
   publishDate?: string;
 }
