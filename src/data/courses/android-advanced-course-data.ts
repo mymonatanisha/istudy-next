@@ -46,4 +46,6 @@ export const androidAdvancedCourse: ICourse = {
     "Debugging and improving applications",
     "Project source code and resources",
   ],
+  previewVideoId: "pocEPByYLxQ",
+  previewThumbnailUrl: "https://img.youtube.com/vi/pocEPByYLxQ/maxresdefault.jpg",
 };
