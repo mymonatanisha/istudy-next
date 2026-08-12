@@ -61,7 +61,7 @@ const CoursesDetailsMain = ({ courseId }: { courseId: number }) => {
                                     </div>
                                     <div className="bd-course-details-meta-item">
                                         <p className="title">Category</p>
-                                        <span className="subtitle"><Link href="#">{isFlutterCourse ? 'Flutter / App Development' : isAndroidAdvancedCourse ? 'Android / Java / XML' : isAndroidFundamentalsCourse ? 'Android / Java / XML' : isGitGithubCourse ? 'Git / GitHub / Developer Tools' : 'App Development'}</Link></span>
+                                        <span className="subtitle"><Link href="#">{isFlutterCourse ? 'Flutter / Dart / App Development' : isAndroidAdvancedCourse ? 'Android / Java / XML' : isAndroidFundamentalsCourse ? 'Android / Java / XML' : isGitGithubCourse ? 'Git / GitHub / Developer Tools' : 'App Development'}</Link></span>
                                     </div>
                                 </div>
                                 <div className="bd-course-details-content mb-30">
