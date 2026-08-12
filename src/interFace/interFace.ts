@@ -45,10 +45,10 @@ export interface MenuItem {
   hideWhenAuth?: boolean;
 }
 export interface ICategoryFilter {
-  checkId: string | number;
+  checkId: string;
   name: string;
   count: number;
-  isChecked?: boolean;
+  isChecked: boolean;
 }
 export interface ICategories {
   id: number;
@@ -139,9 +139,10 @@ export interface IEvent {
 export interface ProductsType {
   id: number;
   image?: StaticImageData;
+  instructorImage?: StaticImageData;
   title: string;
   rating?: number;
-  price: number;
+  price?: number;
   quantity?: number;
   discount?: number;
   badge?: string;
@@ -240,4 +241,146 @@ export interface IBlog {
   boxShadowClass?: boolean;
   isPublished?: boolean;
   publishDate?: string;
+}
+
+export type idType = {
+  id: string | number;
+};
+
+export interface ContactDetailLink {
+  text: string;
+  link: string;
+}
+
+export interface ContactItem {
+  icon: string;
+  title: string;
+  details: Array<string | ContactDetailLink>;
+}
+
+export interface IAcademicCalendarEvent {
+  label: string;
+  date: string;
+}
+
+export interface IAcademicCalendar {
+  semester: string;
+  image: StaticImageData;
+  events: IAcademicCalendarEvent[];
+}
+
+export interface ICourseReview {
+  id: number;
+  name: string;
+  date: string;
+  avatar: StaticImageData;
+  rating: number;
+  comment: string;
+  replies?: ICourseReview[];
+}
+
+export interface IExecutiveLeadersType {
+  id: number;
+  image: StaticImageData;
+  name: string;
+  designation: string;
+  instituteOne: string;
+  instituteTwo: string;
+  email: string;
+  type: string;
+}
+
+export interface IFeatureFilter {
+  id: string;
+  name: string;
+  count: number;
+  isChecked?: boolean;
+}
+
+export interface IInstructorFilter {
+  id: string;
+  name: string;
+  courseCount: number;
+  isChecked?: boolean;
+}
+
+export type Instructor = IInstructorFilter;
+
+export interface ILanguageFilter {
+  id: string;
+  name: string;
+  count: number;
+  isChecked?: boolean;
+}
+
+export interface ILevelFilter {
+  checkId: string;
+  name: string;
+  count: number;
+  isChecked: boolean;
+}
+
+export interface IMissionVision {
+  id: number;
+  img: StaticImageData;
+  title: string;
+  description: string;
+}
+
+export interface IRatingFilter {
+  checkId: string;
+  stars: number;
+  count: number;
+  isChecked: boolean;
+}
+
+export interface IReview {
+  id: number;
+  ratingIcon: StaticImageData;
+  contentTitle: string;
+  text: string;
+  author: string;
+}
+
+export interface IScholarshipFinancialAid {
+  image: StaticImageData;
+  title: string;
+  link: string;
+}
+
+export interface ISubcategoryFilter {
+  id: string;
+  name: string;
+  count: number;
+  isChecked?: boolean;
+}
+
+export interface IVideoDuration {
+  id: string;
+  label: string;
+  count: number;
+  isChecked?: boolean;
+}
+
+export interface PriceFilter {
+  checkId: string;
+  name: string;
+  count: number;
+  isChecked: boolean;
+}
+
+export interface ProgramDataType {
+  id: number;
+  program?: string;
+  type?: string;
+  title: string;
+  description: string;
+  duration: string;
+  credits?: string;
+  image: StaticImageData;
+  shapeImage: StaticImageData;
+  textImage?: StaticImageData;
+  BgClass?: string;
+  hoursTime?: number;
+  age?: string;
 }
