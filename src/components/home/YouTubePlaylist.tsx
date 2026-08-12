@@ -10,20 +10,20 @@ interface YouTubePlaylistProps {
   playlistId?: string;
 }
 
-// Default playlist ID for Android development course
-const DEFAULT_PLAYLIST_ID = "PLg_3d7KmjG4MWxX0fZ9pMDFtXxOfG8uoC";
+// Default playlist ID for the Flutter App Development course
+const DEFAULT_PLAYLIST_ID = "PLg_3d7KmjG4PSJPvVDIVUq3uhAU1yVMkP";
 
 // Validate playlist ID: should be alphanumeric with underscores, hyphens, and expected length
 const isValidPlaylistId = (id: string): boolean => {
   return /^[A-Za-z0-9_-]{10,50}$/.test(id);
 };
 
-const YouTubePlaylist: React.FC<YouTubePlaylistProps> = ({ 
-  playlistId = DEFAULT_PLAYLIST_ID 
+const YouTubePlaylist: React.FC<YouTubePlaylistProps> = ({
+  playlistId = DEFAULT_PLAYLIST_ID,
 }) => {
   // Use validated playlist ID or fallback to default
-  const validatedPlaylistId = isValidPlaylistId(playlistId) 
-    ? playlistId 
+  const validatedPlaylistId = isValidPlaylistId(playlistId)
+    ? playlistId
     : DEFAULT_PLAYLIST_ID;
 
   return (
@@ -32,25 +32,19 @@ const YouTubePlaylist: React.FC<YouTubePlaylistProps> = ({
         <div className="section-title text-center mb-40">
           <h2>
             <span aria-hidden="true">📚 </span>
-            Complete Course Playlist
+            Flutter App Development Playlist
           </h2>
-          <p>Access all our Android development tutorials in one organized playlist.</p>
+          <p>Watch the complete Flutter App Development learning playlist from our YouTube channel.</p>
         </div>
 
         <div className="playlist-wrapper">
           <div className="playlist-embed-container">
-            {/* 
-              Note: sandbox includes allow-same-origin along with allow-scripts, which reduces
-              sandbox security benefits. However, this is necessary for YouTube embeds to function
-              properly (loading thumbnails, tracking, and API functionality).
-            */}
             <iframe
               width="100%"
               height="100%"
               src={`https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(validatedPlaylistId)}`}
-              title="Complete Android Development Course Playlist"
-              allow="encrypted-media; gyroscope; picture-in-picture"
-              sandbox="allow-scripts allow-same-origin allow-presentation"
+              title="Flutter App Development — Beginner to Pro"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             />
           </div>
