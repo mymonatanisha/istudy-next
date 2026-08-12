@@ -14,6 +14,7 @@ import HomeFaqArea from './HomeFaqArea';
 import VideoCarousel from "@/components/home/VideoCarousel";
 import YouTubePlaylist from "@/components/home/YouTubePlaylist";
 import ShortsCarousel from "@/components/home/ShortsCarousel";
+import FeaturedLearningCourses from "@/components/home/FeaturedLearningCourses";
 
 
 const HomeMain = () => {
@@ -24,6 +25,7 @@ const HomeMain = () => {
            
             { /*<DemoGridSection />*/}
             { /*<DashboardDemoArea/>*/}
+            <FeaturedLearningCourses />
             <VideoCarousel />
             <YouTubePlaylist />
             <CoursePageDemo />
