@@ -26,8 +26,8 @@ const HomeMain = () => {
             { /*<DemoGridSection />*/}
             { /*<DashboardDemoArea/>*/}
             <FeaturedLearningCourses />
-            <VideoCarousel />
             <YouTubePlaylist />
+            <VideoCarousel />
             <CoursePageDemo />
             <ShortsCarousel />
             { /*<InnerPageShowcasesArea />*/}
@@ -35,7 +35,6 @@ const HomeMain = () => {
             { /*<ElementsArea />*/}
             { /* <DemoHeaderFooterArea /> */}
             { /* <ReviewArea />*/}
-            { /*<ResponsiveArea />*/}
             <HomeFaqArea />
         </>
     );
