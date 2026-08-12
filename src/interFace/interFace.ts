@@ -108,6 +108,15 @@ export interface IFeature {
   title: string,
   description: string,
 }
+export interface ICtaData {
+  id: number;
+  subtitle: string;
+  title: string;
+  buttonText: string;
+  buttonLink: string;
+  image: StaticImageData;
+  bgClass: string;
+}
 export interface ICourse {
   id: number;
   badge?: string;
