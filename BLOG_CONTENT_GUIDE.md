@@ -1,26 +1,50 @@
 # Blog content upload guide
 
-The blog now supports database-backed posts from the admin dashboard.
+Use this checklist when you are ready to upload your own blog posts.
 
-## Recommended upload process
+## 1. Add the blog image
 
-1. Open `/admin/blog`.
-2. Click **New Post**.
-3. Add the title, excerpt, content, and status.
-4. Add a cover image URL.
-   - Lightweight option: upload an optimized `.webp` image to your hosting/storage provider and paste the URL.
-   - Current local option: add the file to `public/assets/images/blog/` and use a path like `/assets/images/blog/my-post.webp`.
-5. Save as **Draft** while editing.
-6. Change status to **Published** when ready.
-7. Published database posts appear on `/blog` and open at `/blog/[slug]`.
+1. Put the image file in `public/assets/images/blog/`.
+2. Use a short lowercase file name, for example `my-first-post.webp`.
+3. Prefer `.webp` images so the page stays fast.
 
-## Performance notes
+## 2. Import the image
 
-- Prefer `.webp` images.
-- Keep cover images around 800-1200px wide.
-- Keep each cover image under roughly 200-400KB when possible.
-- Store only the image URL in the database. Do not store large blog images as base64 in the database.
+Open `src/data/blog-data.ts` and add an import near the other blog image imports:
 
-## Legacy static posts
+```ts
+import myFirstPostImg from "../../public/assets/images/blog/my-first-post.webp";
+```
 
-The older static posts still live in `src/data/blog-data.ts`. They remain as fallback/sample content while database posts are added through `/admin/blog`.
+## 3. Add your post object
+
+Add a new object inside the `blogData` array. Give every new post a unique `id` that is not already used:
+
+```ts
+{
+    id: 43,
+    badge: "App Development Course",
+    image: myFirstPostImg,
+    title: "Your Blog Title",
+    authorName: "Your Name",
+    date: "Aug 13, 2026",
+    comments: 0,
+    description: "A short summary shown on blog cards.",
+    isPublished: true
+}
+```
+
+## 4. Hide or publish posts
+
+- Set `isPublished: true` or leave it out to show a post.
+- Set `isPublished: false` to hide a post from the public blog detail page.
+
+## 5. Check the blog in the app
+
+1. Start the site with `npm run dev`.
+2. Open `/blog` from the new Blog menu option.
+3. Open the individual blog details URL, for example `/blog/blog-details/43`.
+
+## 6. Deploy
+
+After confirming the post locally, commit the image and `src/data/blog-data.ts`, then deploy the site using your normal hosting workflow.
