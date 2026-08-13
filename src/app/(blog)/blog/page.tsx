@@ -1,4 +1,5 @@
 import BlogMain from '@/components/blog-inner-pages/blog/BlogMain';
+import DatabaseBlogPosts from '@/components/blog-inner-pages/blog-database/DatabaseBlogPosts';
 import Wrapper from '@/layout/DefaultWrapper';
 import { Metadata } from 'next';
 import React from 'react';
@@ -12,6 +13,7 @@ const Blog = () => {
         <>
             <Wrapper>
                 <main>
+                    <DatabaseBlogPosts />
                     <BlogMain />
                 </main>
             </Wrapper>

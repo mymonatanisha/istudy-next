@@ -27,6 +27,11 @@ const AdminSidebarMenu = () => {
       icon: 'fa-light fa-book',
     },
     {
+      path: '/admin/blog',
+      label: 'Blog',
+      icon: 'fa-light fa-newspaper',
+    },
+    {
       path: '/admin/orders',
       label: 'Orders',
       icon: 'fa-light fa-shopping-cart',
