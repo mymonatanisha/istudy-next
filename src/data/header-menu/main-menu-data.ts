@@ -38,6 +38,16 @@ const main_menu_data: MenuItem[] = [
   {
     id: 4,
     hasDropdown: false,
+    children: false,
+    active: true,
+    title: "Blog",
+    pluseIncon: false,
+    link: "/blog",
+
+  },
+  {
+    id: 5,
+    hasDropdown: false,
     active: true,
     megaMenu: true,
     children: false,
@@ -47,7 +57,7 @@ const main_menu_data: MenuItem[] = [
     
   },
   {
-    id: 5,
+    id: 6,
     hasDropdown: true,
     children: true,
     megaMenu: false,
@@ -58,7 +68,7 @@ const main_menu_data: MenuItem[] = [
     hideWhenAuth: true, // Hide when user is authenticated
   },
   {
-    id: 6,
+    id: 7,
     hasDropdown: false,
     children: false,
     active: true,
@@ -68,7 +78,7 @@ const main_menu_data: MenuItem[] = [
     requireAuth: true, // Show only when authenticated
   },
   {
-    id: 7,
+    id: 8,
     hasDropdown: false,
     children: false,
     active: true,
