@@ -142,7 +142,9 @@ export async function GET() {
       }
     });
 
-    const formattedRecentOrders = recentOrders.map(order => ({
+    type RecentOrder = (typeof recentOrders)[number];
+
+    const formattedRecentOrders = recentOrders.map((order: RecentOrder) => ({
       id: order.id,
       orderId: `#ORD-${order.id.toString().padStart(6, '0')}`,
       customerName: order.enrollment?.student?.name || order.fullName,
