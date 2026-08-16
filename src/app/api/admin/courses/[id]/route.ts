@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getAuthUser } from '@/lib/auth';
+import { getAdminUser } from '@/lib/admin-auth';
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -13,6 +14,7 @@ interface RouteContext {
 export async function PATCH(request: NextRequest, context: RouteContext) {
   try {
     const authUser = await getAuthUser();
+    const adminUser = await getAdminUser();
 
     if (!authUser) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -34,8 +36,12 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       return NextResponse.json({ error: 'Course not found.' }, { status: 404 });
     }
 
-    // Basic ownership check. Admin override can be added later.
-    if (existingCourse.instructorId && existingCourse.instructorId !== authUser.id) {
+    // Ownership / authorization guard
+    if (existingCourse.instructorId === null && !adminUser) {
+      return NextResponse.json({ error: 'Forbidden: course ownership is not assigned.' }, { status: 403 });
+    }
+
+    if (!adminUser && existingCourse.instructorId !== authUser.id) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
@@ -105,6 +111,10 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       if (body.status === 'published') {
         data.publishedAt = new Date();
       }
+
+      if (body.status === 'draft') {
+        data.publishedAt = null;
+      }
     }
 
     if (Object.keys(data).length === 0) {
@@ -116,7 +126,7 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       data,
     });
 
-    return NextResponse.json({ success: true, course: updatedCourse });
+    return NextResponse.json({ success: true, message: 'Course updated successfully.', course: updatedCourse });
   } catch (error) {
     console.error('Error updating course:', error);
     return NextResponse.json(

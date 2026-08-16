@@ -5,7 +5,7 @@ import "react-photo-view/dist/react-photo-view.css";
 import "nouislider/dist/nouislider.css";
 import "react-circular-progressbar/dist/styles.css";
 import AppProvider from "@/contextApi/AppProvider";
-// import { Toaster } from "sonner";
+import { Toaster } from "sonner";
 import ReduxProvider from "@/redux/provider";
 import { VideoProvider } from "@/contextApi/VideoProvider";
 import GlobalVideoModal from "@/components/common/popup/GlobalVideoModal";
@@ -112,6 +112,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <ReduxProvider>
               <AppProvider>
                 <Analytics />
+                <Toaster position="top-right" richColors />
                 {children}
               </AppProvider>
               <GlobalVideoModal />

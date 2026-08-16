@@ -13,7 +13,9 @@ import HomeFaqArea from './HomeFaqArea';
 //import DashboardDemoArea from './DashboardDemoArea';
 import VideoCarousel from "@/components/home/VideoCarousel";
 import YouTubePlaylist from "@/components/home/YouTubePlaylist";
+import FlutterYouTubePlaylist from "@/components/home/FlutterYouTubePlaylist";
 import ShortsCarousel from "@/components/home/ShortsCarousel";
+import FeaturedLearningCourses from "@/components/home/FeaturedLearningCourses";
 
 
 const HomeMain = () => {
@@ -24,6 +26,8 @@ const HomeMain = () => {
            
             { /*<DemoGridSection />*/}
             { /*<DashboardDemoArea/>*/}
+            <FeaturedLearningCourses />
+            <FlutterYouTubePlaylist />
             <VideoCarousel />
             <YouTubePlaylist />
             <CoursePageDemo />
@@ -31,9 +35,8 @@ const HomeMain = () => {
             { /*<InnerPageShowcasesArea />*/}
             { /*<FeatureArea />*/}
             { /*<ElementsArea />*/}
-            { /* <DemoHeaderFooterArea /> */}
+            { /* <DemoBannerArea /> */}
             { /* <ReviewArea />*/}
-            { /*<ResponsiveArea />*/}
             <HomeFaqArea />
         </>
     );

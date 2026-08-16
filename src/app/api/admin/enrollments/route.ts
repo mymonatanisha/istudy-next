@@ -77,7 +77,8 @@ export async function GET(request: NextRequest) {
     ]);
 
     // Format enrollment data
-    const formattedEnrollments = enrollments.map(enrollment => ({
+    type EnrollmentWithRelations = (typeof enrollments)[number];
+    const formattedEnrollments = enrollments.map((enrollment: EnrollmentWithRelations) => ({
       id: enrollment.id,
       student: {
         id: enrollment.student.id,

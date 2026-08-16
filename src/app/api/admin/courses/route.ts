@@ -26,6 +26,28 @@ async function getUniqueSlug(baseTitle: string) {
   }
 }
 
+const buildSlug = (title: string) =>
+  title
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+
+async function getUniqueSlug(baseTitle: string) {
+  const baseSlug = buildSlug(baseTitle) || `course-${Date.now()}`;
+  let slug = baseSlug;
+  let counter = 1;
+
+  while (true) {
+    const existing = await prisma.course.findUnique({ where: { slug } });
+    if (!existing) return slug;
+
+    slug = `${baseSlug}-${counter}`;
+    counter += 1;
+  }
+}
+
 /**
  * GET /api/admin/courses
  * List all courses with pagination, search, and filters
@@ -95,7 +117,9 @@ export async function GET(request: NextRequest) {
       prisma.course.count({ where }),
     ]);
 
-    const formattedCourses = courses.map((course) => {
+    type CourseListItem = (typeof courses)[number];
+
+    const formattedCourses = courses.map((course: CourseListItem) => {
       const enrollmentCount = course._count.enrollments;
       const courseRevenue = enrollmentCount * course.price;
 
@@ -253,6 +277,91 @@ export async function POST(request: NextRequest) {
         error: "Failed to create course.",
         details:
           error instanceof Error ? error.message : "Unknown error",
+      },
+      { status: 500 }
+    );
+  }
+}
+
+/**
+ * POST /api/admin/courses
+ * Basic course creation endpoint (authenticated users)
+ */
+export async function POST(request: NextRequest) {
+  try {
+    const adminUser = await getAdminUser();
+
+    if (!adminUser) {
+      return NextResponse.json({ error: 'Unauthorized. Admin access required.' }, { status: 403 });
+    }
+
+    const body = await request.json();
+
+    const title = typeof body.title === 'string' ? body.title.trim() : '';
+    const courseDescription = typeof body.courseDescription === 'string' ? body.courseDescription.trim() : '';
+    const shortDescription = typeof body.shortDescription === 'string' ? body.shortDescription.trim() : undefined;
+    const requestedStatus = typeof body.status === 'string' ? body.status : 'draft';
+    const status = requestedStatus === 'published' ? 'published' : 'draft';
+
+    const rawPrice = Number(body.price);
+    const rawOldPrice = body.oldPrice !== undefined && body.oldPrice !== null && body.oldPrice !== ''
+      ? Number(body.oldPrice)
+      : null;
+
+    if (!title) {
+      return NextResponse.json({ error: 'Title is required.' }, { status: 400 });
+    }
+
+    if (!courseDescription) {
+      return NextResponse.json({ error: 'Course description is required.' }, { status: 400 });
+    }
+
+    if (!Number.isFinite(rawPrice) || rawPrice < 0) {
+      return NextResponse.json({ error: 'Price must be a valid non-negative number.' }, { status: 400 });
+    }
+
+    if (rawOldPrice !== null && (!Number.isFinite(rawOldPrice) || rawOldPrice < 0)) {
+      return NextResponse.json({ error: 'Old price must be a valid non-negative number.' }, { status: 400 });
+    }
+
+    if (rawOldPrice !== null && rawPrice > rawOldPrice) {
+      return NextResponse.json({ error: 'Sale/current price cannot be greater than regular price.' }, { status: 400 });
+    }
+
+    const dbUser = await prisma.user.findUnique({
+      where: { id: adminUser.id },
+      select: { id: true, name: true, avatar: true },
+    });
+
+    if (!dbUser) {
+      return NextResponse.json({ error: 'Authenticated user was not found.' }, { status: 404 });
+    }
+
+    const slug = await getUniqueSlug(title);
+
+    const course = await prisma.course.create({
+      data: {
+        title,
+        slug,
+        instructorName: dbUser.name,
+        instructorAvatar: dbUser.avatar || undefined,
+        instructorId: dbUser.id,
+        courseDescription,
+        shortDescription,
+        price: rawPrice,
+        oldPrice: rawOldPrice,
+        status,
+        publishedAt: status === 'published' ? new Date() : null,
+      },
+    });
+
+    return NextResponse.json({ success: true, message: 'Course created successfully.', course }, { status: 201 });
+  } catch (error) {
+    console.error('Error creating course:', error);
+    return NextResponse.json(
+      {
+        error: 'Failed to create course.',
+        details: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 }
     );

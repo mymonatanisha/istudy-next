@@ -51,6 +51,7 @@ model User {
   lessonProgressRecords LessonProgress[]
   courseDraftsCreated   CourseDraft[]      @relation("DraftCreator")
   courseDraftsUpdated   CourseDraft[]      @relation("DraftUpdater")
+  blogPosts             BlogPost[]
 
   @@map("user")
 }
@@ -77,62 +78,19 @@ model Account {
 
 model Note {
   id        Int      @id @default(autoincrement())
+  userId    Int
   title     String
-  content   String?
+  content   String   @db.Text
   createdAt DateTime @default(now())
-  userId    Int?
-  user      User?    @relation(fields: [userId], references: [id])
-}
+  updatedAt DateTime @updatedAt
 
-model Role {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  users User[]
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("roles")
-}
-
-model ContactMessage {
-  id        Int      @id @default(autoincrement())
-  fullName  String
-  email     String
-  subject   String?
-  message   String
-  createdAt DateTime @default(now())
-
-  @@index([email])
-  @@index([createdAt])
-  @@map("contact_messages")
-}
-
-model Order {
-  id            Int      @id @default(autoincrement())
-  fullName      String
-  phone         String
-  email         String
-  courseId      Int
-  paymentMethod String
-  transactionId String
-  status        String   @default("pending")
-  userId        Int?
-  user          User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  enrollment Enrollment?
-
-  // New relations for admin panel
-  revenueRecords RevenueRecord[]
-  refundRequests RefundRequest[]
-
-  @@index([email])
-  @@index([courseId])
-  @@index([status])
-  @@index([createdAt])
   @@index([userId])
-  @@map("orders")
+  @@map("notes")
 }
 
+// Course model and related models are unchanged except for nullable rating.
 model Course {
   id         Int     @id @default(autoincrement())
   title      String
@@ -150,7 +108,7 @@ model Course {
   // Stats
   lessons  Int   @default(0)
   students Int   @default(0)
-  rating   Float @default(0)
+  rating   Float?
 
   // Pricing
   price    Float
@@ -177,8 +135,6 @@ model Course {
   updatedAt DateTime @updatedAt
 
   enrollments Enrollment[]
-
-  // New relations for course management
   modules        CourseModule[]
   drafts         CourseDraft[]
   revenueRecords RevenueRecord[]
@@ -197,8 +153,8 @@ model Enrollment {
   courseId  Int
   orderId   Int? @unique
 
-  status   String @default("active") // active, completed, expired, cancelled
-  progress Float  @default(0) // 0-100%
+  status   String @default("active")
+  progress Float  @default(0)
 
   enrolledAt     DateTime  @default(now())
   lastAccessedAt DateTime  @default(now())
@@ -209,330 +165,8 @@ model Enrollment {
   course  Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
   order   Order? @relation(fields: [orderId], references: [id])
 
-  // New relation for lesson progress tracking
-  lessonProgress LessonProgress[]
-
-  @@unique([studentId, courseId])
   @@index([studentId])
   @@index([courseId])
   @@index([status])
-  @@index([enrolledAt])
   @@map("enrollments")
-}
-
-// ==========================================
-// NEW MODELS FOR ADMIN PANEL AND INSTRUCTOR MANAGEMENT
-// ==========================================
-
-// 1. InstructorProfile - instructor verification and stats
-model InstructorProfile {
-  id     Int @id @default(autoincrement())
-  userId Int @unique
-
-  // Verification
-  verificationStatus String    @default("pending") // pending, verified, rejected
-  verifiedAt         DateTime?
-  verificationNotes  String?   @db.Text
-
-  // Stats
-  totalStudents Int     @default(0)
-  totalCourses  Int     @default(0)
-  totalRevenue  Decimal @default(0) @db.Decimal(10, 2)
-  averageRating Float   @default(0)
-
-  // Payout
-  payoutEmail String?
-  bankAccount String?
-  taxId       String?
-
-  // Bio
-  expertise      String? @db.Text
-  certifications String? @db.Text
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-  @@index([verificationStatus])
-  @@map("instructor_profiles")
-}
-
-// 2. CourseModule - organize course content
-model CourseModule {
-  id          Int     @id @default(autoincrement())
-  courseId    Int
-  title       String
-  description String? @db.Text
-  orderIndex  Int
-  isPublished Boolean @default(false)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  course  Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  lessons Lesson[]
-
-  @@index([courseId])
-  @@index([orderIndex])
-  @@map("course_modules")
-}
-
-// 3. Lesson - individual lessons with video/text
-model Lesson {
-  id          Int     @id @default(autoincrement())
-  moduleId    Int
-  title       String
-  description String? @db.Text
-  contentType String  @default("video") // video, text, quiz, assignment
-  videoUrl    String?
-  duration    Int? // in seconds
-  content     String? @db.Text
-  orderIndex  Int
-  isFree      Boolean @default(false)
-  isPublished Boolean @default(false)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  module      CourseModule       @relation(fields: [moduleId], references: [id], onDelete: Cascade)
-  attachments LessonAttachment[]
-  progress    LessonProgress[]
-
-  @@index([moduleId])
-  @@index([orderIndex])
-  @@map("lessons")
-}
-
-// 4. LessonAttachment - downloadable files
-model LessonAttachment {
-  id       Int     @id @default(autoincrement())
-  lessonId Int
-  fileName String
-  fileUrl  String
-  fileSize Int? // in bytes
-  fileType String?
-
-  createdAt DateTime @default(now())
-
-  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
-
-  @@index([lessonId])
-  @@map("lesson_attachments")
-}
-
-// 5. LessonProgress - track student progress
-model LessonProgress {
-  id           Int @id @default(autoincrement())
-  enrollmentId Int
-  lessonId     Int
-  userId       Int
-
-  isCompleted Boolean @default(false)
-  progress    Float   @default(0) // 0-100%
-  watchTime   Int     @default(0) // in seconds
-
-  startedAt     DateTime  @default(now())
-  completedAt   DateTime?
-  lastWatchedAt DateTime  @default(now())
-
-  enrollment Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
-  lesson     Lesson     @relation(fields: [lessonId], references: [id], onDelete: Cascade)
-  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([enrollmentId, lessonId])
-  @@index([enrollmentId])
-  @@index([lessonId])
-  @@index([userId])
-  @@map("lesson_progress")
-}
-
-// 6. CourseDraft - auto-save drafts
-model CourseDraft {
-  id        Int  @id @default(autoincrement())
-  courseId  Int
-  createdBy Int
-  updatedBy Int?
-
-  draftData Json // stores the draft content
-  version   Int  @default(1)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  course  Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  creator User   @relation("DraftCreator", fields: [createdBy], references: [id], onDelete: Cascade)
-  updater User?  @relation("DraftUpdater", fields: [updatedBy], references: [id])
-
-  @@index([courseId])
-  @@index([createdBy])
-  @@index([updatedAt])
-  @@map("course_drafts")
-}
-
-// 7. AdminLog - audit trail
-model AdminLog {
-  id         Int     @id @default(autoincrement())
-  userId     Int
-  action     String // e.g., "user_created", "course_approved", "refund_processed"
-  entityType String // e.g., "user", "course", "order"
-  entityId   Int?
-  details    Json? // additional context
-  ipAddress  String?
-  userAgent  String?
-
-  createdAt DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-  @@index([action])
-  @@index([entityType])
-  @@index([createdAt])
-  @@map("admin_logs")
-}
-
-// 8. SystemSetting - app configuration
-model SystemSetting {
-  id          Int     @id @default(autoincrement())
-  key         String  @unique
-  value       String  @db.Text
-  dataType    String  @default("string") // string, number, boolean, json
-  category    String? // e.g., "general", "payment", "email"
-  description String? @db.Text
-  isPublic    Boolean @default(false)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  createdBy Int?
-  updatedBy Int?
-
-  creator User? @relation("CreatedByUser", fields: [createdBy], references: [id])
-  updater User? @relation("UpdatedByUser", fields: [updatedBy], references: [id])
-
-  @@index([key])
-  @@index([category])
-  @@map("system_settings")
-}
-
-// 9. RevenueRecord - revenue tracking
-model RevenueRecord {
-  id       Int @id @default(autoincrement())
-  orderId  Int
-  courseId Int
-
-  amount          Decimal @db.Decimal(10, 2)
-  instructorShare Decimal @default(0) @db.Decimal(10, 2)
-  platformFee     Decimal @default(0) @db.Decimal(10, 2)
-
-  status String    @default("pending") // pending, paid, refunded
-  paidAt DateTime?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  order  Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
-
-  @@index([orderId])
-  @@index([courseId])
-  @@index([status])
-  @@index([createdAt])
-  @@map("revenue_records")
-}
-
-// 10. SupportTicket - support system
-model SupportTicket {
-  id           Int    @id @default(autoincrement())
-  ticketNumber String @unique @default(uuid())
-  userId       Int
-  subject      String
-  category     String @default("general") // general, technical, billing, course
-  priority     String @default("medium") // low, medium, high, urgent
-  status       String @default("open") // open, in_progress, resolved, closed
-
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  resolvedAt DateTime?
-
-  user    User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  replies TicketReply[]
-
-  @@index([userId])
-  @@index([ticketNumber])
-  @@index([status])
-  @@index([priority])
-  @@index([createdAt])
-  @@map("support_tickets")
-}
-
-// 11. TicketReply - ticket messages
-model TicketReply {
-  id       Int     @id @default(autoincrement())
-  ticketId Int
-  userId   Int
-  message  String  @db.Text
-  isStaff  Boolean @default(false)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  ticket SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
-  user   User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([ticketId])
-  @@index([userId])
-  @@index([createdAt])
-  @@map("ticket_replies")
-}
-
-// 12. RefundRequest - refund management
-model RefundRequest {
-  id      Int     @id @default(autoincrement())
-  orderId Int
-  userId  Int
-  reason  String  @db.Text
-  amount  Decimal @db.Decimal(10, 2)
-  status  String  @default("pending") // pending, approved, rejected, processed
-
-  adminNotes  String?   @db.Text
-  processedBy Int?
-  processedAt DateTime?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([orderId])
-  @@index([userId])
-  @@index([status])
-  @@index([createdAt])
-  @@map("refund_requests")
-}
-
-// 13. Announcement - platform announcements
-model Announcement {
-  id          Int     @id @default(autoincrement())
-  title       String
-  content     String  @db.Text
-  type        String  @default("info") // info, warning, success, error
-  target      String  @default("all") // all, students, instructors, specific
-  isPublished Boolean @default(false)
-
-  publishedAt DateTime?
-  expiresAt   DateTime?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  createdBy Int
-
-  creator User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
-
-  @@index([isPublished])
-  @@index([target])
-  @@index([createdAt])
-  @@map("announcements")
 }

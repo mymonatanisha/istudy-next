@@ -84,7 +84,8 @@ export async function GET(request: NextRequest) {
     ]);
 
     // Format order data
-    const formattedOrders = orders.map(order => ({
+    type OrderWithRelations = (typeof orders)[number];
+    const formattedOrders = orders.map((order: OrderWithRelations) => ({
       id: order.id,
       orderId: `#ORD-${order.id.toString().padStart(6, '0')}`,
       fullName: order.fullName,
