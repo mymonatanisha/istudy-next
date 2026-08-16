@@ -77,21 +77,23 @@ export async function GET() {
       }
     });
 
-    const totalRevenue = completedOrders.reduce((sum, order) => {
+    type CompletedOrder = (typeof completedOrders)[number];
+
+    const totalRevenue = completedOrders.reduce((sum: number, order: CompletedOrder) => {
       return sum + (order.enrollment?.course?.price || 0);
     }, 0);
 
     const ordersThisMonth = completedOrders.filter(
-      order => order.createdAt >= startOfMonth
+      (order: CompletedOrder) => order.createdAt >= startOfMonth
     );
-    const revenueThisMonth = ordersThisMonth.reduce((sum, order) => {
+    const revenueThisMonth = ordersThisMonth.reduce((sum: number, order: CompletedOrder) => {
       return sum + (order.enrollment?.course?.price || 0);
     }, 0);
 
     const ordersLastMonth = completedOrders.filter(
-      order => order.createdAt >= startOfLastMonth && order.createdAt < startOfMonth
+      (order: CompletedOrder) => order.createdAt >= startOfLastMonth && order.createdAt < startOfMonth
     );
-    const revenueLastMonth = ordersLastMonth.reduce((sum, order) => {
+    const revenueLastMonth = ordersLastMonth.reduce((sum: number, order: CompletedOrder) => {
       return sum + (order.enrollment?.course?.price || 0);
     }, 0);
 
