@@ -95,7 +95,9 @@ export async function GET(request: NextRequest) {
       prisma.course.count({ where }),
     ]);
 
-    const formattedCourses = courses.map((course) => {
+    type CourseListItem = (typeof courses)[number];
+
+    const formattedCourses = courses.map((course: CourseListItem) => {
       const enrollmentCount = course._count.enrollments;
       const courseRevenue = enrollmentCount * course.price;
 
