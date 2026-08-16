@@ -173,8 +173,8 @@ export const flutterRoadmap: FlutterRoadmapSection[] = [
   },
 ];
 
-// These are verified Shorts from the user's supplied video list.
-// They are kept separate from the main roadmap so Shorts do not replace core lessons.
+// Verified Shorts from the user's supplied video list.
+// They supplement the roadmap instead of replacing core lessons.
 export const flutterQuickShorts: FlutterQuickShort[] = [
   {
     title: "Dart Data Types Explained in 60 Seconds",
@@ -195,5 +195,9 @@ export const flutterQuickShorts: FlutterQuickShort[] = [
   {
     title: "React Native VS Flutter in 2026",
     videoUrl: "https://www.youtube.com/shorts/j8MBk39bpmc",
+  },
+  {
+    title: "App Development Roadmap",
+    videoUrl: "https://www.youtube.com/shorts/pocEPByYLxQ",
   },
 ];
