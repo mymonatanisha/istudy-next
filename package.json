@@ -52,10 +52,10 @@
     "slick-carousel": "^1.8.1",
     "sonner": "^1.7.0",
     "swiper": "^11.2.1",
-    "sonner": "^1.7.0",
     "ts-node": "^10.9.2",
     "typed.js": "^2.1.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wow.js": "^1.2.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
