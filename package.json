@@ -15,9 +15,9 @@
     "db:status": "prisma migrate status",
     "db:studio": "prisma studio",
     "verify-db": "node scripts/verify-db-state.js",
-    "seed:sample": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} scripts/seed-sample-courses.ts",
-    "migrate:courses": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} scripts/migrate-static-courses.ts",
-    "verify:courses": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} scripts/verify-course-import.ts"
+    "seed:sample": "ts-node --compiler-options {\"module\":\"CommonJS\"} scripts/seed-sample-courses.ts",
+    "migrate:courses": "ts-node --compiler-options {\"module\":\"CommonJS\"} scripts/migrate-static-courses.ts",
+    "verify:courses": "ts-node --compiler-options {\"module\":\"CommonJS\"} scripts/verify-course-import.ts"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
@@ -52,9 +52,7 @@
     "slick-carousel": "^1.8.1",
     "sonner": "^1.7.0",
     "swiper": "^11.2.1",
-    "ts-node": "^10.9.2",
     "typed.js": "^2.1.0",
-    "typescript": "^5.9.3",
     "wow.js": "^1.2.0"
   },
   "devDependencies": {
@@ -67,8 +65,10 @@
     "@types/react-dom": "^19",
     "@types/react-slick": "^0.23.13",
     "eslint": "^9",
-    "eslint-config-next": "15.2.5",
-    "prisma": "^5.15.0"
+    "eslint-config-next": "15.3.1",
+    "prisma": "^5.15.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   },
-  "engines": { "node": "20.x" }
+  "engines": { "node": "24.x" }
 }
