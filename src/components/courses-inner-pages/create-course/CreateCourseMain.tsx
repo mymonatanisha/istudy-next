@@ -1,8 +1,8 @@
 "use client";
+
 import React, { useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import CourseUploadTips from './CourseUploadTips';
-
 import CourseInformationForm from '@/form/create-course/course-information-form';
 import CourseSettings from './CourseSettings';
 import CourseAttachment from '@/form/create-course/course-attachment';
@@ -31,22 +31,14 @@ const CreateCourseMain = () => {
     const [description, setDescription] = useState('');
     const [excerpt, setExcerpt] = useState('');
     const [author, setAuthor] = useState('');
-
     const [courseType, setCourseType] = useState<'paid' | 'free'>('paid');
     const [regularPrice, setRegularPrice] = useState('');
     const [salePrice, setSalePrice] = useState('');
-
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const canSubmit = useMemo(() => {
-        if (!title.trim() || !description.trim()) {
-            return false;
-        }
-
-        if (courseType === 'free') {
-            return true;
-        }
-
+        if (!title.trim() || !description.trim()) return false;
+        if (courseType === 'free') return true;
         return Number(regularPrice) > 0;
     }, [courseType, description, regularPrice, title]);
 
@@ -55,10 +47,8 @@ const CreateCourseMain = () => {
             toast.error('Please fill required fields (title, description, and price for paid course).');
             return;
         }
-
         try {
             setIsSubmitting(true);
-
             const payload: CoursePayload = {
                 title: title.trim(),
                 courseDescription: description.trim(),
@@ -67,19 +57,13 @@ const CreateCourseMain = () => {
                 oldPrice: courseType === 'free' ? undefined : (regularPrice ? Number(regularPrice) : undefined),
                 status,
             };
-
             const response = await fetch('/api/admin/courses', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
             });
-
             const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.error || 'Failed to create course');
-            }
-
+            if (!response.ok) throw new Error(data.error || 'Failed to create course');
             toast.success(`Course ${status === 'published' ? 'published' : 'saved as draft'} successfully.`);
         } catch (error) {
             toast.error(error instanceof Error ? error.message : 'Failed to create course');
@@ -90,8 +74,7 @@ const CreateCourseMain = () => {
 
     const courseSections = [
         {
-            id: 'One',
-            title: 'Course Information',
+            id: 'One', title: 'Course Information',
             component: () => (
                 <CourseInformationForm
                     courseTitle={title}
@@ -110,8 +93,7 @@ const CreateCourseMain = () => {
         { id: 'Two', title: 'Course Settings', component: CourseSettings },
         { id: 'Three', title: 'Course Attachments', component: CourseAttachment },
         {
-            id: 'Four',
-            title: 'Add Product',
+            id: 'Four', title: 'Add Product',
             component: () => (
                 <AddProductForm
                     courseType={courseType}
@@ -153,11 +135,7 @@ const CreateCourseMain = () => {
                                     type="button"
                                     className="bd-btn btn-outline-secondary"
                                     disabled={isSubmitting}
-                                    onClick={() => {
-                                        if (!isSubmitting) {
-                                            void handleSave('draft');
-                                        }
-                                    }}
+                                    onClick={() => { if (!isSubmitting) void handleSave('draft'); }}
                                 >
                                     {isSubmitting ? 'Saving...' : 'Save Draft'}
                                 </button>
@@ -165,11 +143,7 @@ const CreateCourseMain = () => {
                                     type="button"
                                     className="bd-btn btn-outline-primary"
                                     disabled={isSubmitting}
-                                    onClick={() => {
-                                        if (!isSubmitting) {
-                                            void handleSave('published');
-                                        }
-                                    }}
+                                    onClick={() => { if (!isSubmitting) void handleSave('published'); }}
                                 >
                                     {isSubmitting ? 'Publishing...' : 'Publish'}
                                 </button>
@@ -180,45 +154,9 @@ const CreateCourseMain = () => {
                         <CourseUploadTips />
                     </div>
                 </div>
-              </div>
-
-              <div className="d-flex-items justify-content-start gap-30 mt-50">
-                <Link
-                  className={`bd-btn btn-outline-secondary ${
-                    isSubmitting ? "disabled" : ""
-                  }`}
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (!isSubmitting) void handleSave("draft");
-                  }}
-                >
-                  {isSubmitting ? "Saving..." : "Save Draft"}
-                </Link>
-
-                <Link
-                  className={`bd-btn btn-outline-primary ${
-                    isSubmitting ? "disabled" : ""
-                  }`}
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (!isSubmitting) void handleSave("published");
-                  }}
-                >
-                  {isSubmitting ? "Publishing..." : "Publish"}
-                </Link>
-              </div>
             </div>
-          </div>
-
-          <div className="col-xl-4 col-lg-5 order-lg-1 order-0">
-            <CourseUploadTips />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default CreateCourseMain;
