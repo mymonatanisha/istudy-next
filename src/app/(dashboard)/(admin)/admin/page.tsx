@@ -4,7 +4,7 @@ import AdminDashboardLayout from '@/layout/AdminDashboardLayout';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard - iStudy Learning Platform",
+  title: "Admin Dashboard - Enam Notes Learning Platform",
 };
 
 const AdminDashboard = () => {

@@ -7,7 +7,7 @@ interface PageProps {
 }
 
 export const metadata: Metadata = {
-    title: "KG Program Details - Education & Online Courses React NextJs Template",
+    title: "KG Program Details - Enam Notes Online Courses",
 };
 
 

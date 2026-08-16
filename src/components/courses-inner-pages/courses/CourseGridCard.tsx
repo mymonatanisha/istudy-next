@@ -1,52 +1,75 @@
 import GetRating from '@/components/common/GetRating';
 import coursesData from '@/data/courses/courses-data';
 import RenderTextContent from '@/utils/RenderTextContent';
+import { ICourse } from '@/interFace/interFace';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-const CourseGridCard = () => {
+interface CourseGridCardProps {
+    courses?: ICourse[];
+}
+
+const CourseGridCard = ({ courses }: CourseGridCardProps) => {
+    const displayCourses = courses ?? coursesData;
+
     return (
         <>
-            {
-                coursesData.slice(10, 22).map((item) => (
-                    <div className="col-xxl-4 col-xl-6 col-lg-6 col-md-6" key={item.id}>
-                        <div className="bd-course-wrapper style-two">
-                            <div className="bd-course-thumb-wrapper bd-course-thumb-style small-style p-relative">
-                                {
-                                    item.badge &&
-                                    <div className="bd-course-badge">
-                                        <Link className={`bd-badge ${item.badgeClass}`} href="#">{item.badge}</Link>
-                                    </div>
-                                }
-                                <div className={`bd-course-thumb-bg ${item.imageClassName}`}><Image src={item.image} alt="images" /></div>
-                                <div className={`bd-course-thumb-instructor ${item.instructorImageClassName}`}>{item.instructorImage && <Image src={item.instructorImage} alt="instructor" />}</div>
-                                {RenderTextContent(item)}
+            {displayCourses.map((item) => (
+                <div className="col-xl-4 col-lg-6 col-md-6" key={item.id}>
+                    <article className="bd-course-wrapper style-two course-page-compact-card">
+                        <Link href={`/courses/course-details/${item.id}`} className="bd-course-thumb-wrapper bd-course-thumb-style small-style p-relative course-page-compact-thumb">
+                            {(item.badge || item.price === 0) && (
+                                <div className="bd-course-badge">
+                                    <span className={`bd-badge ${item.price === 0 ? 'badge-primary' : item.badgeClass || ''}`}>
+                                        {item.price === 0 ? 'FREE' : item.badge}
+                                    </span>
+                                </div>
+                            )}
+                            <div className={`bd-course-thumb-bg ${item.imageClassName}`}>
+                                <Image src={item.image} alt={item.title} />
                             </div>
-                            <div className="bd-course-content">
-                                <div className="bd-course-content-bottom mb-10">
-                                    <div className="bd-course-lesson has-separator">
-                                        <span><i className="fa-light fa-clock"></i> {item.lessons} Lessons</span>
-                                    </div>
+                            <div className={`bd-course-thumb-instructor ${item.instructorImageClassName}`}>
+                                {item.instructorImage && <Image src={item.instructorImage} alt={item.instructorName || 'Instructor'} />}
+                            </div>
+                            {RenderTextContent(item)}
+                        </Link>
+
+                        <div className="bd-course-content">
+                            <div className="bd-course-content-bottom mb-8">
+                                <div className="bd-course-lesson has-separator">
+                                    <span><i className="fa-light fa-clock" /> {item.lessons || 0} Lessons</span>
                                 </div>
-                                <h5 className="bd-course-title underline mb-10"><Link href={`/courses/course-details/${item.id}`}>{item.title}</Link></h5>
-                                <p className="bd-course-description mb-10">{item.courseDescription}</p>
-                                <div className="bd-course-rating d-inline-flex flex-wrap align-items-center gap-10 mb-30">
-                                    <div className="bd-course-rating-icon d-flex rating-color">
-                                        <GetRating averageRating={item.rating} />
-                                    </div>
-                                    <div className="bd-course-rating-text">
-                                        <span>( {item.rating}/5 Ratings )</span>
-                                    </div>
+                                {item.level && <span className="course-page-card-level">{item.level}</span>}
+                            </div>
+
+                            <h5 className="bd-course-title underline mb-8">
+                                <Link href={`/courses/course-details/${item.id}`}>{item.title}</Link>
+                            </h5>
+
+                            <p className="bd-course-description mb-8">{item.courseDescription}</p>
+
+                            <div className="bd-course-rating d-flex align-items-center gap-8 mb-15">
+                                <div className="bd-course-rating-icon d-flex rating-color">
+                                    <GetRating averageRating={item.rating || 0} />
                                 </div>
-                                <div className="bd-course-btn">
-                                    <Link className="bd-btn btn-outline-primary" href={`/courses/course-details/${item.id}`}>Enroll Now</Link>
+                                <div className="bd-course-rating-text">
+                                    <span>{item.rating ? `${item.rating}/5` : 'No ratings yet'}</span>
                                 </div>
+                            </div>
+
+                            <div className="course-page-card-footer">
+                                <span className={`course-page-card-price ${item.price === 0 ? 'is-free' : ''}`}>
+                                    {item.price === 0 ? 'FREE' : `$${item.price}`}
+                                </span>
+                                <Link className="bd-btn btn-outline-primary course-page-card-button" href={`/courses/course-details/${item.id}`}>
+                                    Enroll Now
+                                </Link>
                             </div>
                         </div>
-                    </div>
-                ))
-            }
+                    </article>
+                </div>
+            ))}
         </>
     );
 };

@@ -1,0 +1,175 @@
+'use client';
+
+import React, { FormEvent, useEffect, useState } from 'react';
+
+interface BlogPost {
+  id: number;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  content: string;
+  coverImage: string | null;
+  status: string;
+}
+
+interface BlogPostFormProps {
+  post?: BlogPost | null;
+  onSaved: () => void;
+  onCancel: () => void;
+}
+
+const buildSlug = (value: string) =>
+  value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+
+const BlogPostForm = ({ post, onSaved, onCancel }: BlogPostFormProps) => {
+  const [title, setTitle] = useState('');
+  const [slug, setSlug] = useState('');
+  const [excerpt, setExcerpt] = useState('');
+  const [content, setContent] = useState('');
+  const [coverImage, setCoverImage] = useState('');
+  const [status, setStatus] = useState('draft');
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setTitle(post?.title || '');
+    setSlug(post?.slug || '');
+    setExcerpt(post?.excerpt || '');
+    setContent(post?.content || '');
+    setCoverImage(post?.coverImage || '');
+    setStatus(post?.status || 'draft');
+    setError(null);
+  }, [post]);
+
+  const handleTitleChange = (value: string) => {
+    setTitle(value);
+    if (!post) {
+      setSlug(buildSlug(value));
+    }
+  };
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    setSaving(true);
+    setError(null);
+
+    try {
+      const response = await fetch(
+        post ? `/api/admin/blog-posts/${post.id}` : '/api/admin/blog-posts',
+        {
+          method: post ? 'PUT' : 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, slug, excerpt, content, coverImage, status }),
+        }
+      );
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to save blog post');
+      }
+
+      onSaved();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to save blog post');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="mb-30">
+      <div className="bd-dashboard-section-header mb-20">
+        <h5 className="bd-dashboard-section-title">
+          {post ? 'Edit Blog Post' : 'Create Blog Post'}
+        </h5>
+      </div>
+
+      {error && <div className="alert alert-danger">{error}</div>}
+
+      <div className="row g-3">
+        <div className="col-md-8">
+          <label className="form-label" htmlFor="blog-title">Title</label>
+          <input
+            id="blog-title"
+            className="form-control"
+            value={title}
+            onChange={(event) => handleTitleChange(event.target.value)}
+            required
+          />
+        </div>
+        <div className="col-md-4">
+          <label className="form-label" htmlFor="blog-status">Status</label>
+          <select
+            id="blog-status"
+            className="form-select"
+            value={status}
+            onChange={(event) => setStatus(event.target.value)}
+          >
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+          </select>
+        </div>
+        <div className="col-md-6">
+          <label className="form-label" htmlFor="blog-slug">Slug</label>
+          <input
+            id="blog-slug"
+            className="form-control"
+            value={slug}
+            onChange={(event) => setSlug(buildSlug(event.target.value))}
+            placeholder="auto-generated-from-title"
+          />
+        </div>
+        <div className="col-md-6">
+          <label className="form-label" htmlFor="blog-cover">Cover Image URL</label>
+          <input
+            id="blog-cover"
+            className="form-control"
+            value={coverImage}
+            onChange={(event) => setCoverImage(event.target.value)}
+            placeholder="/assets/images/blog/example.webp or https://..."
+          />
+        </div>
+        <div className="col-12">
+          <label className="form-label" htmlFor="blog-excerpt">Excerpt</label>
+          <textarea
+            id="blog-excerpt"
+            className="form-control"
+            rows={3}
+            value={excerpt}
+            onChange={(event) => setExcerpt(event.target.value)}
+            placeholder="Short summary shown on blog cards"
+          />
+        </div>
+        <div className="col-12">
+          <label className="form-label" htmlFor="blog-content">Content</label>
+          <textarea
+            id="blog-content"
+            className="form-control"
+            rows={12}
+            value={content}
+            onChange={(event) => setContent(event.target.value)}
+            placeholder="Write the full blog post here. Plain text is supported in this first version."
+            required
+          />
+        </div>
+      </div>
+
+      <div className="d-flex gap-2 mt-20">
+        <button type="submit" className="btn btn-primary" disabled={saving}>
+          {saving ? 'Saving...' : 'Save Post'}
+        </button>
+        <button type="button" className="btn btn-outline-secondary" onClick={onCancel}>
+          Cancel
+        </button>
+      </div>
+    </form>
+  );
+};
+
+export default BlogPostForm;

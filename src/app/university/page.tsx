@@ -4,7 +4,7 @@ import Wrapper from "@/layout/DefaultWrapper";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "University - Education & Online Courses React NextJs Template",
+  title: "University - Enam Notes Online Courses",
 };
 
 const University = () => {

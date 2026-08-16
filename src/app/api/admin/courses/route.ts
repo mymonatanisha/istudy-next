@@ -117,32 +117,33 @@ export async function GET(request: NextRequest) {
       prisma.course.count({ where }),
     ]);
 
-    const formattedCourses = await Promise.all(
-      courses.map(async (course) => {
-        const enrollmentCount = course._count.enrollments;
-        const courseRevenue = enrollmentCount * course.price;
+    type CourseListItem = (typeof courses)[number];
 
-        return {
-          id: course.id,
-          title: course.title,
-          slug: course.slug,
-          thumbnail: course.thumbnail,
-          instructor: course.instructor?.name || course.instructorName,
-          instructorAvatar: course.instructor?.avatar || course.instructorAvatar,
-          instructorId: course.instructorId,
-          price: course.price,
-          oldPrice: course.oldPrice,
-          students: enrollmentCount,
-          revenue: courseRevenue,
-          status: course.status,
-          rating: course.rating,
-          lessons: course.lessons,
-          featured: course.featured,
-          publishedAt: course.publishedAt,
-          createdAt: course.createdAt,
-        };
-      })
-    );
+    const formattedCourses = courses.map((course: CourseListItem) => {
+      const enrollmentCount = course._count.enrollments;
+      const courseRevenue = enrollmentCount * course.price;
+
+      return {
+        id: course.id,
+        title: course.title,
+        slug: course.slug,
+        thumbnail: course.thumbnail,
+        instructor: course.instructor?.name || course.instructorName,
+        instructorAvatar:
+          course.instructor?.avatar || course.instructorAvatar,
+        instructorId: course.instructorId,
+        price: course.price,
+        oldPrice: course.oldPrice,
+        students: enrollmentCount,
+        revenue: courseRevenue,
+        status: course.status,
+        rating: course.rating,
+        lessons: course.lessons,
+        featured: course.featured,
+        publishedAt: course.publishedAt,
+        createdAt: course.createdAt,
+      };
+    });
 
     return NextResponse.json({
       success: true,
