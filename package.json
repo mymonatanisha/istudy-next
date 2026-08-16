@@ -7,14 +7,17 @@
     "build": "next build",
     "postinstall": "npm rebuild sharp",
     "start": "next start",
-    "clean": "rm -rf package-lock.json .next yarn.lock node_modules && yarn install",
+    "clean": "rm -rf package-lock.json .next yarn.lock node_modules && npm install",
     "lint": "next lint",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:migrate:dev": "prisma migrate dev",
     "db:status": "prisma migrate status",
     "db:studio": "prisma studio",
-    "verify-db": "node scripts/verify-db-state.js"
+    "verify-db": "node scripts/verify-db-state.js",
+    "seed:sample": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} scripts/seed-sample-courses.ts",
+    "migrate:courses": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} scripts/migrate-static-courses.ts",
+    "verify:courses": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} scripts/verify-course-import.ts"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
@@ -23,11 +26,12 @@
     "@types/react-redux": "^7.1.34",
     "apexcharts": "^4.5.0",
     "autoprefixer": "^10.4.20",
-    "bcryptjs": "^3.0.3",
+    "bcryptjs": "^3.0.0",
     "bootstrap": "^5.2.2",
-    "framer-motion": "^12.0.5",
-    "jsonwebtoken": "^9.0.3",
+    "framer-motion": "^12.0.0",
+    "jsonwebtoken": "^9.0.0",
     "next": "^15.3.1",
+    "next-auth": "^4.24.13",
     "nouislider": "^15.8.1",
     "postcss": "^8.4.49",
     "react": "^19.0.0",
@@ -35,21 +39,23 @@
     "react-circular-progressbar": "^2.1.0",
     "react-countup": "^6.5.3",
     "react-dom": "^19.0.0",
-    "react-hook-form": "^7.56.1",
-    "react-intersection-observer": "^9.14.1",
+    "react-hook-form": "^7.56.0",
+    "react-intersection-observer": "^9.14.0",
     "react-parallax": "^3.5.1",
     "react-photo-view": "^1.2.7",
     "react-redux": "^9.2.0",
     "react-slick": "^0.30.3",
     "react-use": "^17.6.0",
     "redux-persist": "^6.0.0",
-    "sass": "^1.89.1",
+    "sass": "^1.89.0",
     "sharp": "^0.34.2",
     "slick-carousel": "^1.8.1",
-    "sonner": "^1.7.1",
+    "sonner": "^1.7.0",
     "swiper": "^11.2.1",
+    "ts-node": "^10.9.2",
     "typed.js": "^2.1.0",
-    "wow.js": "^1.2.2"
+    "typescript": "^5.9.3",
+    "wow.js": "^1.2.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -62,10 +68,7 @@
     "@types/react-slick": "^0.23.13",
     "eslint": "^9",
     "eslint-config-next": "15.2.5",
-    "prisma": "^5.15.0",
-    "typescript": "^5.9.3"
+    "prisma": "^5.15.0"
   },
-  "engines": {
-    "node": "20.x"
-  }
+  "engines": { "node": "20.x" }
 }

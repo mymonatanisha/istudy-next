@@ -3,7 +3,6 @@ import React from 'react';
 import StudentProgressCounter from './StudentProgressCounter';
 import EnrolledCoursesTable from './EnrolledCoursesTable';
 
-
 const StudentDashboardMain = () => {
     return (
         <>
@@ -26,7 +25,7 @@ const StudentDashboardMain = () => {
                         <EnrolledCoursesTable />
                     </div>
                     <div className="bd-more-button text-center mt-30">
-                        <Link href="/courses-list-one" className="bd-btn btn-primary">Browse All Course</Link>
+                       <Link href="/courses" className="bd-btn btn-primary">Browse All Course</Link>
                     </div>
                 </div>
             </div>

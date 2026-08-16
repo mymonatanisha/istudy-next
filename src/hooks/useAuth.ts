@@ -1,41 +1,50 @@
-"use client";
-
-import { useState, useEffect } from "react";
-
-type AuthUser = { id: number; email: string; name?: string };
+import { useState, useEffect, useCallback } from "react";
+// Solution: import AuthUser type
+import type { AuthUser } from "@/lib/auth"; // <-- or define inline if not available
 
 export function useAuth() {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    let active = true;
-    
-    async function fetchUser() {
-      try {
-        const res = await fetch("/api/auth/me", { cache: "no-store" });
-        if (!active) return;
-        
-        if (res.ok) {
-          const data = await res.json();
-          setUser(data.user || null);
-        } else {
-          setUser(null);
-        }
-      } catch (error) {
-        console.error("Error fetching user:", error);
-        if (active) setUser(null);
-      } finally {
-        if (active) setLoading(false);
+  const fetchUser = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/auth/me", { cache: "no-store" });
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data.user || null);
+      } else {
+        setUser(null);
       }
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      setUser(null);
+    } finally {
+      setLoading(false);
     }
-
-    fetchUser();
-    
-    return () => {
-      active = false;
-    };
   }, []);
 
-  return { user, loading, isAuthenticated: !!user };
+  useEffect(() => {
+    const fetchAndSetUser = async () => {
+      await fetchUser();
+    };
+    fetchAndSetUser();
+  }, [fetchUser]);
+
+  const logout = () => {
+    setUser(null);
+    setLoading(false);
+  };
+
+  const refreshUser = async () => {
+    await fetchUser();
+  };
+
+  return {
+    user,
+    loading,
+    isAuthenticated: !!user,
+    logout,
+    refreshUser,
+  };
 }

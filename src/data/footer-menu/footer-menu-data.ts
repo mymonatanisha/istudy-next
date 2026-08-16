@@ -27,7 +27,7 @@ export const CourseFooterMenuLinks = [
     spacingClass: "footer-2-col-4",
     links: [
       { name: 'Contact Now', href: '/contact-us' },
-      { name: 'FAQ', href: '/faq' },
+      { name: 'FAQ', href: '/#faq' },
      // { name: 'Purchase Guide', href: '/purchase-guide' },
       { name: 'Terms Conditions', href: '/terms-conditions' },
       { name: 'Privacy Policy', href: '/privacy-policy' }
@@ -41,7 +41,7 @@ export const UniversityFooterMenuLinks = [
     title: 'Online Platform',
     spacingClass: 'footer-1-col-2',
     links: [
-      { name: 'About Us', href: '/under-maintenance' },
+      { name: 'About Us', href: '/about-online-course' },
       { name: 'Our Programs', href: '/courses' },
       //{ name: 'Events', href: '/event' },
       //{ name: 'Faculty Members', href: '/faculty-members' },
@@ -54,7 +54,7 @@ export const UniversityFooterMenuLinks = [
     spacingClass: 'footer-1-col-3',
     links: [
       { name: 'Contact Us', href: '/contact-us' },
-      { name: 'FAQ’s', href: '/under-maintenance' },
+      { name: 'FAQ’s', href: '/#faq' },
      // { name: 'Gallery', href: '/gallery' },
       //{ name: 'Vision & Mission', href: '/mvs' },
       { name: 'Sign In', href: '/sign-in' },
@@ -80,7 +80,7 @@ export const SchoolingFooterMenuLinks = [
     spacingClass: 'footer-3-col-3',
     links: [
       { name: 'Contact Now', href: '/contact-us' },
-      { name: 'FAQ', href: '/faq' },
+      { name: 'FAQ', href: '/#faq' },
       { name: 'Purchase Guide', href: '/purchase-guide' },
       { name: 'Terms Conditions', href: '/terms-conditions' },
       { name: 'Privacy Policy', href: '/privacy-policy' },
@@ -115,7 +115,7 @@ export const ShopFooterMenuLinks = [
       spacingClass: "footer-5-col-4",
       links: [
         { name: 'Contact Now', href: '/contact-us' },
-        { name: 'FAQ', href: '/faq' },
+        { name: 'FAQ', href: '/#faq' },
         { name: 'Purchase Guide', href: '/purchase-guide' },
         { name: 'Terms Conditions', href: '/terms-conditions' },
         { name: 'Privacy Policy', href: '/privacy-policy' },
@@ -129,7 +129,7 @@ export const CommonFooterMenuLinks = [
     title: 'Online Platform',
     spacingClass: 'footer-1-col-2',
     links: [
-      { name: 'About Us', href: '/about-university' },
+      { name: 'About Us', href: '/about-online-course' },
       { name: 'Our Programs', href: '/courses' },
      // { name: 'Events', href: '/event' },
       //{ name: 'Instructor', href: '/instructor' },
@@ -142,7 +142,7 @@ export const CommonFooterMenuLinks = [
     spacingClass: 'footer-1-col-3',
     links: [
       { name: 'Contact Us', href: '/contact-us' },
-      { name: 'FAQ’s', href: '/faq' },
+      { name: 'FAQ’s', href: '/#faq' },
       //{ name: 'Gallery', href: '/gallery' },
       //{ name: 'Vision & Mission', href: '/mvs' },
       { name: 'Sign In', href: '/sign-in' },

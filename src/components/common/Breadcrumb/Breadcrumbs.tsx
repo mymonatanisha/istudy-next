@@ -24,7 +24,7 @@ const Breadcrumbs = ({ breadcrumbTitle, flexClass, textPosition }: breadCrumbTyp
                                     <div className="bd-breadcrumb-content">
                                         <h1 className={`bd-breadcrumb-title ${textPosition ? textPosition : "text-center"}`}>{breadcrumbTitle}</h1>
                                         <div className={`bd-breadcrumb-list ${flexClass && flexClass}`}>
-                                            <span><Link href="/">iStudy</Link></span>
+                                            <span><Link href="/">Enamnotes</Link></span>
                                             <span className="divider"><i className="fa-regular fa-angle-right"></i></span>
                                             <span className="active">{breadcrumbTitle}</span>
                                         </div>

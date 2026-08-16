@@ -1,10 +1,11 @@
+"use client";
 import SignInForm from '@/form/auth/sign-in-form';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import Logo from '../../../../../public/assets/images/logo/logo.svg';
-import facebook from '../../../../../public/assets/images/shape/facebook.svg';
 import google from '../../../../../public/assets/images/shape/google.svg';
+import { signIn } from "next-auth/react";
 
 const SignInArea = () => {
     return (
@@ -25,12 +26,16 @@ const SignInArea = () => {
                                 <div className="bd-divider-line"></div>
                             </div>
                             <div className="bd-alter-sign mb-20">
-                                <button className="bd-btn btn-outline-primary w-100" type="button"><span
-                                    className="thumb"><Image style={{ width: "100%", height: "auto" }} src={facebook}
-                                        alt="facebook" /></span>Facebook</button>
-                                <button className="bd-btn btn-outline-secondary w-100" type="button"><span
-                                    className="thumb"><Image style={{ width: "100%", height: "auto" }} src={google}
-                                        alt="facebook" /></span>Google</button>
+                                <button 
+                                    className="bd-btn btn-outline-secondary w-100" 
+                                    type="button"
+                                    onClick={() => signIn('google', { callbackUrl: '/student-dashboard' })}
+                                >
+                                    <span className="thumb">
+                                        <Image style={{ width: "100%", height: "auto" }} src={google} alt="google" />
+                                    </span>
+                                    Google
+                                </button>
                             </div>
                             <div className="bd-sign-up-label underline-two text-center">
                                 {`Don't`} have an account?<Link href="/sign-up" className="sign-link"> Sign up</Link>

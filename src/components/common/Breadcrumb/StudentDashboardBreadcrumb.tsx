@@ -4,11 +4,12 @@ import React, { useState, useEffect } from 'react';
 import avaterImg from '../../../../public/assets/images/avatar/avatar7.webp';
 import profileBgImg from '../../../../public/assets/images/bg/profile-bg.webp';
 import Image from 'next/image';
-import Link from 'next/link';
+
 
 type UserProfile = {
   name?: string;
   avatar?: string | null;
+  address?: string | null;
   headline?: string | null;
   occupation?: string | null;
 };
@@ -40,7 +41,8 @@ const StudentDashboardBreadcrumb = () => {
     // Determine display values
     const displayName = profile?.name || 'Student';
     const displayHeadline = profile?.headline || profile?.occupation || 'Student';
-    const avatarSrc = profile?.avatar?.trim() || '';
+    // Use avatar field (for both OAuth users and uploaded photos)
+    const avatarSrc = profile?.avatar?.trim() || profile?.address?.trim() || '';
     const hasAvatar = avatarSrc !== '';
 
     return (
@@ -94,9 +96,6 @@ const StudentDashboardBreadcrumb = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="bd-dashboard-profile-btn">
-                                        <Link href="/become-instructor" className="bd-btn btn-secondary-white">Become Instructor</Link>
                                     </div>
                                 </div>
                             </div>

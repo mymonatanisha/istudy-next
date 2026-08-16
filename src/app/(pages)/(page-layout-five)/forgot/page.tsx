@@ -4,7 +4,7 @@ import ForgotArea from '@/components/pages/page-layout-five/forgot/ForgotArea';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Reset Password - Education & Online Courses React NextJs Template",
+    title: "Reset Password - Enam Notes Online Courses",
 };
 
 const Forgot = () => {

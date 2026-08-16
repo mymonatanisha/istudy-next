@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import React from 'react';
 
 export const metadata: Metadata = {
-    title: "Instructor Details - Education & Online Courses React NextJs Template",
+    title: "Instructor Details - Enam Notes Online Courses",
 };
 
 const InstructorDetails = () => {

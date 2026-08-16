@@ -5,18 +5,22 @@ import logoImg from "../../../public/assets/images/logo/logo.svg";
 import MobileMenu from '../header/component/MainMobileMenu';
 import useGlobalContext from '@/hooks/useContexts';
 import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
 
 const SidebarMenu = () => {
+    const router = useRouter();
     const { openSidebar, setOpenSidebar } = useGlobalContext();
-    const { isAuthenticated, loading } = useAuth();
+    const { isAuthenticated, loading, logout } = useAuth();
     
     const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        setOpenSidebar(false); // Close the sidebar
+        setOpenSidebar(false);
         try {
             const res = await fetch('/api/auth/logout', { method: 'POST' });
             if (res.ok) {
-                window.location.href = '/';
+                logout();
+                router.push('/');
+                router.refresh();
             } else {
                 console.error('Logout failed');
             }

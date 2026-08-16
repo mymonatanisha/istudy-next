@@ -10,11 +10,6 @@ import "slick-carousel/slick/slick-theme.css";
 
 const videoData = [
   {
-    title: "Intro to Android Studio",
-    thumbnail: "/assets/images/video-gallery/video1.webp",
-    youtubeUrl: "https://www.youtube.com/watch?v=MZFXBw-iT3Q",
-  },
-  {
     title: "Android Development Eco System",
     thumbnail: "/assets/images/video-gallery/video2.webp",
     youtubeUrl: "https://www.youtube.com/watch?v=jnl_DlXG6Tk",
@@ -33,6 +28,11 @@ const videoData = [
     title: "Android Dev Tools & Workflows Explained", 
     thumbnail: "/assets/images/video-gallery/video5.webp",
     youtubeUrl: "https://www.youtube.com/watch?v=JS3ysmYI2G4",
+  },
+    {
+    title: "Intro to Android Studio",
+    thumbnail: "/assets/images/video-gallery/video1.webp",
+    youtubeUrl: "https://www.youtube.com/watch?v=MZFXBw-iT3Q",
   },
 ];
 

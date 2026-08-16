@@ -2,10 +2,12 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type Me = { user?: { email: string } };
 
 export default function HeaderAuthClient() {
+  const router = useRouter();
   const [email, setEmail] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(true);
 
@@ -51,19 +53,18 @@ export default function HeaderAuthClient() {
     try {
       const res = await fetch("/api/auth/logout", { method: "POST" });
       if (res.ok) {
-        // Clear the email state to show login/register buttons
         setEmail(null);
-        // Redirect to home page
-        window.location.href = "/";
+        router.push('/');
+        router.refresh();
       } else {
         console.error("Logout failed with status:", res.status);
-        // Still redirect to home page even if logout fails
-        window.location.href = "/";
+        router.push('/');
+        router.refresh();
       }
     } catch (error) {
       console.error("Logout request failed:", error);
-      // Redirect to home page to ensure user sees login option
-      window.location.href = "/";
+      router.push('/');
+      router.refresh();
     }
   };
 

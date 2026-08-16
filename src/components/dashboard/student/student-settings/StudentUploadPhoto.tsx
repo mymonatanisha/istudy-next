@@ -16,8 +16,9 @@ const StudentUploadPhoto = () => {
         const response = await fetch("/api/profile");
         if (response.ok) {
           const data = await response.json();
-          if (data.user?.avatar) {
-            setImage(data.user.avatar);
+          // Use avatar field (for both OAuth users and uploaded photos)
+          if (data.user?.avatar || data.user?.address) {
+            setImage(data.user.avatar || data.user.address);
           }
         }
       } catch (error) {

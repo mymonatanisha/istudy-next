@@ -35,6 +35,7 @@ const CheckoutMain = () => {
         fullName: '',
         phone: '',
         email: '',
+        password: '',
     });
     const [transactionId, setTransactionId] = useState('');
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
@@ -54,6 +55,7 @@ const CheckoutMain = () => {
                             fullName: data.user.name || '',
                             phone: data.user.phone || '',
                             email: data.user.email || '',
+                            password: '', // Keep empty for logged-in users
                         }));
                     }
                 }
@@ -85,6 +87,18 @@ const CheckoutMain = () => {
             return;
         }
 
+        // Validate password for non-logged-in users
+        if (!user && !formData.password) {
+            toast.error("Password is required");
+            return;
+        }
+
+        // Validate password length
+        if (!user && formData.password && formData.password.length < 8) {
+            toast.error("Password must be at least 8 characters");
+            return;
+        }
+
         if (!selectedPaymentMethod) {
             toast.error("Please select a payment method");
             return;
@@ -112,6 +126,7 @@ const CheckoutMain = () => {
                     fullName: formData.fullName,
                     phone: formData.phone,
                     email: formData.email,
+                    password: formData.password, // Include password for guest users
                     courseId: courseId,
                     paymentMethod: selectedPaymentMethod,
                     transactionId: transactionId,
@@ -202,6 +217,7 @@ const CheckoutMain = () => {
                             {/* -- checkout place order -- */}
                             <div className="checkout-place sidebar-right sidebar-sticky">
                                 <h3 className="checkout-place-title mb-20">Your Order</h3>
+                                <h5 className="mb-15">Purchase Summary</h5>
                                 <div className="order-info-list">
                                     <ul>
                                         {/* -- header -- */}
@@ -250,16 +266,21 @@ const CheckoutMain = () => {
                                         </li>
                                     </ul>
                                 </div>
+                                <h5 className="mb-15 mt-25">Payment Method</h5>
                                 <CheckoutPayment 
                                     selectedPaymentMethod={selectedPaymentMethod} 
                                     setSelectedPaymentMethod={setSelectedPaymentMethod} 
                                 />
+                                  <div className="payment-instructions mb-3 rounded-2 border p-3 bg-light">
+                                  <p className="mb-2 text-uppercase fw-semibold small text-secondary">Payment Instructions</p>
+                                    <ul className="mb-0 ps-3 small text-secondary lh-base">
+                                    <li>Send the course fee using your preferred payment method.</li>
+                                      <li>Enter your Transaction ID below.</li>
+                                       <li>Click &quot;Confirm Payment & Enroll&quot; button.</li>
+                                      <li>Access will be activated within 5 minutes.</li>
+                                    </ul>
+                                </div>
                                 <div className="checkout-agree">
-                                    <div className="checkout-option mb-15">
-                                        <input id="read_all" type="checkbox" />
-                                        <label htmlFor="read_all">I have read and agree to the website.</label>
-                                    </div>
-                                
                                 <div className="checkout-input mb-0">
                                 <label>Transaction ID <span className="text-danger">*</span></label>
                                 <input 
@@ -274,11 +295,11 @@ const CheckoutMain = () => {
                                 <div className="checkout-btn-wrapper">
                                     <button 
                                         onClick={handlePlaceOrder} 
-                                        type="submit" 
+                                        type="button" 
                                         className="bd-btn btn-outline-primary"
                                         disabled={isSubmitting}
                                     >
-                                        {isSubmitting ? 'Processing...' : 'Place Order'}
+                                    {isSubmitting ? 'Processing...' : 'Confirm Payment & Enroll'}
                                     </button>
                                 </div>
                             </div>

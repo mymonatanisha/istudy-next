@@ -5,7 +5,7 @@ import SignInArea from '@/components/pages/page-layout-five/sign-in/SignInArea';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Sign In - Education & Online Courses React NextJs Template",
+    title: "Sign In - Enam Notes Online Courses",
 };
 
 const SignIn = () => {

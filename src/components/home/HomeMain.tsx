@@ -13,7 +13,9 @@ import HomeFaqArea from './HomeFaqArea';
 //import DashboardDemoArea from './DashboardDemoArea';
 import VideoCarousel from "@/components/home/VideoCarousel";
 import YouTubePlaylist from "@/components/home/YouTubePlaylist";
+import FlutterYouTubePlaylist from "@/components/home/FlutterYouTubePlaylist";
 import ShortsCarousel from "@/components/home/ShortsCarousel";
+import FeaturedLearningCourses from "@/components/home/FeaturedLearningCourses";
 
 
 const HomeMain = () => {
@@ -22,23 +24,10 @@ const HomeMain = () => {
             <DemoBannerArea />
             { /*<DemoPresentationArea />*/ }
            
-
-            {/* Adsterra Native Banner START */}
-            {/*
-            <div id="container-4f198eb91f4b0c0da094b4029c7caad6"></div>
-            <Script
-                id="adsterra-native-banner"
-                strategy="afterInteractive"
-                src="//pl26850643.profitableratecpm.com/4f198eb91f4b0c0da094b4029c7caad6/invoke.js"
-                async
-                data-cfasync="false"
-            />
-            */}
-            {/* Adsterra Native Banner END */}
-            
-            
             { /*<DemoGridSection />*/}
             { /*<DashboardDemoArea/>*/}
+            <FeaturedLearningCourses />
+            <FlutterYouTubePlaylist />
             <VideoCarousel />
             <YouTubePlaylist />
             <CoursePageDemo />
@@ -46,9 +35,8 @@ const HomeMain = () => {
             { /*<InnerPageShowcasesArea />*/}
             { /*<FeatureArea />*/}
             { /*<ElementsArea />*/}
-            { /* <DemoHeaderFooterArea /> */}
+            { /* <DemoBannerArea /> */}
             { /* <ReviewArea />*/}
-            { /*<ResponsiveArea />*/}
             <HomeFaqArea />
         </>
     );
