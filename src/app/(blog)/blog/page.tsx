@@ -1,21 +1,20 @@
-import BlogMain from '@/components/blog-inner-pages/blog/BlogMain';
+import DatabaseBlogPosts from '@/components/blog-inner-pages/blog-database/DatabaseBlogPosts';
 import Wrapper from '@/layout/DefaultWrapper';
 import { Metadata } from 'next';
 import React from 'react';
 
 export const metadata: Metadata = {
-    title: "Blog Standard - Education & Online Courses React NextJs Template",
+    title: 'Blog - Enam Notes',
+    description: 'Practical app development tutorials, technology insights, and learning resources from Enam Notes.',
 };
 
 const Blog = () => {
     return (
-        <>
-            <Wrapper>
-                <main>
-                    <BlogMain />
-                </main>
-            </Wrapper>
-        </>
+        <Wrapper>
+            <main>
+                <DatabaseBlogPosts />
+            </main>
+        </Wrapper>
     );
 };
 

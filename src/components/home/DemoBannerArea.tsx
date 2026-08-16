@@ -44,7 +44,7 @@ const DemoBannerArea = () => {
                             </div>
                             <div className="content cd-headline clip wow bdFadeInUp" data-wow-delay=".4s">
                                 <h1 className="demo-banner-title mb-20">
-                                    Master App Development
+                                    Learn Flutter &amp; Build Apps
                                     <br className="d-none d-sm-block" />
                                      To <br className="demo-break" />
                                     <span className="cd-words-wrapper cd-words-wrapper-two">
@@ -58,11 +58,11 @@ const DemoBannerArea = () => {
                                         />
                                     </span>
                                 </h1>
-                                <p>Hands-On Projects to Master In-Demand Skills – From Zero to Portfolio-Worthy Apps & SEO Campaigns.</p>
+                                <p>Step-by-step video tutorials in Bengali. From Zero to App Developer</p>
                             </div>
                             <div className="demo-banner-btn d-flex flex-wrap align-items-center justify-content-center gap-15 mt-30 wow bdFadeInUp" data-wow-delay=".6s">
-                                <Link className="bd-btn btn-outline-border-white" href="#home">
-                                    Enam Notes
+                                <Link className="bd-btn btn-outline-border-white" href="https://www.youtube.com/@EnamNotes?sub_confirmation=1">
+                                    Subscribe on YouTube
                                 </Link>
                             </div>
                         </div>

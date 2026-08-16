@@ -4,7 +4,7 @@ import SignInBgImage from '../../../../../public/assets/images/contact/sign-up-b
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Sign Up - Education & Online Courses React NextJs Template",
+    title: "Sign Up - Enam Notes Online Courses",
 };
 
 const SignUp = () => {

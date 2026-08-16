@@ -90,7 +90,7 @@ const FooterTwo = () => {
                         <div className="row justify-content-between">
                             <div className="col-xl-12">
                                 <div className="bd-footer-copyright-text text-center">
-                                    <p className="underline-two">© Copyright <span>{getCurrentYear()}</span> |  Developed By iStudy.</p>
+                                    <p className="underline-two">© Copyright <span>{getCurrentYear()}</span> |  Developed By Enamnotes.</p>
                                 </div>
                             </div>
                         </div>

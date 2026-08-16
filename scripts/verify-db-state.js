@@ -26,15 +26,15 @@ async function verifyDatabaseState() {
     await prisma.$connect();
     console.log('   ✅ Database connection successful\n');
 
-    // Check User table
-    console.log('2️⃣ Checking User table...');
+    // Check user table
+    console.log('2️⃣ Checking user table...');
     const userCount = await prisma.user.count();
-    console.log(`   ✅ User table exists with ${userCount} records`);
+    console.log(`   ✅ user table exists with ${userCount} records`);
     
     // Get sample user to check schema
     const sampleUser = await prisma.user.findFirst();
     if (sampleUser) {
-      console.log('   📊 User table columns:', Object.keys(sampleUser));
+      console.log('   📊 user table columns:', Object.keys(sampleUser));
       console.log(`   🔑 role_id present: ${sampleUser.hasOwnProperty('role_id') ? '✅ Yes' : '❌ No'}`);
     }
     console.log();
@@ -79,7 +79,7 @@ async function verifyDatabaseState() {
         SELECT COUNT(*) as count 
         FROM "Note" 
         WHERE "userId" IS NOT NULL 
-        AND NOT EXISTS (SELECT 1 FROM "User" WHERE "User".id = "Note"."userId")
+        AND NOT EXISTS (SELECT 1 FROM "user" WHERE "user".id = "Note"."userId")
       `;
       const orphanedNotes = Number(orphanedResult[0].count);
       
@@ -121,7 +121,7 @@ async function verifyDatabaseState() {
         SELECT indexname, tablename 
         FROM pg_indexes 
         WHERE schemaname = 'public' 
-        AND tablename IN ('User', 'roles')
+        AND tablename IN ('user', 'roles')
       `;
       
       console.log('   📇 Current indexes:');
@@ -142,7 +142,7 @@ async function verifyDatabaseState() {
     console.log('✨ Verification Complete!\n');
     console.log('📋 Summary:');
     console.log('   - Database connection: ✅');
-    console.log('   - User table: ✅');
+    console.log('   - user table: ✅');
     console.log('   - Note table: ✅');
     
     // Try to access role to see if migration is complete

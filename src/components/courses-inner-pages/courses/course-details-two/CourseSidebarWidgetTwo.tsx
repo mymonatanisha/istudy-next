@@ -33,8 +33,8 @@ const CourseSidebarWidgetTwo: React.FC = () => {
                 {/* Course Pricing and Discount Timer */}
                 <div className="bd-course-sidebar-widget-price mb-20">
                     <div className="bd-course-price">
-                        <span className="current-price">1925.00</span>
-                        <span className="old-price">1925.00</span>
+                        <span className="current-price">100.00</span>
+                        <span className="old-price">100.00</span>
                     </div>
                     <div className="bd-discount-time">
                         <span><i className="fa-light fa-clock"></i> 3 Days left at this price!</span>

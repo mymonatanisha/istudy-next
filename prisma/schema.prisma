@@ -9,20 +9,20 @@ datasource db {
 }
 
 model User {
-  id           Int    @id @default(autoincrement())
+  id           Int     @id @default(autoincrement())
   name         String
-  email        String @unique
+  email        String  @unique
   passwordHash String?
 
   // Profile fields
-  username     String?
-  phone        String?
-  avatar       String?
-  address      String?
-  linkedIn     String?
-  bio          String?
-  occupation   String?
-  headline     String?
+  username   String?
+  phone      String?
+  avatar     String?
+  address    String?
+  linkedIn   String?
+  bio        String?
+  occupation String?
+  headline   String?
 
   resetToken        String?
   resetTokenExpires DateTime?
@@ -33,27 +33,42 @@ model User {
   role_id Int?
   role    Role? @relation(fields: [role_id], references: [id])
 
-  notes Note[]
-  accounts Account[]
-  enrollments Enrollment[] @relation("StudentEnrollments")
-  coursesInstructed Course[] @relation("InstructorCourses")
+  notes             Note[]
+  accounts          Account[]
+  enrollments       Enrollment[] @relation("StudentEnrollments")
+  orders            Order[]
+  coursesInstructed Course[]     @relation("InstructorCourses")
 
-  @@map("User")
+  // New relations for admin panel and instructor management
+  instructorProfile     InstructorProfile?
+  adminLogs             AdminLog[]
+  supportTickets        SupportTicket[]
+  ticketReplies         TicketReply[]
+  refundRequests        RefundRequest[]
+  announcements         Announcement[]
+  systemSettingsCreated SystemSetting[]    @relation("CreatedByUser")
+  systemSettingsUpdated SystemSetting[]    @relation("UpdatedByUser")
+  lessonProgressRecords LessonProgress[]
+  courseDraftsCreated   CourseDraft[]      @relation("DraftCreator")
+  courseDraftsUpdated   CourseDraft[]      @relation("DraftUpdater")
+  blogPosts             BlogPost[]
+
+  @@map("user")
 }
 
 model Account {
-  id                 Int     @id @default(autoincrement())
-  userId             Int
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?
-  access_token       String?
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?
-  session_state      String?
+  id                Int     @id @default(autoincrement())
+  userId            Int
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -63,102 +78,67 @@ model Account {
 
 model Note {
   id        Int      @id @default(autoincrement())
+  userId    Int
   title     String
-  content   String?
+  content   String   @db.Text
   createdAt DateTime @default(now())
-  userId    Int?
-  user      User?    @relation(fields: [userId], references: [id])
-}
+  updatedAt DateTime @updatedAt
 
-model Role {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  users User[]
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("roles")
-}
-
-model ContactMessage {
-  id        Int      @id @default(autoincrement())
-  fullName  String
-  email     String
-  subject   String?
-  message   String
-  createdAt DateTime @default(now())
-
-  @@index([email])
-  @@index([createdAt])
-  @@map("contact_messages")
-}
-
-model Order {
-  id            Int      @id @default(autoincrement())
-  fullName      String
-  phone         String
-  email         String
-  courseId      String
-  paymentMethod String
-  transactionId String
-  status        String   @default("pending")
-  userId        Int?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  enrollment Enrollment?
-
-  @@index([email])
-  @@index([courseId])
-  @@index([status])
-  @@index([createdAt])
   @@index([userId])
-  @@map("orders")
+  @@map("notes")
 }
 
+// Course model and related models are unchanged except for nullable rating.
 model Course {
-  id                Int       @id @default(autoincrement())
-  title             String
-  slug              String    @unique
-  courseTag         String?
-  badge             String?
-  badgeClass        String?
-  
+  id         Int     @id @default(autoincrement())
+  title      String
+  slug       String  @unique
+  courseTag  String?
+  badge      String?
+  badgeClass String?
+
   // Instructor info
-  instructorName    String
-  instructorAvatar  String?
-  instructorId      Int?
-  instructor        User?     @relation("InstructorCourses", fields: [instructorId], references: [id])
-  
+  instructorName   String
+  instructorAvatar String?
+  instructorId     Int?
+  instructor       User?   @relation("InstructorCourses", fields: [instructorId], references: [id])
+
   // Stats
-  lessons           Int       @default(0)
-  students          Int       @default(0)
-  rating            Float     @default(0)
-  
+  lessons  Int   @default(0)
+  students Int   @default(0)
+  rating   Float?
+
   // Pricing
-  price             Float
-  oldPrice          Float?
-  
+  price    Float
+  oldPrice Float?
+
   // Content
-  courseDescription String    @db.Text
-  shortDescription  String?   @db.Text
-  
+  courseDescription String  @db.Text
+  shortDescription  String? @db.Text
+
   // Media
-  thumbnail         String?
-  coverImage        String?
-  
+  thumbnail  String?
+  coverImage String?
+
   // Publishing
-  status            String    @default("draft") // draft, published, archived
-  featured          Boolean   @default(false)
-  publishedAt       DateTime?
-  
+  status      String    @default("draft") // draft, published, archived
+  featured    Boolean   @default(false)
+  publishedAt DateTime?
+
   // Legacy support
-  legacyId          Int?
-  isLegacy          Boolean   @default(false)
-  
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
-  
-  enrollments       Enrollment[]
-  
+  legacyId Int?
+  isLegacy Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  enrollments Enrollment[]
+  modules        CourseModule[]
+  drafts         CourseDraft[]
+  revenueRecords RevenueRecord[]
+
   @@index([slug])
   @@index([status])
   @@index([featured])
@@ -168,27 +148,25 @@ model Course {
 }
 
 model Enrollment {
-  id             Int       @id @default(autoincrement())
-  studentId      Int
-  courseId       Int
-  orderId        Int?      @unique
-  
-  status         String    @default("active") // active, completed, expired, cancelled
-  progress       Float     @default(0) // 0-100%
-  
+  id        Int  @id @default(autoincrement())
+  studentId Int
+  courseId  Int
+  orderId   Int? @unique
+
+  status   String @default("active")
+  progress Float  @default(0)
+
   enrolledAt     DateTime  @default(now())
   lastAccessedAt DateTime  @default(now())
   completedAt    DateTime?
   expiresAt      DateTime?
-  
-  student        User      @relation("StudentEnrollments", fields: [studentId], references: [id], onDelete: Cascade)
-  course         Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  order          Order?    @relation(fields: [orderId], references: [id])
-  
-  @@unique([studentId, courseId])
+
+  student User   @relation("StudentEnrollments", fields: [studentId], references: [id], onDelete: Cascade)
+  course  Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  order   Order? @relation(fields: [orderId], references: [id])
+
   @@index([studentId])
   @@index([courseId])
   @@index([status])
-  @@index([enrolledAt])
   @@map("enrollments")
 }

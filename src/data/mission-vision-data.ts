@@ -3,23 +3,23 @@ import visionIcon from '../../public/assets/images/icon/vision.svg';
 import valuesIcon from '../../public/assets/images/icon/values.svg';
 import { IMissionVision } from '@/interFace/interFace';
 
-export const missionVisionData:IMissionVision[] = [
+export const missionVisionData: IMissionVision[] = [
     {
         id: 1,
         img: missionIcon,
         title: 'Our Mission',
-        description: "Our mission is to provide high-quality, accessible online education that empowers learners to reach their personal and professional goals. We aim to create an innovative, flexible, and engaging learning environment for all."
+        description: "Our mission at Enamnotes is to make digital learning simple, practical, and accessible for everyone — especially beginners and non-technical learners. We focus on real understanding and project-based learning to help students build confidence and practical skills."
     },
     {
         id: 2,
         img: visionIcon,
         title: 'Our Vision',
-        description: "We envision a future where education is globally accessible, enabling individuals to unlock their full potential.Through continuous innovation, we strive to be a leader in transforming lives through online learning."
+        description: "Our vision is to build a trusted and beginner-friendly online learning platform where anyone can start learning coding and digital skills without fear or confusion. We aim to empower learners to grow confidently in the digital world."
     },
     {
         id: 3,
         img: valuesIcon,
         title: 'Our Values',
-        description: "At IStudy, we are guided by integrity a commitment to excellence.We believe in putting learners first ensuring education is accessible to all.Our goal is to deliver exceptional learning experiences that drive success."
+        description: "At Enamnotes, we believe in simplicity, honesty, and practical education. We prioritize learner success, clear explanations, and continuous improvement to ensure meaningful and effective learning experiences for all."
     },
-]
+];

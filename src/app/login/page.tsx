@@ -29,8 +29,8 @@ export default function LoginPage() {
       return;
     }
 
-    // Cookie set by server; redirect to notes
-    router.push("/notes");
+    // Cookie set by server; redirect to admin blog
+    router.push("/admin/blog");
   }
 
   return (

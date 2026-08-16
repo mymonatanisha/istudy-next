@@ -34,7 +34,7 @@ const StyleGuideMain = () => {
                                 <div id="information">
                                     <div className="bd-style-guide-information section-space-small-bottom">
                                         <ul className="bd-style-info-list">
-                                            <li><strong>Item Name : </strong> iStudy | Education & Online Courses Template</li>
+                                            <li><strong>Item Name : </strong> Enam Notes | Online Courses & Learning Platform</li>
                                             <li><strong>Version : </strong> 1.0.0</li>
                                             <li className="underline-two"><strong>Author : </strong> <Link href="https://themeforest.net/user/topylo/portfolio" target="_blank">Topylo</Link></li>
                                             <li className="underline-two"><strong>Support Tickets: </strong> <Link href="https://support.topylo.com" target="_blank">https://support.topylo.com</Link></li>

@@ -18,44 +18,67 @@ const AboutWhyChooseUs = () => {
                     <div className="row gy-30 align-items-center justify-content-between">
                         <div className="col-xxl-5 col-xl-6 col-lg-6">
                             <div className="bd-section-title-wrapper">
-                                <span className="bd-section-subtitle">Why Choose iStudy</span>
-                                <h2 className="bd-section-title mb-20">Why Students Choose Us for Their Academic Success</h2>
-                                <p className="bd-section-paragraph">At iStudy, we empower students to achieve their
-                                    academic success through flexible online courses, expert-led lessons, and hands-on
-                                    learning experiences. Join us to unlock your potential and gain the skills needed to
-                                    excel in your educational journey.</p>
+                                <span className="bd-section-subtitle">Why Choose Enamnotes</span>
+                                
+                                <h2 className="bd-section-title mb-20">
+                                    Why Students Choose Enamnotes for Their Learning Success
+                                </h2>
+
+                                <p className="bd-section-paragraph">
+                                    At Enamnotes, we help beginners and non-technical learners build real digital skills 
+                                    through simple explanations, practical projects, and step-by-step learning guidance. 
+                                    Our goal is to remove confusion and make coding and digital education accessible for everyone.
+                                </p>
+
                                 <div className="bd-post-details-list">
                                     <ul>
-                                        <li>Flexible learning schedule with 24/7 course access</li>
-                                        <li>High-quality video tutorials from industry experts</li>
-                                        <li>Interactive quizzes and assignments for hands-on practice</li>
-                                        <li>Dedicated student support and mentorship</li>
-                                        <li>Certificate of completion for career advancement</li>
+                                        <li>Beginner-friendly learning structure</li>
+                                        <li>Easy explanations designed for non-coders</li>
+                                        <li>Practical project-based lessons</li>
+                                        <li>Learn anytime with flexible access</li>
+                                        <li>Continuous updates and supportive learning environment</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
+
                         <div className="col-xxl-6 col-xl-6 col-lg-6">
                             <div className="p-relative">
                                 <div className="bd-why-choose-thumb-wrap">
                                     <div className="thumb-column">
-                                        <div className="thumb-one"><Image src={chooseImgOne} alt="image" />
+                                        <div className="thumb-one">
+                                            <Image src={chooseImgOne} alt="Enamnotes learning experience" />
                                         </div>
-                                        <div className="thumb-two"><Image src={chooseImgTwo} alt="image" />
+                                        <div className="thumb-two">
+                                            <Image src={chooseImgTwo} alt="Beginner friendly courses" />
                                         </div>
                                     </div>
-                                    <div className="main-thumb"><Image src={chooseImgThree} alt="image" />
+                                    <div className="main-thumb">
+                                        <Image src={chooseImgThree} alt="Practical digital skill building" />
                                     </div>
                                 </div>
+
                                 <div className="bd-why-shape-group d-none d-xl-block">
-                                    <div className="shape-1"><Image src={halfCircleShape} style={{ height: 'auto', width: 'auto' }} alt="shape" /></div>
-                                    <div className="shape-2"><Image src={secondaryPolygonShape} style={{ height: 'auto', width: 'auto' }} alt="shape" /></div>
-                                    <div className="shape-3"><Image src={lineCircleShape} style={{ height: 'auto', width: 'auto' }} alt="shape" /></div>
-                                    <div className="shape-4"><Image src={primaryPolygonShape} style={{ height: 'auto', width: 'auto' }} alt="shape" />
+                                    <div className="shape-1">
+                                        <Image src={halfCircleShape} style={{ height: 'auto', width: 'auto' }} alt="shape" />
                                     </div>
-                                    <div className="shape-5"><Image src={dotShape} style={{ height: 'auto', width: 'auto' }} alt="shape" /></div>
-                                    <div className="shape-6"><Image src={primaryStartShape} style={{ height: 'auto', width: 'auto' }} alt="shape" /></div>
+                                    <div className="shape-2">
+                                        <Image src={secondaryPolygonShape} style={{ height: 'auto', width: 'auto' }} alt="shape" />
+                                    </div>
+                                    <div className="shape-3">
+                                        <Image src={lineCircleShape} style={{ height: 'auto', width: 'auto' }} alt="shape" />
+                                    </div>
+                                    <div className="shape-4">
+                                        <Image src={primaryPolygonShape} style={{ height: 'auto', width: 'auto' }} alt="shape" />
+                                    </div>
+                                    <div className="shape-5">
+                                        <Image src={dotShape} style={{ height: 'auto', width: 'auto' }} alt="shape" />
+                                    </div>
+                                    <div className="shape-6">
+                                        <Image src={primaryStartShape} style={{ height: 'auto', width: 'auto' }} alt="shape" />
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
