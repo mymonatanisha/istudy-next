@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import curriculamData from "@/data/courses/course-curriculam-data";
+import { flutterQuickShorts } from "@/data/courses/flutter-course-data";
+import type { FlutterQuickShort, FlutterRoadmapSection } from "@/data/courses/flutter-course-data";
 import { FlutterRoadmapSection, FlutterLectureVideo } from "@/data/courses/flutter-course-data";
 
 interface ProgressLesson {
@@ -32,7 +34,7 @@ const getYouTubeEmbedUrl = (url: string) => {
 };
 
 const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLegacyId }) => {
-    const sections = roadmap ?? curriculamData;
+    const sections = roadmap ?? (curriculamData as FlutterRoadmapSection[]);
     const isFlutterCourse = Boolean(roadmap && courseLegacyId);
     const [lessons, setLessons] = useState<ProgressLesson[]>([]);
     const [courseProgress, setCourseProgress] = useState(0);
@@ -81,6 +83,25 @@ const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLega
             setSavingLessonId(null);
         }
     };
+
+    const renderShort = (short: FlutterQuickShort) => (
+        <div key={short.videoUrl} className="bd-course-curriculum-content d-flex-between">
+            <div className="bd-course-curriculum-info d-flex-items gap-10">
+                <div className="icon">
+                    <i className="fa-brands fa-youtube"></i>
+                </div>
+                <p className="title mb-0">{short.title}</p>
+            </div>
+            <a
+                href={short.videoUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-sm btn-primary"
+            >
+                Watch Short
+            </a>
+        </div>
+    );
 
     return (
         <>
@@ -171,6 +192,18 @@ const CourseCurriculum: React.FC<CourseCurriculumProps> = ({ roadmap, courseLega
                 </div>
             </div>
 
+            {isFlutterCourse && (
+                <div className="mt-30">
+                    <h3 className="bd-course-details-content-title mb-15">⚡ Flutter Quick Shorts</h3>
+                    <p className="mb-15">Short videos to reinforce the main Flutter learning path.</p>
+                    <div className="accordion-body p-0">
+                        {flutterQuickShorts.map(renderShort)}
+                    </div>
+                </div>
+            )}
+
+            {!isFlutterCourse && <Link href="#" className="d-none">Curriculum</Link>}
+        </div>
             {selectedVideo && getYouTubeEmbedUrl(selectedVideo.url) && (
                 <div
                     className="modal fade show d-block"

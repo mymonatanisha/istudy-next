@@ -2,6 +2,22 @@ import { ICourse } from "@/interFace/interFace";
 import instructorImg2 from "../../../public/assets/images/course/course-instructor-2.webp";
 import courseBg2 from "../../../public/assets/images/course/course-bg-2.webp";
 
+export interface FlutterRoadmapLecture {
+  title: string;
+  duration: string;
+  videoUrl?: string;
+  videoType?: "long" | "short";
+}
+
+export interface FlutterRoadmapSection {
+  title: string;
+  lectures: FlutterRoadmapLecture[];
+}
+
+export interface FlutterQuickShort {
+  title: string;
+  videoUrl: string;
+}
 export interface FlutterLectureVideo { title: string; url: string; type?: "video" | "short"; }
 export interface FlutterRoadmapSection { title: string; lectures: { title: string; duration: string; videos?: FlutterLectureVideo[]; }[]; }
 
@@ -36,4 +52,33 @@ export const flutterRoadmap: FlutterRoadmapSection[] = [
   { title: "Real Projects তৈরি", lectures: [{ title: "Calculator App", duration: "" }, { title: "To-do App (CRUD + local DB)", duration: "" }, { title: "Weather App (API integration)", duration: "" }, { title: "E-commerce App (Firebase + cart)", duration: "" }] },
   { title: "App Deployment", lectures: [{ title: "APK ও AAB build করা", duration: "" }, { title: "App signing ও keystore তৈরি", duration: "" }, { title: "Google Play Store-এ publish", duration: "" }] },
   { title: "Flutter Roadmap Videos", lectures: [{ title: "Flutter Learning Path", duration: "", videos: [{ title: "Complete Flutter Learning Path", url: "https://www.youtube.com/watch?v=ArI2rGgkHpI" }] }, { title: "Flutter App Roadmap", duration: "", videos: [{ title: "Flutter App Roadmap", url: "https://www.youtube.com/shorts/1CQ8d2biId8", type: "short" }] }] },
+];
+
+// Verified Shorts from the user's supplied video list.
+// They supplement the roadmap instead of replacing core lessons.
+export const flutterQuickShorts: FlutterQuickShort[] = [
+  {
+    title: "Dart Data Types Explained in 60 Seconds",
+    videoUrl: "https://www.youtube.com/shorts/9XGxPzDCjl8",
+  },
+  {
+    title: "Flutter Roadmap in 60 Seconds",
+    videoUrl: "https://www.youtube.com/shorts/1CQ8d2biId8",
+  },
+  {
+    title: "Cross-Platform App Dev Easy with Flutter",
+    videoUrl: "https://www.youtube.com/shorts/9Xv2fMLn1_8",
+  },
+  {
+    title: "Flutter Explained in 60 Seconds",
+    videoUrl: "https://www.youtube.com/shorts/FPf4gi3YkVs",
+  },
+  {
+    title: "React Native VS Flutter in 2026",
+    videoUrl: "https://www.youtube.com/shorts/j8MBk39bpmc",
+  },
+  {
+    title: "App Development Roadmap",
+    videoUrl: "https://www.youtube.com/shorts/pocEPByYLxQ",
+  },
 ];
