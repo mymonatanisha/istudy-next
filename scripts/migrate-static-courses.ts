@@ -1,192 +1,148 @@
 import { PrismaClient } from '@prisma/client';
+import coursesData from '../src/data/courses/courses-data';
 
 const prisma = new PrismaClient();
 
-const DEFAULT_INSTRUCTOR_NAME = 'Enamul Huq';
-
-// Keep migration data dependency-free. The UI course files import .webp assets,
-// which Node/ts-node cannot execute in a standalone database script.
-// These are the database-relevant fields from the four public course definitions.
-const coursesData = [
-  {
-    id: 36,
-    title: 'Flutter App Development',
-    courseTag: 'Free Course',
-    badge: 'FREE',
-    badgeClass: 'badge-primary',
-    instructorName: 'Enamul Huq',
-    instructorAvatar: '/assets/images/course/course-instructor-2.webp',
-    lessons: 45,
-    students: 0,
-    rating: 5,
-    price: 0,
-    discount: 0,
-    courseDescription: 'Learn Flutter and Dart step by step and build real-world mobile applications from the fundamentals to app deployment.',
-    shortDescription: 'A practical Flutter learning roadmap covering Dart, Flutter fundamentals, UI, navigation, state management, APIs, databases, testing, real projects, and deployment.',
-    thumbnail: '/assets/images/course/course-bg-2.webp',
-    coverImage: null,
-    status: 'published',
-  },
-  {
-    id: 37,
-    title: 'Android App Development with Java/XML',
-    courseTag: 'Free Course',
-    badge: 'FREE',
-    badgeClass: 'badge-primary',
-    instructorName: 'Enamul Huq',
-    instructorAvatar: '/assets/images/course/course-instructor-2.webp',
-    lessons: 32,
-    students: 0,
-    rating: 5,
-    price: 0,
-    discount: 0,
-    courseDescription: 'Understand Android fundamentals from the ecosystem and SDK to Android Studio, Java/XML UI, core Android components, runtime, data transfer, database, and AndroidManifest.xml.',
-    shortDescription: 'A focused foundation course for understanding Android development with Java and XML before moving into real-world project-based Android development.',
-    thumbnail: '/assets/images/course/course-bg-3.webp',
-    coverImage: null,
-    status: 'published',
-  },
-  {
-    id: 38,
-    title: 'Git & GitHub for Developers',
-    courseTag: 'Coming Soon',
-    badge: 'COMING SOON',
-    badgeClass: 'badge-warning',
-    instructorName: 'Enamul Huq',
-    instructorAvatar: '/assets/images/course/course-instructor-2.webp',
-    lessons: 0,
-    students: 0,
-    rating: 0,
-    price: 0,
-    discount: 0,
-    courseDescription: 'Learn Git and GitHub from the ground up and build a practical developer workflow for managing code, branches, collaboration, pull requests, and real-world projects.',
-    shortDescription: 'A practical roadmap covering Git fundamentals, branching, collaboration, GitHub workflows, pull requests, conflict resolution, project management, and professional developer workflows. Video lessons and supporting resources will be added in future updates.',
-    thumbnail: '/assets/images/course/course-bg-3.webp',
-    coverImage: null,
-    status: 'published',
-  },
-  {
-    id: 39,
-    title: 'Android App Development: Beginner to Advanced',
-    courseTag: 'Free Course',
-    badge: 'FREE',
-    badgeClass: 'badge-success',
-    instructorName: 'Enamul Huq',
-    instructorAvatar: '/assets/images/course/course-instructor-6.webp',
-    lessons: 0,
-    students: 0,
-    rating: 0,
-    price: 0,
-    discount: 0,
-    courseDescription: 'Build real-world Android applications with Java and XML through project-based learning, with source code and practical resources added over time.',
-    shortDescription: 'A project-focused Android learning track for students who already understand Android fundamentals and want to progress toward complete applications.',
-    thumbnail: '/assets/images/course/course-bg-4.webp',
-    coverImage: null,
-    status: 'published',
-  },
-];
-
-interface MigrationStats {
-  total: number;
-  created: number;
-  updated: number;
-  errors: number;
-}
-
-function generateSlug(title: string): string {
+/**
+ * Generate a URL-friendly slug from a title
+ */
+function generateSlug(title: string, id: number): string {
+  if (!title || title.trim() === '') {
+    return `course-${id}`;
+  }
+  
   return title
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
+    .trim()
+    .replace(/[^\w\s-]/g, '') // Remove special characters (keeps alphanumeric, spaces, hyphens, underscores)
+    .replace(/\s+/g, '-')      // Replace spaces with hyphens
+    .replace(/-+/g, '-')       // Replace multiple hyphens with single hyphen
+    .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+}
+
+/**
+ * Extract image URL from StaticImageData or return default
+ */
+function getImageUrl(imageData: any): string | null {
+  if (!imageData) return null;
+  
+  // StaticImageData has a 'src' property
+  if (typeof imageData === 'object' && 'src' in imageData) {
+    return imageData.src;
+  }
+  
+  // If it's already a string
+  if (typeof imageData === 'string') {
+    return imageData;
+  }
+  
+  return null;
 }
 
 async function main() {
-  console.log('Starting course migration for the four public courses...\n');
-  console.log(`Found ${coursesData.length} course definitions\n`);
+  console.log('🚀 Starting course migration from static data to database...\n');
 
-  const stats: MigrationStats = { total: coursesData.length, created: 0, updated: 0, errors: 0 };
+  let totalProcessed = 0;
+  let successCount = 0;
+  let skippedCount = 0;
+  let errorCount = 0;
 
   for (const course of coursesData) {
+    totalProcessed++;
+    
     try {
-      const slugBase = generateSlug(course.title);
-
-      const existingByLegacyId = await prisma.course.findFirst({
+      // Check if course already exists by legacyId
+      const existingCourse = await prisma.course.findFirst({
         where: { legacyId: course.id },
       });
 
-      const existingBySlug = await prisma.course.findUnique({
-        where: { slug: slugBase },
-      });
+      if (existingCourse) {
+        console.log(`⏭️  Skipped: "${course.title}" (Legacy ID: ${course.id}) - Already imported`);
+        skippedCount++;
+        continue;
+      }
 
-      const existingCourse = existingByLegacyId ?? existingBySlug;
-      const slug = existingCourse?.slug ?? slugBase;
+      // Generate slug from title
+      const slug = generateSlug(course.title, course.id);
 
-      const data = {
+      // Map static course data to database schema
+      const courseData = {
         title: course.title,
-        slug,
-        courseTag: course.courseTag,
-        badge: course.badge,
-        badgeClass: course.badgeClass,
-        instructorName: course.instructorName || DEFAULT_INSTRUCTOR_NAME,
-        instructorAvatar: course.instructorAvatar,
-        lessons: course.lessons,
-        students: course.students,
-        rating: course.rating,
-        price: course.price,
+        slug: slug,
+        courseTag: course.courseTag || null,
+        badge: course.badge || null,
+        badgeClass: course.badgeClass || null,
+        
+        // Instructor info
+        instructorName: course.instructorName || 'Unknown Instructor',
+        instructorAvatar: getImageUrl(course.instructorImage),
+        instructorId: null, // Can be linked later
+        
+        // Stats
+        lessons: course.lessons || 0,
+        students: 0, // Set to 0 initially as per requirements
+        rating: course.rating || 0,
+        
+        // Pricing
+        price: course.price || 0,
         oldPrice: course.discount || null,
-        courseDescription: course.courseDescription,
-        shortDescription: course.shortDescription,
-        thumbnail: course.thumbnail,
-        coverImage: course.coverImage,
-        status: course.status,
+        
+        // Content
+        courseDescription: course.courseDescription || 'No description available',
+        shortDescription: course.details || null,
+        
+        // Media
+        thumbnail: getImageUrl(course.image),
+        coverImage: getImageUrl(course.image),
+        
+        // Publishing
+        status: 'published',
         featured: false,
         publishedAt: new Date(),
+        
+        // Legacy support
         legacyId: course.id,
         isLegacy: true,
       };
 
-      if (existingCourse) {
-        await prisma.course.update({ where: { id: existingCourse.id }, data });
-        console.log(`Updated course ${course.id}: "${course.title}" (DB ID: ${existingCourse.id})`);
-        stats.updated++;
-      } else {
-        const createdCourse = await prisma.course.create({ data });
-        console.log(`Created course ${course.id}: "${course.title}" (DB ID: ${createdCourse.id})`);
-        stats.created++;
-      }
+      // Insert course into database
+      const createdCourse = await prisma.course.create({
+        data: courseData,
+      });
+
+      console.log(`✅ Success: "${createdCourse.title}" (ID: ${createdCourse.id}, Legacy ID: ${course.id})`);
+      successCount++;
+      
     } catch (error) {
-      console.error(`Error migrating course ID ${course.id}: "${course.title}"`);
-      console.error(error instanceof Error ? error.message : String(error));
-      stats.errors++;
+      console.error(`❌ Error: Failed to import course ID ${course.id} - "${course.title}"`);
+      console.error(`   Error details: ${error instanceof Error ? error.message : String(error)}`);
+      errorCount++;
     }
   }
 
+  // Display summary statistics
   console.log('\n' + '='.repeat(60));
-  console.log('Migration Summary');
+  console.log('📊 Migration Summary:');
   console.log('='.repeat(60));
-  console.log(`Course definitions processed: ${stats.total}`);
-  console.log(`Created: ${stats.created}`);
-  console.log(`Updated: ${stats.updated}`);
-  console.log(`Errors: ${stats.errors}`);
-
-  const totalCourses = await prisma.course.count();
-  const legacyCourses = await prisma.course.count({ where: { isLegacy: true } });
-  const publishedCourses = await prisma.course.count({ where: { status: 'published' } });
-  console.log(`Total courses in database: ${totalCourses}`);
-  console.log(`Legacy courses: ${legacyCourses}`);
-  console.log(`Published courses: ${publishedCourses}`);
+  console.log(`Total courses processed: ${totalProcessed}`);
+  console.log(`✅ Successfully imported: ${successCount}`);
+  console.log(`⏭️  Skipped (already exist): ${skippedCount}`);
+  console.log(`❌ Failed: ${errorCount}`);
   console.log('='.repeat(60));
-
-  if (stats.errors > 0) {
+  
+  if (errorCount > 0) {
+    console.log('\n⚠️  Some courses failed to import. Please review the errors above.');
     process.exit(1);
+  } else if (successCount > 0) {
+    console.log('\n🎉 Migration completed successfully!');
+  } else if (skippedCount === totalProcessed) {
+    console.log('\n✨ All courses were already imported. Nothing to do!');
   }
-
-  console.log('\nMigration completed successfully.');
 }
 
 main()
-  .catch((error) => {
-    console.error('Fatal error during migration:', error);
+  .catch((e) => {
+    console.error('\n💥 Fatal error during migration:', e);
     process.exit(1);
   })
   .finally(async () => {

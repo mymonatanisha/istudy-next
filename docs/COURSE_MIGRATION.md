@@ -1,261 +1,93 @@
-# Course Migration Guide
+# Course Migration Documentation
 
-This guide explains how to migrate existing static course data from `courses-data.ts` into the database.
+## 📖 Overview
 
-## Overview
+This document describes the process of migrating existing static course data from `courses-data.ts` into the database `courses` table. This migration enables the transition from hardcoded course data to dynamic database-driven courses.
 
-The migration scripts import courses from the static TypeScript file into the PostgreSQL database, making them available for dynamic management through the application.
+## 🎯 Purpose
 
-## Prerequisites
+The migration script serves to:
+- Import legacy course data from static TypeScript files into the database
+- Enable dynamic course management through the database
+- Maintain backward compatibility with legacy course IDs
+- Provide a foundation for future course content management
 
-- PostgreSQL database set up and running
-- Environment variables configured (`.env` file with `DATABASE_URL`)
-- Node.js and npm installed
-- Prisma schema up to date (`npm run db:generate`)
+## 📋 Files
 
-## Migration Scripts
+### Migration Script
+- **Path**: `scripts/migrate-static-courses.ts`
+- **Purpose**: Imports courses from `src/data/courses/courses-data.ts` into the database
+- **Features**:
+  - ✅ Idempotent (can be run multiple times safely)
+  - ✅ Duplicate prevention via `legacyId` checking
+  - ✅ Automatic slug generation from titles
+  - ✅ Image path conversion (StaticImageData → string URLs)
+  - ✅ Progress logging and error handling
+  - ✅ Summary statistics
 
-### 1. Main Migration Script
+### Verification Script
+- **Path**: `scripts/verify-course-import.ts`
+- **Purpose**: Validates the imported course data
+- **Checks**:
+  - ✅ Total course count
+  - ✅ Legacy course count
+  - ✅ Lists first 5 imported courses
+  - ✅ Validates slug presence
+  - ✅ Checks for duplicate slugs
+  - ✅ Validates required fields
 
-**File:** `scripts/migrate-static-courses.ts`
+## 🚀 Usage
 
-This script reads courses from `src/data/courses/courses-data.ts` and imports them into the database.
+### Prerequisites
 
-**Features:**
-- ✅ Automatic slug generation from course titles
-- ✅ Duplicate detection using `legacyId`
-- ✅ Safe to run multiple times (idempotent)
-- ✅ No data deletion
-- ✅ Detailed progress logging
-- ✅ Error handling with statistics
+Ensure you have:
+1. Node.js installed (version 20.x)
+2. Database connection configured (DATABASE_URL in `.env`)
+3. Prisma migrations applied (`npm run db:migrate`)
+4. Dependencies installed (`npm install`)
 
-**Data Mapping:**
-- `course.id` → `legacyId` (for tracking original IDs)
-- `course.title` → `title` + auto-generated `slug`
-- `course.instructorName` → `instructorName`
-- `course.instructorImage` → `instructorAvatar`
-- `course.price` → `price`
-- `course.discount` → `oldPrice`
-- `course.lessons` → `lessons`
-- `course.rating` → `rating`
-- `course.image` → `thumbnail`
-- `course.courseDescription` → `courseDescription`
-- All imported courses have:
-  - `status` = `'published'`
-  - `isLegacy` = `true`
-  - `publishedAt` = current date
+### Local Development
 
-### 2. Verification Script
-
-**File:** `scripts/verify-course-import.ts`
-
-This script validates the imported data and checks for issues.
-
-**Checks:**
-- Course counts (total, legacy, published, draft)
-- Sample course listings
-- Missing required fields (titles, instructors)
-- Duplicate slugs
-- Duplicate legacyIds
-- Zero-price courses
-- Missing thumbnails
-
-## Running the Migration
-
-### Step 1: Backup Your Database
-
-Always backup your database before running migrations:
-
-```bash
-pg_dump -U your_user -d istudy_dev > backup_$(date +%Y%m%d_%H%M%S).sql
-```
-
-### Step 2: Run the Migration
-
-Use the npm script to migrate courses:
+#### 1. Run Migration
 
 ```bash
 npm run migrate:courses
 ```
 
+This will:
+- Read all courses from `courses-data.ts`
+- Check for existing courses by `legacyId`
+- Import new courses with `isLegacy = true`
+- Display progress and summary
+
 **Expected Output:**
 ```
-🚀 Starting course migration from static data...
+🚀 Starting course migration from static data to database...
 
-📚 Found 12 courses in static data
-
-✅ Created course ID 1: "Master Data Science from Scratch" (DB ID: 1, slug: master-data-science-from-scratch)
-✅ Created course ID 12: "Complete Digital Marketing Guide" (DB ID: 2, slug: complete-digital-marketing-guide)
+✅ Success: "Master Data Science from Scratch" (ID: 1, Legacy ID: 1)
+⏭️  Skipped: "Complete Guide to Web Development" (Legacy ID: 2) - Already imported
 ...
 
 ============================================================
 📊 Migration Summary:
 ============================================================
-   Total courses in static data: 12
-   ✅ Successfully created:      12
-   ⏭️  Skipped (already exist):   0
-   ❌ Errors:                    0
-============================================================
-
-📈 Database Statistics:
-   Total courses in database:     12
-   Legacy courses:                12
-   Published courses:             12
-
-🎉 Migration completed successfully!
-```
-
-### Step 3: Verify the Import
-
-After migration, run the verification script:
+Total courses processed: 12
+✅ Successfully imported: 10
+⏭️  Skipped (already exist): 2
+❌ Failed: 0
 
 ```bash
 npm run verify:courses
 ```
 
+This will:
+- Count total courses in database
+- Count legacy courses
+- List first 5 imported courses
+- Check for data quality issues
+- Validate slugs and required fields
+
 **Expected Output:**
 ```
 🔍 Verifying course import...
 
-📊 Course Import Statistics:
-============================================================
-   Total courses:           12
-   Legacy courses:          12
-   Published courses:       12
-   Draft courses:           0
-   Featured courses:        0
-============================================================
-
-📚 Sample Courses (first 5):
-------------------------------------------------------------
-
-1. Master Data Science from Scratch
-   ID: 1 | Legacy ID: 1 | Slug: master-data-science-from-scratch
-   Instructor: Unknown Instructor | Price: $250
-   Lessons: 45 | Rating: 4.8 | Status: published
-   Is Legacy: Yes
-...
-
-🔍 Checking for Data Issues:
-------------------------------------------------------------
-
-============================================================
-✅ Verification passed! No critical data issues found.
-============================================================
-```
-
-## Re-running the Migration
-
-The migration is **idempotent** - it's safe to run multiple times:
-
-- Already-migrated courses are skipped based on their `legacyId`
-- No existing data is deleted or modified
-- Only new courses are added
-
-## Troubleshooting
-
-### Issue: "Database connection failed"
-
-**Solution:** Check your `.env` file and ensure `DATABASE_URL` is correct:
-
-```bash
-# Check if database is accessible
-npm run db:status
-```
-
-### Issue: "Slug already exists" warnings
-
-**Solution:** The script automatically appends the legacyId to duplicate slugs. This is normal if you have manually created courses with similar names.
-
-### Issue: "Course already exists with legacyId"
-
-**Solution:** This is expected behavior. The course was already migrated. The script skips it automatically.
-
-### Issue: TypeScript compilation errors
-
-**Solution:** Ensure TypeScript and ts-node are installed:
-
-```bash
-npm install --save-dev typescript ts-node
-```
-
-### Issue: Prisma client errors
-
-**Solution:** Regenerate the Prisma client:
-
-```bash
-npm run db:generate
-```
-
-## Viewing Migrated Courses
-
-### Using Prisma Studio
-
-```bash
-npm run db:studio
-```
-
-This opens a GUI where you can browse the `courses` table.
-
-### Using the Application
-
-Navigate to the courses page in your application. All migrated courses should appear with their legacy data.
-
-## Rollback
-
-If you need to remove migrated courses:
-
-```sql
--- Remove all legacy courses
-DELETE FROM courses WHERE "isLegacy" = true;
-
--- Or remove specific courses by legacyId
-DELETE FROM courses WHERE "legacyId" IN (1, 12, 27, 28);
-```
-
-**⚠️ Warning:** Always backup before deleting data!
-
-## Next Steps
-
-After successful migration:
-
-1. ✅ Verify all courses appear correctly in the application
-2. ✅ Test course detail pages
-3. ✅ Check enrollment functionality
-4. ✅ Review instructor names and update as needed
-5. ✅ Add cover images if missing
-6. ✅ Set featured flags for popular courses
-7. ✅ Update course descriptions if needed
-
-## Support
-
-If you encounter issues not covered here:
-
-1. Check the migration script output for specific error messages
-2. Review the verification script output for data issues
-3. Check the Prisma schema matches your database
-4. Ensure all dependencies are installed
-
-## Technical Details
-
-### Slug Generation Algorithm
-
-```typescript
-function generateSlug(title: string): string {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-```
-
-### Image Path Extraction
-
-The scripts extract image paths from Next.js `StaticImageData` objects by accessing the `.src` property.
-
-### Database Schema Fields
-
-The migration uses these database fields:
-- Required: `title`, `slug`, `instructorName`, `price`, `courseDescription`, `status`
-- Optional: `thumbnail`, `oldPrice`, `courseTag`, `badge`, `badgeClass`, `instructorAvatar`
-- Metadata: `legacyId`, `isLegacy`, `publishedAt`, `createdAt`, `updatedAt`
