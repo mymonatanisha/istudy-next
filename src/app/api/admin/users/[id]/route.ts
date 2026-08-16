@@ -72,8 +72,8 @@ export async function GET(
     }
 
     // Calculate total spent
-    const totalSpent = user.enrollments.reduce(
-      (sum, enrollment) => sum + (enrollment.course?.price || 0),
+    const totalSpent = user.enrollments.reduce<number>(
+      (sum, enrollment) => sum + Number(enrollment.course?.price || 0),
       0
     );
 
