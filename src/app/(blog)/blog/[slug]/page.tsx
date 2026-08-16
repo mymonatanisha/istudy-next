@@ -60,7 +60,7 @@ const DatabaseBlogDetailsPage = () => {
                     {error || 'Blog post not found'} <Link href="/blog">Back to blog</Link>
                   </div>
                 ) : (
-                  <div className="bd-postbox-wrapper">
+                  <article className="bd-postbox-wrapper">
                     {post.coverImage && (
                       <div className="bd-blog-feature-thumb mb-30">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -79,12 +79,13 @@ const DatabaseBlogDetailsPage = () => {
                         </span>
                       </div>
                     </div>
-                    <h2 className="bd-postbox-title mb-20">{post.title}</h2>
+                    <h1 className="bd-postbox-title mb-20">{post.title}</h1>
                     {post.excerpt && <p className="bd-postbox-desc"><strong>{post.excerpt}</strong></p>}
-                    {post.content.split('\n').map((paragraph, index) => (
-                      paragraph.trim() ? <p className="bd-postbox-desc" key={index}>{paragraph}</p> : null
-                    ))}
-                  </div>
+                    <div
+                      className="bd-postbox-desc blog-rich-content"
+                      dangerouslySetInnerHTML={{ __html: post.content }}
+                    />
+                  </article>
                 )}
               </div>
               <div className="col-xxl-4 col-xl-4 col-lg-4">
