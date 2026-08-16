@@ -77,7 +77,6 @@ export async function GET() {
       orderBy: { createdAt: 'asc' }
     });
     type RevenueByDayOrder = (typeof revenueByDay)[number];
-
     const revenueChartData: { date: string; revenue: number }[] = [];
     const dayMap = new Map<string, number>();
     revenueByDay.forEach((order: RevenueByDayOrder) => {
@@ -98,9 +97,10 @@ export async function GET() {
       select: { createdAt: true },
       orderBy: { createdAt: 'asc' }
     });
+    type UserByDay = (typeof usersByDay)[number];
     const userGrowthData: { date: string; users: number }[] = [];
     const userDayMap = new Map<string, number>();
-    usersByDay.forEach(user => {
+    usersByDay.forEach((user: UserByDay) => {
       const dateKey = user.createdAt.toISOString().split('T')[0];
       userDayMap.set(dateKey, (userDayMap.get(dateKey) || 0) + 1);
     });
