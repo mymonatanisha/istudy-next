@@ -52,8 +52,10 @@ export async function GET() {
       }
     });
 
+    type CompletedOrder = (typeof completedOrders)[number];
+
     // Calculate total revenue
-    const totalRevenue = completedOrders.reduce((sum, order) => {
+    const totalRevenue = completedOrders.reduce((sum: number, order: CompletedOrder) => {
       return sum + (order.enrollment?.course?.price || 0);
     }, 0);
 
@@ -76,12 +78,12 @@ export async function GET() {
       const monthKey = date.toISOString().slice(0, 7); // YYYY-MM
       const monthName = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
       
-      const monthOrders = completedOrders.filter(order => {
+      const monthOrders = completedOrders.filter((order: CompletedOrder) => {
         const orderMonth = order.createdAt.toISOString().slice(0, 7);
         return orderMonth === monthKey;
       });
       
-      const monthRevenue = monthOrders.reduce((sum, order) => {
+      const monthRevenue = monthOrders.reduce((sum: number, order: CompletedOrder) => {
         return sum + (order.enrollment?.course?.price || 0);
       }, 0);
       
@@ -94,7 +96,7 @@ export async function GET() {
     // Top 10 courses by revenue
     const courseRevenueMap = new Map<number, { title: string; revenue: number; students: number }>();
     
-    completedOrders.forEach(order => {
+    completedOrders.forEach((order: CompletedOrder) => {
       if (order.enrollment?.course) {
         const courseId = order.enrollment.course.id;
         const existing = courseRevenueMap.get(courseId);
@@ -121,7 +123,7 @@ export async function GET() {
     // Top 10 instructors by earnings
     const instructorEarningsMap = new Map<number, { name: string; earnings: number; courses: Set<number>; students: number }>();
     
-    completedOrders.forEach(order => {
+    completedOrders.forEach((order: CompletedOrder) => {
       if (order.enrollment?.course?.instructorId) {
         const instructorId = order.enrollment.course.instructorId;
         const existing = instructorEarningsMap.get(instructorId);
