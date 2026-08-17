@@ -40,17 +40,23 @@ const CoursesTable = () => {
       if (search) params.append('search', search);
       if (statusFilter) params.append('status', statusFilter);
 
+      // Include credentials so cookies (JWT or NextAuth) are sent to the API route.
       const response = await fetch(`/api/admin/courses?${params}`, {
         cache: 'no-store',
+        credentials: 'include',
       });
 
+      // Try to parse server response body (it may contain helpful error details)
+      const result = await response.json().catch(() => null);
+
       if (!response.ok) {
-        throw new Error('Failed to fetch courses');
+        // Surface server-provided message/details when available
+        const serverMsg = result?.error || result?.message || result?.details || 'Failed to fetch courses';
+        throw new Error(serverMsg);
       }
 
-      const result = await response.json();
-      setCourses(result.courses);
-      setTotalPages(result.pagination.totalPages);
+      setCourses(result?.courses || []);
+      setTotalPages((result?.pagination?.totalPages) || 1);
     } catch (err) {
       console.error('Error fetching courses:', err);
       setError(err instanceof Error ? err.message : 'Failed to load courses');
@@ -170,11 +176,12 @@ const CoursesTable = () => {
                         </div>
                       </td>
                       <td>{course.instructor}</td>
-                      <td>${course.price.toFixed(2)}</td>
-                      <td>{course.students}</td>
-                      <td>${course.revenue.toFixed(2)}</td>
+                      <td>${(Number(course.price) || 0).toFixed(2)}</td>
+                      <td>{Number(course.students) || 0}</td>
+                      <td>${(Number(course.revenue) || 0).toFixed(2)}</td>
                       <td>
-                        <i className="fa-solid fa-star text-warning"></i> {course.rating.toFixed(1)}
+                        <i className="fa-solid fa-star text-warning"></i>{' '}
+                        {(Number(course.rating) || 0).toFixed(1)}
                       </td>
                       <td>
                         <StatusBadge status={course.status} />
