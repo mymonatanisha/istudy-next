@@ -13,33 +13,45 @@ export type AdminUser = {
  * Returns the user object if admin, null otherwise
  */
 export async function getAdminUser(): Promise<AdminUser | null> {
-  const authUser = await getAuthUser();
-  
-  if (!authUser) {
-    return null;
+  try {
+    console.debug("getAdminUser: checking admin user");
+    const authUser = await getAuthUser();
+    console.debug("getAdminUser: authUser=", authUser);
+
+    if (!authUser) {
+      console.debug("getAdminUser: no authenticated user");
+      return null;
+    }
+
+    // Fetch full user details including role
+    const user = await prisma.user.findUnique({
+      where: { id: authUser.id },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role_id: true,
+      },
+    });
+
+    console.debug("getAdminUser: db user=", user);
+
+    if (!user) {
+      console.debug("getAdminUser: user not found in DB");
+      return null;
+    }
+
+    // Check if user is admin (role_id === 1)
+    if (user.role_id !== 1) {
+      console.debug("getAdminUser: user is not admin; role_id=", user.role_id);
+      return null;
+    }
+
+    return user;
+  } catch (error) {
+    console.error("getAdminUser: unexpected error", error instanceof Error ? error.message : error);
+    throw error;
   }
-
-  // Fetch full user details including role
-  const user = await prisma.user.findUnique({
-    where: { id: authUser.id },
-    select: {
-      id: true,
-      email: true,
-      name: true,
-      role_id: true,
-    },
-  });
-
-  if (!user) {
-    return null;
-  }
-
-  // Check if user is admin (role_id === 1)
-  if (user.role_id !== 1) {
-    return null;
-  }
-
-  return user;
 }
 
 /**
