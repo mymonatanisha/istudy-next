@@ -107,11 +107,8 @@ const AddProductForm = ({
                     </div>
                 </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+        </>
+    );
 };
 
 export default AddProductForm;
