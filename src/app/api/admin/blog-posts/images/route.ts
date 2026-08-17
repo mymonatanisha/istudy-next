@@ -1,20 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth-options";
+import { getAdminUser } from "@/lib/admin-auth";
 import { uploadBlogImage } from "@/lib/blog-image-storage";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ALLOWED_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
 
 export async function POST(request: NextRequest) {
-  const session = await getServerSession(authOptions);
-  const user = session?.user as { role?: string } | undefined;
-
-  if (!session?.user || !["ADMIN", "admin"].includes(user?.role ?? "")) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   try {
+    const adminUser = await getAdminUser();
+    if (!adminUser) {
+      return NextResponse.json({ error: "Unauthorized. Admin access required." }, { status: 403 });
+    }
+
     const formData = await request.formData();
     const file = formData.get("file");
 
