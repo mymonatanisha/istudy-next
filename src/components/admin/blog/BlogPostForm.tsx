@@ -39,6 +39,7 @@ const BlogPostForm = ({ post, onSaved, onCancel }: BlogPostFormProps) => {
   const [coverUploading, setCoverUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
+  const contentRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     setTitle(post?.title || '');
@@ -74,6 +75,29 @@ const BlogPostForm = ({ post, onSaved, onCancel }: BlogPostFormProps) => {
       setCoverUploading(false);
       if (coverInputRef.current) coverInputRef.current.value = '';
     }
+  };
+
+  const insertImageAtCursor = (imageHtml: string) => {
+    const textarea = contentRef.current;
+    if (!textarea) {
+      setContent((current) => (current ? `${current}\n\n${imageHtml}` : imageHtml));
+      return;
+    }
+
+    const start = textarea.selectionStart ?? content.length;
+    const end = textarea.selectionEnd ?? start;
+    const before = content.slice(0, start);
+    const after = content.slice(end);
+    const separatorBefore = before && !before.endsWith('\n') ? '\n\n' : '';
+    const separatorAfter = after && !after.startsWith('\n') ? '\n\n' : '';
+    const nextContent = `${before}${separatorBefore}${imageHtml}${separatorAfter}${after}`;
+    const cursorPosition = (before + separatorBefore + imageHtml).length;
+
+    setContent(nextContent);
+    requestAnimationFrame(() => {
+      textarea.focus();
+      textarea.setSelectionRange(cursorPosition, cursorPosition);
+    });
   };
 
   const handleSubmit = async (event: FormEvent) => {
@@ -133,10 +157,16 @@ const BlogPostForm = ({ post, onSaved, onCancel }: BlogPostFormProps) => {
               {coverUploading ? 'Uploading...' : 'Upload'}
             </button>
           </div>
-          <input ref={coverInputRef} type="file" accept="image/jpeg,image/png,image/webp,image/gif" className="d-none" onChange={(event) => {
-            const file = event.target.files?.[0];
-            if (file) void uploadCoverImage(file);
-          }} />
+          <input
+            ref={coverInputRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            className="d-none"
+            onChange={(event) => {
+              const file = event.target.files?.[0];
+              if (file) void uploadCoverImage(file);
+            }}
+          />
           {coverImage && <img src={coverImage} alt="Cover preview" className="mt-2 rounded" style={{ maxWidth: '260px', maxHeight: '140px', objectFit: 'cover' }} />}
         </div>
         <div className="col-12">
@@ -146,10 +176,19 @@ const BlogPostForm = ({ post, onSaved, onCancel }: BlogPostFormProps) => {
         <div className="col-12">
           <div className="d-flex align-items-center justify-content-between mb-2">
             <label className="form-label mb-0" htmlFor="blog-content">Content</label>
-            <BlogImageInsert onInsert={(imageHtml) => setContent((current) => current ? `${current}\n\n${imageHtml}` : imageHtml)} />
+            <BlogImageInsert onInsert={insertImageAtCursor} />
           </div>
-          <textarea id="blog-content" className="form-control" rows={20} value={content} onChange={(event) => setContent(event.target.value)} placeholder="Write HTML content here. Use Insert Image to upload an image into the article." required />
-          <div className="form-text">Images are uploaded to persistent Cloudinary storage and inserted into the HTML content automatically.</div>
+          <textarea
+            ref={contentRef}
+            id="blog-content"
+            className="form-control"
+            rows={20}
+            value={content}
+            onChange={(event) => setContent(event.target.value)}
+            placeholder="Write HTML content here. Use Insert Image to upload an image into the article."
+            required
+          />
+          <div className="form-text">Images are uploaded to persistent Cloudinary storage and inserted at the current cursor position.</div>
         </div>
       </div>
 
