@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAdminUser } from "@/lib/admin-auth";
 import { prisma } from "@/lib/prisma";
+import { sanitizeBlogContent } from "@/lib/blog-content";
+
+const MAX_TITLE_LENGTH = 200;
+const MAX_EXCERPT_LENGTH = 500;
+const MAX_CONTENT_LENGTH = 1_000_000;
 
 const buildSlug = (value: string) =>
   value
@@ -80,19 +85,27 @@ export async function PUT(request: NextRequest, props: RouteProps) {
     const postId = Number(id);
     const body = await request.json();
     const title = typeof body.title === "string" ? body.title.trim() : "";
-    const content = typeof body.content === "string" ? body.content.trim() : "";
+    const rawContent = typeof body.content === "string" ? body.content.trim() : "";
+    const excerpt = typeof body.excerpt === "string" ? body.excerpt.trim() : null;
     const status = body.status === "published" ? "published" : "draft";
 
     if (!Number.isInteger(postId)) {
       return NextResponse.json({ error: "Invalid blog post id." }, { status: 400 });
     }
-
     if (!title) {
       return NextResponse.json({ error: "Title is required." }, { status: 400 });
     }
-
-    if (!content) {
+    if (title.length > MAX_TITLE_LENGTH) {
+      return NextResponse.json({ error: `Title must be ${MAX_TITLE_LENGTH} characters or fewer.` }, { status: 400 });
+    }
+    if (!rawContent) {
       return NextResponse.json({ error: "Content is required." }, { status: 400 });
+    }
+    if (rawContent.length > MAX_CONTENT_LENGTH) {
+      return NextResponse.json({ error: "Content is too large." }, { status: 400 });
+    }
+    if (excerpt && excerpt.length > MAX_EXCERPT_LENGTH) {
+      return NextResponse.json({ error: `Excerpt must be ${MAX_EXCERPT_LENGTH} characters or fewer.` }, { status: 400 });
     }
 
     const existing = await prisma.blogPost.findUnique({ where: { id: postId } });
@@ -100,12 +113,17 @@ export async function PUT(request: NextRequest, props: RouteProps) {
       return NextResponse.json({ error: "Blog post not found." }, { status: 404 });
     }
 
+    const content = sanitizeBlogContent(rawContent);
+    if (!content.trim()) {
+      return NextResponse.json({ error: "Content does not contain any allowed HTML or text." }, { status: 400 });
+    }
+
     const post = await prisma.blogPost.update({
       where: { id: postId },
       data: {
         title,
         slug: await getUniqueSlug(title, postId, body.slug),
-        excerpt: typeof body.excerpt === "string" ? body.excerpt.trim() : null,
+        excerpt,
         content,
         coverImage:
           typeof body.coverImage === "string" && body.coverImage.trim()
