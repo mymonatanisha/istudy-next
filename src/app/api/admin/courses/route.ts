@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import type { Course } from "@prisma/client";
 import { getAdminUser } from "@/lib/admin-auth";
 
 const buildSlug = (title: string) =>
@@ -66,7 +67,7 @@ export async function GET(request: NextRequest) {
       prisma.course.count({ where }),
     ]);
 
-    const formattedCourses = courses.map((course) => {
+    const formattedCourses = courses.map((course: Course & { _count: { enrollments: number }; instructor?: { id: string; name?: string | null; email?: string | null; avatar?: string | null } | null }) => {
       const enrollmentCount = course._count.enrollments;
       return {
         id: course.id,
