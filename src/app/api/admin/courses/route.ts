@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import type { Course } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 import { getAdminUser } from "@/lib/admin-auth";
 
 const buildSlug = (title: string) =>
@@ -23,6 +23,14 @@ async function getUniqueSlug(baseTitle: string) {
     counter += 1;
   }
 }
+
+// Type representing the course payload we include from Prisma
+type CourseWithCount = Prisma.CourseGetPayload<{
+  include: {
+    instructor: { select: { id: true; name: true; email: true; avatar: true } };
+    _count: { select: { enrollments: true } };
+  };
+}>;
 
 /** GET /api/admin/courses */
 export async function GET(request: NextRequest) {
@@ -65,9 +73,9 @@ export async function GET(request: NextRequest) {
         },
       }),
       prisma.course.count({ where }),
-    ]);
+    ]) as [CourseWithCount[], number];
 
-    const formattedCourses = courses.map((course: Course & { _count: { enrollments: number }; instructor?: { id: string; name?: string | null; email?: string | null; avatar?: string | null } | null }) => {
+    const formattedCourses = courses.map((course) => {
       const enrollmentCount = course._count.enrollments;
       return {
         id: course.id,
