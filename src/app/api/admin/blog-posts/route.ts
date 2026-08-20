@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAdminUser } from "@/lib/admin-auth";
 import { prisma } from "@/lib/prisma";
+import { sanitizeBlogContent } from "@/lib/blog-content";
+
+const MAX_TITLE_LENGTH = 200;
+const MAX_EXCERPT_LENGTH = 500;
+const MAX_CONTENT_LENGTH = 1_000_000;
 
 const buildSlug = (value: string) =>
   value
@@ -36,8 +41,8 @@ export async function GET(request: NextRequest) {
     }
 
     const { searchParams } = new URL(request.url);
-    const page = Number(searchParams.get("page") || "1");
-    const perPage = Number(searchParams.get("perPage") || "10");
+    const page = Math.max(1, Number(searchParams.get("page") || "1"));
+    const perPage = Math.min(50, Math.max(1, Number(searchParams.get("perPage") || "10")));
     const search = searchParams.get("search") || "";
     const status = searchParams.get("status") || "";
     const skip = (page - 1) * perPage;
@@ -99,22 +104,36 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
     const title = typeof body.title === "string" ? body.title.trim() : "";
-    const content = typeof body.content === "string" ? body.content.trim() : "";
+    const rawContent = typeof body.content === "string" ? body.content.trim() : "";
+    const excerpt = typeof body.excerpt === "string" ? body.excerpt.trim() : null;
     const status = body.status === "published" ? "published" : "draft";
 
     if (!title) {
       return NextResponse.json({ error: "Title is required." }, { status: 400 });
     }
-
-    if (!content) {
+    if (title.length > MAX_TITLE_LENGTH) {
+      return NextResponse.json({ error: `Title must be ${MAX_TITLE_LENGTH} characters or fewer.` }, { status: 400 });
+    }
+    if (!rawContent) {
       return NextResponse.json({ error: "Content is required." }, { status: 400 });
+    }
+    if (rawContent.length > MAX_CONTENT_LENGTH) {
+      return NextResponse.json({ error: "Content is too large." }, { status: 400 });
+    }
+    if (excerpt && excerpt.length > MAX_EXCERPT_LENGTH) {
+      return NextResponse.json({ error: `Excerpt must be ${MAX_EXCERPT_LENGTH} characters or fewer.` }, { status: 400 });
+    }
+
+    const content = sanitizeBlogContent(rawContent);
+    if (!content.trim()) {
+      return NextResponse.json({ error: "Content does not contain any allowed HTML or text." }, { status: 400 });
     }
 
     const post = await prisma.blogPost.create({
       data: {
         title,
         slug: await getUniqueSlug(title, body.slug),
-        excerpt: typeof body.excerpt === "string" ? body.excerpt.trim() : null,
+        excerpt,
         content,
         coverImage:
           typeof body.coverImage === "string" && body.coverImage.trim()
