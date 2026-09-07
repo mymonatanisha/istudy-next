@@ -1,7 +1,7 @@
 'use client'
 
 import programData from '@/data/programe-data';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -38,7 +38,7 @@ const UniversityProgrammeArea = () => {
     };
 
     // Animation variants for the program card container
-    const containerVariants = {
+    const containerVariants: Variants = {
         hidden: { opacity: 0, y: 50 },
         visible: {
             opacity: 1,

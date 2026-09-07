@@ -27,7 +27,7 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       return NextResponse.json({ error: 'Invalid course id.' }, { status: 400 });
     }
 
-    const existingCourse = await prisma.course.findUnique({
+    const existingCourse = await prisma.courses.findUnique({
       where: { id: courseId },
       select: { id: true, instructorId: true },
     });
@@ -121,7 +121,7 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       return NextResponse.json({ error: 'No valid fields provided for update.' }, { status: 400 });
     }
 
-    const updatedCourse = await prisma.course.update({
+    const updatedCourse = await prisma.courses.update({
       where: { id: courseId },
       data,
     });

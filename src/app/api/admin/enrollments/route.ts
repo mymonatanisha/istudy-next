@@ -38,13 +38,13 @@ export async function GET(request: NextRequest) {
 
     // Fetch enrollments with related data
     const [enrollments, totalCount] = await Promise.all([
-      prisma.enrollment.findMany({
+      prisma.enrollments.findMany({
         where,
         skip,
         take: perPage,
         orderBy: { enrolledAt: 'desc' },
         include: {
-          student: {
+          user: {
             select: {
               id: true,
               name: true,
@@ -52,7 +52,7 @@ export async function GET(request: NextRequest) {
               avatar: true,
             }
           },
-          course: {
+          courses: {
             select: {
               id: true,
               title: true,
@@ -63,7 +63,7 @@ export async function GET(request: NextRequest) {
               instructorAvatar: true,
             }
           },
-          order: {
+          orders: {
             select: {
               id: true,
               transactionId: true,
@@ -73,7 +73,7 @@ export async function GET(request: NextRequest) {
           }
         },
       }),
-      prisma.enrollment.count({ where }),
+      prisma.enrollments.count({ where }),
     ]);
 
     // Format enrollment data
@@ -81,21 +81,21 @@ export async function GET(request: NextRequest) {
     const formattedEnrollments = enrollments.map((enrollment: EnrollmentWithRelations) => ({
       id: enrollment.id,
       student: {
-        id: enrollment.student.id,
-        name: enrollment.student.name,
-        email: enrollment.student.email,
-        avatar: enrollment.student.avatar,
+        id: enrollment.user.id,
+        name: enrollment.user.name,
+        email: enrollment.user.email,
+        avatar: enrollment.user.avatar,
       },
       course: {
-        id: enrollment.course.id,
-        title: enrollment.course.title,
-        slug: enrollment.course.slug,
-        thumbnail: enrollment.course.thumbnail,
-        price: enrollment.course.price,
-        instructor: enrollment.course.instructorName,
-        instructorAvatar: enrollment.course.instructorAvatar,
+        id: enrollment.courses.id,
+        title: enrollment.courses.title,
+        slug: enrollment.courses.slug,
+        thumbnail: enrollment.courses.thumbnail,
+        price: enrollment.courses.price,
+        instructor: enrollment.courses.instructorName,
+        instructorAvatar: enrollment.courses.instructorAvatar,
       },
-      order: enrollment.order,
+      order: enrollment.orders,
       status: enrollment.status,
       progress: enrollment.progress,
       enrolledAt: enrollment.enrolledAt,

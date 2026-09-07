@@ -14,21 +14,21 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "A valid courseLegacyId is required." }, { status: 400 });
     }
 
-    const enrollment = await prisma.enrollment.findFirst({
+    const enrollment = await prisma.enrollments.findFirst({
       where: {
         studentId: user.id,
-        course: { legacyId: courseLegacyId },
+        courses: { legacyId: courseLegacyId },
       },
       include: {
-        course: {
+        courses: {
           include: {
-            modules: {
+            course_modules: {
               orderBy: { orderIndex: "asc" },
               include: {
                 lessons: {
                   orderBy: { orderIndex: "asc" },
                   include: {
-                    progress: {
+                    lesson_progress: {
                       where: { userId: user.id },
                       select: { isCompleted: true, progress: true, watchTime: true },
                     },
@@ -45,23 +45,23 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "You are not enrolled in this course." }, { status: 403 });
     }
 
-    const lessons = enrollment.course.modules.flatMap((module) =>
+    const lessons = enrollment.courses.course_modules.flatMap((module) =>
       module.lessons.map((lesson) => ({
         id: lesson.id,
         moduleId: module.id,
         moduleTitle: module.title,
         title: lesson.title,
         orderIndex: lesson.orderIndex,
-        isCompleted: lesson.progress[0]?.isCompleted ?? false,
-        progress: lesson.progress[0]?.progress ?? 0,
-        watchTime: lesson.progress[0]?.watchTime ?? 0,
+        isCompleted: lesson.lesson_progress[0]?.isCompleted ?? false,
+        progress: lesson.lesson_progress[0]?.progress ?? 0,
+        watchTime: lesson.lesson_progress[0]?.watchTime ?? 0,
       }))
     );
 
     return NextResponse.json({
       success: true,
       enrollmentId: enrollment.id,
-      courseId: enrollment.course.id,
+      courseId: enrollment.courses.id,
       courseLegacyId,
       courseProgress: enrollment.progress,
       status: enrollment.status,
@@ -91,10 +91,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Valid courseLegacyId and lessonId are required." }, { status: 400 });
     }
 
-    const enrollment = await prisma.enrollment.findFirst({
+    const enrollment = await prisma.enrollments.findFirst({
       where: {
         studentId: user.id,
-        course: { legacyId: courseLegacyId },
+        courses: { legacyId: courseLegacyId },
       },
     });
 
@@ -102,10 +102,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "You are not enrolled in this course." }, { status: 403 });
     }
 
-    const lesson = await prisma.lesson.findFirst({
+    const lesson = await prisma.lessons.findFirst({
       where: {
         id: lessonId,
-        module: { courseId: enrollment.courseId },
+        course_modules: { courseId: enrollment.courseId },
       },
     });
 
@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Lesson does not belong to this course." }, { status: 404 });
     }
 
-    await prisma.lessonProgress.upsert({
+    await prisma.lesson_progress.upsert({
       where: {
         enrollmentId_lessonId: {
           enrollmentId: enrollment.id,
@@ -137,10 +137,10 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    const totalLessons = await prisma.lesson.count({
-      where: { module: { courseId: enrollment.courseId } },
+    const totalLessons = await prisma.lessons.count({
+      where: { course_modules: { courseId: enrollment.courseId } },
     });
-    const completedLessons = await prisma.lessonProgress.count({
+    const completedLessons = await prisma.lesson_progress.count({
       where: {
         enrollmentId: enrollment.id,
         isCompleted: true,
@@ -150,7 +150,7 @@ export async function POST(request: NextRequest) {
     const courseProgress = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
     const status = courseProgress === 100 ? "completed" : "active";
 
-    await prisma.enrollment.update({
+    await prisma.enrollments.update({
       where: { id: enrollment.id },
       data: {
         progress: courseProgress,

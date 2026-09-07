@@ -7,6 +7,7 @@ export interface FlutterRoadmapLecture {
   duration: string;
   videoUrl?: string;
   videoType?: "long" | "short";
+  videos?: FlutterLectureVideo[];
 }
 
 export interface FlutterRoadmapSection {
@@ -19,7 +20,6 @@ export interface FlutterQuickShort {
   videoUrl: string;
 }
 export interface FlutterLectureVideo { title: string; url: string; type?: "video" | "short"; }
-export interface FlutterRoadmapSection { title: string; lectures: { title: string; duration: string; videos?: FlutterLectureVideo[]; }[]; }
 
 export const flutterCourse: ICourse = {
   id: 36, badge: "FREE", badgeClass: "badge-primary", image: courseBg2, imageClassName: "bg-2", instructorImage: instructorImg2, instructorImageClassName: "right", courseTextContent: true,

@@ -51,15 +51,15 @@ export async function GET(request: NextRequest) {
 
     // Fetch orders with related data
     const [orders, totalCount] = await Promise.all([
-      prisma.order.findMany({
+      prisma.orders.findMany({
         where,
         skip,
         take: perPage,
         orderBy: { createdAt: 'desc' },
         include: {
-          enrollment: {
+          enrollments: {
             include: {
-              student: {
+              user: {
                 select: {
                   id: true,
                   name: true,
@@ -67,7 +67,7 @@ export async function GET(request: NextRequest) {
                   avatar: true,
                 }
               },
-              course: {
+              courses: {
                 select: {
                   id: true,
                   title: true,
@@ -80,7 +80,7 @@ export async function GET(request: NextRequest) {
           }
         },
       }),
-      prisma.order.count({ where }),
+      prisma.orders.count({ where }),
     ]);
 
     // Format order data
@@ -92,19 +92,19 @@ export async function GET(request: NextRequest) {
       phone: order.phone,
       email: order.email,
       customer: {
-        id: order.enrollment?.student?.id,
-        name: order.enrollment?.student?.name || order.fullName,
-        email: order.enrollment?.student?.email || order.email,
-        avatar: order.enrollment?.student?.avatar,
+        id: order.enrollments?.user?.id,
+        name: order.enrollments?.user?.name || order.fullName,
+        email: order.enrollments?.user?.email || order.email,
+        avatar: order.enrollments?.user?.avatar,
       },
-      course: order.enrollment?.course ? {
-        id: order.enrollment.course.id,
-        title: order.enrollment.course.title,
-        slug: order.enrollment.course.slug,
-        thumbnail: order.enrollment.course.thumbnail,
-        price: order.enrollment.course.price,
+      course: order.enrollments?.courses ? {
+        id: order.enrollments.courses.id,
+        title: order.enrollments.courses.title,
+        slug: order.enrollments.courses.slug,
+        thumbnail: order.enrollments.courses.thumbnail,
+        price: order.enrollments.courses.price,
       } : null,
-      amount: order.enrollment?.course?.price || 0,
+      amount: order.enrollments?.courses?.price || 0,
       paymentMethod: order.paymentMethod,
       transactionId: order.transactionId,
       status: order.status,

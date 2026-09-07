@@ -19,12 +19,12 @@ export async function GET() {
     }
 
     // Fetch all completed orders
-    const completedOrders = await prisma.order.findMany({
+    const completedOrders = await prisma.orders.findMany({
       where: { status: 'completed' },
       include: {
-        enrollment: {
+        enrollments: {
           include: {
-            course: {
+            courses: {
               select: { 
                 id: true,
                 title: true,
@@ -33,7 +33,7 @@ export async function GET() {
                 instructorName: true,
               },
               include: {
-                instructor: {
+                user: {
                   select: {
                     id: true,
                     name: true,
@@ -41,7 +41,7 @@ export async function GET() {
                 }
               }
             },
-            student: {
+            user: {
               select: {
                 id: true,
                 name: true,
@@ -56,7 +56,7 @@ export async function GET() {
 
     // Calculate total revenue
     const totalRevenue = completedOrders.reduce((sum: number, order: CompletedOrder) => {
-      return sum + (order.enrollment?.course?.price || 0);
+      return sum + Number(order.enrollments?.courses?.price || 0);
     }, 0);
 
     // Calculate platform fee (assuming 20% commission)
@@ -84,7 +84,7 @@ export async function GET() {
       });
       
       const monthRevenue = monthOrders.reduce((sum: number, order: CompletedOrder) => {
-        return sum + (order.enrollment?.course?.price || 0);
+        return sum + Number(order.enrollments?.courses?.price || 0);
       }, 0);
       
       monthlyRevenue.push({
@@ -97,17 +97,17 @@ export async function GET() {
     const courseRevenueMap = new Map<number, { title: string; revenue: number; students: number }>();
     
     completedOrders.forEach((order: CompletedOrder) => {
-      if (order.enrollment?.course) {
-        const courseId = order.enrollment.course.id;
+      if (order.enrollments?.courses) {
+        const courseId = order.enrollments.courses.id;
         const existing = courseRevenueMap.get(courseId);
-        const price = order.enrollment.course.price;
+        const price = Number(order.enrollments.courses.price);
         
         if (existing) {
           existing.revenue += price;
           existing.students += 1;
         } else {
           courseRevenueMap.set(courseId, {
-            title: order.enrollment.course.title,
+            title: order.enrollments.courses.title,
             revenue: price,
             students: 1,
           });
@@ -124,22 +124,22 @@ export async function GET() {
     const instructorEarningsMap = new Map<number, { name: string; earnings: number; courses: Set<number>; students: number }>();
     
     completedOrders.forEach((order: CompletedOrder) => {
-      if (order.enrollment?.course?.instructorId) {
-        const instructorId = order.enrollment.course.instructorId;
+      if (order.enrollments?.courses?.instructorId) {
+        const instructorId = order.enrollments.courses.instructorId;
         const existing = instructorEarningsMap.get(instructorId);
-        const price = order.enrollment.course.price;
+        const price = Number(order.enrollments.courses.price);
         const instructorEarning = price * (1 - platformCommission);
-        const instructorName = order.enrollment.course.instructor?.name || order.enrollment.course.instructorName || 'Unknown';
+        const instructorName = order.enrollments.courses.user?.name || order.enrollments.courses.instructorName || 'Unknown';
         
         if (existing) {
           existing.earnings += instructorEarning;
-          existing.courses.add(order.enrollment.course.id);
+          existing.courses.add(order.enrollments.courses.id);
           existing.students += 1;
         } else {
           instructorEarningsMap.set(instructorId, {
             name: instructorName,
             earnings: instructorEarning,
-            courses: new Set([order.enrollment.course.id]),
+            courses: new Set([order.enrollments.courses.id]),
             students: 1,
           });
         }

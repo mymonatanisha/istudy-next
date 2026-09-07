@@ -60,7 +60,7 @@ export const authOptions = {
         user.id = existingUser.id;
 
         // Create or update account
-        await prisma.account.upsert({
+        await prisma.accounts.upsert({
           where: {
             provider_providerAccountId: {
               provider: account.provider,

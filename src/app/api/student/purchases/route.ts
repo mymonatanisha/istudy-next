@@ -18,14 +18,14 @@ export async function GET() {
       );
     }
 
-    const orders = await prisma.order.findMany({
+    const orders = await prisma.orders.findMany({
       where: {
         userId: user.id,
       },
       include: {
-        enrollment: {
+        enrollments: {
           include: {
-            course: {
+            courses: {
               select: {
                 title: true,
                 price: true,
@@ -40,8 +40,8 @@ export async function GET() {
     });
 
     const purchases = orders.map((order) => ({
-      course: order.enrollment?.course?.title ?? `Course (${order.courseId})`,
-      price: order.enrollment?.course?.price ?? 0,
+      course: order.enrollments?.courses?.title ?? `Course (${order.courseId})`,
+      price: order.enrollments?.courses?.price ?? 0,
       paymentStatus: order.status,
       date: order.createdAt,
     }));

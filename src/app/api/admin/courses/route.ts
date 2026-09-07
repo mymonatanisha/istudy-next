@@ -17,7 +17,7 @@ async function getUniqueSlug(baseTitle: string) {
   let counter = 1;
 
   while (true) {
-    const existing = await prisma.course.findUnique({ where: { slug } });
+    const existing = await prisma.courses.findUnique({ where: { slug } });
     if (!existing) return slug;
     slug = `${baseSlug}-${counter}`;
     counter += 1;
@@ -25,9 +25,9 @@ async function getUniqueSlug(baseTitle: string) {
 }
 
 // Type representing the course payload we include from Prisma
-type CourseWithCount = Prisma.CourseGetPayload<{
+type CourseWithCount = Prisma.coursesGetPayload<{
   include: {
-    instructor: { select: { id: true; name: true; email: true; avatar: true } };
+    user: { select: { id: true; name: true; email: true; avatar: true } };
     _count: { select: { enrollments: true } };
   };
 }>;
@@ -60,19 +60,19 @@ export async function GET(request: NextRequest) {
     };
 
     const [courses, totalCount] = await Promise.all([
-      prisma.course.findMany({
+      prisma.courses.findMany({
         where,
         skip,
         take: perPage,
         orderBy: { createdAt: "desc" },
         include: {
-          instructor: {
+          user: {
             select: { id: true, name: true, email: true, avatar: true },
           },
           _count: { select: { enrollments: true } },
         },
       }),
-      prisma.course.count({ where }),
+      prisma.courses.count({ where }),
     ]) as [CourseWithCount[], number];
 
     const formattedCourses = courses.map((course) => {
@@ -82,13 +82,13 @@ export async function GET(request: NextRequest) {
         title: course.title,
         slug: course.slug,
         thumbnail: course.thumbnail,
-        instructor: course.instructor?.name || course.instructorName,
-        instructorAvatar: course.instructor?.avatar || course.instructorAvatar,
+        instructor: course.user?.name || course.instructorName,
+        instructorAvatar: course.user?.avatar || course.instructorAvatar,
         instructorId: course.instructorId,
         price: course.price,
         oldPrice: course.oldPrice,
         students: enrollmentCount,
-        revenue: enrollmentCount * course.price,
+        revenue: enrollmentCount * Number(course.price),
         status: course.status,
         rating: course.rating,
         lessons: course.lessons,
@@ -153,7 +153,7 @@ export async function POST(request: NextRequest) {
     if (!dbUser) return NextResponse.json({ error: "Authenticated user was not found." }, { status: 404 });
 
     const slug = await getUniqueSlug(title);
-    const course = await prisma.course.create({
+    const course = await prisma.courses.create({
       data: {
         title,
         slug,

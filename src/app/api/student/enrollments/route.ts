@@ -8,27 +8,27 @@ export async function GET() {
     const user = await getAuthUser();
     if (!user) return NextResponse.json({ error: "Unauthorized. Please login to view your enrollments." }, { status: 401 });
 
-    const enrollments = await prisma.enrollment.findMany({
+    const enrollments = await prisma.enrollments.findMany({
       where: { studentId: user.id },
-      include: { course: { select: { id: true, title: true, slug: true, thumbnail: true, price: true, lessons: true, instructorName: true, instructorAvatar: true } } },
+      include: { courses: { select: { id: true, title: true, slug: true, thumbnail: true, price: true, lessons: true, instructorName: true, instructorAvatar: true } } },
     });
 
     return NextResponse.json({
       success: true,
       enrollments: enrollments.map((enrollment) => ({
         id: enrollment.id,
-        courseName: enrollment.course.title,
-        courseSlug: enrollment.course.slug,
-        instructor: enrollment.course.instructorName,
-        instructorAvatar: enrollment.course.instructorAvatar,
-        thumbnail: enrollment.course.thumbnail,
+        courseName: enrollment.courses.title,
+        courseSlug: enrollment.courses.slug,
+        instructor: enrollment.courses.instructorName,
+        instructorAvatar: enrollment.courses.instructorAvatar,
+        thumbnail: enrollment.courses.thumbnail,
         enrolledAt: enrollment.enrolledAt,
         progress: enrollment.progress,
         status: enrollment.status,
         lastAccessedAt: enrollment.lastAccessedAt,
         completedAt: enrollment.completedAt,
-        lessons: enrollment.course.lessons,
-        price: enrollment.course.price,
+        lessons: enrollment.courses.lessons,
+        price: enrollment.courses.price,
       })),
       total: enrollments.length,
     });
@@ -39,17 +39,18 @@ export async function GET() {
 }
 
 async function provisionFlutterRoadmap(courseId: number) {
-  const existingModules = await prisma.courseModule.count({ where: { courseId } });
+  const existingModules = await prisma.course_modules.count({ where: { courseId } });
   if (existingModules > 0) return;
 
   for (let moduleIndex = 0; moduleIndex < flutterRoadmap.length; moduleIndex++) {
     const section = flutterRoadmap[moduleIndex];
-    await prisma.courseModule.create({
+    await prisma.course_modules.create({
       data: {
         courseId,
         title: section.title,
         orderIndex: moduleIndex + 1,
         isPublished: true,
+        updatedAt: new Date(),
         lessons: {
           create: section.lectures.map((lecture, lessonIndex) => ({
             title: lecture.title,
@@ -57,6 +58,7 @@ async function provisionFlutterRoadmap(courseId: number) {
             orderIndex: lessonIndex + 1,
             isFree: true,
             isPublished: true,
+            updatedAt: new Date(),
           })),
         },
       },
@@ -64,7 +66,7 @@ async function provisionFlutterRoadmap(courseId: number) {
   }
 
   const totalLessons = flutterRoadmap.reduce((total, section) => total + section.lectures.length, 0);
-  await prisma.course.update({ where: { id: courseId }, data: { lessons: totalLessons } });
+  await prisma.courses.update({ where: { id: courseId }, data: { lessons: totalLessons } });
 }
 
 /** POST /api/student/enrollments — enroll the authenticated student in a free course. */
@@ -77,10 +79,10 @@ export async function POST(request: NextRequest) {
     const courseLegacyId = Number(body?.courseLegacyId);
     if (!Number.isInteger(courseLegacyId) || courseLegacyId <= 0) return NextResponse.json({ error: "A valid courseLegacyId is required." }, { status: 400 });
 
-    let course = await prisma.course.findFirst({ where: { legacyId: courseLegacyId } });
+    let course = await prisma.courses.findFirst({ where: { legacyId: courseLegacyId } });
 
     if (!course && courseLegacyId === 36) {
-      course = await prisma.course.create({
+      course = await prisma.courses.create({
         data: {
           title: "Flutter App Development",
           slug: "flutter-app-development",
@@ -105,18 +107,18 @@ export async function POST(request: NextRequest) {
     }
 
     if (!course) return NextResponse.json({ error: "Course is not available in the enrollment system yet." }, { status: 404 });
-    if (course.price !== 0) return NextResponse.json({ error: "This endpoint is only available for free courses." }, { status: 400 });
+    if (Number(course.price) !== 0) return NextResponse.json({ error: "This endpoint is only available for free courses." }, { status: 400 });
 
     await provisionFlutterRoadmap(course.id);
 
-    const existingEnrollment = await prisma.enrollment.findUnique({ where: { studentId_courseId: { studentId: user.id, courseId: course.id } } });
+    const existingEnrollment = await prisma.enrollments.findUnique({ where: { studentId_courseId: { studentId: user.id, courseId: course.id } } });
     if (existingEnrollment) {
       return NextResponse.json({ success: true, alreadyEnrolled: true, enrollmentId: existingEnrollment.id, message: "You are already enrolled in this course." });
     }
 
     const enrollment = await prisma.$transaction(async (tx) => {
-      const createdEnrollment = await tx.enrollment.create({ data: { studentId: user.id, courseId: course.id, status: "active", progress: 0, enrolledAt: new Date(), lastAccessedAt: new Date() } });
-      await tx.course.update({ where: { id: course.id }, data: { students: { increment: 1 } } });
+      const createdEnrollment = await tx.enrollments.create({ data: { studentId: user.id, courseId: course.id, status: "active", progress: 0, enrolledAt: new Date(), lastAccessedAt: new Date() } });
+      await tx.courses.update({ where: { id: course.id }, data: { students: { increment: 1 } } });
       return createdEnrollment;
     });
 

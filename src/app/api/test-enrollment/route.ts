@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate course exists
-    const course = await prisma.course.findUnique({
+    const course = await prisma.courses.findUnique({
       where: { id: Number(courseId) },
       select: { 
         id: true, 
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check for duplicate enrollment
-    const existingEnrollment = await prisma.enrollment.findUnique({
+    const existingEnrollment = await prisma.enrollments.findUnique({
       where: {
         studentId_courseId: {
           studentId: Number(userId),
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
     // Create enrollment in a transaction
     const result = await prisma.$transaction(async (tx) => {
       // Create enrollment
-      const enrollment = await tx.enrollment.create({
+      const enrollment = await tx.enrollments.create({
         data: {
           studentId: Number(userId),
           courseId: Number(courseId),
@@ -86,14 +86,14 @@ export async function POST(request: NextRequest) {
           lastAccessedAt: new Date(),
         },
         include: {
-          course: {
+          courses: {
             select: {
               title: true,
               slug: true,
               instructorName: true,
             },
           },
-          student: {
+          user: {
             select: {
               name: true,
               email: true,
@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
       });
 
       // Increment course student count
-      await tx.course.update({
+      await tx.courses.update({
         where: { id: Number(courseId) },
         data: {
           students: {
@@ -123,14 +123,14 @@ export async function POST(request: NextRequest) {
           id: result.id,
           student: {
             id: result.studentId,
-            name: result.student.name,
-            email: result.student.email,
+            name: result.user.name,
+            email: result.user.email,
           },
           course: {
             id: result.courseId,
-            title: result.course.title,
-            slug: result.course.slug,
-            instructor: result.course.instructorName,
+            title: result.courses.title,
+            slug: result.courses.slug,
+            instructor: result.courses.instructorName,
           },
           status: result.status,
           progress: result.progress,

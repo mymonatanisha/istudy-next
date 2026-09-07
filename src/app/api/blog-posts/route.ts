@@ -23,14 +23,14 @@ export async function GET(request: NextRequest) {
     };
 
     const [posts, totalCount] = await Promise.all([
-      prisma.blogPost.findMany({
+      prisma.blog_posts.findMany({
         where,
         skip,
         take: perPage,
         orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
-        include: { author: { select: { name: true } } },
+        include: { user: { select: { name: true } } },
       }),
-      prisma.blogPost.count({ where }),
+      prisma.blog_posts.count({ where }),
     ]);
 
     return NextResponse.json({

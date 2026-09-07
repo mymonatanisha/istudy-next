@@ -127,7 +127,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create the order with status = pending
-    const order = await prisma.order.create({
+    const order = await prisma.orders.create({
       data: {
         fullName: fullName.trim(),
         phone: phone.trim(),
@@ -137,6 +137,8 @@ export async function POST(request: NextRequest) {
         transactionId: transactionId.trim(),
         status: "pending",
         userId: userIdForOrder,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     });
 

@@ -22,7 +22,7 @@ async function getUniqueSlug(title: string, id: number, requestedSlug?: string) 
   let counter = 1;
 
   while (true) {
-    const existing = await prisma.blogPost.findUnique({ where: { slug } });
+    const existing = await prisma.blog_posts.findUnique({ where: { slug } });
     if (!existing || existing.id === id) return slug;
     slug = `${baseSlug}-${counter}`;
     counter += 1;
@@ -51,9 +51,9 @@ export async function GET(_request: NextRequest, props: RouteProps) {
       return NextResponse.json({ error: "Invalid blog post id." }, { status: 400 });
     }
 
-    const post = await prisma.blogPost.findUnique({
+    const post = await prisma.blog_posts.findUnique({
       where: { id: postId },
-      include: { author: { select: { id: true, name: true, email: true } } },
+      include: { user: { select: { id: true, name: true, email: true } } },
     });
 
     if (!post) {
@@ -108,7 +108,7 @@ export async function PUT(request: NextRequest, props: RouteProps) {
       return NextResponse.json({ error: `Excerpt must be ${MAX_EXCERPT_LENGTH} characters or fewer.` }, { status: 400 });
     }
 
-    const existing = await prisma.blogPost.findUnique({ where: { id: postId } });
+    const existing = await prisma.blog_posts.findUnique({ where: { id: postId } });
     if (!existing) {
       return NextResponse.json({ error: "Blog post not found." }, { status: 404 });
     }
@@ -118,7 +118,7 @@ export async function PUT(request: NextRequest, props: RouteProps) {
       return NextResponse.json({ error: "Content does not contain any allowed HTML or text." }, { status: 400 });
     }
 
-    const post = await prisma.blogPost.update({
+    const post = await prisma.blog_posts.update({
       where: { id: postId },
       data: {
         title,
@@ -132,6 +132,7 @@ export async function PUT(request: NextRequest, props: RouteProps) {
         status,
         publishedAt:
           status === "published" ? existing.publishedAt || new Date() : null,
+        updatedAt: new Date(),
       },
     });
 
@@ -163,7 +164,7 @@ export async function DELETE(_request: NextRequest, props: RouteProps) {
       return NextResponse.json({ error: "Invalid blog post id." }, { status: 400 });
     }
 
-    await prisma.blogPost.delete({ where: { id: postId } });
+    await prisma.blog_posts.delete({ where: { id: postId } });
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error deleting blog post:", error);

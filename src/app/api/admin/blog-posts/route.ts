@@ -21,7 +21,7 @@ async function getUniqueSlug(title: string, requestedSlug?: string) {
   let slug = baseSlug;
   let counter = 1;
 
-  while (await prisma.blogPost.findUnique({ where: { slug } })) {
+  while (await prisma.blog_posts.findUnique({ where: { slug } })) {
     slug = `${baseSlug}-${counter}`;
     counter += 1;
   }
@@ -60,16 +60,16 @@ export async function GET(request: NextRequest) {
     };
 
     const [posts, totalCount] = await Promise.all([
-      prisma.blogPost.findMany({
+      prisma.blog_posts.findMany({
         where,
         skip,
         take: perPage,
         orderBy: { createdAt: "desc" },
         include: {
-          author: { select: { id: true, name: true, email: true } },
+          user: { select: { id: true, name: true, email: true } },
         },
       }),
-      prisma.blogPost.count({ where }),
+      prisma.blog_posts.count({ where }),
     ]);
 
     return NextResponse.json({
@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Content does not contain any allowed HTML or text." }, { status: 400 });
     }
 
-    const post = await prisma.blogPost.create({
+    const post = await prisma.blog_posts.create({
       data: {
         title,
         slug: await getUniqueSlug(title, body.slug),
@@ -142,6 +142,8 @@ export async function POST(request: NextRequest) {
         status,
         publishedAt: status === "published" ? new Date() : null,
         authorId: adminUser.id,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     });
 

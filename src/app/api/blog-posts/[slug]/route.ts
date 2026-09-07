@@ -9,9 +9,9 @@ interface RouteProps {
 export async function GET(_request: NextRequest, props: RouteProps) {
   try {
     const { slug } = await props.params;
-    const post = await prisma.blogPost.findFirst({
+    const post = await prisma.blog_posts.findFirst({
       where: { slug, status: "published" },
-      include: { author: { select: { name: true } } },
+      include: { user: { select: { name: true } } },
     });
 
     if (!post) {

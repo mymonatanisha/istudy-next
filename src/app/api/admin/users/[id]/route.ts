@@ -1,29 +1,41 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getAdminUser } from "@/lib/admin-auth";
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Verify admin access
+    const adminUser = await getAdminUser();
+    if (!adminUser) {
+      return NextResponse.json(
+        { error: "Unauthorized. Admin access required." },
+        { status: 403 }
+      );
+    }
+
     const { id } = await params;
 
     const user = await prisma.user.findUnique({
       where: { id: Number(id) },
       include: {
+        roles: {
+          select: { id: true, name: true },
+        },
+        instructor_profiles: true,
         enrollments: {
           include: {
-            course: {
+            courses: {
               select: {
                 id: true,
                 title: true,
                 slug: true,
                 price: true,
-                image: true,
               },
             },
-            progress: true,
-            order: {
+            orders: {
               select: {
                 id: true,
                 status: true,
@@ -35,7 +47,6 @@ export async function GET(
           },
           orderBy: { enrolledAt: "desc" },
         },
-        instructorProfile: true,
       },
     });
 
@@ -46,13 +57,13 @@ export async function GET(
       );
     }
 
-    // Calculate total spent without relying on a generic type argument on an untyped Prisma result.
+    // Calculate total spent
     let totalSpent = 0;
     for (const enrollment of user.enrollments) {
-      totalSpent += Number(enrollment.course?.price || 0);
+      totalSpent += Number(enrollment.courses?.price || 0);
     }
 
-    // Format response
+    // Format response (schema-correct fields only)
     const formattedUser = {
       id: user.id,
       name: user.name,
@@ -63,13 +74,22 @@ export async function GET(
       address: user.address,
       linkedIn: user.linkedIn,
       bio: user.bio,
-      role: user.role,
-      status: user.status,
+      roleId: user.role_id,
+      role: user.roles?.name || null,
       createdAt: user.createdAt,
-      lastLogin: user.lastLogin,
       totalSpent,
-      enrollments: user.enrollments,
-      instructorProfile: user.instructorProfile,
+      enrollments: user.enrollments.map((enrollment) => ({
+        id: enrollment.id,
+        status: enrollment.status,
+        progress: enrollment.progress,
+        enrolledAt: enrollment.enrolledAt,
+        lastAccessedAt: enrollment.lastAccessedAt,
+        completedAt: enrollment.completedAt,
+        expiresAt: enrollment.expiresAt,
+        course: enrollment.courses,
+        order: enrollment.orders,
+      })),
+      instructorProfile: user.instructor_profiles,
     };
 
     return NextResponse.json(formattedUser);

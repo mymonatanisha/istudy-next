@@ -49,9 +49,9 @@ const SignUpForm = () => {
         return;
       }
 
-      // Redirect to your existing sign-in page after successful registration.
-      // If your route is different (e.g., "/login"), change the string below.
-      router.push("/sign-in");
+      // The register endpoint sets the auth cookie (auto-login), so go
+      // straight to the dashboard like a successful sign-in.
+      router.replace("/student-dashboard");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Network error";
       setServerError(msg);

@@ -22,36 +22,36 @@ export async function GET() {
     const usersLastMonth = await prisma.user.count({ where: { createdAt: { gte: startOfLastMonth, lt: startOfMonth } } });
     const userTrend = usersLastMonth > 0 ? ((usersThisMonth - usersLastMonth) / usersLastMonth * 100).toFixed(1) : 0;
 
-    const totalCourses = await prisma.course.count({ where: { status: 'published' } });
-    const coursesThisMonth = await prisma.course.count({ where: { status: 'published', publishedAt: { gte: startOfMonth } } });
-    const coursesLastMonth = await prisma.course.count({ where: { status: 'published', publishedAt: { gte: startOfLastMonth, lt: startOfMonth } } });
+    const totalCourses = await prisma.courses.count({ where: { status: 'published' } });
+    const coursesThisMonth = await prisma.courses.count({ where: { status: 'published', publishedAt: { gte: startOfMonth } } });
+    const coursesLastMonth = await prisma.courses.count({ where: { status: 'published', publishedAt: { gte: startOfLastMonth, lt: startOfMonth } } });
     const courseTrend = coursesLastMonth > 0 ? ((coursesThisMonth - coursesLastMonth) / coursesLastMonth * 100).toFixed(1) : 0;
 
-    const completedOrders = await prisma.order.findMany({
+    const completedOrders = await prisma.orders.findMany({
       where: { status: 'completed' },
-      include: { enrollment: { include: { course: { select: { price: true } } } } }
+      include: { enrollments: { include: { courses: { select: { price: true } } } } }
     });
     type CompletedOrder = (typeof completedOrders)[number];
-    const totalRevenue = completedOrders.reduce((sum: number, order: CompletedOrder) => sum + (order.enrollment?.course?.price || 0), 0);
+    const totalRevenue = completedOrders.reduce((sum: number, order: CompletedOrder) => sum + Number(order.enrollments?.courses?.price || 0), 0);
     const ordersThisMonth = completedOrders.filter((order: CompletedOrder) => order.createdAt >= startOfMonth);
-    const revenueThisMonth = ordersThisMonth.reduce((sum: number, order: CompletedOrder) => sum + (order.enrollment?.course?.price || 0), 0);
+    const revenueThisMonth = ordersThisMonth.reduce((sum: number, order: CompletedOrder) => sum + Number(order.enrollments?.courses?.price || 0), 0);
     const ordersLastMonth = completedOrders.filter((order: CompletedOrder) => order.createdAt >= startOfLastMonth && order.createdAt < startOfMonth);
-    const revenueLastMonth = ordersLastMonth.reduce((sum: number, order: CompletedOrder) => sum + (order.enrollment?.course?.price || 0), 0);
+    const revenueLastMonth = ordersLastMonth.reduce((sum: number, order: CompletedOrder) => sum + Number(order.enrollments?.courses?.price || 0), 0);
     const revenueTrend = revenueLastMonth > 0 ? ((revenueThisMonth - revenueLastMonth) / revenueLastMonth * 100).toFixed(1) : 0;
 
-    const activeEnrollments = await prisma.enrollment.count({ where: { status: 'active' } });
-    const enrollmentsThisMonth = await prisma.enrollment.count({ where: { status: 'active', enrolledAt: { gte: startOfMonth } } });
-    const enrollmentsLastMonth = await prisma.enrollment.count({ where: { status: 'active', enrolledAt: { gte: startOfLastMonth, lt: startOfMonth } } });
+    const activeEnrollments = await prisma.enrollments.count({ where: { status: 'active' } });
+    const enrollmentsThisMonth = await prisma.enrollments.count({ where: { status: 'active', enrolledAt: { gte: startOfMonth } } });
+    const enrollmentsLastMonth = await prisma.enrollments.count({ where: { status: 'active', enrolledAt: { gte: startOfLastMonth, lt: startOfMonth } } });
     const enrollmentTrend = enrollmentsLastMonth > 0 ? ((enrollmentsThisMonth - enrollmentsLastMonth) / enrollmentsLastMonth * 100).toFixed(1) : 0;
 
-    const recentOrders = await prisma.order.findMany({
+    const recentOrders = await prisma.orders.findMany({
       take: 10,
       orderBy: { createdAt: 'desc' },
       include: {
-        enrollment: {
+        enrollments: {
           include: {
-            student: { select: { name: true, email: true } },
-            course: { select: { title: true, price: true } }
+            user: { select: { name: true, email: true } },
+            courses: { select: { title: true, price: true } }
           }
         }
       }
@@ -60,10 +60,10 @@ export async function GET() {
     const formattedRecentOrders = recentOrders.map((order: RecentOrder) => ({
       id: order.id,
       orderId: `#ORD-${order.id.toString().padStart(6, '0')}`,
-      customerName: order.enrollment?.student?.name || order.fullName,
-      customerEmail: order.enrollment?.student?.email || order.email,
-      courseTitle: order.enrollment?.course?.title || 'N/A',
-      amount: order.enrollment?.course?.price || 0,
+      customerName: order.enrollments?.user?.name || order.fullName,
+      customerEmail: order.enrollments?.user?.email || order.email,
+      courseTitle: order.enrollments?.courses?.title || 'N/A',
+      amount: Number(order.enrollments?.courses?.price || 0),
       status: order.status,
       date: order.createdAt,
     }));
@@ -71,9 +71,9 @@ export async function GET() {
     const thirtyDaysAgo = new Date(now);
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-    const revenueByDay = await prisma.order.findMany({
+    const revenueByDay = await prisma.orders.findMany({
       where: { status: 'completed', createdAt: { gte: thirtyDaysAgo } },
-      include: { enrollment: { include: { course: { select: { price: true } } } } },
+      include: { enrollments: { include: { courses: { select: { price: true } } } } },
       orderBy: { createdAt: 'asc' }
     });
     type RevenueByDayOrder = (typeof revenueByDay)[number];
@@ -81,7 +81,7 @@ export async function GET() {
     const dayMap = new Map<string, number>();
     revenueByDay.forEach((order: RevenueByDayOrder) => {
       const dateKey = order.createdAt.toISOString().split('T')[0];
-      const revenue = order.enrollment?.course?.price || 0;
+      const revenue = Number(order.enrollments?.courses?.price || 0);
       dayMap.set(dateKey, (dayMap.get(dateKey) || 0) + revenue);
     });
 
@@ -101,6 +101,7 @@ export async function GET() {
     const userGrowthData: { date: string; users: number }[] = [];
     const userDayMap = new Map<string, number>();
     usersByDay.forEach((user: UserByDay) => {
+      if (!user.createdAt) return;
       const dateKey = user.createdAt.toISOString().split('T')[0];
       userDayMap.set(dateKey, (userDayMap.get(dateKey) || 0) + 1);
     });

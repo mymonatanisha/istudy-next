@@ -53,10 +53,10 @@ export async function GET(request: NextRequest) {
         take: perPage,
         orderBy: { createdAt: 'desc' },
         include: {
-          role: true,
+          roles: true,
           enrollments: {
             include: {
-              course: {
+              courses: {
                 select: { price: true }
               }
             }
@@ -74,7 +74,7 @@ export async function GET(request: NextRequest) {
     // Format user data with calculations
     const formattedUsers = users.map(user => {
       const totalSpent = user.enrollments.reduce(
-        (sum, enrollment) => sum + (enrollment.course?.price || 0),
+        (sum, enrollment) => sum + Number(enrollment.courses?.price || 0),
         0
       );
 
@@ -83,7 +83,7 @@ export async function GET(request: NextRequest) {
         name: user.name,
         email: user.email,
         avatar: user.avatar,
-        role: user.role?.name || 'User',
+        role: user.roles?.name || 'User',
         roleId: user.role_id,
         enrolledCourses: user._count.enrollments,
         totalSpent,
