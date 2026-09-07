@@ -16,6 +16,16 @@ export async function POST(req: Request) {
 
     const resetLink = `${process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"}/reset?token=${resetToken}`;
     console.log("Password reset link:", resetLink);
+
+    // No email transport is configured yet, so expose the link in the API
+    // response during local development only (never in production).
+    if (process.env.NODE_ENV !== "production") {
+      return NextResponse.json(
+        { message: "Reset link generated", resetLink },
+        { status: 200 }
+      );
+    }
+
     return NextResponse.json({ message: "Reset link generated" }, { status: 200 });
   } catch (err) {
     console.error(err);

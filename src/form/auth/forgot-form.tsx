@@ -34,6 +34,12 @@ const ForgotForm = () => {
                 setMessage("If your email exists, a reset link has been sent!");
                 setIsError(false);
                 toast.success("Reset link sent! Check your email.");
+                // In development the reset link is returned in the response
+                // (no email transport is configured yet). Show it so the flow
+                // can be tested locally.
+                if (result.resetLink) {
+                    setMessage(`Dev reset link: ${result.resetLink}`);
+                }
             } else {
                 setMessage(result.error || "Something went wrong");
                 setIsError(true);
