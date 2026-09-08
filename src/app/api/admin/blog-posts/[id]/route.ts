@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { getAdminUser } from "@/lib/admin-auth";
 import { prisma } from "@/lib/prisma";
 import { sanitizeBlogContent } from "@/lib/blog-content";
+import {
+  deleteBlogImage,
+  extractBlogImagePublicIds,
+} from "@/lib/blog-image-storage";
 
 const MAX_TITLE_LENGTH = 200;
 const MAX_EXCERPT_LENGTH = 500;
@@ -83,15 +87,17 @@ export async function PUT(request: NextRequest, props: RouteProps) {
 
     const { id } = await props.params;
     const postId = Number(id);
+
+    if (!Number.isInteger(postId)) {
+      return NextResponse.json({ error: "Invalid blog post id." }, { status: 400 });
+    }
+
     const body = await request.json();
     const title = typeof body.title === "string" ? body.title.trim() : "";
     const rawContent = typeof body.content === "string" ? body.content.trim() : "";
     const excerpt = typeof body.excerpt === "string" ? body.excerpt.trim() : null;
     const status = body.status === "published" ? "published" : "draft";
 
-    if (!Number.isInteger(postId)) {
-      return NextResponse.json({ error: "Invalid blog post id." }, { status: 400 });
-    }
     if (!title) {
       return NextResponse.json({ error: "Title is required." }, { status: 400 });
     }
@@ -164,7 +170,22 @@ export async function DELETE(_request: NextRequest, props: RouteProps) {
       return NextResponse.json({ error: "Invalid blog post id." }, { status: 400 });
     }
 
+    // Look up the post first so we can return 404 and clean up its images.
+    const existing = await prisma.blog_posts.findUnique({
+      where: { id: postId },
+      select: { id: true, content: true },
+    });
+
+    if (!existing) {
+      return NextResponse.json({ error: "Blog post not found." }, { status: 404 });
+    }
+
     await prisma.blog_posts.delete({ where: { id: postId } });
+
+    // Best-effort cleanup of Cloudinary images embedded in the post content.
+    const publicIds = extractBlogImagePublicIds(existing.content);
+    await Promise.all(publicIds.map((publicId) => deleteBlogImage(publicId)));
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error deleting blog post:", error);

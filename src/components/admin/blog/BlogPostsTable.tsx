@@ -17,7 +17,7 @@ interface BlogPost {
   status: string;
   publishedAt: string | null;
   createdAt: string;
-  author?: { name: string; email: string } | null;
+  user?: { name: string; email: string } | null;
 }
 
 const BlogPostsTable = () => {
@@ -177,7 +177,7 @@ const BlogPostsTable = () => {
                             <br />
                             <small className="text-muted">/{post.slug}</small>
                           </td>
-                          <td>{post.author?.name || 'Admin'}</td>
+                          <td>{post.user?.name || 'Admin'}</td>
                           <td><StatusBadge status={post.status} /></td>
                           <td>
                             {post.publishedAt

@@ -51,3 +51,46 @@ export async function uploadBlogImage(file: File): Promise<BlogImageStorageResul
 
   return { url: data.secure_url, publicId: data.public_id };
 }
+
+/** Delete an image from Cloudinary by its public id. Safe no-op if unconfigured. */
+export async function deleteBlogImage(publicId: string): Promise<void> {
+  const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+  const apiKey = process.env.CLOUDINARY_API_KEY;
+  const apiSecret = process.env.CLOUDINARY_API_SECRET;
+
+  if (!cloudName || !apiKey || !apiSecret || !publicId) {
+    return;
+  }
+
+  const timestamp = Math.floor(Date.now() / 1000).toString();
+  const signature = signUploadParams({ public_id: publicId, timestamp }, apiSecret);
+
+  const body = new URLSearchParams({
+    public_id: publicId,
+    api_key: apiKey,
+    timestamp,
+    signature,
+  });
+
+  const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/destroy`, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body,
+  });
+
+  const data = await response.json();
+  if (!response.ok || data.result !== "ok") {
+    console.error("Cloudinary delete failed:", data);
+  }
+}
+
+/** Extract Cloudinary public ids embedded in blog content (data-cloudinary-public-id). */
+export function extractBlogImagePublicIds(content: string): string[] {
+  const ids: string[] = [];
+  const pattern = /data-cloudinary-public-id="([^"]+)"/g;
+  let match: RegExpExecArray | null;
+  while ((match = pattern.exec(content)) !== null) {
+    ids.push(match[1]);
+  }
+  return ids;
+}

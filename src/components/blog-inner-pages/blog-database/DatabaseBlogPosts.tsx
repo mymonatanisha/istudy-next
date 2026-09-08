@@ -12,7 +12,7 @@ interface DatabaseBlogPost {
   coverImage: string | null;
   publishedAt: string | null;
   createdAt: string;
-  author?: { name: string } | null;
+  user?: { name: string } | null;
 }
 
 interface Pagination {
@@ -126,7 +126,7 @@ const DatabaseBlogPosts = () => {
                             <div className="bd-blog-meta-list">
                               <div className="bd-blog-meta-item has-separator-black">
                                 <span className="meta-icon"><i className="fa-solid fa-user"></i></span>
-                                <span className="meta-text">{post.author?.name || 'Enam Notes'}</span>
+                                <span className="meta-text">{post.user?.name || 'Enam Notes'}</span>
                               </div>
                               <div className="bd-blog-meta-item">
                                 <span className="meta-icon"><i className="fa-sharp fa-light fa-calendar-days"></i></span>

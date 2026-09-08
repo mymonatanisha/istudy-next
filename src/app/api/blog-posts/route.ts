@@ -11,12 +11,13 @@ export async function GET(request: NextRequest) {
 
     const where = {
       status: "published",
+      // Rows with a NULL publishedAt are legacy/edge data — never surface them.
+      publishedAt: { not: null },
       ...(search
         ? {
             OR: [
               { title: { contains: search, mode: "insensitive" as const } },
               { excerpt: { contains: search, mode: "insensitive" as const } },
-              { content: { contains: search, mode: "insensitive" as const } },
             ],
           }
         : {}),
@@ -28,7 +29,20 @@ export async function GET(request: NextRequest) {
         skip,
         take: perPage,
         orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
-        include: { user: { select: { name: true } } },
+        // Don't ship the full HTML content on list endpoints — only the detail
+        // view needs it.
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          excerpt: true,
+          coverImage: true,
+          status: true,
+          publishedAt: true,
+          createdAt: true,
+          updatedAt: true,
+          user: { select: { name: true } },
+        },
       }),
       prisma.blog_posts.count({ where }),
     ]);

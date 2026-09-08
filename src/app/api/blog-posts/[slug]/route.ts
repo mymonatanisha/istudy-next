@@ -10,7 +10,7 @@ export async function GET(_request: NextRequest, props: RouteProps) {
   try {
     const { slug } = await props.params;
     const post = await prisma.blog_posts.findFirst({
-      where: { slug, status: "published" },
+      where: { slug, status: "published", publishedAt: { not: null } },
       include: { user: { select: { name: true } } },
     });
 
