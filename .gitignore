@@ -42,3 +42,10 @@ yarn-error.log*
 next-env.d.ts
 
 /src/generated/prisma
+
+# workspace-local files (agent session state, backups, local db dump)
+/.commandcode/
+/AGENTS.md
+/enamnotes.dump
+/package-lock.json
+/prisma/schema.backup.prisma
