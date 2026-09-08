@@ -5,6 +5,7 @@ import { sanitizeBlogContent } from "@/lib/blog-content";
 import {
   deleteBlogImage,
   extractBlogImagePublicIds,
+  publicIdFromCloudinaryUrl,
 } from "@/lib/blog-image-storage";
 
 const MAX_TITLE_LENGTH = 200;
@@ -124,6 +125,11 @@ export async function PUT(request: NextRequest, props: RouteProps) {
       return NextResponse.json({ error: "Content does not contain any allowed HTML or text." }, { status: 400 });
     }
 
+    const nextCoverImage =
+      typeof body.coverImage === "string" && body.coverImage.trim()
+        ? body.coverImage.trim()
+        : null;
+
     const post = await prisma.blog_posts.update({
       where: { id: postId },
       data: {
@@ -131,16 +137,22 @@ export async function PUT(request: NextRequest, props: RouteProps) {
         slug: await getUniqueSlug(title, postId, body.slug),
         excerpt,
         content,
-        coverImage:
-          typeof body.coverImage === "string" && body.coverImage.trim()
-            ? body.coverImage.trim()
-            : null,
+        coverImage: nextCoverImage,
         status,
         publishedAt:
           status === "published" ? existing.publishedAt || new Date() : null,
         updatedAt: new Date(),
       },
     });
+
+    // If the cover changed, remove the old Cloudinary image (best-effort).
+    const oldCoverPublicId =
+      existing.coverImage && existing.coverImage !== nextCoverImage
+        ? publicIdFromCloudinaryUrl(existing.coverImage)
+        : null;
+    if (oldCoverPublicId) {
+      await deleteBlogImage(oldCoverPublicId);
+    }
 
     return NextResponse.json({ success: true, post });
   } catch (error) {

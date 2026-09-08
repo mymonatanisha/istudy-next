@@ -37,12 +37,14 @@ const DatabaseBlogSidebar = async () => {
           ) : (
             latestPosts.map((post) => (
               <div className="bd-recent-post-item" key={post.slug}>
-                <div className="bd-recent-post-thumb">
-                  <Link href={`/blog/${post.slug}`}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={post.coverImage ?? ""} alt={post.title} />
-                  </Link>
-                </div>
+                {post.coverImage && (
+                  <div className="bd-recent-post-thumb">
+                    <Link href={`/blog/${post.slug}`}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={post.coverImage} alt={post.title} />
+                    </Link>
+                  </div>
+                )}
                 <div className="bd-recent-post-content">
                   <div className="bd-recent-post-meta">
                     <span className="icon"><i className="fa-light fa-calendar-days"></i></span>

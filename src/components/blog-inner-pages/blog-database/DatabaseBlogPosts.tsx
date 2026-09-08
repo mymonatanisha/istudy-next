@@ -36,6 +36,18 @@ const DatabaseBlogPosts = () => {
   const [activeSearch, setActiveSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [latestPosts, setLatestPosts] = useState<DatabaseBlogPost[]>([]);
+
+  // Sync pagination/search with the URL (?page=2&q=...) so results are
+  // linkable and survive refresh/back/forward.
+  const syncUrl = (page: number, query: string) => {
+    const params = new URLSearchParams();
+    if (page > 1) params.set('page', String(page));
+    if (query) params.set('q', query);
+    const qs = params.toString();
+    const url = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
+    window.history.replaceState(null, '', url);
+  };
 
   const fetchPosts = useCallback(async (page: number, query: string) => {
     setLoading(true);
@@ -48,6 +60,8 @@ const DatabaseBlogPosts = () => {
       if (!response.ok) throw new Error(result.error || 'Unable to load blog posts');
       setPosts(result.posts || []);
       setPagination(result.pagination || { page, perPage: 6, total: 0, totalPages: 0 });
+      setActiveSearch(query);
+      syncUrl(page, query);
     } catch (err) {
       setPosts([]);
       setError(err instanceof Error ? err.message : 'Unable to load blog posts');
@@ -57,8 +71,26 @@ const DatabaseBlogPosts = () => {
   }, []);
 
   useEffect(() => {
-    fetchPosts(1, '');
-  }, [fetchPosts]);
+    // Read initial state from the URL (?page=N&q=...) on first load.
+    const params = new URLSearchParams(window.location.search);
+    const page = Math.max(1, Number(params.get('page')) || 1);
+    const query = params.get('q')?.trim() || '';
+    setSearch(query);
+    fetchPosts(page, query);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Load the latest 3 posts for the sidebar "Latest Post" widget.
+  useEffect(() => {
+    fetch('/api/blog-posts?page=1&perPage=3', { cache: 'no-store' })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.posts) setLatestPosts(data.posts);
+      })
+      .catch(() => {
+        /* sidebar latest is non-critical; ignore failures */
+      });
+  }, []);
 
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -185,14 +217,35 @@ const DatabaseBlogPosts = () => {
                   </form>
                 </div>
 
-                <div className="bd-blog-widget">
-                  <h5 className="bd-widget-title mb-20">About Enam Notes</h5>
-                  <p className="mb-0">Useful, practical content for developers, learners, and anyone building with modern technology.</p>
-                </div>
-
-                <div className="bd-blog-widget">
-                  <h5 className="bd-widget-title mb-20">Publishing from Database</h5>
-                  <p className="mb-0">Only published articles from the BlogPost database are shown here. Drafts stay private until they are published.</p>
+                <div className="bd-blog-widget widget-latest-posts">
+                  <h5 className="bd-widget-title mb-20">Latest Post</h5>
+                  <div className="bd-widget-posts">
+                    {latestPosts.length === 0 ? (
+                      <p className="mb-0">No posts yet.</p>
+                    ) : (
+                      latestPosts.map((post) => (
+                        <div className="bd-recent-post-item" key={post.id}>
+                          {post.coverImage && (
+                            <div className="bd-recent-post-thumb">
+                              <Link href={`/blog/${post.slug}`}>
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={post.coverImage} alt={post.title} />
+                              </Link>
+                            </div>
+                          )}
+                          <div className="bd-recent-post-content">
+                            <div className="bd-recent-post-meta">
+                              <span className="icon"><i className="fa-light fa-calendar-days"></i></span>
+                              <span className="date">{formatDate(post.publishedAt || post.createdAt)}</span>
+                            </div>
+                            <h6 className="bd-recent-post-title underline">
+                              <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                            </h6>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
                 </div>
               </aside>
             </div>

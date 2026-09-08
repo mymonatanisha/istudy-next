@@ -37,6 +37,7 @@ const BlogPostForm = ({ post, onSaved, onCancel }: BlogPostFormProps) => {
   const [status, setStatus] = useState('draft');
   const [saving, setSaving] = useState(false);
   const [coverUploading, setCoverUploading] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
@@ -176,7 +177,12 @@ const BlogPostForm = ({ post, onSaved, onCancel }: BlogPostFormProps) => {
         <div className="col-12">
           <div className="d-flex align-items-center justify-content-between mb-2">
             <label className="form-label mb-0" htmlFor="blog-content">Content</label>
-            <BlogImageInsert onInsert={insertImageAtCursor} />
+            <div className="d-flex align-items-center gap-2">
+              <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => setShowPreview((value) => !value)}>
+                {showPreview ? 'Hide Preview' : 'Show Preview'}
+              </button>
+              <BlogImageInsert onInsert={insertImageAtCursor} />
+            </div>
           </div>
           <textarea
             ref={contentRef}
@@ -188,7 +194,17 @@ const BlogPostForm = ({ post, onSaved, onCancel }: BlogPostFormProps) => {
             placeholder="Write HTML content here. Use Insert Image to upload an image into the article."
             required
           />
-          <div className="form-text">Images are uploaded to persistent Cloudinary storage and inserted at the current cursor position.</div>
+          {showPreview && (
+            <div className="mt-3 border rounded p-3 bg-white">
+              <div className="d-flex align-items-center justify-content-between mb-2">
+                <span className="text-muted small">Live preview</span>
+                {title && <h1 className="h4 mb-0">{title}</h1>}
+              </div>
+              {excerpt && <p className="fst-italic mb-2">{excerpt}</p>}
+              <div className="blog-rich-content" dangerouslySetInnerHTML={{ __html: content || '<p>Nothing to preview yet.</p>' }} />
+            </div>
+          )}
+          <div className="form-text">Images are uploaded to persistent Cloudinary storage and inserted at the current cursor position. Content is sanitized on save.</div>
         </div>
       </div>
 

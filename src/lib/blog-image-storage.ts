@@ -94,3 +94,15 @@ export function extractBlogImagePublicIds(content: string): string[] {
   }
   return ids;
 }
+
+/**
+ * Derive the Cloudinary public id from a secure_url like
+ * https://res.cloudinary.com/<cloud>/image/upload/v123/enamnotes/blog/photo.jpg
+ * Returns null when the URL is not a Cloudinary upload URL.
+ */
+export function publicIdFromCloudinaryUrl(url: string): string | null {
+  const match = /\/image\/upload\/(?:v\d+\/)?(.+)$/.exec(url);
+  if (!match) return null;
+  // Strip the trailing format extension (public_id excludes it).
+  return match[1].replace(/\.[a-zA-Z0-9]+$/, "");
+}
