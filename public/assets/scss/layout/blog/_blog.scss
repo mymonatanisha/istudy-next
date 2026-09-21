@@ -280,7 +280,20 @@
         }
 
         &.style-four {
+            /* one card, one shadow: the wrapper owns the border-radius and
+               shadow so the thumbnail and the content line up as a unit */
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bd-white);
+            border-radius: 6px;
+            box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.15);
+            transition: box-shadow 0.3s ease-in-out;
+
             &:hover {
+                box-shadow: 0 10px 24px 0 rgba(0, 0, 0, 0.18);
+
                 .icon-text-btn span {
                     opacity: 1;
                     visibility: visible;
@@ -294,11 +307,28 @@
                 }
             }
 
+            .bd-blog-thumb {
+                overflow: hidden;
+                flex: none;
+                width: 100%;
+                /* same height at every breakpoint so covers always align */
+                height: 250px;
+                border-radius: 6px 6px 0 0;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: all 1.1s cubic-bezier(0, 0, 0.2, 1);
+                }
+            }
+
             .bd-blog-content {
-                padding: 30px 30px 23px;
-                border-radius: 0 0 6px 6px;
+                display: flex;
+                flex: 1;
+                flex-direction: column;
+                padding: 30px;
                 background-color: var(--bd-white);
-                box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.15);
 
                 p {
                     margin-bottom: 20px;
@@ -310,31 +340,21 @@
                 }
             }
 
-            .title {
-                margin-bottom: 15px;
+            /* pins the link to the bottom so short excerpts do not leave
+               ragged card heights (supersedes the mt-15 utility) */
+            .bd-blog-btn {
+                margin-top: auto;
             }
 
-            .bd-blog-thumb {
-                overflow: hidden;
-                border-radius: 6px 6px 0 0;
-                width: 100%;
-                height: 250px;
-
-                @media #{$lg,$md,$sm,$xs} {
-                    height: 100%;
-                }
-
-                img {
-                    width: 100%;
-                    height: 100%;
-                    transition: all 1.1s cubic-bezier(0, 0, 0.2, 1);
-                }
+            .title {
+                margin-bottom: 15px;
             }
 
             .bd-blog-meta-list {
                 display: flex;
                 align-items: center;
                 flex-wrap: wrap;
+                gap: 0 15px;
                 margin-bottom: 10px;
 
                 @media #{$xs} {
@@ -813,6 +833,21 @@
 
         @media #{$md,$sm,$xs} {
             margin-top: 30px;
+        }
+    }
+}
+
+/* Blog page containers.
+   The theme sets .container { --bs-gutter-x: 2.4rem } and Bootstrap halves it
+   for padding, so the blog content only had 12px of left padding and hugged
+   the viewport edge. Give it the same 30px rhythm used everywhere else. */
+.bd-blog-area,
+.bd-postbox-area {
+    > .container {
+        padding-left: 30px;
+
+        @media #{$sm,$xs} {
+            padding-left: 20px;
         }
     }
 }

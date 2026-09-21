@@ -105,7 +105,7 @@ const DatabaseBlogPosts = () => {
       <section className="bd-blog-area section-space">
         <div className="container">
           <div className="row">
-            <div className="col-xxl-8 col-xl-8 col-lg-8">
+            <div className="col-xxl-9 col-xl-9 col-lg-9">
               <div className="mb-35">
                 <span className="bd-section-subtitle">Enam Notes Blog</span>
                 <h1 className="bd-section-title mb-10">Latest articles & practical guides</h1>
@@ -136,7 +136,7 @@ const DatabaseBlogPosts = () => {
                 </div>
               ) : (
                 <>
-                  <div className="row gy-30">
+                  <div className="row g-30">
                     {posts.map((post) => (
                       <div className="col-xl-6 col-lg-6 col-md-6" key={post.id}>
                         <article className="bd-blog-wrapper style-four h-100">
@@ -144,11 +144,11 @@ const DatabaseBlogPosts = () => {
                             <div className="bd-blog-thumb">
                               <Link href={`/blog/${post.slug}`}>
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img src={post.coverImage} alt={post.title} loading="lazy" style={{ width: '100%', height: '240px', objectFit: 'cover' }} />
+                                <img src={post.coverImage} alt={post.title} loading="lazy" />
                               </Link>
                             </div>
                           ) : (
-                            <div className="bd-blog-thumb d-flex align-items-center justify-content-center" style={{ minHeight: '240px' }}>
+                            <div className="bd-blog-thumb d-flex align-items-center justify-content-center">
                               <Link href={`/blog/${post.slug}`} aria-label={post.title}>
                                 <span className="bd-section-title">Enam Notes</span>
                               </Link>
@@ -169,7 +169,7 @@ const DatabaseBlogPosts = () => {
                               <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                             </h3>
                             {post.excerpt && <p>{post.excerpt}</p>}
-                            <div className="bd-blog-btn mt-15">
+                            <div className="bd-blog-btn">
                               <Link href={`/blog/${post.slug}`} className="bd-text-btn">
                                 Read Article <span className="box-icon"><i className="fa-regular fa-arrow-right-long first-icon"></i><i className="fa-regular fa-arrow-right-long second-icon"></i></span>
                               </Link>
@@ -207,7 +207,7 @@ const DatabaseBlogPosts = () => {
               )}
             </div>
 
-            <div className="col-xxl-4 col-xl-4 col-lg-4">
+            <div className="col-xxl-3 col-xl-3 col-lg-3">
               <aside className="bd-blog-sidebar sidebar-right sidebar-sticky">
                 <div className="bd-blog-widget widget-search">
                   <h5 className="bd-widget-title mb-20">Search Articles</h5>

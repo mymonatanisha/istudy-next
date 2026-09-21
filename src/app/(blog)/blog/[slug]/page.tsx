@@ -77,7 +77,7 @@ const DatabaseBlogDetailsPage = async (props: PageProps) => {
         <section className="bd-postbox-area section-space">
           <div className="container">
             <div className="row">
-              <div className="col-xxl-8 col-xl-8 col-lg-8">
+              <div className="col-xxl-9 col-xl-9 col-lg-9">
                 <article className="bd-postbox-wrapper">
                   {post.coverImage && (
                     <div className="bd-blog-feature-thumb mb-30">
@@ -105,7 +105,7 @@ const DatabaseBlogDetailsPage = async (props: PageProps) => {
                   />
                 </article>
               </div>
-              <div className="col-xxl-4 col-xl-4 col-lg-4">
+              <div className="col-xxl-3 col-xl-3 col-lg-3">
                 <DatabaseBlogSidebar />
               </div>
             </div>

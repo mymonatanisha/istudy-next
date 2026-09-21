@@ -1,0 +1,195 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  3.2.6 Blog rich content (DB post body)
+/*----------------------------------------*/
+
+/**
+ * The public post body is rendered from sanitized admin HTML
+ * (allowed tags: p, br, h2-h4, strong, em, u, ul, ol, li, blockquote,
+ *  pre, code, a, figure, img, figcaption).
+ *
+ * The global reset in theme/_typography.scss zeroes heading margins and
+ * strips ul padding, so every block inside a post needs its rhythm
+ * restored here - otherwise headings collide and lists lose their bullets.
+ *
+ * Only spacing, borders and radii are set here; font sizes deliberately
+ * inherit the site scale so every post looks identical.
+ */
+.blog-rich-content {
+    /* --- vertical rhythm ------------------------------------------------- */
+    p,
+    ul,
+    ol,
+    blockquote,
+    figure,
+    pre {
+        margin-bottom: 30px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    /* --- headings (global reset leaves them with no margins) ------------- */
+    h2,
+    h3,
+    h4 {
+        margin-top: 50px;
+        margin-bottom: 20px;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    h3,
+    h4 {
+        margin-top: 40px;
+    }
+
+    /* keep the gap even when a heading follows another block */
+    p + h2,
+    p + h3,
+    p + h4,
+    ul + h2,
+    ul + h3,
+    ul + h4,
+    ol + h2,
+    ol + h3,
+    ol + h4,
+    blockquote + h2,
+    blockquote + h3,
+    blockquote + h4,
+    figure + h2,
+    figure + h3,
+    figure + h4,
+    pre + h2,
+    pre + h3,
+    pre + h4 {
+        margin-top: 40px;
+    }
+
+    /* --- lists (global reset removes markers and indentation) ------------ */
+    ul,
+    ol {
+        padding-inline-start: 24px;
+    }
+
+    ul {
+        list-style: disc;
+    }
+
+    ol {
+        list-style: decimal;
+    }
+
+    li {
+        margin-bottom: 10px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &::marker {
+            color: var(--bd-primary);
+        }
+    }
+
+    /* --- emphasis -------------------------------------------------------- */
+    strong {
+        color: var(--bd-theme-black);
+    }
+
+    /* --- links (global anchor reset removes all decoration) -------------- */
+    a {
+        color: var(--bd-primary);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        transition: color 0.3s ease-in-out;
+
+        &:hover {
+            color: var(--bd-theme-black);
+        }
+    }
+
+    /* --- blockquote ------------------------------------------------------ */
+    blockquote {
+        padding: 25px 30px;
+        background-color: var(--primary-rgb-05);
+        border-inline-start: 4px solid var(--bd-primary);
+        border-radius: 6px;
+
+        p {
+            margin-bottom: 0;
+            color: var(--bd-theme-black);
+            font-style: italic;
+        }
+
+        p:not(:last-child) {
+            margin-bottom: 15px;
+        }
+    }
+
+    /* --- code ------------------------------------------------------------ */
+    pre {
+        padding: 20px 24px;
+        background-color: var(--bd-bg-primary);
+        border: 1px solid var(--bd-border-primary);
+        border-radius: 6px;
+        overflow-x: auto;
+
+        code {
+            padding: 0;
+            background: none;
+            border: 0;
+            color: var(--bd-theme-black);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+    }
+
+    code {
+        padding: 2px 6px;
+        background-color: var(--bd-bg-primary);
+        border-radius: 4px;
+        color: var(--bd-primary);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 15px;
+    }
+
+    /* --- media ----------------------------------------------------------- */
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        border-radius: 6px;
+    }
+
+    figure {
+        margin-inline: 0;
+
+        figcaption {
+            margin-top: 12px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--bd-body-text);
+            text-align: center;
+        }
+    }
+
+    /* --- small screens --------------------------------------------------- */
+    @media #{$md,$sm,$xs} {
+        h2,
+        h3,
+        h4 {
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+
+        pre {
+            padding: 16px 18px;
+        }
+    }
+}
