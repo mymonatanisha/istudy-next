@@ -1,0 +1,108 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B1F33"/>
+      <stop offset="55%" stop-color="#071019"/>
+      <stop offset="100%" stop-color="#050C13"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="1.4" cy="1.4" r="1.4" fill="#7FA6B0" opacity="0.14"/>
+    </pattern>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3DDC84"/>
+    </marker>
+    <clipPath id="canvasClip">
+      <rect width="1200" height="675" rx="0"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#canvasClip)">
+    <rect width="1200" height="675" fill="url(#bgGrad)"/>
+    <rect width="1200" height="675" fill="url(#dotGrid)"/>
+
+    <rect x="80" y="52" width="46" height="6" rx="3" fill="#F5A94E"/>
+    <text x="80" y="104" font-family="Hind Siliguri, Noto Sans Bengali, sans-serif"
+          font-size="36" font-weight="700" fill="#F3F7F8">Android শেখার রোডম্যাপ</text>
+    <text x="80" y="136" font-family="Hind Siliguri, Noto Sans Bengali, sans-serif"
+          font-size="19" fill="#9FB8C2">শুরু থেকে প্রথম সম্পূর্ণ অ্যাপ পর্যন্ত ১০ ধাপ</text>
+
+    <!-- ===== row 1: steps 1-5 ===== -->
+    <g font-family="Hind Siliguri, Noto Sans Bengali, sans-serif">
+      <circle cx="150" cy="290" r="36" fill="#3DDC84"/>
+      <text x="150" y="302" text-anchor="middle" font-size="26" font-weight="700" fill="#071019">১</text>
+      <text x="150" y="352" text-anchor="middle" font-size="15" font-weight="600" fill="#F3F7F8">Java বেসিক</text>
+      <text x="150" y="374" text-anchor="middle" font-size="13" fill="#7FA6B0">variable, loop</text>
+
+      <circle cx="375" cy="290" r="36" fill="#3DDC84"/>
+      <text x="375" y="302" text-anchor="middle" font-size="26" font-weight="700" fill="#071019">২</text>
+      <text x="375" y="352" text-anchor="middle" font-size="15" font-weight="600" fill="#F3F7F8">Android ecosystem</text>
+      <text x="375" y="374" text-anchor="middle" font-size="13" fill="#7FA6B0">Android কী</text>
+
+      <circle cx="600" cy="290" r="36" fill="#3DDC84"/>
+      <text x="600" y="302" text-anchor="middle" font-size="26" font-weight="700" fill="#071019">৩</text>
+      <text x="600" y="352" text-anchor="middle" font-size="15" font-weight="600" fill="#F3F7F8">Android SDK</text>
+      <text x="600" y="374" text-anchor="middle" font-size="13" fill="#7FA6B0">Packages, Tools</text>
+
+      <circle cx="825" cy="290" r="36" fill="#3DDC84"/>
+      <text x="825" y="302" text-anchor="middle" font-size="26" font-weight="700" fill="#071019">৪</text>
+      <text x="825" y="352" text-anchor="middle" font-size="15" font-weight="600" fill="#F3F7F8">Android Studio</text>
+      <text x="825" y="374" text-anchor="middle" font-size="13" fill="#7FA6B0">প্রজেক্ট স্ট্রাকচার</text>
+
+      <circle cx="1050" cy="290" r="36" fill="#3DDC84"/>
+      <text x="1050" y="302" text-anchor="middle" font-size="26" font-weight="700" fill="#071019">৫</text>
+      <text x="1050" y="352" text-anchor="middle" font-size="15" font-weight="600" fill="#F3F7F8">XML UI</text>
+      <text x="1050" y="374" text-anchor="middle" font-size="13" fill="#7FA6B0">Java binding</text>
+    </g>
+
+    <g stroke="#3DDC84" stroke-width="3" fill="none" marker-end="url(#arrowGreen)" opacity="0.75">
+      <line x1="190" y1="290" x2="331" y2="290"/>
+      <line x1="415" y1="290" x2="556" y2="290"/>
+      <line x1="640" y1="290" x2="781" y2="290"/>
+      <line x1="865" y1="290" x2="1006" y2="290"/>
+    </g>
+
+    <!-- wrap from step 5 down to step 6 -->
+    <path d="M 1086 290 L 1140 290 L 1140 470 L 192 470" stroke="#3DDC84" stroke-width="3"
+          fill="none" opacity="0.55" marker-end="url(#arrowGreen)"/>
+
+    <!-- ===== row 2: steps 6-10 ===== -->
+    <g font-family="Hind Siliguri, Noto Sans Bengali, sans-serif">
+      <circle cx="150" cy="470" r="36" fill="#3DDC84"/>
+      <text x="150" y="482" text-anchor="middle" font-size="26" font-weight="700" fill="#071019">৬</text>
+      <text x="150" y="532" text-anchor="middle" font-size="15" font-weight="600" fill="#F3F7F8">Activity</text>
+      <text x="150" y="554" text-anchor="middle" font-size="13" fill="#7FA6B0">Lifecycle</text>
+
+      <circle cx="375" cy="470" r="36" fill="#3DDC84"/>
+      <text x="375" y="482" text-anchor="middle" font-size="26" font-weight="700" fill="#071019">৭</text>
+      <text x="375" y="532" text-anchor="middle" font-size="15" font-weight="600" fill="#F3F7F8">Intent</text>
+      <text x="375" y="554" text-anchor="middle" font-size="13" fill="#7FA6B0">Context, Bundle</text>
+
+      <circle cx="600" cy="470" r="36" fill="#3DDC84"/>
+      <text x="600" y="482" text-anchor="middle" font-size="26" font-weight="700" fill="#071019">৮</text>
+      <text x="600" y="532" text-anchor="middle" font-size="15" font-weight="600" fill="#F3F7F8">Core components</text>
+      <text x="600" y="554" text-anchor="middle" font-size="13" fill="#7FA6B0">Toast, Dialog, Sensor</text>
+
+      <circle cx="825" cy="470" r="36" fill="#3DDC84"/>
+      <text x="825" y="482" text-anchor="middle" font-size="26" font-weight="700" fill="#071019">৯</text>
+      <text x="825" y="532" text-anchor="middle" font-size="15" font-weight="600" fill="#F3F7F8">Runtime</text>
+      <text x="825" y="554" text-anchor="middle" font-size="13" fill="#7FA6B0">Debugging, Profiler</text>
+
+      <circle cx="1050" cy="470" r="36" fill="#F5A94E"/>
+      <text x="1050" y="482" text-anchor="middle" font-size="26" font-weight="700" fill="#071019">১০</text>
+      <text x="1050" y="532" text-anchor="middle" font-size="15" font-weight="600" fill="#F5A94E">Database ও Manifest</text>
+      <text x="1050" y="554" text-anchor="middle" font-size="13" fill="#7FA6B0">অ্যাপ প্রকাশ</text>
+    </g>
+
+    <g stroke="#3DDC84" stroke-width="3" fill="none" marker-end="url(#arrowGreen)" opacity="0.75">
+      <line x1="190" y1="470" x2="331" y2="470"/>
+      <line x1="415" y1="470" x2="556" y2="470"/>
+      <line x1="640" y1="470" x2="781" y2="470"/>
+      <line x1="865" y1="470" x2="1006" y2="470"/>
+    </g>
+
+    <text x="600" y="640" text-anchor="middle" font-family="Hind Siliguri, Noto Sans Bengali, sans-serif"
+          font-size="17" fill="#7FA6B0">প্রতিটি ধাপ আগের ধাপের উপর দাঁড়ায় — ক্রম বদলালে বিভ্রান্তি বাড়ে</text>
+
+    <rect x="0" y="0" width="1200" height="4" fill="#3DDC84" fill-opacity="0.6"/>
+  </g>
+</svg>

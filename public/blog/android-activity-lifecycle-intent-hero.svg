@@ -1,0 +1,72 @@
+<svg width="1600" height="900" viewBox="0 0 1200 630" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B1F33"/><stop offset="55%" stop-color="#071019"/><stop offset="100%" stop-color="#050C13"/>
+    </linearGradient>
+    <radialGradient id="glowGreen" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3DDC84" stop-opacity="0.28"/><stop offset="100%" stop-color="#3DDC84" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8CF2BA"/><stop offset="100%" stop-color="#1E9E5C"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="1.4" cy="1.4" r="1.4" fill="#7FA6B0" opacity="0.16"/>
+    </pattern>
+    <clipPath id="canvasClip"><rect width="1200" height="630" rx="0"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#canvasClip)">
+    <rect width="1200" height="630" fill="url(#bgGrad)"/>
+    <rect width="1200" height="630" fill="url(#dotGrid)"/>
+    <circle cx="985" cy="315" r="320" fill="url(#glowGreen)"/>
+
+    <!-- motif: phone with a screen, plus lifecycle stage dots -->
+    <g>
+      <rect x="905" y="168" width="176" height="300" rx="26" fill="none" stroke="#3DDC84" stroke-width="5"/>
+      <rect x="930" y="205" width="126" height="200" rx="10" fill="#3DDC84" fill-opacity="0.20"/>
+      <rect x="963" y="182" width="60" height="9" rx="4.5" fill="#3DDC84" fill-opacity="0.8"/>
+      <circle cx="993" cy="448" r="8" fill="#3DDC84" fill-opacity="0.65"/>
+      <line x1="945" y1="250" x2="1041" y2="250" stroke="#3DDC84" stroke-opacity="0.5" stroke-width="3"/>
+      <line x1="945" y1="285" x2="1005" y2="285" stroke="#3DDC84" stroke-opacity="0.5" stroke-width="3"/>
+      <line x1="945" y1="320" x2="1041" y2="320" stroke="#3DDC84" stroke-opacity="0.5" stroke-width="3"/>
+    </g>
+    <g>
+      <circle cx="880" cy="500" r="10" fill="#3DDC84"/>
+      <circle cx="925" cy="500" r="10" fill="#3DDC84" fill-opacity="0.7"/>
+      <circle cx="970" cy="500" r="10" fill="#3DDC84" fill-opacity="0.45"/>
+      <circle cx="1015" cy="500" r="10" fill="#F5A94E"/>
+      <text x="1060" y="506" font-family="JetBrains Mono, Fira Code, monospace" font-size="17" fill="#7FA6B0">onCreate → onDestroy</text>
+    </g>
+
+    <text x="400" y="604" font-family="JetBrains Mono, Fira Code, monospace" font-size="28"
+          fill="#7FA6B0" fill-opacity="0.14" letter-spacing="1">startActivity(intent);</text>
+
+    <rect x="80" y="92" width="46" height="6" rx="3" fill="#F5A94E"/>
+    <text x="80" y="136" font-family="Poppins, Inter, sans-serif" font-size="22" font-weight="700"
+          letter-spacing="3" fill="#F5A94E">ENAM NOTES</text>
+    <text x="80" y="164" font-family="Hind Siliguri, Noto Sans Bengali, sans-serif"
+          font-size="20" fill="#7FA6B0">ব্লগ • Activity ও Lifecycle</text>
+
+    <text x="78" y="250" font-family="Poppins, Inter, sans-serif"
+          font-size="48" font-weight="700" fill="#F3F7F8">Activity ও Lifecycle</text>
+    <text x="78" y="310" font-family="Hind Siliguri, Noto Sans Bengali, sans-serif"
+          font-size="48" font-weight="700" fill="url(#accentGrad)">Intent · Context · Bundle</text>
+
+    <text x="80" y="354" font-family="Hind Siliguri, Noto Sans Bengali, sans-serif"
+          font-size="21" fill="#9FB8C2">onCreate → onStart → onResume → onPause → onStop</text>
+
+    <g transform="translate(80, 476)">
+      <rect x="0" y="0" width="56" height="56" rx="14" fill="#3DDC84"/>
+      <text x="28" y="39" text-anchor="middle" font-family="Hind Siliguri, Noto Sans Bengali, sans-serif"
+            font-size="24" font-weight="700" fill="#071019">৬</text>
+      <text x="74" y="27" font-family="Hind Siliguri, Noto Sans Bengali, sans-serif" font-size="22" font-weight="600"
+            fill="#F3F7F8">রোডম্যাপের ৬ ও ৭ নম্বর ধাপ</text>
+      <text x="74" y="54" font-family="Hind Siliguri, Noto Sans Bengali, sans-serif"
+            font-size="18" fill="#7FA6B0">বাংলায়, বিগিনারদের জন্য</text>
+    </g>
+
+    <text x="1120" y="566" text-anchor="end" font-family="Poppins, Inter, sans-serif" font-size="18"
+          letter-spacing="1" fill="#5A7986">enamnotes.com</text>
+    <rect x="0" y="0" width="1200" height="4" fill="#3DDC84" fill-opacity="0.6"/>
+  </g>
+</svg>

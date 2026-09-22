@@ -1,0 +1,68 @@
+<svg width="1600" height="900" viewBox="0 0 1200 630" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B1F33"/><stop offset="55%" stop-color="#071019"/><stop offset="100%" stop-color="#050C13"/>
+    </linearGradient>
+    <radialGradient id="glowGreen" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3DDC84" stop-opacity="0.28"/><stop offset="100%" stop-color="#3DDC84" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8CF2BA"/><stop offset="100%" stop-color="#1E9E5C"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="1.4" cy="1.4" r="1.4" fill="#7FA6B0" opacity="0.16"/>
+    </pattern>
+    <clipPath id="canvasClip"><rect width="1200" height="630" rx="0"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#canvasClip)">
+    <rect width="1200" height="630" fill="url(#bgGrad)"/>
+    <rect width="1200" height="630" fill="url(#dotGrid)"/>
+    <circle cx="980" cy="330" r="320" fill="url(#glowGreen)"/>
+
+    <!-- motif: project folder with nested files -->
+    <g>
+      <rect x="852" y="188" width="120" height="30" rx="9" fill="#3DDC84" fill-opacity="0.75"/>
+      <rect x="852" y="206" width="256" height="230" rx="14" fill="#3DDC84" fill-opacity="0.22" stroke="#3DDC84" stroke-opacity="0.6" stroke-width="2"/>
+      <rect x="880" y="240" width="200" height="30" rx="7" fill="#3DDC84" fill-opacity="0.9"/>
+      <rect x="880" y="286" width="200" height="30" rx="7" fill="#F5A94E" fill-opacity="0.85"/>
+      <rect x="880" y="332" width="200" height="30" rx="7" fill="#3DDC84" fill-opacity="0.65"/>
+      <rect x="880" y="378" width="200" height="30" rx="7" fill="#3DDC84" fill-opacity="0.45"/>
+      <text x="898" y="261" font-family="JetBrains Mono, Fira Code, monospace" font-size="15" font-weight="700" fill="#071019">manifests</text>
+      <text x="898" y="307" font-family="JetBrains Mono, Fira Code, monospace" font-size="15" font-weight="700" fill="#071019">java</text>
+      <text x="898" y="353" font-family="JetBrains Mono, Fira Code, monospace" font-size="15" font-weight="700" fill="#071019">res</text>
+      <text x="898" y="399" font-family="JetBrains Mono, Fira Code, monospace" font-size="15" font-weight="700" fill="#071019">build.gradle</text>
+    </g>
+
+    <text x="470" y="604" font-family="JetBrains Mono, Fira Code, monospace" font-size="28"
+          fill="#7FA6B0" fill-opacity="0.14" letter-spacing="1">app/src/main/java/</text>
+
+    <rect x="80" y="92" width="46" height="6" rx="3" fill="#F5A94E"/>
+    <text x="80" y="136" font-family="Poppins, Inter, sans-serif" font-size="22" font-weight="700"
+          letter-spacing="3" fill="#F5A94E">ENAM NOTES</text>
+    <text x="80" y="164" font-family="Hind Siliguri, Noto Sans Bengali, sans-serif"
+          font-size="20" fill="#7FA6B0">ব্লগ • Android Studio</text>
+
+    <text x="78" y="250" font-family="Poppins, Inter, sans-serif"
+          font-size="48" font-weight="700" fill="#F3F7F8">Android Studio</text>
+    <text x="78" y="310" font-family="Hind Siliguri, Noto Sans Bengali, sans-serif"
+          font-size="48" font-weight="700" fill="url(#accentGrad)">প্রজেক্ট স্ট্রাকচার</text>
+
+    <text x="80" y="354" font-family="Hind Siliguri, Noto Sans Bengali, sans-serif"
+          font-size="21" fill="#9FB8C2">app · java · res · manifests · build.gradle</text>
+
+    <g transform="translate(80, 476)">
+      <rect x="0" y="0" width="56" height="56" rx="14" fill="#3DDC84"/>
+      <text x="28" y="39" text-anchor="middle" font-family="Hind Siliguri, Noto Sans Bengali, sans-serif"
+            font-size="24" font-weight="700" fill="#071019">৪</text>
+      <text x="74" y="27" font-family="Hind Siliguri, Noto Sans Bengali, sans-serif" font-size="22" font-weight="600"
+            fill="#F3F7F8">রোডম্যাপের ৪ নম্বর ধাপ</text>
+      <text x="74" y="54" font-family="Hind Siliguri, Noto Sans Bengali, sans-serif"
+            font-size="18" fill="#7FA6B0">বাংলায়, বিগিনারদের জন্য</text>
+    </g>
+
+    <text x="1120" y="566" text-anchor="end" font-family="Poppins, Inter, sans-serif" font-size="18"
+          letter-spacing="1" fill="#5A7986">enamnotes.com</text>
+    <rect x="0" y="0" width="1200" height="4" fill="#3DDC84" fill-opacity="0.6"/>
+  </g>
+</svg>
