@@ -1,0 +1,135 @@
+<svg width="1500" height="1050" viewBox="0 0 1500 1050" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="EnamNotes ecosystem flowchart: how code and data reach the live site">
+  <defs>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#07A169"/>
+    </marker>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#D98A1F"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#D64545"/>
+    </marker>
+  </defs>
+
+  <!-- background -->
+  <rect width="1500" height="1050" fill="#F6FAF8"/>
+
+  <!-- ============ header ============ -->
+  <text x="60" y="62" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="34" font-weight="700" fill="#0B2E22">EnamNotes (enamnotes.com) — Ecosystem at a Glance</text>
+  <text x="60" y="98" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="18" fill="#6B7C77">Two separate lanes: CODE travels through Git. DATA does not. That single fact explains almost every confusion.</text>
+
+  <!-- ============ LANE 1 : CODE ============ -->
+  <rect x="50" y="140" width="1400" height="240" rx="16" fill="#FFFFFF" stroke="#D8E6E0" stroke-width="2"/>
+  <rect x="70" y="122" width="352" height="36" rx="18" fill="#07A169"/>
+  <text x="90" y="147" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#FFFFFF">1 · CODE — travels through Git</text>
+
+  <!-- code boxes -->
+  <g font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+    <rect x="85" y="210" width="180" height="115" rx="10" fill="#F1F8F5" stroke="#07A169" stroke-width="2"/>
+    <text x="175" y="262" text-anchor="middle" font-size="17" font-weight="700" fill="#0B2E22">Your computer</text>
+    <text x="175" y="288" text-anchor="middle" font-size="14" fill="#5C6F69">source + assets</text>
+
+    <rect x="300" y="210" width="160" height="115" rx="10" fill="#F1F8F5" stroke="#07A169" stroke-width="2"/>
+    <text x="380" y="262" text-anchor="middle" font-size="17" font-weight="700" fill="#0B2E22">git push</text>
+    <text x="380" y="288" text-anchor="middle" font-size="14" fill="#5C6F69">origin main</text>
+
+    <rect x="495" y="210" width="215" height="115" rx="10" fill="#FFFFFF" stroke="#0B2E22" stroke-width="2"/>
+    <text x="602" y="262" text-anchor="middle" font-size="17" font-weight="700" fill="#0B2E22">GitHub</text>
+    <text x="602" y="288" text-anchor="middle" font-size="13" fill="#5C6F69">mymonatanisha/</text>
+    <text x="602" y="307" text-anchor="middle" font-size="13" fill="#5C6F69">istudy-next</text>
+
+    <rect x="745" y="210" width="175" height="115" rx="10" fill="#F1F8F5" stroke="#07A169" stroke-width="2"/>
+    <text x="832" y="262" text-anchor="middle" font-size="17" font-weight="700" fill="#0B2E22">Heroku</text>
+    <text x="832" y="288" text-anchor="middle" font-size="14" fill="#5C6F69">auto-deploys</text>
+    <text x="832" y="307" text-anchor="middle" font-size="14" fill="#5C6F69">on every push</text>
+
+    <rect x="955" y="210" width="165" height="115" rx="10" fill="#F1F8F5" stroke="#07A169" stroke-width="2"/>
+    <text x="1037" y="262" text-anchor="middle" font-size="17" font-weight="700" fill="#0B2E22">Cloudflare</text>
+    <text x="1037" y="288" text-anchor="middle" font-size="14" fill="#5C6F69">DNS + CDN</text>
+
+    <rect x="1155" y="210" width="255" height="115" rx="10" fill="#0B2E22"/>
+    <text x="1282" y="262" text-anchor="middle" font-size="18" font-weight="700" fill="#FFFFFF">enamnotes.com</text>
+    <text x="1282" y="288" text-anchor="middle" font-size="14" fill="#9FD6C4">live site — what users see</text>
+  </g>
+
+  <!-- code arrows -->
+  <g stroke="#07A169" stroke-width="3" fill="none" marker-end="url(#arrowGreen)">
+    <line x1="267" y1="267" x2="296" y2="267"/>
+    <line x1="462" y1="267" x2="491" y2="267"/>
+    <line x1="712" y1="267" x2="741" y2="267"/>
+    <line x1="922" y1="267" x2="951" y2="267"/>
+    <line x1="1122" y1="267" x2="1151" y2="267"/>
+  </g>
+
+  <!-- ============ LANE 2 : DATA ============ -->
+  <rect x="50" y="420" width="1400" height="300" rx="16" fill="#FFFDF6" stroke="#EFE2C4" stroke-width="2"/>
+  <rect x="70" y="402" width="470" height="36" rx="18" fill="#D98A1F"/>
+  <text x="90" y="427" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#FFFFFF">2 · DATA — does NOT travel through Git</text>
+
+  <!-- local db -->
+  <rect x="90" y="490" width="280" height="100" rx="10" fill="#FFFFFF" stroke="#0B2E22" stroke-width="2"/>
+  <text x="230" y="532" text-anchor="middle" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#0B2E22">Local database</text>
+  <text x="230" y="558" text-anchor="middle" font-family="ui-monospace, Consolas, monospace" font-size="14" fill="#5C6F69">enamnotes_local</text>
+  <text x="230" y="578" text-anchor="middle" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#8A9A94">your blog posts live here</text>
+
+  <!-- prod db -->
+  <rect x="870" y="490" width="290" height="100" rx="10" fill="#FFFFFF" stroke="#0B2E22" stroke-width="2"/>
+  <text x="1015" y="532" text-anchor="middle" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#0B2E22">Production database</text>
+  <text x="1015" y="558" text-anchor="middle" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#5C6F69">Heroku Postgres</text>
+  <text x="1015" y="578" text-anchor="middle" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#8A9A94">separate — nothing shared</text>
+
+  <!-- the broken link -->
+  <line x1="372" y1="540" x2="866" y2="540" stroke="#D64545" stroke-width="3" stroke-dasharray="10 8"/>
+  <circle cx="619" cy="540" r="20" fill="#FFFDF6" stroke="#D64545" stroke-width="3"/>
+  <text x="619" y="549" text-anchor="middle" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#D64545">&#10007;</text>
+  <text x="619" y="508" text-anchor="middle" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#D64545">git push cannot carry data</text>
+
+  <!-- correct publish path -->
+  <rect x="90" y="620" width="1070" height="82" rx="10" fill="#F1F8F5" stroke="#07A169" stroke-width="2"/>
+  <text x="115" y="654" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#0B2E22">The correct way to publish a post:</text>
+  <text x="115" y="682" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="15" fill="#41544E">log in on the LIVE site  &#8594;  open  /admin/blog  &#8594;  paste the content  &#8594;  Save with status = published</text>
+
+  <path d="M 1160 661 L 1090 600" stroke="#07A169" stroke-width="3" fill="none" marker-end="url(#arrowGreen)"/>
+
+  <!-- ============ CALLOUT ============ -->
+  <rect x="50" y="750" width="1400" height="100" rx="12" fill="#FFF3D6" stroke="#D98A1F" stroke-width="2"/>
+  <text x="80" y="792" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="21" font-weight="700" fill="#7A4A03">Remember this one thing</text>
+  <text x="80" y="824" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="17" fill="#7A4A03">A blog post is a ROW in a database table — not a file. That is why pushing code to Git can never make a post appear on the live site.</text>
+
+  <!-- ============ NEW COMPUTER ============ -->
+  <text x="60" y="900" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#0B2E22">Starting on a NEW computer — in this order</text>
+
+  <g font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+    <rect x="90" y="920" width="185" height="95" rx="10" fill="#FFFFFF" stroke="#C9DAD4" stroke-width="2"/>
+    <text x="182" y="958" text-anchor="middle" font-size="17" font-weight="700" fill="#0B2E22">1. git clone</text>
+    <text x="182" y="984" text-anchor="middle" font-size="13" fill="#6B7C77">get the repo</text>
+
+    <rect x="321" y="920" width="185" height="95" rx="10" fill="#FFFFFF" stroke="#C9DAD4" stroke-width="2"/>
+    <text x="413" y="958" text-anchor="middle" font-size="17" font-weight="700" fill="#0B2E22">2. npm install</text>
+    <text x="413" y="984" text-anchor="middle" font-size="13" fill="#6B7C77">Node 24.x</text>
+
+    <rect x="552" y="920" width="185" height="95" rx="10" fill="#FFFFFF" stroke="#C9DAD4" stroke-width="2"/>
+    <text x="644" y="958" text-anchor="middle" font-size="17" font-weight="700" fill="#0B2E22">3. copy .env</text>
+    <text x="644" y="984" text-anchor="middle" font-size="13" fill="#6B7C77">fill the secrets</text>
+
+    <rect x="783" y="920" width="185" height="95" rx="10" fill="#FFFFFF" stroke="#C9DAD4" stroke-width="2"/>
+    <text x="875" y="958" text-anchor="middle" font-size="17" font-weight="700" fill="#0B2E22">4. create DB</text>
+    <text x="875" y="984" text-anchor="middle" font-size="13" fill="#6B7C77">PostgreSQL 18</text>
+
+    <rect x="1014" y="920" width="185" height="95" rx="10" fill="#FFFFFF" stroke="#C9DAD4" stroke-width="2"/>
+    <text x="1106" y="958" text-anchor="middle" font-size="17" font-weight="700" fill="#0B2E22">5. db:migrate</text>
+    <text x="1106" y="984" text-anchor="middle" font-size="13" fill="#6B7C77">build the schema</text>
+
+    <rect x="1245" y="920" width="185" height="95" rx="10" fill="#0B2E22"/>
+    <text x="1337" y="958" text-anchor="middle" font-size="17" font-weight="700" fill="#FFFFFF">6. npm run dev</text>
+    <text x="1337" y="984" text-anchor="middle" font-size="13" fill="#9FD6C4">localhost:3000</text>
+  </g>
+
+  <g stroke="#07A169" stroke-width="3" fill="none" marker-end="url(#arrowGreen)">
+    <line x1="278" y1="967" x2="317" y2="967"/>
+    <line x1="509" y1="967" x2="548" y2="967"/>
+    <line x1="740" y1="967" x2="779" y2="967"/>
+    <line x1="971" y1="967" x2="1010" y2="967"/>
+    <line x1="1202" y1="967" x2="1241" y2="967"/>
+  </g>
+</svg>
